@@ -8,13 +8,14 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
+/* 다크모드 비활성화 */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
+} */
 
 body {
   color: rgb(var(--foreground-rgb));
@@ -38,11 +39,23 @@ body {
 .bg-green-1 {
   background-color: #41B580;
 }
+.bg-green-2 {
+  background-color: #448C6B;
+}
+.bg-green-3 {
+  background-color: #37CC87;
+}
 .bg-green-light {
   background-color: #CDE4BC;
 }
+.bg-green-gradient {
+  background: linear-gradient(95deg, #37CC87 0%, #41B580 100%);
+}
 .border-green-1 {
   border-color: #41B580;
+}
+.filter-green-1 {
+  filter: invert(56%) sepia(78%) saturate(314%) hue-rotate(100deg) brightness(93%) contrast(90%);
 }
 .yellow-1 {
   color: #FFDC60;
@@ -56,6 +69,9 @@ body {
 .yellow-5 {
   color: #D9AB0B;
 }
+.bg-yellow-1 {
+  background-color: #FFDC60;
+}
 .bg-yellow-light {
   background-color: #FFECA8;
 }
@@ -64,6 +80,9 @@ body {
 }
 .bg-blue-light {
   background-color: #D6E3E4;
+}
+.bg-darkgray-1 {
+  background-color: rgba(0, 0, 0, 0.25);
 }
 
 @font-face {

@@ -1,11 +1,13 @@
 'use client'
 
-import { BLOG_LINK, HEADER_HEIGHT, NAVER_MAP_LINK, childMenu, CONTACT_INFO, MENU_INFO } from "@/constants";
+import { BLOG_LINK, HEADER_HEIGHT, NAVER_MAP_LINK, childMenu, CONTACT_INFO, MENU_INFO, HEADER_HEIGHT_MOBILE } from "@/constants";
 import styles from './Layout.module.css'
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Header () {
+  const router = useRouter()
   const [hamburger, setHamburger] = useState<boolean>(false);
 
   const ChilrenMenus = ({childrenMenus}:{childrenMenus:Array<childMenu>}) => {
@@ -19,100 +21,195 @@ export default function Header () {
   }
   
   return <>
-    <div 
-      className={`${styles.header} w-full flex items-center justify-between fixed inset-x-0 top-0`}
-      style={{height: HEADER_HEIGHT}}
-    >
-      <div className="flex">
+    <div className="hidden lg:block">
+      <div 
+        className={`${styles.header} w-full flex items-center justify-between fixed inset-x-0 top-0`}
+        style={{height: HEADER_HEIGHT}}
+      >
+        <div className="flex">
+          <button 
+            className={`${styles.menuHamburger} hover:bg-zinc-100 rounded-full flex items-center justify-center`}
+            onClick={()=>setHamburger(!hamburger)}
+          >
+            <img src="/images/icons/hamburger_bar.png" alt="menu" width={22} className="opacity-80"/>
+          </button>
+          <Link href={'/'} className="flex items-center ml-8">
+            <img src="/images/logos/logo_green.png" alt="logo" width={34} style={{marginTop: -4}}/>
+            <span className="NanumSquare text-xl font-bold ml-4 green-1">
+              조재현 수학학원
+            </span>
+          </Link>
+        </div>
+        <div className="lg:flex items-center hidden">
+          {MENU_INFO.map(item => {
+            const [showChildren, setShowChildren] = useState<boolean>(false);
+            return <div 
+              key={`menu-${item.title}`} 
+              onMouseLeave={()=>setShowChildren(false)}
+            >
+              {item.link ? 
+                <Link 
+                  href={item.link} 
+                  className={`${styles.menu} ${showChildren && 'green-1'} font-semibold text-gray-600`} 
+                  onMouseOver={()=>setShowChildren(true)}
+                >
+                  {item.title}
+                </Link> :
+                <button 
+                  className={`${styles.menu} ${showChildren && 'green-1'} font-semibold text-gray-600`} 
+                  onMouseOver={()=>setShowChildren(true)}
+                >
+                  {item.title}
+                </button>
+              }
+              {showChildren && item.children && <ChilrenMenus childrenMenus={item.children || []}></ChilrenMenus>}
+            </div>
+          })}
+          <a 
+            href={'https://blog.naver.com/lllqueen8180'} 
+            target="_blank" 
+            className="flex items-center bg-green-1 py-2 px-4 rounded-full h-fit ml-6"
+          >
+            <img src="/images/icons/blog-white.png" alt="blog" width={20}/>
+            <span className="text-sm ml-3 text-white">블로그 바로가기</span>
+          </a>
+        </div>
+      </div>
+      {<div 
+        className={`${styles.fullMenuBox} w-full flex items-start justify-center fixed inset-x-0 py-12`}
+        style={{top: hamburger ? HEADER_HEIGHT : -250}}>
+          <div className="mr-16">
+            <div className="Montserrat text-lg green-1 pb-5 px-1 uppercase">menu</div>
+            <div className="pt-5 flex justify-between border-t border-green-1 px-1">
+              {MENU_INFO.map (menu => (
+                <div 
+                  key={`fullmenu-${menu.title}`} 
+                  className="flex flex-col items-start"
+                  style={{width: menu.sort !== 4 ? 186 : 'unset'}}
+                >
+                  {menu.link ? 
+                    <Link href={menu.link} className="green-1 text-lg mb-4 font-semibold">{menu.title}</Link> : 
+                    <div className="green-1 text-lg mb-4 font-semibold">{menu.title}</div>}
+                  {menu.children?.map(item => (
+                    <Link href={item.link} key={`fullmenu-${item.sort}`} className={`${styles.fullMenuUnit} mb-3 last:mb-0`}>
+                      {item.title}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{width: 200}}>
+            <div className="Montserrat text-lg green-1 pb-5 px-1 uppercase">contact</div>
+            <div className="pt-5 flex flex-col justify-between border-t border-green-1 px-1">
+              {CONTACT_INFO.map(item => {
+                const Content = (
+                  <>
+                    <img src={item.icon} alt={item.title} className="opacity-50 mr-4" style={{width: 15, height: 15}}/>
+                    <div className={styles.fullMenuUnit}>{item.title}</div>
+                  </>
+                );
+
+                return item.link !== "" ? (
+                  <a href={item.link} target="_blank" rel="noopener noreferrer" key={`contact-info-${item.sort}`} className="flex items-center mb-3 last:mb-0">
+                    {Content}
+                  </a>
+                ) : (
+                  <div key={`contact-info-${item.sort}`} className="flex items-center mb-3 last:mb-0">
+                    {Content}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+      </div>}
+    </div>
+    <div className="flex lg:hidden w-full fixed inset-x-0 top-0">
+      <div 
+        className={`${styles.header} w-full flex items-center justify-between fixed inset-x-0 top-0`} 
+        style={{height: HEADER_HEIGHT_MOBILE}}
+      >
+        <img src="/images/logos/logo_green.png" alt="logo" width={30} style={{marginTop: -3}}/>
+        <Link href={'/'} className="NanumSquare text-xl font-bold green-1">
+          조재현 수학학원
+        </Link>
         <button 
-          className={`${styles.menuHamburger} hover:bg-zinc-100 rounded-full flex items-center justify-center`}
+          className={`${styles.menuHamburger}`}
           onClick={()=>setHamburger(!hamburger)}
         >
-          <img src="/images/icons/hamburger_bar.png" alt="menu" width={22} className="opacity-80"/>
+          <img src="/images/icons/hamburger_bar.png" alt="menu" width={25}/>
         </button>
-        <Link href={'/'} className="flex items-center ml-8">
-          <img src="/images/logos/logo_green.png" alt="logo" width={34} style={{marginTop: -4}}/>
-          <span className="NanumSquare text-xl font-bold ml-4 green-1">
-            조재현 수학학원
-          </span>
-        </Link>
-      </div>
-      <div className="flex items-center">
-        {MENU_INFO.map(item => {
-          const [showChildren, setShowChildren] = useState<boolean>(false);
-          return <div 
-            key={`menu-${item.title}`} 
-            onMouseLeave={()=>setShowChildren(false)}
+      </div> 
+      <div 
+        className={`${styles.mobileMenuBg} w-full fixed inset-x-0 top-0 bg-darkgray-1`}
+        style={{backgroundColor: hamburger ? 'rgba(0,0,0,0.25)' : 'transparent'}}
+      >
+          <div 
+            className={`${styles.mobileMenuBox} w-full fixed inset-x-0 flex flex-col`}
+            style={{
+              top: hamburger ? 50 : '-100%'
+            }}
           >
-            {item.link ? 
-              <Link href={item.link} className={`${styles.menu} ${showChildren && 'green-1'} font-semibold text-gray-600`} >
-                {item.title}
-              </Link> :
-              <button 
-                className={`${styles.menu} ${showChildren && 'green-1'} font-semibold text-gray-600`} 
-                onMouseOver={()=>setShowChildren(true)}
-              >
-                {item.title}
-              </button>
-            }
-            {showChildren && item.children && <ChilrenMenus childrenMenus={item.children || []}></ChilrenMenus>}
+            <div className="overflow-scroll" style={{height: "calc(100% - 5rem)"}}>
+              {MENU_INFO.map(parentMenu => {
+                const [menuOpened, setMenuOpened] = useState<boolean>(false);
+                const handleMenuClick = () => {
+                  if (parentMenu.children) {
+                    setMenuOpened(!menuOpened)
+                  } else {
+                    router.push(parentMenu.link!);
+                  }
+                }
+                return <div key={`mobile-parent-menu-${parentMenu.sort}`}>
+                  <div className="overflow-hidden" style={{
+                    height: menuOpened ? `calc(4.875rem + ${parentMenu.children!.length * 2.875}rem)` : '3.5rem',
+                    transition: 'height 0.15s ease-in-out'
+                  }}>
+                    <div 
+                      className={`${styles.mobileParentMenu} w-full h-14 rounded-xl px-6 flex items-center justify-between mb-1`}
+                      style={{
+                        backgroundColor: menuOpened ? '#F0F0F0' : 'transparent'
+                      }}
+                      onClick={handleMenuClick}
+                    > 
+                      <span className="green-1 text-xl leading-none font-bold">
+                        {parentMenu.title}
+                      </span>
+                      {parentMenu.children && <img 
+                        src="/images/icons/arrow_rounded.png" 
+                        alt="close" className={`filter-green-1 ${!menuOpened && 'rotate-180'}`}
+                        width={20} 
+                      />}
+                    </div>
+                    <div className="pb-2.5 pt-1.5">
+                      {parentMenu.children?.map(childMenu => 
+                        <Link
+                          href={childMenu.link}
+                          key={`mobile-child-menu-${childMenu.sort}`} 
+                          className='py-3.5 pl-7 flex items-center'
+                        >
+                          <div className="w-2 h-2 rounded-full bg-yellow-1 mr-3.5"></div>
+                          <div className="text-lg leading-none decoration-neutral-700">
+                            {childMenu.title}
+                          </div>
+                        </Link>
+                      )}  
+                    </div>
+                  </div>
+                </div>
+              })}              
+            </div>
+            <div className="w-10/12 h-20 rounded-3xl bg-green-gradient absolute bottom-12 left-2/4 flex items-center justify-evenly" style={{transform: 'translateX(-50%)'}}>
+              {CONTACT_INFO.map(contact => <a href={contact.link} target="_blank" key={`mobile-contact-${contact.sort}`}>
+                <img src={contact.icon} alt={contact.title} width={30} className="invert"/>
+              </a>)}
+            </div>
+            <div className={`${styles.mobileMenuClose} w-11 h-11 bg-green-3 rounded-full flex items-center justify-center`} onClick={()=>setHamburger(false)}>
+              <img src="/images/icons/arrow_rounded.png" alt="close" className="invert"/>
+            </div>
           </div>
-        })}
-        <a 
-          href={'https://blog.naver.com/lllqueen8180'} 
-          target="_blank" 
-          className="flex items-center bg-green-1 py-2 px-4 rounded-full h-fit ml-6"
-        >
-          <img src="/images/icons/blog-white.png" alt="blog" width={20}/>
-          <span className="text-sm ml-3 text-white">블로그 바로가기</span>
-        </a>
       </div>
     </div>
-    {<div 
-      className={`${styles.fullMenuBox} w-full flex items-start justify-center fixed inset-x-0 py-12`}
-      style={{top: hamburger ? HEADER_HEIGHT : -250}}>
-        <div className="mr-16">
-          <div className="Montserrat text-lg green-1 pb-5 px-1 uppercase">menu</div>
-          <div className="pt-5 flex justify-between border-t border-green-1 px-1">
-            {MENU_INFO.map (menu => (
-              <div 
-                key={`fullmenu-${menu.title}`} 
-                className="flex flex-col items-start"
-                style={{width: menu.sort !== 4 ? 186 : 'unset'}}
-              >
-                <div className="green-1 text-lg mb-4 font-semibold">{menu.title}</div>
-                {menu.children?.map(item => (
-                  <Link href={item.link} className={`${styles.fullMenuUnit} mb-3 last:mb-0`}>
-                    {item.title}
-                  </Link>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div style={{width: 200}}>
-          <div className="Montserrat text-lg green-1 pb-5 px-1 uppercase">contact</div>
-          <div className="pt-5 flex flex-col justify-between border-t border-green-1 px-1">
-            {CONTACT_INFO.map(item => {
-              const Content = (
-                <>
-                  <img src={item.icon} alt={item.title} className="opacity-50 mr-4" style={{width: 15, height: 15}}/>
-                  <div className={styles.fullMenuUnit}>{item.title}</div>
-                </>
-              );
-
-              return item.link !== "" ? (
-                <a href={item.link} target="_blank" rel="noopener noreferrer" key={`contact-info-${item.sort}`} className="flex items-center mb-3 last:mb-0">
-                  {Content}
-                </a>
-              ) : (
-                <div key={`contact-info-${item.sort}`} className="flex items-center mb-3 last:mb-0">
-                  {Content}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-    </div>}
   </>
+
 }

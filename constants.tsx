@@ -1,4 +1,5 @@
 export const HEADER_HEIGHT = 70;
+export const HEADER_HEIGHT_MOBILE = 50;
 export const BLOG_LINK = "https://blog.naver.com/lllqueen8180";
 export const NAVER_MAP_LINK = "https://m.place.naver.com/share?id=33510998&tabsPath=%2Fhome&appMode=detail";
 
@@ -80,7 +81,7 @@ export const CONTACT_INFO:Array<childMenu> = [
     sort: 1,
     title: "010-8955-8180",
     icon: "/images/icons/phonecall-black.png",
-    link: ""
+    link: "tel:010-8955-8180"
   },
   {
     sort: 2,
