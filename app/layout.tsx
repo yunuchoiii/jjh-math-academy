@@ -16,8 +16,10 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     <html lang="en">
       <body className={inter.className}>
         <Header></Header>
-        <div style={{paddingTop: HEADER_HEIGHT}}>
-          {children}
+        <div className='flex justify-center' style={{paddingTop: HEADER_HEIGHT+90}}>
+          <div className='layoutBody'>
+            {children}
+          </div>
         </div>
       </body>
     </html>

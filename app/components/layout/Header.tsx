@@ -28,14 +28,14 @@ export default function Header () {
       >
         <div className="flex">
           <button 
-            className={`${styles.menuHamburger} hover:bg-zinc-100 rounded-full flex items-center justify-center`}
+            className={`${styles.menuHamburger} hover:bg-zinc-100 active:bg-zinc-200 rounded-full flex items-center justify-center`}
             onClick={()=>setHamburger(!hamburger)}
           >
             <img src="/images/icons/hamburger_bar.png" alt="menu" width={22} className="opacity-80"/>
           </button>
           <Link href={'/'} className="flex items-center ml-8">
             <img src="/images/logos/logo_green.png" alt="logo" width={34} style={{marginTop: -4}}/>
-            <span className="NanumSquare text-xl font-bold ml-4 green-1">
+            <span className="NanumSquare text-xl font-extrabold ml-4 green-1">
               조재현 수학학원
             </span>
           </Link>
@@ -163,7 +163,7 @@ export default function Header () {
                 return <div key={`mobile-parent-menu-${parentMenu.sort}`}>
                   <div className="overflow-hidden" style={{
                     height: menuOpened ? `calc(4.875rem + ${parentMenu.children!.length * 2.875}rem)` : '3.5rem',
-                    transition: 'height 0.15s ease-in-out'
+                    transition: 'height 0.25s ease-in-out'
                   }}>
                     <div 
                       className={`${styles.mobileParentMenu} w-full h-14 rounded-xl px-6 flex items-center justify-between mb-1`}

@@ -27,6 +27,27 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+.layoutBody {
+  width: 1200px;
+}  
+
+@media (max-width: 1200px) { 
+  .layoutBody {
+    width: 90%;
+    max-width: 768px;
+    min-width: 640px;
+  }
+}
+
+@media (max-width: 640px) { 
+  .layoutBody {
+    width: 90%;
+    min-width: 320px;
+  }
+}
+
+
+
 .green-1 {
   color: #41B580;
 }
