@@ -16,8 +16,8 @@ export type parentMenu = {
   link?: string;
   children?: Array<childMenu>
 }
-export const MENU_INFO:Array<parentMenu> = [
-  {
+export const MENU_INFO:Record<string, parentMenu> = {
+  "info": {
     sort: 1,
     title: "소개",
     children: [
@@ -38,7 +38,7 @@ export const MENU_INFO:Array<parentMenu> = [
       },
     ]
   },
-  {
+  "curriculum": {
     sort: 2,
     title: "커리큘럼",
     children: [
@@ -54,7 +54,7 @@ export const MENU_INFO:Array<parentMenu> = [
       },
     ]
   },
-  {
+  "program": {
     sort: 3,
     title: "프로그램",
     children: [
@@ -70,12 +70,12 @@ export const MENU_INFO:Array<parentMenu> = [
       },
     ]
   },
-  {
+  "contact": {
     sort: 4,
     title: "상담 안내",
     link: "/contact"
   },
-];
+};
 export const CONTACT_INFO:Array<childMenu> = [
   {
     sort: 1,

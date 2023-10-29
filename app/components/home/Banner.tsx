@@ -1,9 +1,8 @@
 'use client'
 
-import { MENU_INFO } from "@/constants";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import styles from './Layout.module.css'
 
 export default function HomeBanner () {
   const router = useRouter();
@@ -54,7 +53,7 @@ export default function HomeBanner () {
 
       return <div
         key={`home-banner-${banner.title}`} 
-        className={`banner flex flex-col w-1/6 pd-0 overflow-hidden NanumSquare ${active ? 'active' : 'pl-5'}`}
+        className={`${styles.banner} h-[480px] rounded-[30px] cursor-pointer transition-all duration-300 pt-10 flex flex-col xl:items-start w-1/6 pd-0 overflow-hidden NanumSquare ${active ? styles.active : 'xl:pl-5 lg:pl-0 lg:items-center'}`}
         style={{
           background: banner.backgroundColor,
           color: banner.color,
@@ -63,14 +62,14 @@ export default function HomeBanner () {
         onClick={()=>router.push(banner.link)}
       >
         <div>
-          <div className="text-lg font-bold decoration-slate-600">
+          <div className="xl:text-lg lg:text-base font-bold decoration-slate-600">
             {
               index == 0 && !active? 
               <span dangerouslySetInnerHTML={{ __html: banner.subtitle.replace(' ', '<br />') }} /> : 
               banner.subtitle
             }
           </div>
-          <div className="text-2xl font-extrabold mt-2.5">
+          <div className="xl:text-2xl lg:text-xl font-extrabold mt-2.5">
             {
               !active? 
               <span dangerouslySetInnerHTML={{ __html: banner.title.replace('\n', '<br />') }} /> : 
@@ -78,41 +77,23 @@ export default function HomeBanner () {
             }
           </div>          
         </div>
-        <div className="plusButton w-7 h-7 rounded-full flex items-center justify-center absolute fade-in" style={{background: banner.color, opacity: active ? 1 : 0}}>
+        <div className="plusButton w-7 h-7 rounded-full flex items-center justify-center absolute top-10 right-9 transition-opacity duration-300 fade-in" style={{background: banner.color, opacity: active ? 1 : 0}}>
           <img src="/images/icons/plus_icon.png" alt="" width={15.38} className="invert"/>
         </div>
-        <div className="absolute w-full flex justify-center" style={{left: 0, bottom: 0}}>
+        <div 
+          className="absolute w-full flex justify-center" 
+          style={{
+            left: 0, 
+            bottom: !active ? 
+              (index === 0 ? '-43px': 
+              index === 2 ? '-22px':
+              index === 3 ? '-16px' : 
+              0) : 0, 
+            transition: 'bottom 0.3s ease'}}
+        >
           <img src={banner.imgPath} alt={banner.title} style={{height: banner.imgHeight}}/>
         </div>
       </div>
     })}
-
-    <style jsx>
-      {`
-        .banner {
-          height: 480px;
-          filter: drop-shadow(8px 8px 24px rgba(0, 0, 0, 0.10)) drop-shadow(-8px -8px 24px rgba(255, 255, 255, 0.10));
-          border-radius: 30px;
-          transition: all 0.3s ease;
-          padding-top: 40px;
-          cursor: pointer;
-        }
-        .banner:not(:last-child) {
-          margin-right: 30px
-        }
-        .active.banner {
-          width: 50%;
-          padding-left: 50px;
-        }
-        .banner img {
-          max-width: unset;
-        }
-        .plusButton {
-          top: 40px;
-          right: 35px;
-          transition: opacity 0.3s ease-in-out;
-        }
-      `}
-    </style>
   </div>
 }

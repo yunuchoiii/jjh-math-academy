@@ -35,13 +35,13 @@ export default function Header () {
           </button>
           <Link href={'/'} className="flex items-center ml-8">
             <img src="/images/logos/logo_green.png" alt="logo" width={34} style={{marginTop: -4}}/>
-            <span className="NanumSquare text-xl font-extrabold ml-4 green-1">
+            <span className="NanumSquare text-xl font-extrabold ml-4 text-green-1">
               조재현 수학학원
             </span>
           </Link>
         </div>
         <div className="lg:flex items-center hidden">
-          {MENU_INFO.map(item => {
+          {Object.values(MENU_INFO).map(item => {
             const [showChildren, setShowChildren] = useState<boolean>(false);
             return <div 
               key={`menu-${item.title}`} 
@@ -50,13 +50,13 @@ export default function Header () {
               {item.link ? 
                 <Link 
                   href={item.link} 
-                  className={`${styles.menu} ${showChildren && 'green-1'} font-semibold text-gray-600`} 
+                  className={`${styles.menu} ${showChildren && 'text-green-1'} font-semibold text-gray-600`} 
                   onMouseOver={()=>setShowChildren(true)}
                 >
                   {item.title}
                 </Link> :
                 <button 
-                  className={`${styles.menu} ${showChildren && 'green-1'} font-semibold text-gray-600`} 
+                  className={`${styles.menu} ${showChildren && 'text-green-1'} font-semibold text-gray-600`} 
                   onMouseOver={()=>setShowChildren(true)}
                 >
                   {item.title}
@@ -79,17 +79,17 @@ export default function Header () {
         className={`${styles.fullMenuBox} w-full flex items-start justify-center fixed inset-x-0 py-12`}
         style={{top: hamburger ? HEADER_HEIGHT : -250}}>
           <div className="mr-16">
-            <div className="Montserrat text-lg green-1 pb-5 px-1 uppercase">menu</div>
+            <div className="Montserrat text-lg text-green-1 pb-5 px-1 uppercase">menu</div>
             <div className="pt-5 flex justify-between border-t border-green-1 px-1">
-              {MENU_INFO.map (menu => (
+              {Object.values(MENU_INFO).map (menu => (
                 <div 
                   key={`fullmenu-${menu.title}`} 
                   className="flex flex-col items-start"
                   style={{width: menu.sort !== 4 ? 186 : 'unset'}}
                 >
                   {menu.link ? 
-                    <Link href={menu.link} className="green-1 text-lg mb-4 font-semibold">{menu.title}</Link> : 
-                    <div className="green-1 text-lg mb-4 font-semibold">{menu.title}</div>}
+                    <Link href={menu.link} className="text-green-1 text-lg mb-4 font-semibold">{menu.title}</Link> : 
+                    <div className="text-green-1 text-lg mb-4 font-semibold">{menu.title}</div>}
                   {menu.children?.map(item => (
                     <Link href={item.link} key={`fullmenu-${item.sort}`} className={`${styles.fullMenuUnit} mb-3 last:mb-0`}>
                       {item.title}
@@ -100,7 +100,7 @@ export default function Header () {
             </div>
           </div>
           <div style={{width: 200}}>
-            <div className="Montserrat text-lg green-1 pb-5 px-1 uppercase">contact</div>
+            <div className="Montserrat text-lg text-green-1 pb-5 px-1 uppercase">contact</div>
             <div className="pt-5 flex flex-col justify-between border-t border-green-1 px-1">
               {CONTACT_INFO.map(item => {
                 const Content = (
@@ -124,13 +124,13 @@ export default function Header () {
           </div>
       </div>}
     </div>
-    <div className="flex lg:hidden w-full fixed inset-x-0 top-0">
+    <div className="flex lg:hidden w-full fixed inset-x-0 top-0 z-50">
       <div 
         className={`${styles.header} w-full flex items-center justify-between fixed inset-x-0 top-0`} 
         style={{height: HEADER_HEIGHT_MOBILE}}
       >
         <img src="/images/logos/logo_green.png" alt="logo" width={30} style={{marginTop: -3}}/>
-        <Link href={'/'} className="NanumSquare text-xl font-bold green-1">
+        <Link href={'/'} className="NanumSquare text-xl font-bold text-green-1">
           조재현 수학학원
         </Link>
         <button 
@@ -151,7 +151,7 @@ export default function Header () {
             }}
           >
             <div className="overflow-scroll" style={{height: "calc(100% - 5rem)"}}>
-              {MENU_INFO.map(parentMenu => {
+              {Object.values(MENU_INFO).map(parentMenu => {
                 const [menuOpened, setMenuOpened] = useState<boolean>(false);
                 const handleMenuClick = () => {
                   if (parentMenu.children) {
@@ -172,7 +172,7 @@ export default function Header () {
                       }}
                       onClick={handleMenuClick}
                     > 
-                      <span className="green-1 text-xl leading-none font-bold">
+                      <span className="text-green-1 text-xl leading-none font-bold">
                         {parentMenu.title}
                       </span>
                       {parentMenu.children && <img 
