@@ -5,10 +5,13 @@ import Programs from "./components/home/Programs";
 import PartnersTab from "./components/home/PartnersTab";
 import SpecialClasses from "./components/home/SpecialClasses";
 import Curriculums from "./components/home/Curriculums";
+import ContactSection from "./components/home/ContactSection";
+import Script from 'next/script'
 
 export default function Home() {
   return (
       <div className="homeBody flex flex-col items-center">
+        <Script type="text/javascript" src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NAVER_MAP_CLIENT_ID}`}/>
         <div id="section-1" className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] slide-in-bottom">
           <HomeBanner/>
           <div className="pb-14">
@@ -75,6 +78,9 @@ export default function Home() {
             </div>
             <Curriculums/>
           </div>
+        </div>
+        <div id="section-5" className="w-full">
+          <ContactSection/>
         </div>
       </div>      
   )

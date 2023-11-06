@@ -28,7 +28,7 @@ export default function SpecialClasses () {
     <div className="flex flex-col relative">
       <div className="flex justify-center">
         {classes.map((item, index) => (
-          <Link href={item.href} key={`special-class-${index}`} className="xl:w-[380px] xl:h-[375px] lg:w-[320px] lg:h-[315px] xl:p-5 lg:p-4 rounded-2xl shadow-lg first:mr-7 relative z-10 bottom-0 hover:bottom-2 hover:shadow-xl transition-all" style={{backgroundColor: item.bgColor}}>
+          <Link href={item.href} key={`special-class-${index}`} className="xl:w-[380px] xl:h-[375px] lg:w-[320px] lg:h-[315px] xl:p-5 lg:p-4 rounded-2xl shadow-lg first:mr-7 relative z-10 bottom-0 hover:bottom-3 hover:shadow-xl transition-all duration-300" style={{backgroundColor: item.bgColor}}>
             <div className="w-full xl:h-12 lg:h-10 rounded-lg flex xl:text-base lg:text-sm items-center justify-end px-5" style={{backgroundColor: item.pointColor}}>
               {item.age}
             </div>

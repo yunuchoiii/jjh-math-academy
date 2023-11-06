@@ -15,7 +15,7 @@ export default function HomeBanner () {
       color: "#2A654A",
       backgroundColor: "#E1E3D9",
       imgPath: "/images/two-schoolgirls-working-together-assignment-classroom 2.png",
-      imgHeight: 389,
+      imgHeight: 396,
       link: "/info/teacher",
     },
     {
@@ -33,7 +33,7 @@ export default function HomeBanner () {
       color: "#7D4202",
       backgroundColor: "#E0DAC4",
       imgPath: "/images/child-play-study.png",
-      imgHeight: 361,
+      imgHeight: 368,
       link: "/program/yorisu",
     },
     {
@@ -85,8 +85,8 @@ export default function HomeBanner () {
           style={{
             left: 0, 
             bottom: !active ? 
-              (index === 0 ? '-43px': 
-              index === 2 ? '-22px':
+              (index === 0 ? '-52px': 
+              index === 2 ? '-30px':
               index === 3 ? '-16px' : 
               0) : 0, 
             transition: 'bottom 0.3s ease'}}
