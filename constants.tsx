@@ -17,7 +17,7 @@ export type parentMenu = {
   children?: Array<childMenu>
 }
 export const MENU_INFO:Record<string, parentMenu> = {
-  "info": {
+  info: {
     sort: 1,
     title: "소개",
     children: [
@@ -38,7 +38,7 @@ export const MENU_INFO:Record<string, parentMenu> = {
       },
     ]
   },
-  "curriculum": {
+  curriculum: {
     sort: 2,
     title: "커리큘럼",
     children: [
@@ -54,7 +54,7 @@ export const MENU_INFO:Record<string, parentMenu> = {
       },
     ]
   },
-  "program": {
+  program: {
     sort: 3,
     title: "프로그램",
     children: [
@@ -70,35 +70,35 @@ export const MENU_INFO:Record<string, parentMenu> = {
       },
     ]
   },
-  "contact": {
+  contact: {
     sort: 4,
     title: "상담 안내",
     link: "/contact"
   },
 };
-export const CONTACT_INFO:Array<childMenu> = [
-  {
+export const CONTACT_INFO:Record<string, childMenu> = {
+  phone: {
     sort: 1,
     title: "010-8955-8180",
     icon: "/images/icons/phonecall-black.png",
     link: "tel:010-8955-8180"
   },
-  {
+  kakaotalk: {
     sort: 2,
     title: "카카오톡 상담",
     icon: "/images/icons/kakaotalk-black.png",
     link: ""
   },
-  {
+  blog: {
     sort: 3,
     title: "네이버 블로그",
     icon: "/images/icons/blog-black.png",
     link: BLOG_LINK
   },
-  {
+  map: {
     sort: 4,
     title: "네이버 지도",
     icon: "/images/icons/location-black.png",
     link: NAVER_MAP_LINK
   },
-]
+}

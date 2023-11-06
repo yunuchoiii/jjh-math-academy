@@ -35,7 +35,7 @@ export default function Header () {
           </button>
           <Link href={'/'} className="flex items-center ml-8">
             <img src="/images/logos/logo_green.png" alt="logo" width={34} style={{marginTop: -4}}/>
-            <span className="NanumSquare text-xl font-extrabold ml-4 text-green-1">
+            <span className="NanumSquare xl:text-2xl lg:text-xl font-extrabold ml-4 text-green-1">
               조재현 수학학원
             </span>
           </Link>
@@ -50,13 +50,13 @@ export default function Header () {
               {item.link ? 
                 <Link 
                   href={item.link} 
-                  className={`${styles.menu} ${showChildren && 'text-green-1'} font-semibold text-gray-600`} 
+                  className={`${styles.menu} ${showChildren && 'text-green-1'} xl:text-lg lg:text-base font-semibold text-gray-600`} 
                   onMouseOver={()=>setShowChildren(true)}
                 >
                   {item.title}
                 </Link> :
                 <button 
-                  className={`${styles.menu} ${showChildren && 'text-green-1'} font-semibold text-gray-600`} 
+                  className={`${styles.menu} ${showChildren && 'text-green-1'} xl:text-lg lg:text-base font-semibold text-gray-600`} 
                   onMouseOver={()=>setShowChildren(true)}
                 >
                   {item.title}
@@ -68,10 +68,10 @@ export default function Header () {
           <a 
             href={'https://blog.naver.com/lllqueen8180'} 
             target="_blank" 
-            className="flex items-center bg-green-1 py-2 px-4 rounded-full h-fit ml-6"
+            className={`flex items-center bg-green-1 py-2 px-4 rounded-full h-fit ml-6 ${styles.blogButton}`}
           >
             <img src="/images/icons/blog-white.png" alt="blog" width={20}/>
-            <span className="text-sm ml-3 text-white">블로그 바로가기</span>
+            <span className="xl:text-base lg:text-sm ml-3 text-white">블로그 바로가기</span>
           </a>
         </div>
       </div>
@@ -102,7 +102,7 @@ export default function Header () {
           <div style={{width: 200}}>
             <div className="Montserrat text-lg text-green-1 pb-5 px-1 uppercase">contact</div>
             <div className="pt-5 flex flex-col justify-between border-t border-green-1 px-1">
-              {CONTACT_INFO.map(item => {
+              {Object.values(CONTACT_INFO).map(item => {
                 const Content = (
                   <>
                     <img src={item.icon} alt={item.title} className="opacity-50 mr-4" style={{width: 15, height: 15}}/>
@@ -200,7 +200,7 @@ export default function Header () {
               })}              
             </div>
             <div className="w-10/12 h-20 rounded-3xl bg-green-gradient absolute bottom-12 left-2/4 flex items-center justify-evenly" style={{transform: 'translateX(-50%)'}}>
-              {CONTACT_INFO.map(contact => <a href={contact.link} target="_blank" key={`mobile-contact-${contact.sort}`}>
+              {Object.values(CONTACT_INFO).map(contact => <a href={contact.link} target="_blank" key={`mobile-contact-${contact.sort}`}>
                 <img src={contact.icon} alt={contact.title} width={30} className="invert"/>
               </a>)}
             </div>
