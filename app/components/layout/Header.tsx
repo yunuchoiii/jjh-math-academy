@@ -124,9 +124,9 @@ export default function Header () {
           </div>
       </div>}
     </div>
-    <div className="flex lg:hidden w-full fixed inset-x-0 top-0 z-50">
+    <div className="flex lg:hidden w-screen fixed inset-x-0 top-0 z-50">
       <div 
-        className={`${styles.header} w-full flex items-center justify-between fixed inset-x-0 top-0`} 
+        className={`${styles.header} w-screen flex items-center justify-between fixed inset-x-0 top-0`} 
         style={{height: HEADER_HEIGHT_MOBILE}}
       >
         <img src="/images/logos/logo_green.png" alt="logo" width={30} style={{marginTop: -3}}/>
@@ -141,11 +141,14 @@ export default function Header () {
         </button>
       </div> 
       <div 
-        className={`${styles.mobileMenuBg} w-full fixed inset-x-0 top-0 bg-darkgray-1`}
-        style={{backgroundColor: hamburger ? 'rgba(0,0,0,0.25)' : 'transparent'}}
+        className={`${styles.mobileMenuBg} w-screen fixed inset-x-0 top-0 bg-darkgray-1`}
+        style={{
+          backgroundColor: hamburger ? 'rgba(0,0,0,0.25)' : 'transparent',
+          display: hamburger ? 'flex' : 'none'
+        }}
       >
           <div 
-            className={`${styles.mobileMenuBox} w-full fixed inset-x-0 flex flex-col`}
+            className={`${styles.mobileMenuBox} w-screen fixed inset-x-0 flex flex-col`}
             style={{
               top: hamburger ? 50 : '-100%'
             }}

@@ -17,7 +17,7 @@ export default function RootLayout({children, isHomePage}: {children: React.Reac
     <html lang="en">
       <body className={inter.className}>
         <Header/>
-        <div className='flex justify-center' style={{paddingTop: HEADER_HEIGHT+90}}>
+        <div className='flex justify-center pt-[100px] lg:pt-[140px]'>
           <div className='2xl:max-w-7xl xl:max-w-6xl lg:max-w-4xl md:max-w-2xl sm:max-w-xl'>
             {children}
           </div>
