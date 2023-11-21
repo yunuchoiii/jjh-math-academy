@@ -46,6 +46,14 @@ body {
   box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.25);
 }
 
+.hidden-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.hidden-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
 @font-face {
   font-family: 'NanumSquare';
   font-weight: 300;
