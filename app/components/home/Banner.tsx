@@ -1,11 +1,11 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from './Layout.module.css'
 import PlusIconButton from "../CustomButtons/PlusIconButton";
 
-export default function HomeBanner () {
+const HomeBanner = () => {
   const router = useRouter();
   const [activeBanner, setActiveBanner] = useState<Array<boolean>>([true, false, false, false]);
 
@@ -66,7 +66,8 @@ export default function HomeBanner () {
   const MobileBannerCard = (props: { item: banner }) => {
     const { item } = props;
 
-    return <div className={`h-[300px] w-[280px] mx-2.5 rounded-xl relative overflow-x-scroll flex-shrink-0 snap-center`}
+    return <div 
+      className={`h-[300px] w-[280px] mx-2.5 rounded-xl relative overflow-x-scroll flex-shrink-0 snap-center`}
       style={{
         background: item.backgroundColor, 
         boxShadow: '8px 8px 24px 0px rgba(0, 0, 0, 0.10), -8px -8px 24px 0px rgba(255, 255, 255, 0.10)',
@@ -158,3 +159,5 @@ export default function HomeBanner () {
     </div>
   </>
 }
+
+export default HomeBanner;

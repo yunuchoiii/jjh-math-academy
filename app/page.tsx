@@ -1,11 +1,11 @@
 import { MENU_INFO } from "@/constants";
-import HomeBanner from "./components/home/Banner";
+import HomeBanner from "./components/Home/Banner";
 import Link from "next/link";
-import Programs from "./components/home/Programs";
-import PartnersTab from "./components/home/PartnersTab";
-import SpecialClasses from "./components/home/SpecialClasses";
-import Curriculums from "./components/home/Curriculums";
-import ContactSection from "./components/home/ContactSection";
+import Programs from "./components/Home/Programs";
+import PartnersTab from "./components/Home/PartnersTab";
+import SpecialClasses from "./components/Home/SpecialClasses";
+import Curriculums from "./components/Home/Curriculums";
+import ContactSection from "./components/Home/ContactSection";
 import Script from 'next/script'
 
 export default function Home() {
@@ -15,24 +15,24 @@ export default function Home() {
         <div id="section-1" className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] slide-in-bottom">
           <HomeBanner/>
           <div className="pb-14">
-            <div className="flex items-center justify-center mt-20">
+            <div className="flex items-center justify-center lg:flex-row flex-col lg:mt-20 mt-10">
               <img src="/images/logos/logo_green.png" alt="logo" width={60}/>
-              <div className="text-center ml-7 NanumSquare">
-                <div className="xl:text-3xl lg:text-2xl">
+              <div className="text-center lg:ml-7 ml-0 lg:mt-0 mt-5 NanumSquare">
+                <div className="xl:text-3xl lg:text-2xl text-sm">
                   완벽한 <span className="text-yellow-2 font-bold">개념</span>, 
                   지독한 <span className="text-yellow-2 font-bold">연습</span>
                 </div>      
-                <div className="xl:text-4xl lg:text-3xl font-extrabold mt-4">
+                <div className="xl:text-4xl lg:text-3xl text-xl font-extrabold lg:mt-4 mt-2.5">
                   조재현 수학학원
                 </div>          
               </div>
             </div>
-            <div className="flex flex-col items-center mt-12">
-              <div className="w-2 h-2 rounded-md bg-yellow-3"></div>
+            <div className="flex flex-col items-center lg:mt-12 mt-8">
+              <div className="lg:w-2 lg:h-2 w-1.5 h-1.5 rounded-md bg-yellow-3"></div>
               <div className="w-0.5 h-10 bg-yellow-3"></div>
               <Link 
                 href={MENU_INFO.contact.link!}
-                className="py-4 px-10 rounded-full bg-yellow-3 font-bold xl:text-2xl lg:text-xl shadow-lg relative bottom-0 hover:bottom-2 hover:shadow-xl transition-all"
+                className="xl:py-4 xl:px-10 py-3 px-12 rounded-full bg-yellow-3 font-bold xl:text-2xl lg:text-xl text-sm shadow-lg relative bottom-0 lg:hover:bottom-2 hover:shadow-xl transition-all"
               >
                 상담 안내
               </Link>
