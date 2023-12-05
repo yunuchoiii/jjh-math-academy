@@ -39,13 +39,13 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div id="section-2" className="bg-lightgray w-full pt-32 pb-24 flex justify-center">
-          <div className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem]">
+        <div id="section-2" className="bg-lightgray w-full lg:pt-32 lg:pb-24 pt-14 pb-10 flex justify-center">
+          <div className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] w-[300px]">
             <div className="text-center mb-12">
-              <div className="xl:text-3xl lg:text-2xl">
+              <div className="xl:text-3xl lg:text-2xl text-sm">
                 <span className="font-bold">스마트</span>한 프로그램을 활용한
               </div>
-              <div className="xl:text-4xl lg:text-3xl font-bold mt-4">
+              <div className="xl:text-4xl lg:text-3xl text-lg font-bold lg:mt-4 mt-1">
                 체계적인 <span className="text-green-2">학습 관리</span>
               </div>
             </div>
@@ -53,13 +53,14 @@ export default function Home() {
             <PartnersTab/>           
           </div>
         </div>
-        <div id="section-3" className="bg-lightgray w-full pt-32 pb-24 flex justify-center">
+        <div className="lg:hidden block h-5 bg-white"></div>
+        <div id="section-3" className="bg-lightgray w-full lg:pt-32 pt-14 pb-24 flex justify-center">
           <div className="xl:w-[995px] lg:w-[790px]">
             <div className="text-center mb-12">
-              <div className="xl:text-3xl lg:text-2xl font-bold">
+              <div className="xl:text-3xl lg:text-2xl text-sm font-bold">
                 대입으로 가는 첫걸음
               </div>
-              <div className="xl:text-4xl lg:text-3xl font-bold mt-4 text-green-2">
+              <div className="xl:text-4xl lg:text-3xl text-lg font-bold lg:mt-4 mt-1 text-green-2">
                 교과 심화 사고력 수학
               </div>
             </div>

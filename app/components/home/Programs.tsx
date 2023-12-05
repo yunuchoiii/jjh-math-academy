@@ -32,7 +32,8 @@ export default function Programs () {
     },
   ]
   return <>
-    <div className="flex justify-evenly">
+  {/* PC Version */}
+    <div className="lg:flex hidden justify-evenly">
       {programList.map((program, index) => (
         <div key={`home-program-${index}`} className={`w-[23%] flex ${index != 1 ? 'flex-col' : 'flex-col-reverse'} items-center`}>
           <a href={program.href} target="_blank" className={`w-full flex flex-col items-center justify-center xl:h-[300px] lg:h-[267px] bg-white rounded-3xl NanumSquare border-2 border-solid border-transparent transition-all ${styles[`program-${index}`]}`}>
@@ -52,6 +53,36 @@ export default function Programs () {
             className={`${index == 0 ? 'mt-5' : index == 1 ? 'mb-2' : 'mt-10'} xl:w-44 lg:w-36`}/>
         </div>
       ))}
+    </div>
+    {/* Mobile Version */}
+    <div className="lg:hidden flex justify-center items-center flex-col">
+        {programList.map((program, index) => (
+          <div 
+            key={`mobile-progrem-${index}`} 
+            className={`w-[286px] flex items-center pb-10 last:pb-0 ${index===1 ? 'flex-row-reverse' : 'flex-row'}`}
+          >
+            <img src={program.logoPath} alt={program.title} className={`w-20 ${index===1 ? 'ml-3' : 'mr-3'}`}/>
+            <div className="w-1 h-1 rounded-md bg-yellow-2" />
+            <div className="w-5 h-[1px] bg-yellow-2"/>
+            <a 
+              href={program.href}
+              className="flex items-center w-[170px] h-[70px] p-2.5 rounded-2xl bg-white shodow-2"
+            >
+              <div 
+                className="w-[50px] h-[50px] rounded-[10px] flex items-center justify-center mr-2.5" 
+                style={{background: program.iconBg}}
+              >
+                <img src={program.iconPath} alt={program.title} className="h-9"/>
+              </div>
+              <div className="font-bold text-[9px]">
+                <div>{program.desc}</div>
+                <div className="text-[13px] mt-0.5" style={{color: program.color}}>
+                  {program.title}
+                </div>
+              </div>
+            </a>
+          </div>
+        ))}
     </div>
   </>
 }
