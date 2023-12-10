@@ -53,7 +53,7 @@ export default function Home() {
             <PartnersTab/>           
           </div>
         </div>
-        <div className="lg:hidden block h-5 bg-white"></div>
+        <div className="lg:hidden block w-full h-5 bg-white"></div>
         <div id="section-3" className="bg-lightgray w-full lg:pt-32 pt-14 pb-24 flex justify-center">
           <div className="xl:w-[995px] lg:w-[790px]">
             <div className="text-center mb-12">
@@ -67,6 +67,7 @@ export default function Home() {
             <SpecialClasses/>
           </div>
         </div>
+        <div className="lg:hidden block w-full h-5 bg-white"></div>
         <div id="section-4" className="bg-lightgray w-full pt-32 pb-24 flex justify-center">
           <div className="xl:w-[995px] lg:w-[790px]">
             <div className="text-center mb-12">
