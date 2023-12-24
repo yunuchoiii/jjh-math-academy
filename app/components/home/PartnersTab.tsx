@@ -27,9 +27,9 @@ export default function PartnersTab () {
     },
   ];
 
-  return <>
+  return <div className="px-0 md:px-5 lg:px-0">
     {/* PC Version */}
-    <div className="lg:flex hidden justify-between mt-20">
+    <div className="md:flex hidden justify-between mt-20">
       {tabs.map((tab,index) => <div key={`home-partners-${index}`} className={index==0 ? 'w-[28%]' : 'w-[68%]'}>
         <div className="w-full flex items-center">
           <div className="w-full h-[1px] bg-green-1"></div>
@@ -37,12 +37,12 @@ export default function PartnersTab () {
           <div className="w-full h-[1px] bg-green-1"></div>
         </div>
         <div className="w-full flex items-center justify-between mt-5">
-          {tab.images.map(i => <img src={`images/icons/${i}`} alt="logo" className="xl:h-8 lg:h-6 grayscale" key={`partner-img-${i}`}></img>)}
+          {tab.images.map(i => <img src={`images/icons/${i}`} alt="logo" className="xl:h-8 lg:h-6 md:h-5 grayscale" key={`partner-img-${i}`}></img>)}
         </div>
       </div>)}
     </div>
     {/* Mobile Version */}
-    <div className="lg:hidden block mt-10">
+    <div className="md:hidden block mt-10">
       {tabs.map((tab, idx) => {
         const [show, setShow] = useState<boolean>(false);
         const handleTab = () => {
@@ -63,5 +63,5 @@ export default function PartnersTab () {
         </div>
     })}
     </div>
-  </>
+  </div>
 }

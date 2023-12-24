@@ -147,10 +147,8 @@ const HomeBanner = () => {
     {/* Mobile Version */}
     <div className="lg:hidden flex w-screen">
       <div 
-        className="flex w-full overflow-x-scroll hidden-scroll -mt-16 pt-16 pb-10" 
+        className="flex w-full overflow-x-scroll hidden-scroll -mt-16 pt-16 pb-10 sm:px-12 px-[calc(50vw-150px)]" 
         style={{
-          paddingLeft: `calc(50vw - 150px)`,
-          paddingRight: `calc(50vw - 150px)`,
           scrollSnapType: 'x mandatory',
         }}
       >
