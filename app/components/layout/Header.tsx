@@ -144,7 +144,7 @@ export default function Header () {
         className={`${styles.mobileMenuBg} w-screen fixed inset-x-0 top-0 bg-darkgray-1`}
         style={{
           backgroundColor: hamburger ? 'rgba(0,0,0,0.25)' : 'transparent',
-          display: hamburger ? 'flex' : 'none'
+          // display: hamburger ? 'flex' : 'none'
         }}
       >
           <div 
