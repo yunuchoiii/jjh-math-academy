@@ -3,8 +3,9 @@
 import { BLOG_LINK, HEADER_HEIGHT, NAVER_MAP_LINK, childMenu, CONTACT_INFO, MENU_INFO, HEADER_HEIGHT_MOBILE } from "@/constants";
 import styles from './Layout.module.css'
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { allowScroll, preventScroll } from "@/app/utils/scroll";
 
 export default function Header () {
   const router = useRouter()
@@ -19,6 +20,15 @@ export default function Header () {
       </Link>)}
     </div>
   }
+
+  useEffect(() => {
+    let prevScrollY = 0;
+    if (hamburger) {
+      prevScrollY = preventScroll();
+    } else {
+      allowScroll(prevScrollY);
+    };
+  }, [hamburger]);
   
   return <>
     <div className="hidden lg:block">

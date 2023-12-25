@@ -91,7 +91,6 @@
     filter: invert(56%) sepia(78%) saturate(314%) hue-rotate(100deg) brightness(93%) contrast(90%);
   }
   .mobileMenuBg {
-    height: 100dvh;
     transition: background-color 0.4s ease;
   }
   .mobileMenuBox {
