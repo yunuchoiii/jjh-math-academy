@@ -73,7 +73,7 @@ export const MENU_INFO:Record<string, parentMenu> = {
   contact: {
     sort: 4,
     title: "상담 안내",
-    link: "/contact"
+    link: "/#contact-section"
   },
 };
 export const CONTACT_INFO:Record<string, childMenu> = {

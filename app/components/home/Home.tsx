@@ -95,7 +95,7 @@ export  default function HomeComponent () {
         </div>
       </div>
       <MobileDivider/>
-      <div id="section-5" className="w-full">
+      <div id="contact-section" className="w-full md:h-screen">
         <ContactSection/>
       </div>
     </div>      

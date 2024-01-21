@@ -6,7 +6,7 @@ import styles from "./Layout.module.css"
 export default function PartnersTab () {
   const tabs = [
     {
-      title: 'books',
+      title: 'partners',
       images: [
         'yorisu.png',
         'visang.png',
@@ -14,7 +14,7 @@ export default function PartnersTab () {
       ]
     },
     {
-      title: 'partners',
+      title: 'books',
       images: [
         'mirae-n.png',
         'visang.png',

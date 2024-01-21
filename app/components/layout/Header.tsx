@@ -10,6 +10,7 @@ import { allowScroll, preventScroll } from "@/app/utils/scroll";
 export default function Header () {
   const router = useRouter()
   const [hamburger, setHamburger] = useState<boolean>(false);
+  const [prevScrollY, setPrevScrollY] = useState<number>(0);
 
   const ChilrenMenus = ({childrenMenus}:{childrenMenus:Array<childMenu>}) => {
     return <div className={`flex flex-col items-center rounded-3xl absolute ${styles.childrenMenuBox} slide-in-blurred-top`}
@@ -21,15 +22,13 @@ export default function Header () {
     </div>
   }
 
-  useEffect(() => {
-    let prevScrollY = 0;
-    if (hamburger) {
-      prevScrollY = preventScroll();
-    } else {
-      allowScroll(prevScrollY);
-    };
-  }, [hamburger]);
+  const handleContactMenu = () => {
+    setHamburger(false)
   
+    const contactSection = document.getElementById('contact-section');
+    contactSection!.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return <>
     <div className="hidden lg:block">
       <div 
@@ -57,21 +56,13 @@ export default function Header () {
               key={`menu-${item.title}`} 
               onMouseLeave={()=>setShowChildren(false)}
             >
-              {item.link ? 
-                <Link 
-                  href={item.link} 
-                  className={`${styles.menu} ${showChildren && 'text-green-1'} xl:text-lg lg:text-base font-semibold text-gray-600`} 
-                  onMouseOver={()=>setShowChildren(true)}
-                >
-                  {item.title}
-                </Link> :
-                <button 
-                  className={`${styles.menu} ${showChildren && 'text-green-1'} xl:text-lg lg:text-base font-semibold text-gray-600`} 
-                  onMouseOver={()=>setShowChildren(true)}
-                >
-                  {item.title}
-                </button>
-              }
+              <button 
+                className={`${styles.menu} xl:text-lg lg:text-base font-semibold text-gray-600 hover:text-green-1`} 
+                onClick={item.link ? handleContactMenu : ()=>{}}
+                onMouseOver={item.link ? ()=>{} : ()=>setShowChildren(true)}
+              >
+                {item.title}
+              </button>
               {showChildren && item.children && <ChilrenMenus childrenMenus={item.children || []}></ChilrenMenus>}
             </div>
           })}
@@ -97,9 +88,12 @@ export default function Header () {
                   className="flex flex-col items-start"
                   style={{width: menu.sort !== 4 ? 186 : 'unset'}}
                 >
-                  {menu.link ? 
-                    <Link href={menu.link} className="text-green-1 text-lg mb-4 font-semibold">{menu.title}</Link> : 
-                    <div className="text-green-1 text-lg mb-4 font-semibold">{menu.title}</div>}
+                  <button 
+                    className="text-green-1 text-lg mb-4 font-semibold"
+                    onClick={menu.link ? handleContactMenu : ()=>{}}
+                  >
+                    {menu.title}
+                  </button>
                   {menu.children?.map(item => (
                     <Link href={item.link} key={`fullmenu-${item.sort}`} className={`${styles.fullMenuUnit} mb-3 last:mb-0`}>
                       {item.title}
@@ -119,7 +113,6 @@ export default function Header () {
                     <div className={styles.fullMenuUnit}>{item.title}</div>
                   </>
                 );
-
                 return item.link !== "" ? (
                   <a href={item.link} target="_blank" rel="noopener noreferrer" key={`contact-info-${item.sort}`} className="flex items-center mb-3 last:mb-0">
                     {Content}
@@ -154,7 +147,6 @@ export default function Header () {
         className={`${styles.mobileMenuBg} w-screen fixed inset-x-0 top-0 bg-darkgray-1`}
         style={{
           backgroundColor: hamburger ? 'rgba(0,0,0,0.25)' : 'transparent',
-          // display: hamburger ? 'flex' : 'none'
         }}
       >
           <div 
@@ -170,7 +162,7 @@ export default function Header () {
                   if (parentMenu.children) {
                     setMenuOpened(!menuOpened)
                   } else {
-                    router.push(parentMenu.link!);
+                    handleContactMenu()
                   }
                 }
                 return <div key={`mobile-parent-menu-${parentMenu.sort}`}>
