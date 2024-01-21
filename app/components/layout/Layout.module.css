@@ -1,0 +1,119 @@
+.header {
+  padding-left: 32px;
+  padding-right: 32px;
+  box-shadow: 0px 4px 32px 0px rgba(190, 190, 190, 0.25);
+  z-index: 1000;
+  background-color: #FFF;
+}
+
+.menu {
+  width: 110px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: color 0.3s ease;
+  -webkit-transition: color 0.3s ease;
+}
+
+.menuHamburger {
+  width: 45px;
+  height: 45px;
+  margin-left: -11.5px;
+}
+
+.blogButton {
+  transition: box-shadow 0.3s ease-in-out;
+}
+.blogButton:hover {
+  box-shadow: 0px 0px 16px 0px rgba(65, 181, 128, 1);;
+}
+
+.childrenMenuBox {
+  width: 180px;
+  background: rgba(255, 255, 255, 0.40);
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(16px);
+  padding: 18px 0;
+  margin-left: -35px;
+}
+.childMenu {
+  width: 144px;
+  height: 32px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out
+}
+.childMenu:hover {
+  color: #FFF;
+  background-color: #41B580;
+}
+.childMenu:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+.fullMenuBox {
+  border-radius: 0px 0px 50px 50px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  z-index: 999;
+  transition: top 0.3s cubic-bezier(0.4, 0, 0.6, 1);
+  box-shadow: 0px 4px 32px 0px rgba(0, 0, 0, 0.15);
+}
+.fullMenuUnit { 
+  color: #333;
+  display: inline-block; 
+  margin: 0;
+}
+.fullMenuUnit:after {
+  display:block;
+  content: '';
+  border-bottom: solid 2px #41B580;  
+  transform: scaleX(0);  
+  transition: transform 250ms ease-in-out;
+}
+.fullMenuUnit:hover:after { transform: scaleX(1); }
+.fullMenuUnit.fromRight:after{ transform-origin:100% 50%; }
+.fullMenuUnit.fromLeft:after{  transform-origin:  0% 50%; }
+
+@media (max-width: 1024px) {
+  .header {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .menuHamburger {
+    margin-left: 0;
+    width: unset;
+    height: unset;
+  }
+  .menuHamburger img {
+    filter: invert(56%) sepia(78%) saturate(314%) hue-rotate(100deg) brightness(93%) contrast(90%);
+  }
+  .mobileMenuBg {
+    transition: background-color 0.4s ease;
+  }
+  .mobileMenuBox {
+    height: calc(100dvh - 60px - 50px);
+    background-color: #FFF;
+    border-radius: 0px 0px 50px 50px;
+    background: linear-gradient(168deg, #FBFBFB 7.15%, #F1F1F1 94.41%);
+    box-shadow: 0px 8px 32px 0px rgba(0, 0, 0, 0.25);
+    transition: top 0.45s cubic-bezier(0.4, 0, 0.6, 1);
+    padding: 35px 20px 48px;
+  }
+  .mobileMenuClose {
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: -2px -2px 10px 0px rgba(0, 0, 0, 0.25);
+  }
+  .mobileMenuClose > img {
+    width: 18.6px;
+    height: 11.43px;
+  }
+  .mobileParentMenu {
+    transition: background-color 0.15s ease-in-out;
+  }
+}

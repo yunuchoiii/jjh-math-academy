@@ -1,0 +1,52 @@
+.banner {
+  filter: drop-shadow(8px 8px 24px rgba(0, 0, 0, 0.10)) drop-shadow(-8px -8px 24px rgba(255, 255, 255, 0.10));
+}
+.banner:not(:last-child) {
+  margin-right: 30px
+}
+.banner.active {
+  width: 50%;
+  padding-left: 50px;
+}
+.banner img {
+  max-width: unset;
+}
+
+.program-0:hover {
+  border-color: #82BF33;
+  box-shadow: 0px 0px 24px 0px rgba(92, 152, 15, 0.30);
+}
+.program-1:hover {
+  border-color: #FFC736;
+  box-shadow: 0px 0px 24px 0px rgba(255, 220, 96, 0.30);
+}
+.program-2:hover {
+  border-color: #f69aae;
+  box-shadow: 0px 0px 24px 0px rgba(246, 154, 174, 0.30);
+}
+.program-0-bg {
+  background-color: #82BF33;
+}
+.program-1-bg {
+  background-color: #FFC736;
+}
+.program-2-bg {
+  background-color: #f69aae;
+}
+
+.deem-shadow-1 {
+  box-shadow: 0px 4px 36px 0px rgba(214, 214, 214, 0.25);
+}
+.deem-shadow-2 {
+  box-shadow: 0px 0px 80px 0px rgba(190, 190, 190, 0.25);
+}
+.deem-shadow-3 {
+  box-shadow: 4px 4px 24px 0px rgba(190, 190, 190, 0.25);
+}
+
+.mo-partners-h-1 {
+  height: 246px;
+}
+.mo-partners-h-2 {
+  height: 534px;
+}
