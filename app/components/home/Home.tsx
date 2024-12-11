@@ -1,23 +1,25 @@
 'use client';
 
-import Link from "next/link";
-import HomeBanner from "./Banner";
-import { MENU_INFO } from "@/constants";
-import Programs from "./Programs";
-import PartnersTab from "./PartnersTab";
-import MobileDivider from "../Layout/MobileDivider";
-import SpecialClasses from "./SpecialClasses";
-import Curriculums from "./Curriculums";
-import ContactSection from "./ContactSection";
-import { useEffect, useRef } from "react";
 import useScrollAnimation from "@/app/hooks/scroll";
+import { MENU_INFO } from "@/constants";
+import Link from "next/link";
+import MobileDivider from "../layout/MobileDivider";
+import HomeBanner from "./Banner";
+import ContactSection from "./ContactSection";
+import Curriculums from "./Curriculums";
+import PartnersTab from "./PartnersTab";
+import Programs from "./Programs";
+import SpecialClasses from "./SpecialClasses";
 
 export  default function HomeComponent () {
   const setRef = useScrollAnimation(0.4);
 
   return (
     <div className="homeBody flex flex-col items-center">
-      <div id="section-1" className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem]">
+      <div className="absolute top-0 hidden lg:block -mt-[100px] lg:-mt-[140px]">
+        <img src="/images/green-bg.svg" />
+      </div>
+      <div id="main-section" className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem]">
         <div className="slide-in-bottom" ref={setRef}>
           <HomeBanner/>
         </div>
@@ -46,7 +48,7 @@ export  default function HomeComponent () {
           </div>
         </div>
       </div>
-      <div id="section-2" className="bg-lightgray w-full md:pt-32 md:pb-24 pt-14 pb-10 flex justify-center">
+      <div id="programs-section" className="bg-lightgray w-full md:pt-32 md:pb-24 pt-14 pb-10 flex justify-center">
         <div className="2xl:w-[80rem] xl:w-[72rem] md:w-[56rem] w-[300px]">
           <div className="text-center mb-12">
             <div className="xl:text-3xl md:text-2xl text-sm">
@@ -63,7 +65,7 @@ export  default function HomeComponent () {
         </div>
       </div>
       <MobileDivider/>
-      <div id="section-3" className="bg-lightgray w-full md:pt-32 pt-14 pb-24 flex justify-center">
+      <div id="special-classes-section" className="bg-lightgray w-full md:pt-32 pt-14 pb-24 flex justify-center">
         <div className="xl:w-[995px] w-[790px]">
           <div className="text-center mb-12">
             <div className="xl:text-3xl md:text-2xl text-sm font-bold">
@@ -79,7 +81,7 @@ export  default function HomeComponent () {
         </div>
       </div>
       <MobileDivider/>
-      <div id="section-4" className="bg-lightgray w-full md:pt-32 pt-14 pb-24 flex justify-center">
+      <div id="curriculum-section" className="bg-lightgray w-full md:pt-32 pt-14 pb-24 flex justify-center">
         <div className="xl:w-[995px] w-[790px]">
           <div className="text-center mb-12">
             <div className="xl:text-3xl md:text-2xl text-sm font-bold">

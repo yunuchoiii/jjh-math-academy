@@ -1,10 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState } from "react";
-import styles from './Layout.module.css'
-import { CONTACT_INFO, NAVER_MAP_LINK } from "@/constants";
 import useScrollAnimation from "@/app/hooks/scroll";
+import { CONTACT_INFO, NAVER_MAP_LINK } from "@/constants";
 import NaverMap from "../Map/NaverMap";
+import styles from './Layout.module.css';
 
 declare global {
   interface Window {

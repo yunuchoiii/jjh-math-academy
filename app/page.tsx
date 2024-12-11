@@ -1,5 +1,5 @@
 import Script from 'next/script'
-import HomeComponent from './components/Home/Home'
+import HomeComponent from './components/home/Home'
 
 export default function Home() {
   return <>

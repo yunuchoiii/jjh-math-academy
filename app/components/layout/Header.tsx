@@ -1,11 +1,10 @@
 'use client'
 
-import { BLOG_LINK, HEADER_HEIGHT, NAVER_MAP_LINK, childMenu, CONTACT_INFO, MENU_INFO, HEADER_HEIGHT_MOBILE } from "@/constants";
-import styles from './Layout.module.css'
+import { childMenu, CONTACT_INFO, HEADER_HEIGHT, HEADER_HEIGHT_MOBILE, MENU_INFO } from "@/constants";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { allowScroll, preventScroll } from "@/app/utils/scroll";
+import { useState } from "react";
+import styles from './Layout.module.css';
 
 export default function Header () {
   const router = useRouter()
@@ -55,6 +54,7 @@ export default function Header () {
             return <div 
               key={`menu-${item.title}`} 
               onMouseLeave={()=>setShowChildren(false)}
+              className="relative"
             >
               <button 
                 className={`${styles.menu} xl:text-lg lg:text-base font-semibold text-gray-600 hover:text-green-1`} 
