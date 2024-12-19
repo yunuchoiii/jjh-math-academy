@@ -2,14 +2,13 @@
 
 import { childMenu, CONTACT_INFO, HEADER_HEIGHT, HEADER_HEIGHT_MOBILE, MENU_INFO } from "@/constants";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from './Layout.module.css';
 
 export default function Header () {
-  const router = useRouter()
+  // const router = useRouter()
   const [hamburger, setHamburger] = useState<boolean>(false);
-  const [prevScrollY, setPrevScrollY] = useState<number>(0);
+  // const [prevScrollY, setPrevScrollY] = useState<number>(0);
 
   const ChilrenMenus = ({childrenMenus}:{childrenMenus:Array<childMenu>}) => {
     return <div className={`flex flex-col items-center rounded-3xl absolute ${styles.childrenMenuBox} slide-in-blurred-top`}

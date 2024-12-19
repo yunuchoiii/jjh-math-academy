@@ -40,7 +40,7 @@ export const MENU_INFO:Record<string, parentMenu> = {
   },
   curriculum: {
     sort: 2,
-    title: "커리큘럼",
+    title: "교과 수학",
     children: [
       {
         sort: 1,
@@ -56,7 +56,7 @@ export const MENU_INFO:Record<string, parentMenu> = {
   },
   program: {
     sort: 3,
-    title: "프로그램",
+    title: "심화 수학",
     children: [
       {
         sort: 1,
