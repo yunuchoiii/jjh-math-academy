@@ -1,4 +1,3 @@
-import Link from "next/link"
 import styles from './Layout.module.css'
 
 export default function Programs () {
@@ -35,8 +34,16 @@ export default function Programs () {
   {/* PC Version */}
     <div className="md:flex hidden justify-evenly">
       {programList.map((program, index) => (
-        <div key={`home-program-${index}`} className={`w-[23%] flex ${index != 1 ? 'flex-col' : 'flex-col-reverse'} items-center`}>
-          <a href={program.href} target="_blank" className={`w-full flex flex-col items-center justify-center xl:h-[300px] md:h-[267px] bg-white rounded-3xl NanumSquare border-2 border-solid border-transparent transition-all ${styles[`program-${index}`]}`}>
+        <div 
+          key={`home-program-${index}`} 
+          className={`w-[23%] flex ${index != 1 ? 'flex-col' : 'flex-col-reverse'} items-center`}
+          title={`${program.title} 공식 홈페이지`}
+        >
+          <a 
+            href={program.href} 
+            target="_blank" 
+            className={`w-full flex flex-col items-center justify-center xl:h-[300px] md:h-[267px] bg-white rounded-3xl NanumSquare border-2 border-solid border-transparent transition-all ${styles[`program-${index}`]}`}
+          >
             <div className="xl:w-32 xl:h-32 md:w-28 md:h-28 rounded-2xl flex items-center justify-center mb-10" style={{backgroundColor: program.iconBg}}>
               <img src={program.iconPath} alt={program.title} className="xl:h-24 md:h-20"/>
             </div>
