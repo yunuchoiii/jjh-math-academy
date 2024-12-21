@@ -26,6 +26,10 @@ class Student extends Sequelize.Model {
       gradeLevel: {
         type: DataTypes.STRING(20),
       },
+      isActive: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
     }, {
       sequelize,
       timestamps: true, //createdAt, updatedAt

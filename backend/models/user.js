@@ -13,12 +13,8 @@ class User extends Sequelize.Model {
         allowNull: false,
         unique: true,
       },
-      passwordHash: {
+      password: {
         type: DataTypes.STRING(255),
-        allowNull: false,
-      },
-      fullName: {
-        type: DataTypes.STRING(100),
         allowNull: false,
       },
       email: {

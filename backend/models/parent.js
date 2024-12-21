@@ -16,6 +16,10 @@ class Parent extends Sequelize.Model {
           key: 'userId',
         },
       },
+      isActive: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
     }, {
       sequelize,
       timestamps: true, //createdAt, updatedAt

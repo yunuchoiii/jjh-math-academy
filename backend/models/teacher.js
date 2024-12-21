@@ -20,9 +20,6 @@ class Teacher extends Sequelize.Model {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
-      subject: {
-        type: DataTypes.STRING(100),
-      },
     }, {
       sequelize,
       timestamps: true, //createdAt, updatedAt

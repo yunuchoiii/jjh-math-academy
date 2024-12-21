@@ -6,8 +6,10 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const passport = require('passport');
 const { sequelize } = require('./models');
+require('./passport')();
 
 dotenv.config();
+const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -26,6 +28,8 @@ app.use(session({
 // Passport 초기화
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use('/auth', authRouter);
 
 // 데이터베이스 연결
 sequelize.sync()
