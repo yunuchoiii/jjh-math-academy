@@ -16,6 +16,10 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     <html lang="en">
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"></link>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+        />
       </head>
       <body className={inter.className}>
         <Header/>

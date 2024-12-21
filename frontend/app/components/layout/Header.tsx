@@ -65,14 +65,17 @@ export default function Header () {
               {showChildren && item.children && <ChilrenMenus childrenMenus={item.children || []}></ChilrenMenus>}
             </div>
           })}
-          <a 
+          {/* <a 
             href={'https://blog.naver.com/lllqueen8180'} 
             target="_blank" 
             className={`flex items-center bg-green-1 py-2 px-4 rounded-full h-fit ml-6 ${styles.blogButton}`}
           >
             <img src="/images/icons/blog-white.png" alt="blog" width={20}/>
             <span className="xl:text-base lg:text-sm ml-3 text-white">블로그 바로가기</span>
-          </a>
+          </a> */}
+          <div className="flex items-center py-2 px-4 ml-6 hover:text-green-1 hover:cursor-pointer">
+            <i title="로그인" className="far fa-user"></i>
+          </div>
         </div>
       </div>
       {<div 
