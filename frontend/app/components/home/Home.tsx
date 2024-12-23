@@ -3,7 +3,7 @@
 import useScrollAnimation from "@/app/hooks/scroll";
 import { MENU_INFO } from "@/constants";
 import Link from "next/link";
-import MobileDivider from "../layout/MobileDivider";
+import MobileDivider from "../Layout/MobileDivider";
 import HomeBanner from "./Banner";
 import ContactSection from "./ContactSection";
 import Curriculums from "./Curriculums";
@@ -15,7 +15,7 @@ export  default function HomeComponent () {
   const setRef = useScrollAnimation(0.4);
 
   return (
-    <div className="homeBody flex flex-col items-center">
+    <div className="home-root flex flex-col items-center">
       <div className="absolute top-0 hidden lg:block -mt-[100px] lg:-mt-[140px]">
         <img src="/images/green-bg.svg" />
       </div>

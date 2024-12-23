@@ -1,0 +1,7 @@
+.loginButton {
+  transition: all 0.15s ease-in-out;
+}
+
+.loginButton:hover {
+  filter: brightness(0.95);
+}

@@ -29,7 +29,7 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-.homeBody {
+.home-root {
   width: 100vw;
   position: relative;
   left: calc((100vw - 100%)/-2);
@@ -57,6 +57,26 @@ body {
 }
 .hidden-scroll::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera*/
+}
+
+input[type="checkbox"] {
+  appearance: none;   
+  -webkit-appearance: none;   
+  border: none;   
+  outline: none;  
+  width: 20px;  
+  height: 20px;   
+  background-color: #FFF;   
+  cursor: pointer;  
+  border-radius: 4px;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #37CC87;
+  background-image: url('/images/icons/check.svg');
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 @font-face {
