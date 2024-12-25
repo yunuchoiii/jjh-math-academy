@@ -73,9 +73,9 @@ export default function Header () {
             <img src="/images/icons/blog-white.png" alt="blog" width={20}/>
             <span className="xl:text-base lg:text-sm ml-3 text-white">블로그 바로가기</span>
           </a> */}
-          <div className="flex items-center py-2 px-4 ml-6 hover:text-green-1 hover:cursor-pointer">
+          <Link href={'/auth/login'} className="flex items-center py-2 px-4 ml-6 hover:text-green-1 hover:cursor-pointer">
             <i title="로그인" className="far fa-user"></i>
-          </div>
+          </Link>
         </div>
       </div>
       {<div 
