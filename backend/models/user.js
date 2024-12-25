@@ -29,6 +29,10 @@ class User extends Sequelize.Model {
         type: DataTypes.ENUM('teacher', 'parent', 'student'),
         allowNull: false,
       },
+      refreshToken: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+      },
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,

@@ -23,6 +23,10 @@ app.use(session({
   secret: process.env.COOKIE_SECRET || 'defaultSecret',
   resave: false,
   saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production' ? true : false,
+  },
 }));
 
 // Passport 초기화
