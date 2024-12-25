@@ -1,6 +1,6 @@
 'use client';
 
-import useScrollAnimation from "@/app/hooks/scroll";
+import useScrollAnimation from "@/app/_hooks/scroll";
 import { CONTACT_INFO, NAVER_MAP_LINK } from "@/constants";
 import NaverMap from "../Map/NaverMap";
 import styles from './Layout.module.css';

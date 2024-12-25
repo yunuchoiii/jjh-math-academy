@@ -1,8 +1,8 @@
 'use client'
 
-import LoginButton from "@/app/components/Auth/LoginButton";
-import Checkbox from "@/app/components/Input/Checkbox";
-import TextField from "@/app/components/Input/TextField";
+import LoginButton from "@/app/_components/Auth/LoginButton";
+import Checkbox from "@/app/_components/Input/Checkbox";
+import TextField from "@/app/_components/Input/TextField";
 import Link from "next/link";
 import React, { useEffect, useState } from 'react';
 
