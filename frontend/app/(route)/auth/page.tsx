@@ -1,9 +1,10 @@
 'use client'
 
+import userState from "@/app/_stores/user";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import userState from "../_stores/user";
+
 const Auth = () => {
   const router = useRouter();
   const user = useRecoilValue(userState);
