@@ -1,6 +1,6 @@
 'use client';
 
-import useScrollAnimation from "@/app/hooks/scroll";
+import useScrollAnimation from "@/app/_hooks/scroll";
 import { CONTACT_INFO, NAVER_MAP_LINK } from "@/constants";
 import NaverMap from "../Map/NaverMap";
 import styles from './Layout.module.css';
@@ -21,7 +21,7 @@ export default function ContactSection () {
     <div className="absolute z-0 md:top-60 top-96 left-1/4 md:w-96 md:h-96 w-52 h-52 rounded-full bg-yellow-1"></div>
     <div className="absolute z-0 md:top-64 top-32 right-1/4 md:w-72 md:h-72 w-40 h-40 rounded-full bg-gradient-to-br from-[#37CC87] to-[#32EB97]"></div>
     <div className="absolute w-full h-full z-10 backdrop-blur-[200px] md:px-0 px-5 flex justify-center items-center">
-      <div className="grid grid-cols-12 md:gap-8 gap-4 2xl:w-[1200px] xl:w-[995px] w-[790px] slide-in-bottom" ref={setRef}>
+      <div className="grid grid-cols-12 md:gap-8 gap-4 2xl:w-[1200px] xl:w-[995px] w-[790px]" ref={setRef}>
         <div className={`md:col-span-6 col-span-12 md:h-[400px] h-96 rounded-3xl overflow-hidden relative ${styles['deem-shadow-3']}`}>
           <NaverMap/>
           <a href={NAVER_MAP_LINK} target="_blank" className="py-2 px-5 rounded-full md:text-sm text-xs font-bold bg-yellow-2 absolute bottom-7 left-1/2 -translate-x-1/2 z-20 hover:scale-110 transition-all">

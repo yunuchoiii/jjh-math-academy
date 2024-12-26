@@ -97,8 +97,8 @@ export const CONTACT_INFO:Record<string, childMenu> = {
   },
   map: {
     sort: 4,
-    title: "네이버 지도",
-    icon: "/images/icons/location-black.png",
-    link: NAVER_MAP_LINK
+    title: "마이 페이지",
+    icon: "/images/icons/user-black.png",
+    link: "/auth"
   },
 }

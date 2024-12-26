@@ -1,0 +1,3 @@
+.textfield:active, .textfield:focus, .textfield:focus-visible {
+  border: 1px solid #000;
+}

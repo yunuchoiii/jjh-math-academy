@@ -1,9 +1,9 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import styles from './Layout.module.css'
+import { useState } from "react";
 import PlusIconButton from "../CustomButtons/PlusIconButton";
+import styles from './Layout.module.css';
 
 const HomeBanner = () => {
   const router = useRouter();
