@@ -16,8 +16,8 @@ export  default function HomeComponent () {
 
   return (
     <div className="home-root flex flex-col items-center">
-      <div className="absolute top-0 hidden lg:block -mt-[100px] lg:-mt-[140px]">
-        <img src="/images/green-bg.svg" />
+      <div className="absolute top-0 -z-50 hidden lg:block -mt-[100px] lg:-mt-[140px] xl:-mt-[20%] w-screen">
+        <img src="/images/green-bg.svg" className="w-full" />
       </div>
       <div id="main-section" className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem]">
         <div className="slide-in-bottom" ref={setRef}>
