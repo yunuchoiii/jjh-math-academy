@@ -65,15 +65,7 @@ export default function Header () {
               {showChildren && item.children && <ChilrenMenus childrenMenus={item.children || []}></ChilrenMenus>}
             </div>
           })}
-          {/* <a 
-            href={'https://blog.naver.com/lllqueen8180'} 
-            target="_blank" 
-            className={`flex items-center bg-green-1 py-2 px-4 rounded-full h-fit ml-6 ${styles.blogButton}`}
-          >
-            <img src="/images/icons/blog-white.png" alt="blog" width={20}/>
-            <span className="xl:text-base lg:text-sm ml-3 text-white">블로그 바로가기</span>
-          </a> */}
-          <Link href={'/auth/login'} className="flex items-center py-2 px-4 ml-6 hover:text-green-1 hover:cursor-pointer">
+          <Link href={'/auth'} className="flex items-center py-2 px-4 ml-6 hover:text-green-1 hover:cursor-pointer">
             <i title="로그인" className="far fa-user"></i>
           </Link>
         </div>
@@ -116,7 +108,13 @@ export default function Header () {
                   </>
                 );
                 return item.link !== "" ? (
-                  <a href={item.link} target="_blank" rel="noopener noreferrer" key={`contact-info-${item.sort}`} className="flex items-center mb-3 last:mb-0">
+                  <a 
+                    href={item.link} 
+                    target={item.link.startsWith('/') ? undefined : "_blank"} 
+                    rel="noopener noreferrer" 
+                    key={`contact-info-${item.sort}`} 
+                    className="flex items-center mb-3 last:mb-0"
+                  >
                     {Content}
                   </a>
                 ) : (
@@ -207,9 +205,15 @@ export default function Header () {
               })}              
             </div>
             <div className="w-10/12 h-20 rounded-3xl bg-green-gradient absolute bottom-12 left-2/4 flex items-center justify-evenly" style={{transform: 'translateX(-50%)'}}>
-              {Object.values(CONTACT_INFO).map(contact => <a href={contact.link} target="_blank" key={`mobile-contact-${contact.sort}`}>
-                <img src={contact.icon} alt={contact.title} width={30} className="invert"/>
-              </a>)}
+              {Object.values(CONTACT_INFO).map(contact => (
+                <a 
+                  href={contact.link} 
+                  target={contact.link.startsWith('/') ? undefined : "_blank"} 
+                  key={`mobile-contact-${contact.sort}`}
+                > 
+                  <img src={contact.icon} alt={contact.title} width={30} className="invert"/>
+                </a>
+              ))}
             </div>
             <div className={`${styles.mobileMenuClose} w-11 h-11 bg-green-3 rounded-full flex items-center justify-center`} onClick={()=>setHamburger(false)}>
               <img src="/images/icons/arrow_rounded.png" alt="close" className="invert"/>

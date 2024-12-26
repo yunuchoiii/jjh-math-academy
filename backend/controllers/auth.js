@@ -141,6 +141,13 @@ exports.login = async (req, res, next) => {
           message: '로그인 및 토큰이 발급되었습니다.',
           accessToken,
           refreshToken,
+          user: {
+            userId: user.userId,
+            email: user.email,
+            username: user.username,
+            phoneNumber: user.phoneNumber,
+            userType: user.userType,
+          },
         });
       } catch (tokenError) {
         console.error(tokenError);
