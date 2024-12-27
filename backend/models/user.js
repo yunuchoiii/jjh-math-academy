@@ -24,18 +24,27 @@ class User extends Sequelize.Model {
       },
       phoneNumber: {
         type: DataTypes.STRING(20),
+        allowNull: true,
       },
       userType: {
         type: DataTypes.ENUM('teacher', 'parent', 'student'),
         allowNull: false,
       },
       refreshToken: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     }, {
       sequelize,

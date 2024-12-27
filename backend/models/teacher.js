@@ -20,6 +20,10 @@ class Teacher extends Sequelize.Model {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     }, {
       sequelize,
       timestamps: true, //createdAt, updatedAt
