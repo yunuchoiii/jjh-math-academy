@@ -4,7 +4,7 @@ import LoginButton from "@/app/_components/Auth/LoginButton";
 import Checkbox from "@/app/_components/Input/Checkbox";
 import TextField from "@/app/_components/Input/TextField";
 import { loginService } from "@/app/_service/login";
-import userState from "@/app/_stores/user";
+import { userState } from "@/app/_stores/user";
 import { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

@@ -1,23 +1,22 @@
 'use client'
 
-import userState from "@/app/_stores/user";
+import useUser from "@/app/_hooks/user";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useRecoilValue } from "recoil";
 
 const Auth = () => {
   const router = useRouter();
-  const user = useRecoilValue(userState);
+  const { user, accessToken } = useUser();
 
   useEffect(() => {
-    if (!user) {
+    if (!accessToken) {
       router.push('/auth/login');
     } else {
       router.push('/user');
     }
-  }, [user]);
+  }, [accessToken]);
 
-  return <></>
+  return <>로그인</>
 }
 
 export default Auth;

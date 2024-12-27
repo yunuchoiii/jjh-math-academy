@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { isLoggedIn, isNotLoggedIn, apiLimiter, verifyToken } = require('../middlewares');
-const { join, login, createToken, joinTeacher, joinStudent, joinParent, refreshToken } = require('../controllers/auth');
+const { join, login, createToken, joinTeacher, joinStudent, joinParent, refreshToken, logout } = require('../controllers/auth');
 
 const router = express.Router();
 
@@ -30,6 +30,6 @@ router.post('/refresh-token', refreshToken);
 router.get('/verify-token', verifyToken);
 
 // GET /auth/logout
-// router.get('/logout', isLoggedIn, logout);
+router.get('/logout', isLoggedIn, logout);
 
 module.exports = router;

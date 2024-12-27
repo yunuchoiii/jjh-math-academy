@@ -115,7 +115,7 @@ exports.login = async (req, res, next) => {
           },
           process.env.JWT_SECRET,
           {
-            expiresIn: '30m', // Access Token 만료 시간
+            expiresIn: '30m',
             issuer: 'jjhmathacademy2004',
           }
         );
@@ -128,10 +128,17 @@ exports.login = async (req, res, next) => {
           },
           process.env.JWT_SECRET,
           {
-            expiresIn: '28d', // Refresh Token 만료 시간: 4주
+            expiresIn: '28d',
             issuer: 'jjhmathacademy2004',
           }
         );
+
+        res.cookie('refreshToken', refreshToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+          domain: process.env.CLIENT_DOMAIN,
+        });
 
         // Refresh Token을 DB에 저장
         await saveRefreshTokenToDB(user.userId, refreshToken);
@@ -139,8 +146,7 @@ exports.login = async (req, res, next) => {
         return res.status(200).json({
           code: 200,
           message: '로그인 및 토큰이 발급되었습니다.',
-          accessToken,
-          refreshToken,
+          accessToken, // Access Token만 응답
           user: {
             userId: user.userId,
             email: user.email,
@@ -160,6 +166,96 @@ exports.login = async (req, res, next) => {
   })(req, res, next);
 };
 
+// 로그아웃
+exports.logout = async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    return res.status(400).json({ message: '로그인 상태가 아닙니다.' });
+  }
+
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
+    await db.User.update(
+      { refreshToken: null }, // Refresh Token 제거
+      { where: { userId: decoded.id } }
+    );
+
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      domain: process.env.CLIENT_DOMAIN,
+    });
+
+    return res.status(200).json({ message: '로그아웃되었습니다.' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: '서버 에러로 로그아웃 실패' });
+  }
+};
+
+// Refresh Token 검증 및 새로운 Access Token 발급
+exports.refreshToken = async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    return res.status(401).json({ message: 'Refresh Token이 없습니다.' });
+  }
+
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
+    const user = await db.User.findOne({ where: { userId: decoded.id, refreshToken } });
+
+    if (!user) {
+      return res.status(401).json({ message: '유효하지 않은 Refresh Token입니다.' });
+    }
+
+    // 새로운 Access Token 및 Refresh Token 발급
+    const newAccessToken = jwt.sign(
+      {
+        id: user.userId,
+        email: user.email,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '30m',
+        issuer: 'jjhmathacademy2004',
+      }
+    );
+
+    const newRefreshToken = jwt.sign(
+      {
+        id: user.userId,
+        email: user.email,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '28d',
+        issuer: 'jjhmathacademy2004',
+      }
+    );
+
+    await saveRefreshTokenToDB(user.userId, newRefreshToken);
+
+    res.cookie('refreshToken', newRefreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      domain: process.env.CLIENT_DOMAIN,
+    });
+
+    return res.status(200).json({
+      code: 200,
+      message: '새로운 Access Token이 발급되었습니다.',
+      accessToken: newAccessToken,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(401).json({ message: 'Refresh Token이 유효하지 않거나 만료되었습니다.' });
+  }
+};
+
 // Refresh Token 저장 함수
 async function saveRefreshTokenToDB(userId, refreshToken) {
   try {
@@ -174,43 +270,6 @@ async function saveRefreshTokenToDB(userId, refreshToken) {
   }
 }
 
-// Refresh Token 검증 및 새로운 Access Token 발급
-exports.refreshToken = async (req, res) => {
-  const { refreshToken } = req.body;
-
-  try {
-    // Refresh Token 검증
-    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
-
-    // Refresh Token이 서버에 저장된 것과 일치하는지 확인
-    const user = await db.User.findOne({ where: { userId: decoded.id, refreshToken } });
-    if (!user) {
-      return res.status(401).json({ message: '유효하지 않은 Refresh Token입니다.' });
-    }
-
-    // 새로운 Access Token 발급
-    const newAccessToken = jwt.sign(
-      {
-        id: user.userId,
-        email: user.email,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: '30m', // Access Token 만료 시간
-        issuer: 'jjhmathacademy2004',
-      }
-    );
-
-    return res.status(200).json({
-      code: 200,
-      message: '새로운 Access Token이 발급되었습니다.',
-      accessToken: newAccessToken,
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(401).json({ message: 'Refresh Token이 유효하지 않거나 만료되었습니다.' });
-  }
-};
 
 // 토큰 발급 (개발 환경에서만 사용)
 exports.createToken = async (req, res) => {

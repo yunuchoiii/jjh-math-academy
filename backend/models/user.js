@@ -50,9 +50,9 @@ class User extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.User.hasOne(db.Teacher);
-    db.User.hasOne(db.Parent);
-    db.User.hasOne(db.Student);
+    db.User.hasOne(db.Teacher, { foreignKey: 'userId' });
+    db.User.hasOne(db.Parent, { foreignKey: 'userId' });
+    db.User.hasOne(db.Student, { foreignKey: 'userId' });
   }
 }
 
