@@ -30,6 +30,7 @@ export const loginService = {
       const response = await axios.get(`${LOGIN_SERVICE_URL}/logout`, { withCredentials: true });
       if (response.status === 200) {
         axios.defaults.headers.common['Authorization'] = null;
+        return response.data;
       } else {
         throw new Error('로그아웃 실패');
       }

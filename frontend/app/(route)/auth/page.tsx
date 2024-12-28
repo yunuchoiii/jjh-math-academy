@@ -6,15 +6,17 @@ import { useEffect } from "react";
 
 const Auth = () => {
   const router = useRouter();
-  const { user, accessToken } = useUser();
+  const { isLoading, isLoggedIn } = useUser();
 
   useEffect(() => {
-    if (!accessToken) {
-      router.push('/auth/login');
-    } else {
-      router.push('/user');
+    if (!isLoading) {
+      if (isLoggedIn) {
+        router.push('/user');
+      } else {
+        router.push('/auth/login');
+      }
     }
-  }, [accessToken]);
+  }, [isLoggedIn, isLoading]);
 
   return <>로그인</>
 }

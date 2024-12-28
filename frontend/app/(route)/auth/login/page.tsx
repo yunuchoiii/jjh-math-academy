@@ -3,17 +3,15 @@
 import LoginButton from "@/app/_components/Auth/LoginButton";
 import Checkbox from "@/app/_components/Input/Checkbox";
 import TextField from "@/app/_components/Input/TextField";
-import { loginService } from "@/app/_service/login";
-import { userState } from "@/app/_stores/user";
+import useUser from "@/app/_hooks/user";
 import { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from 'react';
-import { useSetRecoilState } from "recoil";
 
 const Login = () => {
   const router = useRouter();
-  const setUser = useSetRecoilState(userState);
+  const { login } = useUser();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,8 +42,7 @@ const Login = () => {
     }
     // 로그인 로직 추가
     try {
-      const response = await loginService.login({data: {email, password}, callback, errorCallback});
-      setUser(response.user);
+      await login({email, password});
     } catch (error) {
       console.error(error);
     }

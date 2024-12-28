@@ -50,7 +50,8 @@ export interface UserPayload {
   userType?: 'user' | 'teacher' | 'parent' | 'student'
 }
 
-const USER_SERVICE_URL = `${process.env.SERVER_URL}/auth`;
+const AUTH_SERVICE_URL = `${process.env.SERVER_URL}/auth`;
+const USER_SERVICE_URL = `${process.env.SERVER_URL}/user`;
 
 export const userService = {
   /** 회원가입
@@ -60,7 +61,7 @@ export const userService = {
    */
   join: async ({callback, errorCallback, data, userType}: UserPayload) => {
     try {
-      const url = `${USER_SERVICE_URL}/join${userType !== 'user' ? `/${userType}` : ''}`;
+      const url = `${AUTH_SERVICE_URL}/join${userType !== 'user' ? `/${userType}` : ''}`;
       const response = await axios.post(url, data);
       callback && callback();
       return response.data;
@@ -70,4 +71,9 @@ export const userService = {
       throw error;
     }
   },
+  get: async () => {
+    const url = `${USER_SERVICE_URL}`;
+    const response = await axios.get(url, { withCredentials: true });
+    return response.data;
+  }
 };
