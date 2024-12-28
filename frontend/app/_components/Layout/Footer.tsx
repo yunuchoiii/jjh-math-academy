@@ -1,9 +1,14 @@
+'use client'
+
 import { CONTACT_INFO, MENU_INFO } from "@/constants";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer () {
+  const pathname = usePathname();
+
   return <>
-    <div className="bg-[#505050] xl:px-32 xl:py-16 lg:px-20 lg:py-12 px-10 py-6 flex items-center lg:justify-center justify-start">
+    <div className={`bg-[#505050] xl:px-32 xl:py-16 lg:px-20 lg:py-12 px-10 py-6 flex items-center lg:justify-center justify-start ${pathname !== '/' ? 'mt-20' : 'mt-0'}`}>
       <div className="xl:w-[1180px] lg:w-[896px] flex flex-col lg:flex-row items-start justify-between">
         <div className="flex items-center justify-center flex-row lg:flex-col h-full">
           <img src="/images/logos/logo_white_outlined.png" alt="logo" className="xl:w-16 lg:w-12 w-7 mb-0 lg:mb-5 mr-4 lg:mr-0"/>

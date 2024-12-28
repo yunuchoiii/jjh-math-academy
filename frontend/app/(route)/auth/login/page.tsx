@@ -54,7 +54,7 @@ const Login = () => {
   ];
 
   return (
-    <div className="pt-8 md:pt-8 p-5 md:p-8 md:pl-0 rounded-[30px] bg-gradient-to-br from-10% from-green-3 to-yellow-1 mb-20 w-full md:flex items-center">
+    <div className="pt-8 md:pt-8 p-5 md:p-8 md:pl-0 rounded-[30px] bg-gradient-to-br from-10% from-green-3 to-yellow-1 w-full md:flex items-center">
       <div className="w-full md:w-5/12 h-full flex items-center justify-center flex-col mb-8 md:mb-0">
         <img src="/images/logos/logo_white.png" alt="logo" className="w-1/3 md:w-1/2 min-w-[120px]"/>
         <div className="text-base font-bold NanumSquare leading-[1.2] mt-[35px]">
