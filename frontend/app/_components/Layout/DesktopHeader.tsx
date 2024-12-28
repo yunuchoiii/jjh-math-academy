@@ -1,6 +1,7 @@
 import { childMenu, HEADER_HEIGHT, MENU_INFO } from '@/constants';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import Tooltip from '../Tooltip/Tooltip';
 import styles from './Layout.module.css';
 
 interface DesktopHeaderProps {
@@ -79,22 +80,26 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
             {showChildren && item.children && <ChildrenMenus childrenMenus={item.children || []}></ChildrenMenus>}
           </div>
         })}
-        {!isLoading && <>
-          <Link 
-            href={user ? '/user' : '/auth/login'} 
-            className="flex items-center py-2 px-4 ml-6 hover:text-green-1 hover:cursor-pointer"
-          >
-            <i title={user ? "마이페이지" : "로그인"} className="far fa-user"></i>
-          </Link>
-          {user && (
-            <div 
-              className="flex items-center py-2 px-4 ml-6 hover:text-green-1 hover:cursor-pointer" 
-              onClick={logout}
+        {!isLoading && <div className="flex items-center ml-6">
+          <Tooltip title={user ? "마이페이지" : "로그인"}>
+            <Link 
+              href={user ? '/user' : '/auth/login'} 
+              className="flex items-center py-1.5 px-4 hover:text-green-1 hover:cursor-pointer"
             >
-              <i title="로그아웃" className="fas fa-sign-out-alt"></i>
-            </div>
+              <i title={user ? "마이페이지" : "로그인"} className="far fa-user"></i>
+            </Link>
+          </Tooltip>
+          {user && (
+            <Tooltip title="로그아웃">
+              <div 
+                className="flex items-center py-1.5 px-4 hover:text-green-1 hover:cursor-pointer" 
+                onClick={logout}
+            >
+                <i title="로그아웃" className="fas fa-sign-out-alt"></i>
+              </div>
+            </Tooltip>
           )}
-        </>}
+        </div>}
       </div>
     </div>
   </div>
