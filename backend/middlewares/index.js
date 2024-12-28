@@ -1,6 +1,4 @@
 const rateLimit = require('express-rate-limit');
-// const Domain = require('../models/domain');
-// const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 exports.isLoggedIn = (req, res, next) => {
@@ -22,7 +20,7 @@ exports.isNotLoggedIn = (req, res, next) => {
 
 exports.verifyToken = (req, res, next) => {
   try {
-    res.locals.decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+    res.locals.decoded = jwt.verify(req.headers.authorization.split(' ')[1], process.env.JWT_SECRET);
     return next();
   } catch (error) {
     if (error.name === 'TokenExpiredError') {

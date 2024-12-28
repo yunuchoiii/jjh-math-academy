@@ -10,6 +10,7 @@ require('./passport')();
 
 dotenv.config();
 const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
 
 const app = express();
 
@@ -36,7 +37,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// 라우터 설정
 app.use('/auth', authRouter);
+app.use('/user', userRouter);
 
 // 데이터베이스 연결
 sequelize.sync()

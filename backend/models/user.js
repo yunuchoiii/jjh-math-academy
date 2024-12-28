@@ -31,7 +31,7 @@ class User extends Sequelize.Model {
         allowNull: false,
       },
       refreshToken: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING(255),
         allowNull: true,
       },
       createdAt: {

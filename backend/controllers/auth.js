@@ -168,19 +168,20 @@ exports.login = async (req, res, next) => {
 
 // 로그아웃
 exports.logout = async (req, res) => {
-  const refreshToken = req.cookies.refreshToken;
-
-  if (!refreshToken) {
-    return res.status(400).json({ message: '로그인 상태가 아닙니다.' });
-  }
-
   try {
-    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
-    await db.User.update(
-      { refreshToken: null }, // Refresh Token 제거
-      { where: { userId: decoded.id } }
-    );
+    const refreshToken = req.cookies.refreshToken;
 
+    if (!refreshToken) {
+      return res.status(400).json({
+        code: 400,
+        message: '로그아웃 요청에 Refresh Token이 없습니다.',
+      });
+    }
+
+    // Refresh Token을 DB에서 삭제
+    await db.User.update({ refreshToken: null }, { where: { refreshToken } });
+
+    // 쿠키에서 Refresh Token 제거
     res.clearCookie('refreshToken', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -188,10 +189,24 @@ exports.logout = async (req, res) => {
       domain: process.env.CLIENT_DOMAIN,
     });
 
-    return res.status(200).json({ message: '로그아웃되었습니다.' });
+    // 세션 종료
+    req.logout((err) => {
+      if (err) {
+        console.error(err);
+        return next(err);
+      }
+
+      return res.status(200).json({
+        code: 200,
+        message: '로그아웃 되었습니다.',
+      });
+    });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: '서버 에러로 로그아웃 실패' });
+    return res.status(500).json({
+      code: 500,
+      message: '로그아웃 중 서버 에러가 발생했습니다.',
+    });
   }
 };
 
