@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { isLoggedIn, isNotLoggedIn, apiLimiter, verifyToken } = require('../middlewares');
-const { join, login, createToken, joinTeacher, joinStudent, joinParent, refreshToken, logout } = require('../controllers/auth');
+const { join, login, createToken, joinTeacher, joinStudent, joinParent, refreshToken, logout, checkEmail } = require('../controllers/auth');
 
 const router = express.Router();
 
@@ -16,6 +16,9 @@ router.post('/join/student', isNotLoggedIn, joinStudent);
 
 // POST /auth/join/parent
 router.post('/join/parent', isNotLoggedIn, joinParent);
+
+// POST /auth/check-email
+router.post('/check-email', isNotLoggedIn, checkEmail);
 
 // POST /auth/login
 router.post('/login', isNotLoggedIn, login);

@@ -26,6 +26,9 @@ class Student extends Sequelize.Model {
       gradeLevel: {
         type: DataTypes.STRING(20),
       },
+      schoolName: {
+        type: DataTypes.STRING(20),
+      },
       isActive: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,

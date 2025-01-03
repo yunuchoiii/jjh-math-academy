@@ -89,6 +89,16 @@ exports.joinParent = async (req, res, next) => {
   }
 }
 
+// 이메일 중복 체크
+exports.checkEmail = async (req, res, next) => {
+  const { email } = req.body;
+  const exUser = await User.findOne({ where: { email } });
+  if (exUser) {
+    return res.status(400).json({ error: '이미 가입된 이메일입니다.' });
+  }
+  res.status(200).json({ message: '사용 가능한 이메일입니다.' });
+}
+
 // 로그인 및 토큰 발급
 exports.login = async (req, res, next) => {
   passport.authenticate('local', async (authError, user, info) => {
