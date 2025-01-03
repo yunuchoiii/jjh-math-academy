@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import Footer from './_components/Layout/Footer'
 import Header from './_components/Layout/Header'
 import RecoilRootWrapper from './_components/Recoil/recoilRootWrapper'
+import { ToastProvider } from './_components/Toast/ToastProvider'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -24,13 +25,15 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       </head>
       <body className={inter.className}>
         <RecoilRootWrapper>
-          <Header/>
-          <div className='flex justify-center pt-[100px] lg:pt-[140px]'>
-            <div className='w-full 2xl:max-w-7xl xl:max-w-6xl lg:max-w-4xl md:max-w-2xl sm:max-w-xl px-5 sm:px-0'>
-            {children}
+          <ToastProvider>
+            <Header/>
+            <div className='flex justify-center pt-[100px] lg:pt-[140px]'>
+              <div className='w-full 2xl:max-w-7xl xl:max-w-6xl lg:max-w-4xl md:max-w-2xl sm:max-w-xl px-5 sm:px-0'>
+              {children}
+              </div>
             </div>
-          </div>
-          <Footer/>
+            <Footer/>
+          </ToastProvider>
         </RecoilRootWrapper>
       </body>
     </html>
