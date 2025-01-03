@@ -30,6 +30,10 @@ const config: Config = {
       'yellow-5': '#D9AB0B',
       'blue-1': '#D6E3E4',
       'blue-2': '#4C7E82',
+      'blue-3': '#49B5C9',
+      'blue-4': '#6ED1E3',
+      'red-1': '#F43F5E',
+      'red-2': '#FB7185',
       'lightgray': '#F9F9F9',
     }
   },

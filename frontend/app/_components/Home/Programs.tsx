@@ -73,7 +73,7 @@ export default function Programs () {
             <div className="w-5 h-[1px] bg-yellow-2"/>
             <a 
               href={program.href}
-              className="flex items-center w-[170px] h-[70px] p-2.5 rounded-2xl bg-white shodow-2"
+              className="flex items-center w-[170px] h-[70px] p-2.5 rounded-2xl bg-white shadow-2"
             >
               <div 
                 className="w-[50px] h-[50px] rounded-[10px] flex items-center justify-center mr-2.5" 

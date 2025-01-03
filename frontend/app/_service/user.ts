@@ -9,6 +9,7 @@ export interface IUser extends UserSavePayload {
 export interface UserSavePayload {
   username: string;
   password: string;
+  confirmPassword?: string; // 회원가입 시 비밀번호 확인을 위한 필드 (실제 사용 X)
   email: string;
   phoneNumber?: string;
   userType: 'teacher' | 'parent' | 'student';
