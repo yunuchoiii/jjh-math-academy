@@ -32,7 +32,7 @@ exports.join = async (req, res, next) => {
 
 // 선생님 회원가입
 exports.joinTeacher = async (req, res, next) => {
-  const { userId, isAdmin } = req.body;
+  const { userId, isAdmin, isActive } = req.body;
   try {
     const exUser = await Teacher.findOne({ where: { userId } });
     if (exUser) {
@@ -41,6 +41,7 @@ exports.joinTeacher = async (req, res, next) => {
     const user = await Teacher.create({
       userId,
       isAdmin,
+      isActive,
     });
     res.status(201).json(user);
   } catch (error) {

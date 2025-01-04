@@ -20,6 +20,10 @@ class Teacher extends Sequelize.Model {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      isActive: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
       deletedAt: {
         type: DataTypes.DATE,
         allowNull: true,
