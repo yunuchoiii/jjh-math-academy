@@ -11,12 +11,16 @@ const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toasts, setToasts] = useState<
-    { id: number; component: React.ReactNode; type: 'success' | 'error' | 'info' | 'warning' | 'default'; message?: string, duration?: number }[]
+    { id: number; sort: number; component: React.ReactNode; type: 'success' | 'error' | 'info' | 'warning' | 'default'; message?: string, duration?: number }[]
   >([]);
 
   const addToast = ({ component, type = 'default', message, duration = 3000 }: { component?: React.ReactNode; type?: 'success' | 'error' | 'info' | 'warning' | 'default'; message?: string, duration?: number }) => {
     const id = Date.now();
-    setToasts((prev) => [...prev, { id, component, type, message, duration }]);
+    const sort = 0;
+    setToasts((prev) => {
+      const updatedToasts = prev.map(toast => ({ ...toast, sort: toast.sort + 1 }));
+      return [...updatedToasts, { id, component, type, message, duration, sort }];
+    });
 
     setTimeout(() => {
       setToasts((prev) => prev.filter((toast) => toast.id !== id));
@@ -35,6 +39,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
           {toasts.map((toast) => (
             <Toast
               key={toast.id}
+              sort={toast.sort}
               component={toast.component}
               onClose={() => removeToast(toast.id)}
               type={toast.type}

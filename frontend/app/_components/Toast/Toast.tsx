@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "usehooks-ts";
 
 type ToastProps = {
+  sort: number;
   type?: 'success' | 'error' | 'info' | 'warning' | 'default';
   message?: string;
   component?: React.ReactNode;
@@ -8,8 +10,10 @@ type ToastProps = {
   duration?: number;
 };
 
-const Toast = ({ type = 'default', message, component, onClose, duration = 3000 }: ToastProps) => {
+const Toast = ({ sort, type = 'default', message, component, onClose, duration = 3000 }: ToastProps) => {
   const [isVisible, setIsVisible] = useState(true);
+
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   useEffect(() => {
     const hideTimeout = setTimeout(() => setIsVisible(false), duration);
@@ -56,11 +60,15 @@ const Toast = ({ type = 'default', message, component, onClose, duration = 3000 
   return (
     <div
       className={`
-        w-full sm:max-w-[400px] p-4 rounded-xl shadow-1 bg-opacity-90 backdrop-blur-sm 
+        w-full absolute sm:max-w-[400px] mx-2 p-4 rounded-xl shadow-1 bg-opacity-90 backdrop-blur-sm transition-all duration-300 ease-in-out overflow-hidden 
         ${toastType[type].bg}
         ${toastType[type].text}
         ${isVisible ? "fade-in-bottom" : "fade-out-bottom"}
       `}
+      style={{ 
+        bottom: `${sort * 10 + 20}px`,
+        width: `calc(${isMobile ? '90%' : '400px'} - ${sort * 10}px)`
+      }}
     >
       <div className="flex justify-between items-center">
         {component}
