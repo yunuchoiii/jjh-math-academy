@@ -1,5 +1,9 @@
 const jwt = require('jsonwebtoken');
 const db = require('../models');
+const User = require('../models/user');
+const Teacher = require('../models/teacher');
+const Student = require('../models/student');
+const Parent = require('../models/parent');
 
 exports.getUser = async (req, res) => {
   const authHeader = req.headers.authorization;
@@ -118,3 +122,78 @@ exports.getTeacherList = async (req, res) => {
     return res.status(500).json({ message: '선생님 목록을 불러오는 중 오류가 발생했습니다.' });
   }
 };
+
+exports.updateUser = async (req, res, next) => {
+  const userId = req.params.userId;
+  const { username, email, phoneNumber } = req.body;
+  try {
+    const [updated] = await User.update({ username, email, phoneNumber }, { where: { userId } });
+    if (updated) {
+      const updatedUser = await User.findOne({ where: { userId } });
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+exports.updateTeacher = async (req, res, next) => {
+  const userId = req.params.userId;
+  const { isAdmin, isActive } = req.body;
+  try {
+    const [updated] = await Teacher.update(
+      { isAdmin, isActive }, 
+      { where: { userId } 
+    });
+    if (updated) {
+      const updatedUser = await Teacher.findOne({ where: { userId } });
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({ error: '선생님을 찾을 수 없습니다.' });
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+exports.updateStudent = async (req, res, next) => {
+  const userId = req.params.userId;
+  const { parentId, gradeLevel, schoolName, isActive } = req.body;
+  try {
+    const [updated] = await Student.update(
+      { parentId, gradeLevel, schoolName, isActive },
+      { where: { userId } }
+    );
+
+    if (updated) {
+      const updatedUser = await Student.findOne({ where: { userId } });
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({ error: '학생을 찾을 수 없습니다.' });
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+exports.updateParent = async (req, res, next) => {
+  const userId = req.params.userId;
+  const { isActive } = req.body;
+  try {
+    const [updated] = await Parent.update({ isActive }, { where: { userId } });
+    if (updated) {
+      const updatedUser = await Parent.findOne({ where: { userId } });
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({ error: '학부모를 찾을 수 없습니다.' });
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
