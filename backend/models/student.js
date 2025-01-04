@@ -24,7 +24,7 @@ class Student extends Sequelize.Model {
         },
       },
       gradeLevel: {
-        type: DataTypes.STRING(20),
+        type: DataTypes.INTEGER,
       },
       schoolName: {
         type: DataTypes.STRING(20),
