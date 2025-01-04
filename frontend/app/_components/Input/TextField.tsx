@@ -1,5 +1,6 @@
-import { DetailedHTMLProps, HTMLInputTypeAttribute, InputHTMLAttributes, useEffect } from "react";
+import { ButtonHTMLAttributes, DetailedHTMLProps, HTMLInputTypeAttribute, InputHTMLAttributes } from "react";
 import { FieldError } from "react-hook-form";
+import ReactiveButton from "../Button/ReactiveButton";
 import FormError from "../Error/FormError";
 import styles from "./Input.module.css";
 
@@ -9,29 +10,36 @@ interface TextFieldProps {
   inputType: HTMLInputTypeAttribute;
   value?: string;
   onChange?: (value: string) => void;
+  buttonLabel?: string;
+  buttonProps?: ButtonHTMLAttributes<HTMLButtonElement>
   register?: any;
   error?: FieldError;
   props?: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 }
 
-const TextField = ({ label, placeholder, inputType, value, onChange, register, error, props }: TextFieldProps) => {
-
-  useEffect(() => {
-    console.log(error);
-  }, [error])
+const TextField = ({ label, placeholder, inputType, value, onChange, buttonLabel, buttonProps, register, error, props }: TextFieldProps) => {
 
   return (
     <div className="w-full">
       <label className="text-sm Montserrat ml-1">{label}</label>
-      <input 
-        type={inputType} 
-        className={`w-full h-10 px-3 rounded-[8px] mb-4 mt-1 bg-white shadow-2 border-[2px] border-transparent ${styles.textfield} ${error ? 'border-red-2' : ''}`} 
-        placeholder={placeholder} 
-        value={value}
-        onChange={(e) => onChange && onChange(e.target.value)}
-        {...register}
-        {...props}
-      />
+      <div className="flex items-center mb-4 mt-1">
+        <input 
+          type={inputType} 
+          className={`flex-1 h-10 px-3 rounded-[8px] bg-white shadow-2 border-[2px] border-transparent ${styles.textfield} ${error ? 'border-red-2' : ''}`} 
+          placeholder={placeholder} 
+          value={value}
+          onChange={(e) => onChange && onChange(e.target.value)}
+          {...register}
+          {...props}
+        />
+        {buttonProps && (
+          <ReactiveButton 
+            props={buttonProps}
+          >
+              {buttonLabel}
+          </ReactiveButton>
+        )}
+      </div>
       {error && error.message && 
         <FormError errorMessage={error.message} />
       }
