@@ -33,8 +33,11 @@ exports.getUser = async (req, res) => {
 
 // 공통된 사용자 목록 조회 함수
 async function getUserListByType(userType, additionalAttributes = []) {
+  // userType이 null이 아닐 때만 조건 추가
+  const whereCondition = userType !== null ? { userType } : {};
+
   const users = await db.User.findAll({
-    where: { userType },
+    where: whereCondition,
     attributes: ['userId', 'username', 'email', ...additionalAttributes],
   });
   return users;
