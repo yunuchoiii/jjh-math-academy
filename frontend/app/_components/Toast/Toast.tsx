@@ -13,7 +13,7 @@ type ToastProps = {
 const Toast = ({ sort, type = 'default', message, component, onClose, duration = 3000 }: ToastProps) => {
   const [isVisible, setIsVisible] = useState(true);
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = !useMediaQuery('(min-width: 640px)');
 
   useEffect(() => {
     const hideTimeout = setTimeout(() => setIsVisible(false), duration);
