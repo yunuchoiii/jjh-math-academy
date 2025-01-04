@@ -41,7 +41,8 @@ export interface StudentSavePayload {
   userId: number;
   isActive: boolean;
   parentId: number;
-  gradeLevel: string;
+  gradeLevel: number; /** 1 ~ 12 */
+  schoolName: string;
 }
 
 export interface UserPayload {
@@ -72,6 +73,18 @@ export const userService = {
       throw error;
     }
   },
+  /** 이메일 중복 체크
+   * @param {string} email - 이메일
+   * @returns {Promise<any>} - 이메일 중복 체크 응답 데이터
+   */
+  checkEmail: async (email: string) => {
+    const url = `${AUTH_SERVICE_URL}/check-email`;
+    const response = await axios.post(url, { email });
+    return response.data;
+  },
+  /** 유저 정보 조회
+   * @returns {Promise<any>} - 유저 정보 응답 데이터
+   */
   get: async () => {
     const url = `${USER_SERVICE_URL}`;
     const response = await axios.get(url, { withCredentials: true });
