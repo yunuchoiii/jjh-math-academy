@@ -34,7 +34,10 @@ const TextField = ({ label, placeholder, inputType, value, onChange, buttonLabel
         />
         {buttonProps && (
           <ReactiveButton 
-            props={buttonProps}
+            props={{
+              ...buttonProps, 
+              className: "bg-green-1 text-white shadow-2 px-3 py-2 rounded-[8px] whitespace-nowrap ml-2 max-w-[100px]"
+            }}
           >
               {buttonLabel}
           </ReactiveButton>

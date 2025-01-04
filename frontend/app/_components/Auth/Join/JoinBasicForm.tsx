@@ -17,7 +17,8 @@ const JoinBasicForm = ({ register, errors, watch, isEmailChecked, setIsEmailChec
   const password = watch("password");
   const {addToast} = useToast();
 
-  const checkEmail = async () => {
+  const checkEmail = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     if (watch("email") === "") {
       addToast({
         message: "이메일을 입력해주세요.",
@@ -50,7 +51,11 @@ const JoinBasicForm = ({ register, errors, watch, isEmailChecked, setIsEmailChec
         register={register('email', { required: true })} 
         error={errors.email}
         buttonLabel="중복 확인"
-        onButtonClick={() => checkEmail()}
+        buttonProps={{
+          title: "이메일 중복 확인",
+          onClick: (e: React.MouseEvent<HTMLButtonElement>) => checkEmail(e),
+          className: "bg-green-1 text-white shadow-2 px-3 py-2 rounded-[8px] whitespace-nowrap ml-2 max-w-[100px]"
+        }}
       />
       <TextField 
         label="비밀번호" 

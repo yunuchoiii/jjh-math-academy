@@ -22,6 +22,7 @@ export interface ITeacher extends TeacherSavePayload {
 export interface TeacherSavePayload {
   userId: number;
   isActive: boolean;
+  isAdmin: boolean;
 }
 
 export interface IParent extends ParentSavePayload {
@@ -49,7 +50,8 @@ export interface UserPayload {
   callback?: () => any
   errorCallback?: (error: AxiosError) => void
   data?: UserSavePayload | TeacherSavePayload | ParentSavePayload | StudentSavePayload
-  userType?: 'user' | 'teacher' | 'parent' | 'student'
+  userType?: 'user' | 'teacher' | 'parent' | 'student',
+  userId?: number
 }
 
 const AUTH_SERVICE_URL = `${process.env.SERVER_URL}/auth`;
@@ -85,9 +87,109 @@ export const userService = {
   /** 유저 정보 조회
    * @returns {Promise<any>} - 유저 정보 응답 데이터
    */
-  get: async () => {
-    const url = `${USER_SERVICE_URL}`;
+  getMyInfo: async () => {
+    const url = `${USER_SERVICE_URL}/myinfo`;
     const response = await axios.get(url, { withCredentials: true });
     return response.data;
+  },
+  /** 유저 목록 조회
+   * @returns {Promise<any>} - 유저 목록 응답 데이터
+   */
+  getList: async () => {
+    const url = `${USER_SERVICE_URL}/list`;
+    const response = await axios.get(url, { withCredentials: true });
+    return response.data;
+  },
+  /** 학생 목록 조회
+   * @returns {Promise<any>} - 학생 목록 응답 데이터
+   */
+  getStudentList: async () => {
+    const url = `${USER_SERVICE_URL}/list/student`;
+    const response = await axios.get(url, { withCredentials: true });
+    return response.data;
+  },
+  /** 선생님 목록 조회
+   * @returns {Promise<any>} - 선생님 목록 응답 데이터
+   */
+  getTeacherList: async () => {
+    const url = `${USER_SERVICE_URL}/list/teacher`;
+    const response = await axios.get(url, { withCredentials: true });
+    return response.data;
+  },
+  /** 부모 목록 조회
+   * @returns {Promise<any>} - 부모 목록 응답 데이터
+   */
+  getParentList: async () => {
+    const url = `${USER_SERVICE_URL}/list/parent`;
+    const response = await axios.get(url, { withCredentials: true });
+    return response.data;
+  },
+  /** 유저 정보 업데이트
+   * @param {string} userId - 유저 ID
+   * @body {UserSavePayload} data - 업데이트할 유저 데이터
+   * @returns {Promise<any>} - 업데이트된 유저 정보 응답 데이터
+   */
+  updateUser: async ({userId, data, callback, errorCallback}: UserPayload) => {
+    try {
+      const url = `${USER_SERVICE_URL}/update/${userId}`;
+      const response = await axios.put(url, data, { withCredentials: true });
+      callback && callback();
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      errorCallback && errorCallback(error as AxiosError);
+      throw error;
+    }
+  },
+  /** 선생님 정보 업데이트
+   * @param {number} userId - 선생님 ID
+   * @body {TeacherSavePayload} data - 업데이트할 선생님 데이터
+   * @returns {Promise<any>} - 업데이트된 선생님 정보 응답 데이터
+   */
+  updateTeacher: async ({userId, data, callback, errorCallback}: UserPayload) => {
+    try {
+      const url = `${USER_SERVICE_URL}/update/teacher/${userId}`;
+      const response = await axios.put(url, data, { withCredentials: true });
+      callback && callback();
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      errorCallback && errorCallback(error as AxiosError);
+      throw error;
+    }
+  },
+  /** 학생 정보 업데이트
+   * @param {string} userId - 학생 ID
+   * @body {StudentSavePayload} data - 업데이트할 학생 데이터
+   * @returns {Promise<any>} - 업데이트된 학생 정보 응답 데이터
+   */
+  updateStudent: async ({userId, data, callback, errorCallback}: UserPayload) => {
+    try {
+      const url = `${USER_SERVICE_URL}/update/student/${userId}`;
+      const response = await axios.put(url, data, { withCredentials: true });
+      callback && callback();
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      errorCallback && errorCallback(error as AxiosError);
+      throw error;
+    }
+  },
+  /** 부모 정보 업데이트
+   * @param {string} userId - 부모 ID
+   * @body {ParentSavePayload} data - 업데이트할 부모 데이터
+   * @returns {Promise<any>} - 업데이트된 부모 정보 응답 데이터
+   */
+  updateParent: async ({userId, data, callback, errorCallback}: UserPayload) => {
+    try {
+      const url = `${USER_SERVICE_URL}/update/parent/${userId}`;
+      const response = await axios.put(url, data, { withCredentials: true });
+      callback && callback();
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      errorCallback && errorCallback(error as AxiosError);
+      throw error;
+    }
   }
 };
