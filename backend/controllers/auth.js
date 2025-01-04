@@ -51,7 +51,7 @@ exports.joinTeacher = async (req, res, next) => {
 
 // 학생 회원가입
 exports.joinStudent = async (req, res, next) => {
-  const { userId, parentId, gradeLevel, isActive } = req.body;
+  const { userId, parentId, gradeLevel, schoolName, isActive } = req.body;
   try {
     const exUser = await Student.findOne({ where: { userId } });
     if (exUser) {
@@ -61,9 +61,13 @@ exports.joinStudent = async (req, res, next) => {
       userId,
       parentId,
       gradeLevel,
+      schoolName,
       isActive,
     });
-    res.status(201).json(user);
+    res.status(201).json({
+      message: "학생 회원가입이 완료되었습니다.",
+      user,
+    });
   } catch (error) {
     console.error(error);
     next(error);
