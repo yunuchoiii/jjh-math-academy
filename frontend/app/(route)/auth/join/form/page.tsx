@@ -121,9 +121,11 @@ const JoinByUserType: FC<Props> = ({ searchParams }) => {
   return (
     <div className='sm:w-1/2 w-full sm:min-w-[400px] mx-auto'>
       <Title title={`회원가입`} subtitle='조재현 수학학원 홈페이지에 오신 것을 환영합니다!'/>
-      <div className='text-base font-bold text-gray-1 mb-10 NanumSquare'>
-        학부모님의 경우, <b>학생(자녀)의 회원가입</b>을 먼저 진행해주세요.
-      </div>
+      {userType === "parent" && (
+        <div className='text-base font-bold text-gray-1 mb-10 NanumSquare'>
+          학부모님의 경우, <b>학생(자녀)의 회원가입</b>을 먼저 진행해주세요.
+        </div>
+      )}
       <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
         <JoinBasicForm 
           register={register} 

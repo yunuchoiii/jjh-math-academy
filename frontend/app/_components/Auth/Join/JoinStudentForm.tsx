@@ -1,4 +1,4 @@
-import { JoinPayload } from "@/app/(route)/auth/join/type/page";
+import { JoinPayload } from "@/app/(route)/auth/join/form/page";
 import { FieldErrors, UseFormRegister, UseFormWatch } from "react-hook-form";
 import Select from "../../Input/Select";
 import TextField from "../../Input/TextField";

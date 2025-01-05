@@ -1,4 +1,4 @@
-import { JoinPayload } from "@/app/(route)/auth/join/type/page";
+import { JoinPayload } from "@/app/(route)/auth/join/form/page";
 import { userService } from "@/app/_service/user";
 import { Dispatch, SetStateAction } from "react";
 import { FieldErrors, UseFormRegister, UseFormWatch } from "react-hook-form";

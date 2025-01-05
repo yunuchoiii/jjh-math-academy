@@ -49,7 +49,7 @@ const Login = () => {
   };
 
   const links = [
-    { href: "/auth/join", label: "회원가입" },
+    { href: "/auth/join/select-type", label: "회원가입" },
     { href: "/auth/find", label: "아이디 · 비밀번호 찾기" }
   ];
 

@@ -6,8 +6,8 @@
 
 :root {
   --foreground-rgb: 51, 51, 51;
-  --background-start-rgb: 249, 249, 249;
-  --background-end-rgb: 249, 249, 249;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
 }
 
 /* 다크모드 비활성화 */

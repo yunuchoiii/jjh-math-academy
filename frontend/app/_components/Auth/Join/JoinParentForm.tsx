@@ -1,4 +1,4 @@
-import { JoinPayload } from "@/app/(route)/auth/join/type/page";
+import { JoinPayload } from "@/app/(route)/auth/join/form/page";
 import { IStudent, userService } from "@/app/_service/user";
 import { getGradeLevel } from "@/app/_utils";
 import { useEffect, useState } from "react";
