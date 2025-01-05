@@ -4,7 +4,9 @@ import Footer from './_components/Layout/Footer'
 import Header from './_components/Layout/Header'
 import RecoilRootWrapper from './_components/Recoil/recoilRootWrapper'
 import { ToastProvider } from './_components/Toast/ToastProvider'
-import './globals.css'
+import './_styles/animations.css'
+import './_styles/font.css'
+import './_styles/globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
