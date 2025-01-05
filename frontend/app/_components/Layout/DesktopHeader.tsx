@@ -1,4 +1,4 @@
-import { childMenu, HEADER_HEIGHT, MENU_INFO } from '@/constants';
+import { childMenu, CONTACT_INFO, HEADER_HEIGHT, MENU_INFO } from '@/constants';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
@@ -102,6 +102,62 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
         </div>}
       </div>
     </div>
+    {<div 
+      className={`${styles.fullMenuBox} w-full flex items-start justify-center fixed inset-x-0 py-12`}
+      style={{top: hamburger ? HEADER_HEIGHT : -250}}>
+        <div className="mr-16">
+          <div className="Montserrat text-lg text-green-1 pb-5 px-1 uppercase">menu</div>
+          <div className="pt-5 flex justify-between border-t border-green-1 px-1">
+            {Object.values(MENU_INFO).map (menu => (
+              <div 
+                key={`fullmenu-${menu.title}`} 
+                className="flex flex-col items-start"
+                style={{width: menu.sort !== 4 ? 186 : 'unset'}}
+              >
+                <button 
+                  className="text-green-1 text-lg mb-4 font-semibold"
+                  onClick={menu.link ? handleContactMenu : ()=>{}}
+                >
+                  {menu.title}
+                </button>
+                {menu.children?.map(item => (
+                  <Link href={item.link} key={`fullmenu-${item.sort}`} className={`${styles.fullMenuUnit} mb-3 last:mb-0`}>
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{width: 200}}>
+          <div className="Montserrat text-lg text-green-1 pb-5 px-1 uppercase">contact</div>
+          <div className="pt-5 flex flex-col justify-between border-t border-green-1 px-1">
+            {Object.values(CONTACT_INFO).map(item => {
+              const Content = (
+                <>
+                  <img src={item.icon} alt={item.title} className="opacity-50 mr-4" style={{width: 15, height: 15}}/>
+                  <div className={styles.fullMenuUnit}>{item.title}</div>
+                </>
+              );
+              return item.link !== "" ? (
+                <a 
+                  href={item.link} 
+                  target={item.link.startsWith('/') ? undefined : "_blank"} 
+                  rel="noopener noreferrer" 
+                  key={`contact-info-${item.sort}`} 
+                  className="flex items-center mb-3 last:mb-0"
+                >
+                  {Content}
+                </a>
+              ) : (
+                <div key={`contact-info-${item.sort}`} className="flex items-center mb-3 last:mb-0">
+                  {Content}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+    </div>}
   </div>
 }
 
