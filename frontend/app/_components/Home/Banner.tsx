@@ -64,19 +64,20 @@ const HomeBanner = () => {
 
   const MobileBannerCard = ({ item }: { item: Banner }) => {
     return (
-      <div 
-        className={`h-[300px] w-[280px] mx-2.5 rounded-xl relative overflow-x-scroll flex-shrink-0 snap-center`}
+      <div
+        className={`h-[300px] w-[280px] mx-2.5 rounded-xl relative overflow-x-scroll flex-shrink-0 snap-center active:scale-95 transition-all duration-300`}
         style={{
           background: item.backgroundColor, 
           boxShadow: '8px 8px 24px 0px rgba(0, 0, 0, 0.10), -8px -8px 24px 0px rgba(255, 255, 255, 0.10)',
         }}
+        onClick={() => router.push(item.link)}
       >
         <div className="mt-7 mx-6 flex justify-between">
-          <div className="leading-snug">
-            <div className="text-base font-bold NanumSquare mb-1">
+          <div className="leading-snug NanumSquare">
+            <div className="text-base font-bold mb-1">
               {item.subtitle}
             </div>
-            <div className="text-2xl font-bold" style={{color: item.color}}>
+            <div className="text-2xl font-extrabold" style={{color: item.color}}>
               {item.title}
             </div>
           </div>
