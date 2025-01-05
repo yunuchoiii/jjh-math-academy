@@ -64,6 +64,13 @@ const JoinByUserType: FC<Props> = ({ searchParams }) => {
         }
         return;
       }
+      if (userType === "parent" && !selectedStudent) {
+        addToast({
+          message: "학생(자녀)을 선택해주세요.",
+          type: "error",
+        });
+        return;
+      }
       const res = await userService.join({
         errorCallback,
         data: {
@@ -122,32 +129,34 @@ const JoinByUserType: FC<Props> = ({ searchParams }) => {
     <div className='sm:w-1/2 w-full sm:min-w-[400px] mx-auto'>
       <Title title={`회원가입`} subtitle='조재현 수학학원 홈페이지에 오신 것을 환영합니다!'/>
       {userType === "parent" && (
-        <div className='text-base font-bold text-gray-1 mb-10 NanumSquare'>
-          학부모님의 경우, <b>학생(자녀)의 회원가입</b>을 먼저 진행해주세요.
+        <div className='text-base font-bold text-gray-1 mb-5 NanumSquare bg-green-4 bg-opacity-50 rounded-2xl px-5 py-3 leading-relaxed'>
+          잠깐! <b>학부모</b>님의 경우, <br/><b>학생(자녀)의 회원가입</b>을 먼저 진행해주세요.
         </div>
       )}
       <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
-        <JoinBasicForm 
-          register={register} 
-          errors={errors} 
-          watch={watch}
-          isEmailChecked={isEmailChecked}
-          setIsEmailChecked={setIsEmailChecked}
-        />
-        {userType === "student" && (
-          <JoinStudentForm
-            register={register}
-            errors={errors}
+        <div className='bg-[#f7f7f7] rounded-2xl px-5 pb-3 pt-4'>
+          <JoinBasicForm 
+            register={register} 
+            errors={errors} 
             watch={watch}
+            isEmailChecked={isEmailChecked}
+            setIsEmailChecked={setIsEmailChecked}
           />
-        )}
-        {userType === "parent" && (
-          <JoinParentForm
-            setValue={setValue}
-            selectedStudent={selectedStudent}
-            setSelectedStudent={setSelectedStudent}
-          />
-        )}
+          {userType === "student" && (
+            <JoinStudentForm
+              register={register}
+              errors={errors}
+              watch={watch}
+            />
+          )}
+          {userType === "parent" && (
+            <JoinParentForm
+              setValue={setValue}
+              selectedStudent={selectedStudent}
+              setSelectedStudent={setSelectedStudent}
+            />
+          )}
+        </div>
         <ReactiveButton props={{ type: "submit" }}>
           <div className='w-full h-12 flex items-center justify-center bg-green-1 rounded-2xl text-white NanumSquare text-lg font-bold mt-5 shadow-2'>
             회원가입
