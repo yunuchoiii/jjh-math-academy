@@ -39,7 +39,7 @@ const JoinByUserType: FC<Props> = ({ searchParams }) => {
 
   // 회원가입 완료 후 이동
   const callback = () => {
-    router.push("/auth/join/complete");
+    router.push(`/auth/join/complete?username=${watch("username")}`);
   }
 
   // 회원가입 실패 콜백

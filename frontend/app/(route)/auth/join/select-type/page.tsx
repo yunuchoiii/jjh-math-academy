@@ -36,7 +36,7 @@ const Join = () => {
           <div 
             key={userType.type}
             className={`
-              group cursor-pointer relative flex flex-col justify-center items-center md:w-[250px] md:h-[250px] sm:w-[220px] sm:h-[220px] w-[130px] h-[160px] rounded-[30px] bg-white shadow-2 transition-all duration-300 overflow-hidden border-4 border-transparent
+              group cursor-pointer relative flex flex-col justify-center items-center md:w-[250px] md:h-[250px] sm:w-[220px] sm:h-[220px] w-[130px] h-[160px] rounded-[30px] bg-white shadow-2 transition-all duration-300 overflow-hidden border-4
               ${selectedUserType === userType.type ? "border-green-1" : " border-white"}
             `} 
             onClick={() => setSelectedUserType(userType.type as "parent" | "student")}
