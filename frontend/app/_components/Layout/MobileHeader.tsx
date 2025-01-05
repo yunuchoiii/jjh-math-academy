@@ -1,6 +1,6 @@
 import { CONTACT_INFO, HEADER_HEIGHT_MOBILE, MENU_INFO } from '@/constants';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Layout.module.css';
 
 interface MobileHeaderProps {
@@ -10,6 +10,15 @@ interface MobileHeaderProps {
 }
 
 const MobileHeader = ({hamburger, setHamburger, handleContactMenu}: MobileHeaderProps) => {
+  
+  // 모바일 메뉴 열때 스크롤 방지
+  useEffect(() => {
+    document.body.style.overflow = hamburger ? 'hidden' : 'auto';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [hamburger]);
+
   return <div className="flex lg:hidden w-screen fixed inset-x-0 top-0 z-50">
     <div 
       className={`${styles.header} w-screen flex items-center justify-between fixed inset-x-0 top-0`} 
@@ -38,7 +47,7 @@ const MobileHeader = ({hamburger, setHamburger, handleContactMenu}: MobileHeader
             top: hamburger ? 50 : '-100%'
           }}
         >
-          <div className="overflow-scroll" style={{height: "calc(100% - 5rem)"}}>
+          <div className="overflow-scroll pb-10" style={{height: "calc(100% - 5rem)"}}>
             {Object.values(MENU_INFO).map(parentMenu => {
               const [menuOpened, setMenuOpened] = useState<boolean>(false);
               const handleMenuClick = () => {
@@ -54,10 +63,7 @@ const MobileHeader = ({hamburger, setHamburger, handleContactMenu}: MobileHeader
                   transition: 'height 0.25s ease-in-out'
                 }}>
                   <div 
-                    className={`${styles.mobileParentMenu} w-full h-14 rounded-xl px-6 flex items-center justify-between mb-1`}
-                    style={{
-                      backgroundColor: menuOpened ? '#F0F0F0' : 'transparent'
-                    }}
+                    className={`${styles.mobileParentMenu} w-full h-14 rounded-xl px-6 flex items-center justify-between mb-1 active:bg-[#F0F0F0] ${menuOpened ? 'bg-[#F0F0F0]' : 'bg-transparent'}`}
                     onClick={handleMenuClick}
                   > 
                     <span className="text-green-1 text-xl leading-none font-bold">
