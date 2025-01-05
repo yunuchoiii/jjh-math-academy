@@ -51,7 +51,7 @@ const useUser = () => {
         const { accessToken } = response.data;
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         setAccessToken(accessToken);
-        const userResponse = await userService.get();
+        const userResponse = await userService.getMyInfo();
         setUser(userResponse.user);
       }
     } catch (error) {
