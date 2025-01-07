@@ -11,7 +11,7 @@ interface LoginButtonProps {
 
 const LoginButton = ({label, icon, color, bgFrom, bgTo, onClick}: LoginButtonProps) => {
   return <button 
-      className={`relative w-full h-10 rounded-[5px] text-white font-bold mb-2.5 ${styles.loginButton}`} 
+      className={`relative w-full h-10 rounded-[5px] text-white font-bold ${styles.loginButton}`} 
       style={{background: `linear-gradient(to right, ${bgFrom}, ${bgTo})`}}
       onClick={onClick}
     >

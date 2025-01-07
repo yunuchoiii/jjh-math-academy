@@ -3,14 +3,14 @@
 import LoginButton from "@/app/_components/Auth/LoginButton";
 import Checkbox from "@/app/_components/Input/Checkbox";
 import TextField from "@/app/_components/Input/TextField";
+import { useToast } from "@/app/_components/Toast/ToastProvider";
 import useUser from "@/app/_hooks/user";
 import { AxiosError } from "axios";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from 'react';
 
 const Login = () => {
-  const router = useRouter();
+  const { addToast } = useToast();
   const { login } = useUser();
 
   const [email, setEmail] = useState('');
@@ -25,13 +25,12 @@ const Login = () => {
     }
   }, []);
 
-  const callback = () => {
-    router.push('/');
-  }
-
   const errorCallback = (error: AxiosError) => {
     console.error(error);
-    alert('로그인 실패');
+    addToast({
+      message: '이메일 또는 비밀번호를 확인해주세요.',
+      type: 'error',
+    });
   }
 
   const handleEmailLogin = async () => {
@@ -44,7 +43,7 @@ const Login = () => {
     try {
       await login({email, password});
     } catch (error) {
-      console.error(error);
+      errorCallback(error as AxiosError);
     }
   };
 
@@ -89,7 +88,7 @@ const Login = () => {
             label="이메일 기억하기"
           />
         </div>
-        <div className="mt-5">
+        <div className="mt-5 flex flex-col gap-2.5">
           <LoginButton 
             label="이메일로 로그인" 
             icon="far fa-envelope"
@@ -98,13 +97,15 @@ const Login = () => {
             bgTo="#41B580"
             onClick={handleEmailLogin}
           />
-          <LoginButton 
-            label="카카오톡 로그인" 
-            icon="fas fa-comment"
-            color="dark"
-            bgFrom="#FFDC61"
-            bgTo="#EFC223"
-          />
+          {process.env.KAKAO_API_KEY && (
+            <LoginButton 
+              label="카카오톡 로그인" 
+              icon="fas fa-comment"
+              color="dark"
+              bgFrom="#FFDC61"
+              bgTo="#EFC223"
+            />
+          )}
         </div>
         <div className="mt-5 flex justify-center items-center">
           {links.map((link, index) => (
