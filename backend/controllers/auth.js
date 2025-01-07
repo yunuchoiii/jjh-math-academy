@@ -270,8 +270,8 @@ exports.refreshToken = async (req, res) => {
 
     res.cookie('refreshToken', newRefreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production' ? true : false,
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
       domain: process.env.CLIENT_DOMAIN,
     });
 
