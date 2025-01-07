@@ -1,6 +1,6 @@
 import { CONTACT_INFO, HEADER_HEIGHT_MOBILE, MENU_INFO } from '@/constants';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './Layout.module.css';
 
 interface MobileHeaderProps {
@@ -10,14 +10,6 @@ interface MobileHeaderProps {
 }
 
 const MobileHeader = ({hamburger, setHamburger, handleContactMenu}: MobileHeaderProps) => {
-  
-  // 모바일 메뉴 열때 스크롤 방지
-  useEffect(() => {
-    document.body.style.overflow = hamburger ? 'hidden' : 'auto';
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [hamburger]);
 
   return <div className="flex lg:hidden w-screen fixed inset-x-0 top-0 z-50">
     <div 

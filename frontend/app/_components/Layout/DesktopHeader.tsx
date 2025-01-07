@@ -80,22 +80,22 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
             {showChildren && item.children && <ChildrenMenus childrenMenus={item.children || []}></ChildrenMenus>}
           </div>
         })}
-        {!isLoading && <div className="flex items-center ml-6">
+        {!isLoading && <div className="flex items-center ml-6 gap-10">
           <Tooltip title={user ? "마이페이지" : "로그인"}>
             <Link 
               href={user ? '/user' : '/auth/login'} 
-              className="flex items-center py-1.5 px-4 hover:text-green-1 hover:cursor-pointer"
+              className="flex items-center py-1.5 hover:text-green-1 hover:cursor-pointer"
             >
-              <i title={user ? "마이페이지" : "로그인"} className="far fa-user"></i>
+              <i className="fas fa-user-circle text-xl"></i>
             </Link>
           </Tooltip>
           {user && (
             <Tooltip title="로그아웃">
               <div 
-                className="flex items-center py-1.5 px-4 hover:text-green-1 hover:cursor-pointer" 
+                className="flex items-center py-1.5 hover:text-green-1 hover:cursor-pointer" 
                 onClick={logout}
             >
-                <i title="로그아웃" className="fas fa-sign-out-alt"></i>
+                <i className="fas fa-sign-out-alt text-xl"></i>
               </div>
             </Tooltip>
           )}
