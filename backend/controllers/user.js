@@ -5,7 +5,8 @@ const Teacher = require('../models/teacher');
 const Student = require('../models/student');
 const Parent = require('../models/parent');
 
-exports.getUser = async (req, res) => {
+// 토큰을 이용한 사용자 정보 조회
+exports.getUserByToken = async (req, res) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -34,6 +35,46 @@ exports.getUser = async (req, res) => {
     return res.status(401).json({ message: 'Invalid or expired token' });
   }
 };
+
+// 사용자 정보 조회
+exports.getUserInfo = async (req, res) => {
+  const userId = req.params.userId;
+  const user = await db.User.findOne({ where: { userId } });
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+  return res.status(200).json({ user });
+}
+
+// 선생님 정보 조회
+exports.getTeacherInfo = async (req, res) => {
+  const userId = req.params.userId;
+  const teacher = await db.Teacher.findOne({ where: { userId } });
+  if (!teacher) {
+    return res.status(404).json({ message: 'Teacher not found' });
+  }
+  return res.status(200).json({ teacher });
+}
+
+// 학부모 정보 조회
+exports.getParentInfo = async (req, res) => {
+  const userId = req.params.userId;
+  const parent = await db.Parent.findOne({ where: { userId } });
+  if (!parent) {
+    return res.status(404).json({ message: 'Parent not found' });
+  }
+  return res.status(200).json({ parent });
+}
+
+// 학생 정보 조회
+exports.getStudentInfo = async (req, res) => {
+  const userId = req.params.userId;
+  const student = await db.Student.findOne({ where: { userId } });
+  if (!student) {
+    return res.status(404).json({ message: 'Student not found' });
+  }
+  return res.status(200).json({ student });
+}
 
 // 공통된 사용자 목록 조회 함수
 async function getUserListByType(userType, additionalAttributes = []) {

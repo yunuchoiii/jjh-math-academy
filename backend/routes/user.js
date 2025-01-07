@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { isLoggedIn, isNotLoggedIn, apiLimiter, verifyToken } = require('../middlewares');
-const { getUser, getUserList, getStudentList, getParentList, getTeacherList, updateStudent, updateTeacher, updateParent, updateUser } = require('../controllers/user');
+const { getUserList, getStudentList, getParentList, getTeacherList, updateStudent, updateTeacher, updateParent, updateUser, getUserByToken, getUserInfo, getTeacherInfo, getParentInfo, getStudentInfo } = require('../controllers/user');
 
 const router = express.Router();
 
@@ -28,7 +28,63 @@ const router = express.Router();
  *       404:
  *         description: User not found
  */ 
-router.get('/myinfo', verifyToken, getUser);
+router.get('/myinfo', verifyToken, getUserByToken);
+
+/**
+ * @swagger
+ * /user/info/{userId}:
+ *   get:
+ *     summary: 사용자 정보 조회
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: 사용자 ID
+ */
+router.get('/info/:userId', verifyToken, getUserInfo);
+
+/**
+ * @swagger
+ * /user/info/teacher/{userId}:
+ *   get:
+ *     summary: 선생님 정보 조회
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: 사용자 ID
+ */
+router.get('/info/teacher/:userId', verifyToken, getTeacherInfo);
+
+/**
+ * @swagger
+ * /user/info/parent/{userId}:
+ *   get:
+ *     summary: 학부모 정보 조회
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: 사용자 ID
+ */
+router.get('/info/parent/:userId', verifyToken, getParentInfo);
+
+/**
+ * @swagger
+ * /user/info/student/{userId}:
+ *   get:
+ *     summary: 학생 정보 조회
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: 사용자 ID
+ */
+router.get('/info/student/:userId', verifyToken, getStudentInfo);
 
 /**
  * @swagger
