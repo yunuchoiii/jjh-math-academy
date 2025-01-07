@@ -53,6 +53,9 @@ select {
 .bg-green-gradient {
   background: linear-gradient(95deg, #37CC87 0%, #41B580 100%);
 }
+.bg-yellow-gradient {
+  background: linear-gradient(95deg, #FFDC60 0%, #EFC223 100%);
+}
 .filter-green-1 {
   filter: invert(56%) sepia(78%) saturate(314%) hue-rotate(100deg) brightness(93%) contrast(90%);
 }

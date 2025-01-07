@@ -3,7 +3,7 @@
 import JoinBasicForm from '@/app/_components/Auth/Join/JoinBasicForm';
 import JoinParentForm, { FormStudent } from '@/app/_components/Auth/Join/JoinParentForm';
 import JoinStudentForm from '@/app/_components/Auth/Join/JoinStudentForm';
-import ReactiveButton from '@/app/_components/Button/ReactiveButton';
+import Button from '@/app/_components/Button/Button';
 import Title from '@/app/_components/Title/Title';
 import { useToast } from '@/app/_components/Toast/ToastProvider';
 import { ParentSavePayload, StudentSavePayload, UserSavePayload, userService } from '@/app/_service/user';
@@ -134,7 +134,7 @@ const JoinByUserType: FC<Props> = ({ searchParams }) => {
         </div>
       )}
       <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
-        <div className='bg-[#f7f7f7] rounded-2xl px-5 pb-3 pt-4'>
+        <div className='bg-[#f7f7f7] rounded-2xl px-5 pb-3 pt-4 mb-5'>
           <JoinBasicForm 
             register={register} 
             errors={errors} 
@@ -157,11 +157,14 @@ const JoinByUserType: FC<Props> = ({ searchParams }) => {
             />
           )}
         </div>
-        <ReactiveButton props={{ type: "submit" }}>
-          <div className='w-full h-12 flex items-center justify-center bg-green-1 rounded-2xl text-white NanumSquare text-lg font-bold mt-5 shadow-2'>
-            회원가입
-          </div>
-        </ReactiveButton>
+        <Button
+          color="green" 
+          fullWidth 
+          textSize="lg"
+          type="submit"
+        >
+          회원가입
+        </Button>
       </form>
     </div>
   );

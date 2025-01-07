@@ -1,6 +1,6 @@
 "use client";
 
-import ReactiveButton from "@/app/_components/Button/ReactiveButton";
+import Button from "@/app/_components/Button/Button";
 import Title from "@/app/_components/Title/Title";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -31,7 +31,7 @@ const Join = () => {
   return (
     <div className="flex flex-col w-fit mx-auto">
       <Title title="회원가입" subtitle="회원가입 유형을 선택해주세요." />
-      <div className="flex gap-4 md:gap-12 sm:p-10 p-6 bg-green-4 bg-opacity-50 rounded-[30px]">
+      <div className="flex gap-4 md:gap-12 sm:p-10 p-6 bg-green-4 bg-opacity-50 rounded-[30px] mb-5">
         {userTypeMap.map((userType) => (
           <div 
             key={userType.type}
@@ -54,15 +54,16 @@ const Join = () => {
           </div>
         ))}
       </div>
-      <ReactiveButton
-        props={{
-          className: "w-full bg-green-1 text-white rounded-[30px] h-[50px] text-lg font-bold mt-5",
-          disabled: !selectedUserType,
-          onClick: () => router.push(`/auth/join/form?userType=${selectedUserType}`)
-        }}
+      <Button 
+        color="green" 
+        fullWidth 
+        fullRounded
+        textSize="lg"
+        disabled={!selectedUserType}
+        onClick={() => router.push(`/auth/join/form?userType=${selectedUserType}`)}
       >
         다음
-      </ReactiveButton>
+      </Button>
     </div>
   );
 }
