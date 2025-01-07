@@ -1,16 +1,16 @@
 import { CONTACT_INFO, HEADER_HEIGHT_MOBILE, MENU_INFO } from '@/constants';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styles from './Layout.module.css';
 
 interface MobileHeaderProps {
   hamburger: boolean;
   setHamburger: (hamburger: boolean) => void;
-  handleContactMenu: () => void;
 }
 
-const MobileHeader = ({hamburger, setHamburger, handleContactMenu}: MobileHeaderProps) => {
-
+const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
+  const router = useRouter();
   return <div className="flex lg:hidden w-screen fixed inset-x-0 top-0 z-50">
     <div 
       className={`${styles.header} w-screen flex items-center justify-between fixed inset-x-0 top-0`} 
@@ -46,7 +46,8 @@ const MobileHeader = ({hamburger, setHamburger, handleContactMenu}: MobileHeader
                 if (parentMenu.children) {
                   setMenuOpened(!menuOpened)
                 } else {
-                  handleContactMenu()
+                  setHamburger(false)
+                  router.push(parentMenu.link || '')
                 }
               }
               return <div key={`mobile-parent-menu-${parentMenu.sort}`}>

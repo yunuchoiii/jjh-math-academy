@@ -70,13 +70,13 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
             onMouseLeave={()=>setShowChildren(false)}
             className="relative"
           >
-            <button 
+            <Link 
+              href={item.link || item.children?.[0].link || ''}
               className={`${styles.menu} xl:text-lg lg:text-base font-semibold text-gray-600 hover:text-green-1`} 
-              onClick={item.link ? handleContactMenu : ()=>{}}
               onMouseOver={item.link ? ()=>{} : ()=>setShowChildren(true)}
             >
               {item.title}
-            </button>
+            </Link>
             {showChildren && item.children && <ChildrenMenus childrenMenus={item.children || []}></ChildrenMenus>}
           </div>
         })}

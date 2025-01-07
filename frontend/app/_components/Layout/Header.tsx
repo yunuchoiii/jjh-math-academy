@@ -52,7 +52,6 @@ export default function Header () {
     <MobileHeader
       hamburger={hamburger} 
       setHamburger={setHamburger} 
-      handleContactMenu={handleContactMenu} 
     />
   </>
 
