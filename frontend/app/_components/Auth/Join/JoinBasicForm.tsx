@@ -24,6 +24,15 @@ const JoinBasicForm = ({ register, errors, watch, isEmailChecked, setIsEmailChec
         message: "이메일을 입력해주세요.",
         type: "error",
       });
+      setIsEmailChecked(false);
+      return;
+    }
+    if (validateEmail(watch("email")) !== true) {
+      addToast({
+        message: validateEmail(watch("email")) as string,
+        type: "error",
+      });
+      setIsEmailChecked(false);
       return;
     }
     try {
@@ -39,7 +48,33 @@ const JoinBasicForm = ({ register, errors, watch, isEmailChecked, setIsEmailChec
         message: "이미 존재하는 이메일입니다.",
         type: "error",
       });
+      setIsEmailChecked(false);
     }
+  }
+
+  const validateEmail = (value: string) => {
+    if (value === "") {
+      return "이메일을 입력해주세요.";
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+      return "유효한 이메일 형식을 입력해주세요.";
+    }
+    return true;
+  }
+
+  const validatePassword = (value: string) => {
+    if (value === "") {
+      return "비밀번호를 입력해주세요.";
+    }
+    if (value.length < 8) {
+      return "비밀번호는 8글자 이상이어야 합니다.";
+    }
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    if (!specialCharRegex.test(value)) {
+      return "비밀번호에는 특수문자가 하나 이상 포함되어야 합니다.";
+    }
+    return true;
   }
 
   return (
@@ -48,7 +83,10 @@ const JoinBasicForm = ({ register, errors, watch, isEmailChecked, setIsEmailChec
         label="이메일" 
         placeholder="이메일을 입력해주세요." 
         inputType="email" 
-        register={register('email', { required: true })} 
+        register={register('email', { 
+          required: "이메일을 입력해주세요.",
+          validate: validateEmail
+        })} 
         error={errors.email}
         buttonLabel="중복 확인"
         buttonProps={{
@@ -61,7 +99,10 @@ const JoinBasicForm = ({ register, errors, watch, isEmailChecked, setIsEmailChec
         label="비밀번호" 
         placeholder="비밀번호를 입력해주세요." 
         inputType="password" 
-        register={register('password', { required: true })} 
+        register={register('password', { 
+          required: "비밀번호를 입력해주세요.",
+          validate: validatePassword
+        })} 
         error={errors.password}
       />
       <TextField 
@@ -69,7 +110,7 @@ const JoinBasicForm = ({ register, errors, watch, isEmailChecked, setIsEmailChec
         placeholder="비밀번호를 입력해주세요." 
         inputType="password" 
         register={register("confirmPassword", { 
-          required: true,
+          required: "비밀번호 확인을 입력해주세요.",
           validate: value => value === password || "비밀번호가 일치하지 않습니다."
         })} 
         error={errors.confirmPassword}
@@ -78,14 +119,14 @@ const JoinBasicForm = ({ register, errors, watch, isEmailChecked, setIsEmailChec
         label="이름" 
         placeholder="이름을 입력해주세요." 
         inputType="text" 
-        register={register('username', { required: true })} 
+        register={register('username', { required: "이름을 입력해주세요." })} 
         error={errors.username}
       />
       <TextField 
         label="전화번호" 
         placeholder="전화번호를 입력해주세요." 
         inputType="tel" 
-        register={register('phoneNumber', { required: true })} 
+        register={register('phoneNumber', { required: "전화번호를 입력해주세요." })} 
         error={errors.phoneNumber}
       />
     </div>
