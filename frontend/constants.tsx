@@ -99,6 +99,6 @@ export const CONTACT_INFO:Record<string, childMenu> = {
     sort: 4,
     title: "마이 페이지",
     icon: "/images/icons/user-black.png",
-    link: "/auth"
+    link: "/user/mypage"
   },
 }

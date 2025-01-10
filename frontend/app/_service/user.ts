@@ -92,6 +92,42 @@ export const userService = {
     const response = await axios.get(url, { withCredentials: true });
     return response.data;
   },
+  /** 유저 정보 조회
+   * @param {number} userId - 유저 ID
+   * @returns {Promise<any>} - 유저 정보 응답 데이터
+   */
+  getUserInfo: async (userId: number) => {
+    const url = `${USER_SERVICE_URL}/info/${userId}`;
+    const response = await axios.get(url, { withCredentials: true });
+    return response.data;
+  },
+  /** 선생님 정보 조회
+   * @param {number} userId - 유저 ID
+   * @returns {Promise<any>} - 선생님 정보 응답 데이터
+   */
+  getTeacherInfo: async (userId: number) => {
+    const url = `${USER_SERVICE_URL}/info/teacher/${userId}`;
+    const response = await axios.get(url, { withCredentials: true });
+    return response.data;
+  },
+  /** 부모 정보 조회
+   * @param {number} userId - 유저 ID
+   * @returns {Promise<any>} - 부모 정보 응답 데이터
+   */
+  getParentInfo: async (userId: number) => {
+    const url = `${USER_SERVICE_URL}/info/parent/${userId}`;
+    const response = await axios.get(url, { withCredentials: true });
+    return response.data;
+  },
+  /** 학생 정보 조회
+   * @param {number} userId - 유저 ID
+   * @returns {Promise<any>} - 학생 정보 응답 데이터
+   */
+  getStudentInfo: async (userId: number) => {
+    const url = `${USER_SERVICE_URL}/info/student/${userId}`;
+    const response = await axios.get(url, { withCredentials: true });
+    return response.data;
+  },
   /** 유저 목록 조회
    * @returns {Promise<any>} - 유저 목록 응답 데이터
    */

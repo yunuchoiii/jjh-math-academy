@@ -83,7 +83,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
         {!isLoading && <div className="flex items-center ml-6 gap-10">
           <Tooltip title={user ? "마이페이지" : "로그인"}>
             <Link 
-              href={user ? '/user' : '/auth/login'} 
+              href={user ? '/user/mypage' : '/auth/login'} 
               className="flex items-center py-1.5 hover:text-green-1 hover:cursor-pointer"
             >
               <i className="fas fa-user-circle text-xl"></i>
