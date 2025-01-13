@@ -92,6 +92,15 @@ router.get('/info/student/:userId', verifyToken, getStudentInfo);
  *   get:
  *     summary: 사용자 목록 조회
  *     tags: [User]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         description: 페이지 번호
+ *       - in: query
+ *         name: size
+ *         required: false
+ *         description: 페이지당 학생 수
  *     responses:
  *       200:
  *         description: 사용자 목록 조회 성공
@@ -108,6 +117,15 @@ router.get('/list', getUserList);
  *   get:
  *     summary: 학생 목록 조회
  *     tags: [User]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         description: 페이지 번호
+ *       - in: query
+ *         name: size
+ *         required: false
+ *         description: 페이지당 학생 수
  *     responses:
  *       200:
  *         description: 학생 목록 조회 성공
@@ -124,6 +142,15 @@ router.get('/list/student', getStudentList);
  *   get:
  *     summary: 학부모 목록 조회
  *     tags: [User]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         description: 페이지 번호
+ *       - in: query
+ *         name: size
+ *         required: false
+ *         description: 페이지당 학생 수
  *     responses:
  *       200:
  *         description: 학부모 목록 조회 성공
@@ -140,6 +167,15 @@ router.get('/list/parent', getParentList);
  *   get:
  *     summary: 선생님 목록 조회
  *     tags: [User]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         description: 페이지 번호
+ *       - in: query
+ *         name: size
+ *         required: false
+ *         description: 페이지당 학생 수
  *     responses:
  *       200:
  *         description: 선생님 목록 조회 성공

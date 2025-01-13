@@ -77,13 +77,15 @@ exports.getStudentInfo = async (req, res) => {
 }
 
 // 공통된 사용자 목록 조회 함수
-async function getUserListByType(userType, additionalAttributes = []) {
+async function getUserListByType(userType, additionalAttributes = [], limit = null, offset = null) {
   // userType이 null이 아닐 때만 조건 추가
   const whereCondition = userType !== null ? { userType } : {};
 
   const users = await db.User.findAll({
     where: whereCondition,
     attributes: ['userId', 'username', 'email', ...additionalAttributes],
+    limit,
+    offset
   });
   return users;
 }
@@ -101,12 +103,32 @@ function mergeUserData(users, specificData, userIdKey) {
 }
 
 exports.getUserList = async (req, res) => {
+  const { page = 1, size = 10 } = req.query;
+  const limit = parseInt(size);
+  const offset = (parseInt(page) - 1) * limit;
+
   try {
-    const users = await getUserListByType(null, ['phoneNumber', 'userType']);
+    const totalDataCount = await db.User.count();
+    const users = await getUserListByType(null, ['phoneNumber', 'userType'], limit, offset);
+    const totalPages = Math.ceil(totalDataCount / limit);
+    const isLastPage = page >= totalPages;
+    const isFirstPage = page <= 1;
+
     if (users.length === 0) {
       return res.status(404).json({ message: '사용자가 없습니다.' });
     }
-    return res.status(200).json({ data: users });
+
+    return res.status(200).json({
+      data: users,
+      page: {
+        totalDataCount,
+        totalPages,
+        isLastPage,
+        isFirstPage,
+        requestPage: parseInt(page),
+        requestSize: limit
+      }
+    });
   } catch (error) {
     console.error('Failed to retrieve user list:', error);
     return res.status(500).json({ message: '사용자 목록을 불러오는 중 오류가 발생했습니다.' });
@@ -114,16 +136,38 @@ exports.getUserList = async (req, res) => {
 };
 
 exports.getStudentList = async (req, res) => {
+  const { page = 1, size = 10 } = req.query;
+  const limit = parseInt(size);
+  const offset = (parseInt(page) - 1) * limit;
+
   try {
-    const users = await getUserListByType('student');
+    const totalDataCount = await db.Student.count();
+    const users = await getUserListByType('student', [], limit, offset);
     const students = await db.Student.findAll({
       attributes: ['studentId', 'userId', 'parentId', 'gradeLevel', 'schoolName', 'isActive'],
+      limit,
+      offset
     });
     const mergedList = mergeUserData(users, students, 'userId');
+    const totalPages = Math.ceil(totalDataCount / limit);
+    const isLastPage = page >= totalPages;
+    const isFirstPage = page <= 1;
+
     if (mergedList.length === 0) {
       return res.status(404).json({ message: '학생이 없습니다.' });
     }
-    return res.status(200).json({ data: mergedList });
+
+    return res.status(200).json({
+      data: mergedList,
+      page: {
+        totalDataCount,
+        totalPages,
+        isLastPage,
+        isFirstPage,
+        requestPage: parseInt(page),
+        requestSize: limit
+      }
+    });
   } catch (error) {
     console.error('Failed to retrieve student list:', error);
     return res.status(500).json({ message: '학생 목록을 불러오는 중 오류가 발생했습니다.' });
@@ -131,16 +175,38 @@ exports.getStudentList = async (req, res) => {
 };
 
 exports.getParentList = async (req, res) => {
+  const { page = 1, size = 10 } = req.query;
+  const limit = parseInt(size);
+  const offset = (parseInt(page) - 1) * limit;
+
   try {
-    const users = await getUserListByType('parent');
+    const totalDataCount = await db.Parent.count();
+    const users = await getUserListByType('parent', [], limit, offset);
     const parents = await db.Parent.findAll({
       attributes: ['parentId', 'userId', 'isActive'],
+      limit,
+      offset
     });
     const mergedList = mergeUserData(users, parents, 'userId');
+    const totalPages = Math.ceil(totalDataCount / limit);
+    const isLastPage = page >= totalPages;
+    const isFirstPage = page <= 1;
+
     if (mergedList.length === 0) {
       return res.status(404).json({ message: '학부모가 없습니다.' });
     }
-    return res.status(200).json({ data: mergedList });
+
+    return res.status(200).json({
+      data: mergedList,
+      page: {
+        totalDataCount,
+        totalPages,
+        isLastPage,
+        isFirstPage,
+        requestPage: parseInt(page),
+        requestSize: limit
+      }
+    });
   } catch (error) {
     console.error('Failed to retrieve parent list:', error);
     return res.status(500).json({ message: '학부모 목록을 불러오는 중 오류가 발생했습니다.' });
@@ -148,16 +214,38 @@ exports.getParentList = async (req, res) => {
 };
 
 exports.getTeacherList = async (req, res) => {
+  const { page = 1, size = 10 } = req.query;
+  const limit = parseInt(size);
+  const offset = (parseInt(page) - 1) * limit;
+
   try {
-    const users = await getUserListByType('teacher');
+    const totalDataCount = await db.Teacher.count();
+    const users = await getUserListByType('teacher', [], limit, offset);
     const teachers = await db.Teacher.findAll({
       attributes: ['teacherId', 'userId', 'isAdmin', 'isActive'],
+      limit,
+      offset
     });
     const mergedList = mergeUserData(users, teachers, 'userId');
+    const totalPages = Math.ceil(totalDataCount / limit);
+    const isLastPage = page >= totalPages;
+    const isFirstPage = page <= 1;
+
     if (mergedList.length === 0) {
       return res.status(404).json({ message: '선생님이 없습니다.' });
     }
-    return res.status(200).json({ data: mergedList });
+
+    return res.status(200).json({
+      data: mergedList,
+      page: {
+        totalDataCount,
+        totalPages,
+        isLastPage,
+        isFirstPage,
+        requestPage: parseInt(page),
+        requestSize: limit
+      }
+    });
   } catch (error) {
     console.error('Failed to retrieve teacher list:', error);
     return res.status(500).json({ message: '선생님 목록을 불러오는 중 오류가 발생했습니다.' });
