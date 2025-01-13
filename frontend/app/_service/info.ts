@@ -13,6 +13,15 @@ export interface IMathProgram {
   url: string;
 }
 
+export interface ITuition {
+  id: number;
+  level: 'elementary' | 'middle';
+  classLevel: string;
+  subject: string;
+  monthlyHours: string;
+  monthlyFee: number;
+}
+
 const INFO_SERVICE_URL = `${process.env.SERVER_URL}/info`;
 
 export const infoService = {

@@ -1,5 +1,5 @@
 const express = require('express');
-const { getProgramsInfo } = require('../controllers/info');
+const { getProgramsInfo, getTuitionInfo } = require('../controllers/info');
 
 const router = express.Router();
 
@@ -21,5 +21,17 @@ const router = express.Router();
  *        description: 프로그램 정보 조회 성공
  */
 router.get('/programs', getProgramsInfo);
+
+/**
+ * @swagger
+ * /info/tuition:
+ *   get:
+ *     summary: 수업료 조회
+ *     tags: [Info]
+ *     responses:
+ *      200:
+ *        description: 수업료 조회 성공
+ */
+router.get('/tuition', getTuitionInfo);
 
 module.exports = router;
