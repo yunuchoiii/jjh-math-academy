@@ -6,7 +6,7 @@ interface TitleProps {
 
 const Title = ({ title, subtitle, color="#333" }: TitleProps) => { 
   return <div 
-    className={`text-2xl font-bold NanumSquare mb-[60px]`}
+    className={`text-2xl font-extrabold NanumSquare mb-[60px]`}
     style={{color: color}}
   >
     {title}
