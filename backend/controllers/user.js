@@ -36,44 +36,37 @@ exports.getUserByToken = async (req, res) => {
   }
 };
 
+// 공통된 정보 조회 함수
+async function getInfo(model, userId, res, notFoundMessage) {
+  const data = await model.findOne({ where: { userId } });
+  if (!data) {
+    return res.status(404).json({ message: notFoundMessage });
+  }
+  return res.status(200).json({ data });
+}
+
 // 사용자 정보 조회
 exports.getUserInfo = async (req, res) => {
   const userId = req.params.userId;
-  const user = await db.User.findOne({ where: { userId } });
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
-  }
-  return res.status(200).json({ user });
+  return getInfo(db.User, userId, res, 'User not found');
 }
 
 // 선생님 정보 조회
 exports.getTeacherInfo = async (req, res) => {
   const userId = req.params.userId;
-  const teacher = await db.Teacher.findOne({ where: { userId } });
-  if (!teacher) {
-    return res.status(404).json({ message: 'Teacher not found' });
-  }
-  return res.status(200).json({ teacher });
+  return getInfo(db.Teacher, userId, res, 'Teacher not found');
 }
 
 // 학부모 정보 조회
 exports.getParentInfo = async (req, res) => {
   const userId = req.params.userId;
-  const parent = await db.Parent.findOne({ where: { userId } });
-  if (!parent) {
-    return res.status(404).json({ message: 'Parent not found' });
-  }
-  return res.status(200).json({ parent });
+  return getInfo(db.Parent, userId, res, 'Parent not found');
 }
 
 // 학생 정보 조회
 exports.getStudentInfo = async (req, res) => {
   const userId = req.params.userId;
-  const student = await db.Student.findOne({ where: { userId } });
-  if (!student) {
-    return res.status(404).json({ message: 'Student not found' });
-  }
-  return res.status(200).json({ student });
+  return getInfo(db.Student, userId, res, 'Student not found');
 }
 
 // 공통된 사용자 목록 조회 함수
@@ -99,6 +92,33 @@ function mergeUserData(users, specificData, userIdKey) {
       username: user ? user.username : null,
       email: user ? user.email : null,
     };
+  });
+}
+
+// 공통된 목록 조회 함수
+async function getList(model, userType, attributes, limit, offset, res, notFoundMessage) {
+  const totalDataCount = await model.count();
+  const users = await getUserListByType(userType, [], limit, offset);
+  const data = await model.findAll({ attributes, limit, offset });
+  const mergedList = mergeUserData(users, data, 'userId');
+  const totalPages = Math.ceil(totalDataCount / limit);
+  const isLastPage = page >= totalPages;
+  const isFirstPage = page <= 1;
+
+  if (mergedList.length === 0) {
+    return res.status(404).json({ message: notFoundMessage });
+  }
+
+  return res.status(200).json({
+    data: mergedList,
+    page: {
+      totalDataCount,
+      totalPages,
+      isLastPage,
+      isFirstPage,
+      requestPage: parseInt(page),
+      requestSize: limit
+    }
   });
 }
 
@@ -139,190 +159,63 @@ exports.getStudentList = async (req, res) => {
   const { page = 1, size = 10 } = req.query;
   const limit = parseInt(size);
   const offset = (parseInt(page) - 1) * limit;
-
-  try {
-    const totalDataCount = await db.Student.count();
-    const users = await getUserListByType('student', [], limit, offset);
-    const students = await db.Student.findAll({
-      attributes: ['studentId', 'userId', 'parentId', 'gradeLevel', 'schoolName', 'isActive'],
-      limit,
-      offset
-    });
-    const mergedList = mergeUserData(users, students, 'userId');
-    const totalPages = Math.ceil(totalDataCount / limit);
-    const isLastPage = page >= totalPages;
-    const isFirstPage = page <= 1;
-
-    if (mergedList.length === 0) {
-      return res.status(404).json({ message: '학생이 없습니다.' });
-    }
-
-    return res.status(200).json({
-      data: mergedList,
-      page: {
-        totalDataCount,
-        totalPages,
-        isLastPage,
-        isFirstPage,
-        requestPage: parseInt(page),
-        requestSize: limit
-      }
-    });
-  } catch (error) {
-    console.error('Failed to retrieve student list:', error);
-    return res.status(500).json({ message: '학생 목록을 불러오는 중 오류가 발생했습니다.' });
-  }
-};
+  return getList(db.Student, 'student', ['studentId', 'userId', 'parentId', 'gradeLevel', 'schoolName', 'isActive'], limit, offset, res, '학생이 없습니다.');
+}
 
 exports.getParentList = async (req, res) => {
   const { page = 1, size = 10 } = req.query;
   const limit = parseInt(size);
   const offset = (parseInt(page) - 1) * limit;
-
-  try {
-    const totalDataCount = await db.Parent.count();
-    const users = await getUserListByType('parent', [], limit, offset);
-    const parents = await db.Parent.findAll({
-      attributes: ['parentId', 'userId', 'isActive'],
-      limit,
-      offset
-    });
-    const mergedList = mergeUserData(users, parents, 'userId');
-    const totalPages = Math.ceil(totalDataCount / limit);
-    const isLastPage = page >= totalPages;
-    const isFirstPage = page <= 1;
-
-    if (mergedList.length === 0) {
-      return res.status(404).json({ message: '학부모가 없습니다.' });
-    }
-
-    return res.status(200).json({
-      data: mergedList,
-      page: {
-        totalDataCount,
-        totalPages,
-        isLastPage,
-        isFirstPage,
-        requestPage: parseInt(page),
-        requestSize: limit
-      }
-    });
-  } catch (error) {
-    console.error('Failed to retrieve parent list:', error);
-    return res.status(500).json({ message: '학부모 목록을 불러오는 중 오류가 발생했습니다.' });
-  }
-};
+  return getList(db.Parent, 'parent', ['parentId', 'userId', 'isActive'], limit, offset, res, '학부모가 없습니다.');
+}
 
 exports.getTeacherList = async (req, res) => {
   const { page = 1, size = 10 } = req.query;
   const limit = parseInt(size);
   const offset = (parseInt(page) - 1) * limit;
+  return getList(db.Teacher, 'teacher', ['teacherId', 'userId', 'isAdmin', 'isActive'], limit, offset, res, '선생님이 없습니다.');
+}
 
+// 공통된 업데이트 함수
+async function updateData(model, updateData, userId, res, notFoundMessage) {
   try {
-    const totalDataCount = await db.Teacher.count();
-    const users = await getUserListByType('teacher', [], limit, offset);
-    const teachers = await db.Teacher.findAll({
-      attributes: ['teacherId', 'userId', 'isAdmin', 'isActive'],
-      limit,
-      offset
-    });
-    const mergedList = mergeUserData(users, teachers, 'userId');
-    const totalPages = Math.ceil(totalDataCount / limit);
-    const isLastPage = page >= totalPages;
-    const isFirstPage = page <= 1;
-
-    if (mergedList.length === 0) {
-      return res.status(404).json({ message: '선생님이 없습니다.' });
+    const [updated] = await model.update(updateData, { where: { userId } });
+    if (updated) {
+      const updatedEntity = await model.findOne({ where: { userId } });
+      return res.status(200).json(updatedEntity);
+    } else {
+      return res.status(404).json({ error: notFoundMessage });
     }
-
-    return res.status(200).json({
-      data: mergedList,
-      page: {
-        totalDataCount,
-        totalPages,
-        isLastPage,
-        isFirstPage,
-        requestPage: parseInt(page),
-        requestSize: limit
-      }
-    });
   } catch (error) {
-    console.error('Failed to retrieve teacher list:', error);
-    return res.status(500).json({ message: '선생님 목록을 불러오는 중 오류가 발생했습니다.' });
+    console.error(error);
+    return res.status(500).json({ error: '업데이트 중 오류가 발생했습니다.' });
   }
-};
+}
 
-exports.updateUser = async (req, res, next) => {
+// 사용자 업데이트
+exports.updateUser = (req, res) => {
   const userId = req.params.userId;
   const { username, email, phoneNumber } = req.body;
-  try {
-    const [updated] = await User.update({ username, email, phoneNumber }, { where: { userId } });
-    if (updated) {
-      const updatedUser = await User.findOne({ where: { userId } });
-      res.status(200).json(updatedUser);
-    } else {
-      res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
-    }
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
+  return updateData(User, { username, email, phoneNumber }, userId, res, '사용자를 찾을 수 없습니다.');
 }
 
-exports.updateTeacher = async (req, res, next) => {
+// 선생님 업데이트
+exports.updateTeacher = (req, res) => {
   const userId = req.params.userId;
   const { isAdmin, isActive } = req.body;
-  try {
-    const [updated] = await Teacher.update(
-      { isAdmin, isActive }, 
-      { where: { userId } 
-    });
-    if (updated) {
-      const updatedUser = await Teacher.findOne({ where: { userId } });
-      res.status(200).json(updatedUser);
-    } else {
-      res.status(404).json({ error: '선생님을 찾을 수 없습니다.' });
-    }
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
+  return updateData(Teacher, { isAdmin, isActive }, userId, res, '선생님을 찾을 수 없습니다.');
 }
 
-exports.updateStudent = async (req, res, next) => {
+// 학생 업데이트
+exports.updateStudent = (req, res) => {
   const userId = req.params.userId;
   const { parentId, gradeLevel, schoolName, isActive } = req.body;
-  try {
-    const [updated] = await Student.update(
-      { parentId, gradeLevel, schoolName, isActive },
-      { where: { userId } }
-    );
-
-    if (updated) {
-      const updatedUser = await Student.findOne({ where: { userId } });
-      res.status(200).json(updatedUser);
-    } else {
-      res.status(404).json({ error: '학생을 찾을 수 없습니다.' });
-    }
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
+  return updateData(Student, { parentId, gradeLevel, schoolName, isActive }, userId, res, '학생을 찾을 수 없습니다.');
 }
 
-exports.updateParent = async (req, res, next) => {
+// 학부모 업데이트
+exports.updateParent = (req, res) => {
   const userId = req.params.userId;
   const { isActive } = req.body;
-  try {
-    const [updated] = await Parent.update({ isActive }, { where: { userId } });
-    if (updated) {
-      const updatedUser = await Parent.findOne({ where: { userId } });
-      res.status(200).json(updatedUser);
-    } else {
-      res.status(404).json({ error: '학부모를 찾을 수 없습니다.' });
-    }
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
+  return updateData(Parent, { isActive }, userId, res, '학부모를 찾을 수 없습니다.');
 }
