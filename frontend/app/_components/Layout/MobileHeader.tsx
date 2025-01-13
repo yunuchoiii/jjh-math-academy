@@ -2,6 +2,7 @@ import { CONTACT_INFO, HEADER_HEIGHT_MOBILE, MENU_INFO } from '@/app/_constants/
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import ReactiveButton from '../Button/ReactiveButton';
 import styles from './Layout.module.css';
 
 interface MobileHeaderProps {
@@ -11,6 +12,10 @@ interface MobileHeaderProps {
 
 const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
   const router = useRouter();
+  const handleClick = (link: string) => {
+    setHamburger(false)
+    router.push(link)
+  }
   return <div className="flex lg:hidden w-screen fixed inset-x-0 top-0 z-50">
     <div 
       className={`${styles.header} w-screen flex items-center justify-between fixed inset-x-0 top-0`} 
@@ -46,8 +51,7 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
                 if (parentMenu.children) {
                   setMenuOpened(!menuOpened)
                 } else {
-                  setHamburger(false)
-                  router.push(parentMenu.link || '')
+                  handleClick(parentMenu.link || '')
                 }
               }
               return <div key={`mobile-parent-menu-${parentMenu.sort}`}>
@@ -70,16 +74,18 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
                   </div>
                   <div className="pb-2.5 pt-1.5">
                     {parentMenu.children?.map(childMenu => 
-                      <Link
-                        href={childMenu.link}
+                      <ReactiveButton
                         key={`mobile-child-menu-${childMenu.sort}`} 
-                        className='py-3.5 pl-7 flex items-center'
+                        props={{
+                          className:'py-3.5 pl-7 flex items-center w-full rounded-[15px] active:bg-[#F3F3F3]',
+                          onClick: () => handleClick(childMenu.link || '')
+                        }}
                       >
                         <div className="w-2 h-2 rounded-full bg-yellow-1 mr-3.5"></div>
                         <div className="text-lg leading-none decoration-neutral-700">
                           {childMenu.title}
                         </div>
-                      </Link>
+                      </ReactiveButton>
                     )}  
                   </div>
                 </div>
