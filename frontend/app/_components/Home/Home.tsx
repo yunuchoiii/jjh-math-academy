@@ -12,7 +12,7 @@ import Programs from "./Programs";
 import SpecialClasses from "./SpecialClasses";
 
 export  default function HomeComponent () {
-  const setRef = useScrollAnimation(0.4);
+  const setRef = useScrollAnimation({threshold: 0.4, className: 'visible'});
 
   return (
     <div className="home-root flex flex-col items-center">

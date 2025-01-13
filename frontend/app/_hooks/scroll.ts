@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-const useScrollAnimation = (threshold = 0.4) => {
+const useScrollAnimation = ({threshold = 0.4, className = 'visible'}: {threshold?: number, className?: string}) => {
   const observer = useRef<IntersectionObserver | null>(null);
   const elementsRef = useRef<Array<HTMLDivElement | null>>([]);
 
@@ -15,7 +15,7 @@ const useScrollAnimation = (threshold = 0.4) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+            entry.target.classList.add(className);
           }
         });
       },
@@ -35,7 +35,7 @@ const useScrollAnimation = (threshold = 0.4) => {
         });
       }
     };
-  }, [threshold]);
+  }, [threshold, className]);
 
   return setRef;
 };

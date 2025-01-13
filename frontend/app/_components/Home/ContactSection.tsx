@@ -15,7 +15,7 @@ declare global {
 
 export default function ContactSection () {
 
-  const setRef = useScrollAnimation(0.4);
+  const setRef = useScrollAnimation({threshold: 0.4, className: 'visible'});
 
   return <div className="w-full md:h-full h-[750px] relative">
     <div className="absolute z-0 md:top-60 top-96 left-1/4 md:w-96 md:h-96 w-52 h-52 rounded-full bg-yellow-1"></div>
