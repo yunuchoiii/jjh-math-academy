@@ -4,9 +4,10 @@ interface TitleProps {
   color?: string;
 }
 
-const Title = ({ title, subtitle, color }: TitleProps) => { 
+const Title = ({ title, subtitle, color="#333" }: TitleProps) => { 
   return <div 
-    className={`text-2xl font-bold NanumSquare mb-10 ${color ? `text-[${color}]` : 'text-black'}`}
+    className={`text-2xl font-bold NanumSquare mb-[60px]`}
+    style={{color: color}}
   >
     {title}
     {subtitle && <div className="text-base text-gray-1 mt-2">{subtitle}</div>}

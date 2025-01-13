@@ -38,6 +38,14 @@ class MathProgram extends Sequelize.Model {
       schedule: {
         type: DataTypes.STRING(100),
         comment: '수업 횟수 및 시간'
+      },
+      theme_color: {
+        type: DataTypes.STRING(7),
+        comment: '테마 색상'
+      },
+      url: {
+        type: DataTypes.STRING(100),
+        comment: '프로그램 상세 페이지 URL'
       }
     }, {
       sequelize,

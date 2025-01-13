@@ -1,0 +1,32 @@
+import axios from "axios";
+
+export interface IMathProgram {
+  id: number;
+  category: 'common_math' | 'advanced_math';
+  title: string;
+  subtitle?: string;
+  target_age: string;
+  description: string[];
+  books: string;
+  schedule: string;
+  theme_color: string;
+  url: string;
+}
+
+const INFO_SERVICE_URL = `${process.env.SERVER_URL}/info`;
+
+export const infoService = {
+  /** 프로그램 정보 조회
+   * @returns {Promise<any>} - 프로그램 정보 응답 데이터
+   */
+  getPrograms: async () => {
+    try {
+      const url = `${INFO_SERVICE_URL}/programs`;
+      const response = await axios.get(url);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
+};
