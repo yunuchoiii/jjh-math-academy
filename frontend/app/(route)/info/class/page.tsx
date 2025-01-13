@@ -29,6 +29,9 @@ const ClassInfoPage = async () => {
           <ClassInfo key={`${classInfo.category}-${classInfo.id}`} classInfo={classInfo} />
         ))}
       </Section>
+      <Section title="수업료 안내">
+        <div></div>
+      </Section>
     </div>
   );
 }
