@@ -1,4 +1,4 @@
-import { childMenu, CONTACT_INFO, HEADER_HEIGHT, MENU_INFO } from '@/constants';
+import { childMenu, CONTACT_INFO, HEADER_HEIGHT, MENU_INFO } from '@/app/_constants/constants';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Tooltip from '../Tooltip/Tooltip';

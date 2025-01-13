@@ -1,7 +1,7 @@
 'use client';
 
+import { MENU_INFO } from '@/app/_constants/constants';
 import useScrollAnimation from "@/app/_hooks/scroll";
-import { MENU_INFO } from "@/constants";
 import Link from "next/link";
 import MobileDivider from "../Layout/MobileDivider";
 import HomeBanner from "./Banner";

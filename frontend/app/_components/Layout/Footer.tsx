@@ -1,6 +1,6 @@
 'use client'
 
-import { CONTACT_INFO, MENU_INFO } from "@/constants";
+import { CONTACT_INFO, MENU_INFO } from '@/app/_constants/constants';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

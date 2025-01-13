@@ -1,4 +1,4 @@
-import { CONTACT_INFO, HEADER_HEIGHT_MOBILE, MENU_INFO } from '@/constants';
+import { CONTACT_INFO, HEADER_HEIGHT_MOBILE, MENU_INFO } from '@/app/_constants/constants';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
