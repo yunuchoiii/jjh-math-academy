@@ -38,35 +38,35 @@ export const MENU_INFO:Record<string, parentMenu> = {
       },
     ]
   },
-  curriculum: {
+  common_math: {
     sort: 2,
     title: "교과 수학",
     children: [
       {
         sort: 1,
         title: "초등 교과 수학",
-        link: "/curriculum/elementary"
+        link: "/common-math/elementary"
       },
       {
         sort: 2,
         title: "중등 교과 수학",
-        link: "/curriculum/middle"
+        link: "/common-math/middle"
       },
     ]
   },
-  program: {
+  advanced_math: {
     sort: 3,
     title: "심화 수학",
     children: [
       {
         sort: 1,
         title: "요리수",
-        link: "/program/yorisu"
+        link: "/advanced-math/yorisu"
       },
       {
         sort: 2,
         title: "시그마 클래스",
-        link: "/program/sigma-class"
+        link: "/advanced-math/sigma-class"
       },
     ]
   },
