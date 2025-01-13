@@ -5,11 +5,11 @@ export interface IMathProgram {
   category: 'common_math' | 'advanced_math';
   title: string;
   subtitle?: string;
-  target_age: string;
+  targetAge: string;
   description: string[];
   books: string;
   schedule: string;
-  theme_color: string;
+  themeColor: string;
   url: string;
 }
 

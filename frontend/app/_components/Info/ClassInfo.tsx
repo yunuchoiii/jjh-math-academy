@@ -14,13 +14,13 @@ const Divider = () => (
 )
 
 const ClassInfo = ({classInfo}: ClassInfoProps) => {
-  const borderColor = classInfo.theme_color.slice(0, -2) + "0.3)";
-  const buttonHoverColor = classInfo.theme_color.slice(0, -2) + "0.15)";
+  const borderColor = classInfo.themeColor.slice(0, -2) + "0.3)";
+  const buttonHoverColor = classInfo.themeColor.slice(0, -2) + "0.15)";
 
   // 테마 색상 적용
   const Container = styled.div`
     & b {
-      color: ${classInfo.theme_color};
+      color: ${classInfo.themeColor};
     }
   `
 
@@ -43,12 +43,12 @@ const ClassInfo = ({classInfo}: ClassInfoProps) => {
       <div className="text-base mb-[10px]">
         {classInfo.subtitle}
       </div>
-      <div className="text-xl font-extrabold" style={{color: classInfo.theme_color}}>
+      <div className="text-xl font-extrabold" style={{color: classInfo.themeColor}}>
         {classInfo.title}
       </div>
     </div>
-    <div className="mt-[30px] font-bold" style={{color: classInfo.theme_color}}>
-      {classInfo.target_age}
+    <div className="mt-[30px] font-bold" style={{color: classInfo.themeColor}}>
+      {classInfo.targetAge}
     </div>
     <Divider />
     <div className="flex-1 flex items-center">
@@ -73,7 +73,7 @@ const ClassInfo = ({classInfo}: ClassInfoProps) => {
       <Link href={classInfo.url}>
         <MoreButton className={`flex items-center justify-center rounded-full p-2 pl-4 transition-all duration-150 `}>
           <span className="mr-[10px]">더 알아보기</span>
-          <PlusIconButton color={classInfo.theme_color} size={30}/>
+          <PlusIconButton color={classInfo.themeColor} size={30}/>
         </MoreButton>
       </Link>
     </div>

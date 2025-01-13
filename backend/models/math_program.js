@@ -23,7 +23,7 @@ class MathProgram extends Sequelize.Model {
         type: DataTypes.STRING(100),
         comment: '부제'
       },
-      target_age: {
+      targetAge: {
         type: DataTypes.STRING(50),
         comment: '대상 연령/학년'
       },
@@ -39,7 +39,7 @@ class MathProgram extends Sequelize.Model {
         type: DataTypes.STRING(100),
         comment: '수업 횟수 및 시간'
       },
-      theme_color: {
+      themeColor: {
         type: DataTypes.STRING(7),
         comment: '테마 색상'
       },

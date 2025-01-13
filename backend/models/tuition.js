@@ -14,7 +14,7 @@ class Tuition extends Sequelize.Model {
         allowNull: false,
         comment: '초등 또는 중등'
       },
-      class_level: {
+      classLevel: {
         type: DataTypes.STRING(50),
         allowNull: false,
         comment: '교습 과정'
@@ -24,12 +24,12 @@ class Tuition extends Sequelize.Model {
         allowNull: false,
         comment: '과목'
       },
-      monthly_hours: {
+      monthlyHours: {
         type: DataTypes.STRING(50),
         allowNull: false,
         comment: '월 교습 시간'
       },
-      monthly_fee: {
+      monthlyFee: {
         type: DataTypes.INTEGER,
         allowNull: false,
         comment: '월 교습비'
