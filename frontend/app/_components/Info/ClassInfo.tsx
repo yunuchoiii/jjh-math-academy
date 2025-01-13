@@ -13,27 +13,25 @@ const Divider = () => (
   <div className="w-full h-[2px] bg-[#DEDEDE] mt-6 mb-6"></div>
 )
 
+const Container = styled.div<{ themeColor: string }>`
+  & b {
+    color: ${(props) => props.themeColor};
+  }
+`;
+
+const MoreButton = styled.div<{ buttonHoverColor: string }>`
+  @media (min-width: 768px) {
+    &:hover {
+      background-color: ${(props) => props.buttonHoverColor};
+    }
+  }
+`;
+
 const ClassInfo = ({classInfo}: ClassInfoProps) => {
   const borderColor = classInfo.themeColor.slice(0, -2) + "0.3)";
   const buttonHoverColor = classInfo.themeColor.slice(0, -2) + "0.15)";
 
-  // 테마 색상 적용
-  const Container = styled.div`
-    & b {
-      color: ${classInfo.themeColor};
-    }
-  `
-
-  // 더 알아보기 버튼 호버 효과
-  const MoreButton = styled.div`
-    @media (min-width: 768px) {
-      &:hover {
-        background-color: ${buttonHoverColor};
-      }
-    }
-  `
-
-  return <Container
+  return <div
     className={`lg:col-span-4 sm:col-span-6 col-span-12 flex flex-col rounded-[30px] px-[30px] py-[40px] md:px-[40px] md:py-[50px] border-4 shadow-3 text-center`}
     style={{
       borderColor: borderColor,
@@ -55,7 +53,7 @@ const ClassInfo = ({classInfo}: ClassInfoProps) => {
       <ul className="text-left pl-[20px]">
         {classInfo.description.map((description, index) => (
           <li key={index} className="text-base list-disc mb-2 last:mb-0">
-            <Container dangerouslySetInnerHTML={{__html: description}}></Container>
+            <Container themeColor={classInfo.themeColor} dangerouslySetInnerHTML={{__html: description}}></Container>
           </li>
         ))}
       </ul>
@@ -71,13 +69,13 @@ const ClassInfo = ({classInfo}: ClassInfoProps) => {
     />
     <div className="flex items-center justify-center font-bold mt-10">
       <Link href={classInfo.url}>
-        <MoreButton className={`flex items-center justify-center rounded-full p-2 pl-4 transition-all duration-150 `}>
+        <MoreButton buttonHoverColor={buttonHoverColor} className={`flex items-center justify-center rounded-full p-2 pl-4 transition-all duration-150 `}>
           <span className="mr-[10px]">더 알아보기</span>
           <PlusIconButton color={classInfo.themeColor} size={30}/>
         </MoreButton>
       </Link>
     </div>
-  </Container>
+  </div>
 }
 
 export default ClassInfo;

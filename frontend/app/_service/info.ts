@@ -38,4 +38,17 @@ export const infoService = {
       throw error;
     }
   },
+  /** 수업료 정보 조회
+   * @returns {Promise<any>} - 수업료 정보 응답 데이터
+   */
+  getTuitions: async () => {
+    try {
+      const url = `${INFO_SERVICE_URL}/tuition`;
+      const response = await axios.get(url);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 };
