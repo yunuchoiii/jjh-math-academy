@@ -5,7 +5,7 @@ import { IMathProgram, infoService } from "@/app/_service/info";
 
 const Section = ({title, children}:{title:string, children:React.ReactNode}) => {
   return <div className="mb-20">
-    <div className="text-xl font-bold NanumSquare mb-[30px]">{title}</div>
+    <div className="text-xl font-bold NanumSquare mb-[30px] text-center sm:text-left">{title}</div>
     <div className="grid grid-cols-12 gap-[30px]">
       {children}
     </div>
