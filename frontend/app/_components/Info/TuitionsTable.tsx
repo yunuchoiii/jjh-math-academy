@@ -13,10 +13,14 @@ const TuitionsTable = async () => {
         <tr>
           <th className="bg-[#f3f3f3]">교습 과정</th>
           {elementaryTuitions.map((tuition) => (
-            <th key={tuition.classLevel} className="bg-yellow-4">{tuition.classLevel}</th>
+            <th key={`${tuition.id}-${tuition.classLevel}-pc`} className="bg-yellow-4">
+              {tuition.classLevel}
+            </th>
           ))}
           {middleTuitions.map((tuition) => (
-            <th key={tuition.classLevel} className="bg-green-4">{tuition.classLevel}</th>
+            <th key={`${tuition.id}-${tuition.classLevel}-pc`} className="bg-green-4">
+              {tuition.classLevel}
+            </th>
           ))}
         </tr>
       </thead>
@@ -24,19 +28,27 @@ const TuitionsTable = async () => {
         <tr className="h-[100px] break-words">
           <td className="bg-[#f3f3f3]">월 교습 시간</td>
           {elementaryTuitions.map((tuition) => (
-            <td key={tuition.monthlyHours}>{tuition.monthlyHours}</td>
+            <td key={`${tuition.id}-${tuition.monthlyHours}-pc`}>
+              {tuition.monthlyHours}
+            </td>
           ))}
           {middleTuitions.map((tuition) => (
-            <td key={tuition.monthlyHours}>{tuition.monthlyHours}</td>
+            <td key={`${tuition.id}-${tuition.monthlyHours}-pc`}>
+              {tuition.monthlyHours}
+            </td>
           ))}
         </tr>
         <tr className="h-[80px] break-words">
           <td className="bg-[#f3f3f3]">월 교습비</td>
           {elementaryTuitions.map((tuition) => (
-            <td key={tuition.monthlyFee}>{tuition.monthlyFee.toString().slice(0, -4)}만원</td>
+            <td key={`${tuition.id}-${tuition.monthlyFee}-pc`}>
+              {tuition.monthlyFee.toString().slice(0, -4)}만원
+            </td>
           ))}
           {middleTuitions.map((tuition) => (
-            <td key={tuition.monthlyFee}>{tuition.monthlyFee.toString().slice(0, -4)}만원</td>
+            <td key={`${tuition.id}-${tuition.monthlyFee}-pc`}>
+              {tuition.monthlyFee.toString().slice(0, -4)}만원
+            </td>
           ))}
         </tr>
       </tbody>
@@ -51,10 +63,16 @@ const TuitionsTable = async () => {
       </thead>
       <tbody>
         {tuitions.map((tuition) => (
-          <tr key={tuition.classLevel}>
-            <td style={{backgroundColor: tuition.level === "elementary" ? "#FFECA8" : "#CDE4BC"}}>{tuition.classLevel}</td>
-            <td width={"40%"}>{tuition.monthlyHours}</td>
-            <td>{tuition.monthlyFee.toString().slice(0, -4)}만원</td>
+          <tr key={`${tuition.id}-${tuition.classLevel}-mobile`}>
+            <td style={{backgroundColor: tuition.level === "elementary" ? "#FFECA8" : "#CDE4BC"}}>
+              {tuition.classLevel}
+            </td>
+            <td width={"40%"}>
+              {tuition.monthlyHours}
+            </td>
+            <td>
+              {tuition.monthlyFee.toString().slice(0, -4)}만원
+            </td>
           </tr>
         ))}
       </tbody>
