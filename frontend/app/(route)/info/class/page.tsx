@@ -19,7 +19,7 @@ const ClassInfoPage = async () => {
 
   return (
     <div>
-      <Title title="수업시간 및 수업료" color="#41B580"/>
+      <Title title="수업시간 및 수업료" color="green"/>
       <Section title="교과 수학">
         {commonMathClasses.map((classInfo: IMathProgram) => (
           <ClassInfo key={`${classInfo.category}-${classInfo.id}`} classInfo={classInfo} />
