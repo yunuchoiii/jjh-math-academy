@@ -5,14 +5,6 @@ import useScrollAnimation from "@/app/_hooks/scroll";
 import NaverMap from "../Map/NaverMap";
 import styles from './Layout.module.css';
 
-declare global {
-  interface Window {
-    naver: {
-      maps: naver.maps.Map;
-    };
-  }
-}
-
 export default function ContactSection () {
 
   const setRef = useScrollAnimation({threshold: 0.4, className: 'visible'});

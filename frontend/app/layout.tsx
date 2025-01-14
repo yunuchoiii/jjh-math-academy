@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import Footer from './_components/Layout/Footer'
 import Header from './_components/Layout/Header'
 import RecoilRootWrapper from './_components/Recoil/recoilRootWrapper'
@@ -9,6 +10,14 @@ import './_styles/font.css'
 import './_styles/globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
+
+declare global {
+  interface Window {
+    naver: {
+      maps: naver.maps.Map;
+    };
+  }
+}
 
 export const metadata: Metadata = {
   title: '조재현 수학학원',
@@ -37,6 +46,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
             <Footer/>
           </ToastProvider>
         </RecoilRootWrapper>
+        <Script type="text/javascript" src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NAVER_MAP_CLIENT_ID}`}/>
       </body>
     </html>
   )
