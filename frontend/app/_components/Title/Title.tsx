@@ -11,7 +11,7 @@ const Title = ({ title, subtitle, color="black" }: TitleProps) => {
     black: '#333'
   }
   return <div 
-    className={`text-2xl font-extrabold NanumSquare mb-[60px]`}
+    className={`text-2xl font-extrabold NanumSquare mb-[40px]`}
     style={{color: textColor[color]}}
   >
     {title}
