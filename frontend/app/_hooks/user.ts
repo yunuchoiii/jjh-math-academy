@@ -55,7 +55,8 @@ const useUser = () => {
         setUser(userResponse.user);
       }
     } catch (error) {
-      console.error('Authentication error:', error);
+      // console.error('Authentication error:', error);
+      console.log("authenticate token failed!")
     } finally {
       setIsLoading(false);
     }
