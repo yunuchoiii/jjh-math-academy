@@ -4,12 +4,12 @@ import Title from "@/app/_components/Title/Title";
 import { IMathProgram, infoService } from "@/app/_service/info";
 
 const Section = ({title, children}:{title:string, children:React.ReactNode}) => {
-  return <div className="mb-20">
+  return <section className="mb-20">
     <div className="text-xl font-bold NanumSquare mb-[30px] text-center sm:text-left">{title}</div>
     <div className="grid grid-cols-12 gap-[30px]">
       {children}
     </div>
-  </div>
+  </section>
 }
 
 const ClassInfoPage = async () => {
