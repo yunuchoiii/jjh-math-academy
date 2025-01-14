@@ -28,7 +28,7 @@ const HomeBanner = () => {
       backgroundColor: "#E1E3D9",
       imgPath: "/images/two-schoolgirls-working-together-assignment-classroom-2.png",
       imgHeight: 396,
-      link: "/info/teacher",
+      link: "/info/introduction",
     },
     {
       sort: 2,

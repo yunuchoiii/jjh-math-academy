@@ -23,8 +23,8 @@ export const MENU_INFO:Record<string, parentMenu> = {
     children: [
       {
         sort: 1,
-        title: "선생님 소개",
-        link: "/info/teacher"
+        title: "학원 소개",
+        link: "/info/introduction"
       },
       {
         sort: 2,
