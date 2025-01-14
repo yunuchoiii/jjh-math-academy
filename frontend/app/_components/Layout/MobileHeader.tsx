@@ -16,7 +16,7 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
     setHamburger(false)
     router.push(link)
   }
-  return <div className="flex lg:hidden w-screen fixed inset-x-0 top-0 z-50">
+  return <div className="flex lg:hidden w-screen fixed inset-x-0 top-0 z-[9999]">
     <div 
       className={`${styles.header} w-screen flex items-center justify-between fixed inset-x-0 top-0`} 
       style={{height: HEADER_HEIGHT_MOBILE}}

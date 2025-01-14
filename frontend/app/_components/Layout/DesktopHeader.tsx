@@ -45,7 +45,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
 
   return <div className="hidden lg:block">
     <div 
-      className={`${styles.header} w-full flex items-center justify-between fixed inset-x-0 top-0`}
+      className={`${styles.header} w-full flex items-center justify-between fixed inset-x-0 top-0 z-[9999]`}
       style={{height: HEADER_HEIGHT}}
     >
       <div className="flex">
