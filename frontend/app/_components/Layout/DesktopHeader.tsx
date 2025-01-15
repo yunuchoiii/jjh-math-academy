@@ -104,15 +104,15 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
     </div>
     {<div 
       className={`${styles.fullMenuBox} w-full flex items-start justify-center fixed inset-x-0 py-12`}
-      style={{top: hamburger ? HEADER_HEIGHT : -250}}>
+      style={{top: hamburger ? HEADER_HEIGHT : "-50%"}}
+    >
         <div className="mr-16">
           <div className="Montserrat text-lg text-green-1 pb-5 px-1 uppercase">menu</div>
           <div className="pt-5 flex justify-between border-t border-green-1 px-1">
             {Object.values(MENU_INFO).map (menu => (
               <div 
                 key={`fullmenu-${menu.title}`} 
-                className="flex flex-col items-start"
-                style={{width: menu.sort !== 4 ? 186 : 'unset'}}
+                className="flex flex-col items-start w-[166px] last:w-auto"
               >
                 <button 
                   className="text-green-1 text-lg mb-4 font-semibold"

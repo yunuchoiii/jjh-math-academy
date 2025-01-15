@@ -60,7 +60,7 @@ export const MENU_INFO:Record<string, parentMenu> = {
     children: [
       {
         sort: 1,
-        title: "요리수",
+        title: "요리수 연산",
         link: "/advanced-math/yorisu"
       },
       {
@@ -70,8 +70,34 @@ export const MENU_INFO:Record<string, parentMenu> = {
       },
     ]
   },
-  contact: {
+  board: {
     sort: 4,
+    title: "학원 소식",
+    children: [
+      {
+        sort: 1,
+        title: "공지사항",
+        link: "/board/notice"
+      },
+      {
+        sort: 2,
+        title: "초·중등 교과 수학",
+        link: "/board/common-math"
+      },
+      {
+        sort: 3,
+        title: "요리수 연산",
+        link: "/board/yorisu"
+      },
+      {
+        sort: 4,
+        title: "시그마 클래스",
+        link: "/board/sigma-class"
+      },
+    ]
+  },
+  contact: {
+    sort: 5,
     title: "상담 안내",
     link: "/#contact-section"
   },
