@@ -112,10 +112,12 @@ const IntroductionPage = () => {
       </div>
     </section>
 
-    <section className="mb-20 grid xl:grid-cols-2 gap-5 -mt-5">
+    <section className="mb-20">
       <Title title="대상 학교" color="blue"/>
-      <SchoolList type="초등학교" schools={["청원초", "상명초", "화랑초", "을지초", "상수초", "중계초", "상곡초", "당현초"]} />
-      <SchoolList type="중학교" schools={["신상중", "상계중", "중계중", "창동중", "온곡중"]} />
+      <div className="grid xl:grid-cols-2 gap-5 -mt-5">
+        <SchoolList type="초등학교" schools={["청원초", "상명초", "화랑초", "을지초", "상수초", "중계초", "상곡초", "당현초"]} />
+        <SchoolList type="중학교" schools={["신상중", "상계중", "중계중", "창동중", "온곡중"]} />
+      </div>
     </section>
 
     <section>
