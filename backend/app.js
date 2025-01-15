@@ -14,6 +14,7 @@ dotenv.config();
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
 const infoRouter = require('./routes/info');
+const menuRouter = require('./routes/menu');
 const app = express();
 
 // 미들웨어 설정
@@ -50,7 +51,7 @@ const swaggerOptions = {
       description: 'Node.js API 문서입니다.',
     },
   },
-  apis: ['./routes/user.js', './routes/auth.js', './routes/info.js'], // API 경로
+  apis: ['./routes/user.js', './routes/auth.js', './routes/info.js', './routes/menu.js'], // API 경로
 };
 
 // Swagger 문서 생성
@@ -63,6 +64,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/info', infoRouter);
+app.use('/menu', menuRouter);
 
 // 데이터베이스 연결
 sequelize.sync()
