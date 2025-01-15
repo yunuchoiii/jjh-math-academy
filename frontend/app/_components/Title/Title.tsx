@@ -1,14 +1,15 @@
 interface TitleProps {
   title: string;
   subtitle?: string;
-  color?: "green" | "yellow" | "black";
+  color?: "green" | "yellow" | "blue" | "black";
 }
 
 const Title = ({ title, subtitle, color="black" }: TitleProps) => { 
   const textColor = {
     green: '#41B580',
     yellow: '#EFC223',
-    black: '#333'
+    blue: '#4C7E82',
+    black: '#333',
   }
   return <div 
     className={`text-2xl font-extrabold NanumSquare mb-[40px]`}

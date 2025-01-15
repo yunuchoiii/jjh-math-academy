@@ -11,6 +11,7 @@ const config: Config = {
       backgroundImage: {
         'gradient-green': 'linear-gradient(95deg, #41B580 0%, #359267 100%)',
         'gradient-yellow': 'linear-gradient(95deg, #FFDC60 0%, #EFC223 100%)',
+        'gradient-blue': 'linear-gradient(95deg, #49B5C9 0%, #267D8D 100%)',
       },
     },
     colors: {
@@ -31,6 +32,7 @@ const config: Config = {
       'blue-2': '#4C7E82',
       'blue-3': '#49B5C9',
       'blue-4': '#6ED1E3',
+      'blue-5': '#F2F7F8',
       'red-1': '#F43F5E',
       'red-2': '#FB7185',
       'lightgray': '#F9F9F9',
