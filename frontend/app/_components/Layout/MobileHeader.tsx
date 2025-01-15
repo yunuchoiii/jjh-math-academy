@@ -1,4 +1,5 @@
-import { CONTACT_INFO, HEADER_HEIGHT_MOBILE, MENU_INFO } from '@/app/_constants/constants';
+import { CONTACT_INFO, HEADER_HEIGHT_MOBILE } from '@/app/_constants/constants';
+import { IMenu } from '@/app/_service/menu';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -6,16 +7,34 @@ import ReactiveButton from '../Button/ReactiveButton';
 import styles from './Layout.module.css';
 
 interface MobileHeaderProps {
+  menuList: IMenu[];
   hamburger: boolean;
   setHamburger: (hamburger: boolean) => void;
 }
 
-const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
+const MobileHeader = ({menuList, hamburger, setHamburger}: MobileHeaderProps) => {
   const router = useRouter();
+
   const handleClick = (link: string) => {
     setHamburger(false)
     router.push(link)
   }
+
+  const parentMenuList = menuList.filter(menu => !menu.parentId);
+  const getChildMenuList = (parentId: number) => {
+    return menuList.filter(menu => menu.parentId === parentId);
+  }
+
+  const [menuOpenedStates, setMenuOpenedStates] = useState<boolean[]>(parentMenuList.map(() => false));
+
+  const toggleMenuOpened = (index: number) => {
+    setMenuOpenedStates(prevStates => {
+      const newStates = [...prevStates];
+      newStates[index] = !newStates[index];
+      return newStates;
+    });
+  };
+
   return <div className="flex lg:hidden w-screen fixed inset-x-0 top-0 z-[9999]">
     <div 
       className={`${styles.header} w-screen flex items-center justify-between fixed inset-x-0 top-0`} 
@@ -45,18 +64,18 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
           }}
         >
           <div className="overflow-scroll pb-10" style={{height: "calc(100% - 5rem)"}}>
-            {Object.values(MENU_INFO).map(parentMenu => {
-              const [menuOpened, setMenuOpened] = useState<boolean>(false);
+            {parentMenuList.map((parentMenu, index) => {
+              const menuOpened = menuOpenedStates[index];
               const handleMenuClick = () => {
-                if (parentMenu.children) {
-                  setMenuOpened(!menuOpened)
+                if (getChildMenuList(parentMenu.id).length > 0) {
+                  toggleMenuOpened(index);
                 } else {
-                  handleClick(parentMenu.link || '')
+                  handleClick(parentMenu.link || '');
                 }
-              }
+              };
               return <div key={`mobile-parent-menu-${parentMenu.sort}`}>
                 <div className="overflow-hidden" style={{
-                  height: menuOpened ? `calc(4.875rem + ${parentMenu.children!.length * 2.875}rem)` : '3.5rem',
+                  height: menuOpened ? `calc(4.875rem + ${getChildMenuList(parentMenu.id).length * 2.875}rem)` : '3.5rem',
                   transition: 'height 0.25s ease-in-out'
                 }}>
                   <div 
@@ -66,14 +85,14 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
                     <span className="text-green-1 text-xl leading-none font-bold">
                       {parentMenu.title}
                     </span>
-                    {parentMenu.children && <img 
+                    {getChildMenuList(parentMenu.id).length > 0 && <img 
                       src="/images/icons/arrow_rounded.png" 
                       alt="close" className={`filter-green-1 ${!menuOpened && 'rotate-180'}`}
                       width={20} 
                     />}
                   </div>
                   <div className="pb-2.5 pt-1.5">
-                    {parentMenu.children?.map(childMenu => 
+                    {getChildMenuList(parentMenu.id).map(childMenu => 
                       <ReactiveButton
                         key={`mobile-child-menu-${childMenu.sort}`} 
                         props={{

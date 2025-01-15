@@ -1,10 +1,12 @@
-import { childMenu, CONTACT_INFO, HEADER_HEIGHT, MENU_INFO } from '@/app/_constants/constants';
+import { CONTACT_INFO, HEADER_HEIGHT } from '@/app/_constants/constants';
+import { IMenu } from '@/app/_service/menu';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
 import styles from './Layout.module.css';
 
 interface DesktopHeaderProps {
+  menuList: IMenu[];
   hamburger: boolean;
   setHamburger: (hamburger: boolean) => void;
   handleContactMenu: () => void;
@@ -13,7 +15,13 @@ interface DesktopHeaderProps {
   logout: () => void;
 }
 
-const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoading, logout}: DesktopHeaderProps) => {
+const DesktopHeader = ({menuList, hamburger, setHamburger, handleContactMenu, user, isLoading, logout}: DesktopHeaderProps) => {
+  const parentMenuList = menuList.filter(menu => !menu.parentId);
+  const getChildMenuList = (parentId: number) => {
+    return menuList.filter(menu => menu.parentId === parentId);
+  }
+
+  const [hoveredMenuId, setHoveredMenuId] = useState<number | null>(null);
 
   // 스크롤 높이 감지
   useEffect(() => {
@@ -33,11 +41,11 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
     };
   }, [setHamburger]);
 
-  const ChildrenMenus = ({childrenMenus}:{childrenMenus:Array<childMenu>}) => {
+  const ChildrenMenus = ({childrenMenus}:{childrenMenus:IMenu[]}) => {
     return <div className={`flex flex-col items-center rounded-3xl absolute ${styles.childrenMenuBox} slide-in-blurred-top`}
     style={{top: HEADER_HEIGHT - 15}}>
       {childrenMenus.map(item => 
-      <Link href={item.link} key={`children-menu-${item.title}`} className={`${styles.childMenu} flex items-center justify-center`}>
+      <Link href={item.link!} key={`children-menu-${item.title}`} className={`${styles.childMenu} flex items-center justify-center`}>
         <span>{item.title}</span>
       </Link>)}
     </div>
@@ -63,21 +71,20 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
         </Link>
       </div>
       <div className="lg:flex items-center hidden">
-        {Object.values(MENU_INFO).map(item => {
-          const [showChildren, setShowChildren] = useState<boolean>(false);
+        {parentMenuList.map(item => {
           return <div 
             key={`menu-${item.title}`} 
-            onMouseLeave={()=>setShowChildren(false)}
+            onMouseLeave={()=>setHoveredMenuId(null)}
             className="relative"
           >
             <Link 
-              href={item.link || item.children?.[0].link || ''}
+              href={item.link || getChildMenuList(item.id)[0].link || ''}
               className={`${styles.menu} xl:text-lg lg:text-base font-semibold text-gray-600 hover:text-green-1`} 
-              onMouseOver={item.link ? ()=>{} : ()=>setShowChildren(true)}
+              onMouseOver={item.link ? ()=>{} : ()=>setHoveredMenuId(item.id)}
             >
               {item.title}
             </Link>
-            {showChildren && item.children && <ChildrenMenus childrenMenus={item.children || []}></ChildrenMenus>}
+            {hoveredMenuId === item.id && getChildMenuList(item.id).length > 0 && <ChildrenMenus childrenMenus={getChildMenuList(item.id)}></ChildrenMenus>}
           </div>
         })}
         {!isLoading && <div className="flex items-center ml-6 gap-10">
@@ -109,7 +116,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
         <div className="mr-16">
           <div className="Montserrat text-lg text-green-1 pb-5 px-1 uppercase">menu</div>
           <div className="pt-5 flex justify-between border-t border-green-1 px-1">
-            {Object.values(MENU_INFO).map (menu => (
+            {parentMenuList.map (menu => (
               <div 
                 key={`fullmenu-${menu.title}`} 
                 className="flex flex-col items-start w-[166px] last:w-auto"
@@ -120,8 +127,8 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
                 >
                   {menu.title}
                 </button>
-                {menu.children?.map(item => (
-                  <Link href={item.link} key={`fullmenu-${item.sort}`} className={`${styles.fullMenuUnit} mb-3 last:mb-0`}>
+                {getChildMenuList(menu.id).map(item => (
+                  <Link href={item.link!} key={`fullmenu-${item.sort}`} className={`${styles.fullMenuUnit} mb-3 last:mb-0`}>
                     {item.title}
                   </Link>
                 ))}

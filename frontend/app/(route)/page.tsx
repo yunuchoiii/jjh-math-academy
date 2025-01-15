@@ -8,7 +8,6 @@ import PartnersTab from '../_components/Home/PartnersTab';
 import Programs from '../_components/Home/Programs';
 import SpecialClasses from '../_components/Home/SpecialClasses';
 import MobileDivider from '../_components/Layout/MobileDivider';
-import { MENU_INFO } from '../_constants/constants';
 import useScrollAnimation from '../_hooks/scroll';
 
 export default function Home() {
@@ -40,7 +39,7 @@ export default function Home() {
             <div className="md:w-2 md:h-2 w-1.5 h-1.5 rounded-md bg-yellow-3"></div>
             <div className="w-0.5 h-10 bg-yellow-3"></div>
             <Link 
-              href={MENU_INFO.contact.link!}
+              href={"/#contact-section"}
               className="xl:py-4 xl:px-10 py-3 px-12 rounded-full bg-yellow-3 font-bold xl:text-2xl md:text-xl text-sm shadow-lg relative bottom-0 md:hover:bottom-2 hover:shadow-xl transition-all"
             >
               상담 안내

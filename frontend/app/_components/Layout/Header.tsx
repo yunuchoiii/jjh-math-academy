@@ -1,5 +1,6 @@
 'use client'
 
+import { useMenu } from "@/app/_hooks/menu";
 import useUser from "@/app/_hooks/user";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
@@ -9,6 +10,8 @@ import MobileHeader from "./MobileHeader";
 export default function Header () {
   const { user, isLoading, logout } = useUser()
   const [hamburger, setHamburger] = useState<boolean>(false);
+
+  const { menus } = useMenu();
 
   const handleContactMenu = () => {
     setHamburger(false)
@@ -41,6 +44,7 @@ export default function Header () {
   return <>
     {/* 데스크톱 */}
     <DesktopHeader
+      menuList={menus}
       hamburger={hamburger} 
       setHamburger={setHamburger} 
       handleContactMenu={handleContactMenu} 
@@ -50,6 +54,7 @@ export default function Header () {
     />
     {/* 모바일 및 태블릿 */}
     <MobileHeader
+      menuList={menus}
       hamburger={hamburger} 
       setHamburger={setHamburger} 
     />
