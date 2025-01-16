@@ -1,7 +1,8 @@
 import { CONTACT_INFO, HEADER_HEIGHT } from '@/app/_constants/constants';
 import { IMenu } from '@/app/_service/menu';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
 import styles from './Layout.module.css';
 
@@ -16,10 +17,12 @@ interface DesktopHeaderProps {
 }
 
 const DesktopHeader = ({menuList, hamburger, setHamburger, handleContactMenu, user, isLoading, logout}: DesktopHeaderProps) => {
+  const pathname = usePathname();
+
   const parentMenuList = menuList.filter(menu => !menu.parentId);
-  const getChildMenuList = (parentId: number) => {
+  const getChildMenuList = useCallback((parentId: number) => {
     return menuList.filter(menu => menu.parentId === parentId);
-  }
+  }, [menuList]);
 
   const [hoveredMenuId, setHoveredMenuId] = useState<number | null>(null);
 
@@ -40,6 +43,10 @@ const DesktopHeader = ({menuList, hamburger, setHamburger, handleContactMenu, us
       window.removeEventListener('scroll', handleScroll);
     };
   }, [setHamburger]);
+
+  useEffect(() => {
+    setHamburger(false)
+  }, [pathname]);
 
   const ChildrenMenus = ({childrenMenus}:{childrenMenus:IMenu[]}) => {
     return <div className={`flex flex-col items-center rounded-3xl absolute ${styles.childrenMenuBox} slide-in-blurred-top`}

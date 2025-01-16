@@ -2,7 +2,7 @@ import { CONTACT_INFO, HEADER_HEIGHT_MOBILE } from '@/app/_constants/constants';
 import { IMenu } from '@/app/_service/menu';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import ReactiveButton from '../Button/ReactiveButton';
 import styles from './Layout.module.css';
 
@@ -21,9 +21,9 @@ const MobileHeader = ({menuList, hamburger, setHamburger}: MobileHeaderProps) =>
   }
 
   const parentMenuList = menuList.filter(menu => !menu.parentId);
-  const getChildMenuList = (parentId: number) => {
+  const getChildMenuList = useCallback((parentId: number) => {
     return menuList.filter(menu => menu.parentId === parentId);
-  }
+  }, [menuList]);
 
   const [menuOpenedStates, setMenuOpenedStates] = useState<boolean[]>(parentMenuList.map(() => false));
 
@@ -41,7 +41,7 @@ const MobileHeader = ({menuList, hamburger, setHamburger}: MobileHeaderProps) =>
       style={{height: HEADER_HEIGHT_MOBILE}}
     >
       <img src="/images/logos/logo_green.png" alt="logo" width={30} style={{marginTop: -3}}/>
-      <Link href={'/'} className="NanumSquare text-xl font-bold text-green-1">
+      <Link href={'/'} className="NanumSquare text-xl font-extrabold text-green-1">
         조재현 수학학원
       </Link>
       <button 
