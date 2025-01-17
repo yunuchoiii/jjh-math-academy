@@ -61,7 +61,7 @@ const IntroductionPage = () => {
 
   return <div>
     <section className="mb-20">
-      <Title title="학원 소개" color="blue"/>
+      <Title title="학원 소개" color="blue" showInMobile/>
       <div className="flex flex-col md:flex-row gap-[50px]">
         <div className="flex flex-col items-center justify-center">
           <div className="w-[200px] h-[200px] bg-white rounded-full flex items-center justify-center shadow-3">
@@ -92,7 +92,7 @@ const IntroductionPage = () => {
     </section>
 
     <section className="mb-20">
-      <Title title="수업 특징" color="blue"/>
+      <Title title="수업 특징" color="blue" showInMobile/>
       <div className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-[30px]">
         {features.map((feature, index) => (
           <div key={index} className="sm:h-[300px] rounded-[20px] shadow-2 p-[10px] flex flex-col border border-[#eee]">
@@ -113,7 +113,7 @@ const IntroductionPage = () => {
     </section>
 
     <section className="mb-20">
-      <Title title="대상 학교" color="blue"/>
+      <Title title="대상 학교" color="blue" showInMobile/>
       <div className="grid xl:grid-cols-2 gap-5 -mt-5">
         <SchoolList type="초등학교" schools={["청원초", "상명초", "화랑초", "을지초", "상수초", "중계초", "상곡초", "당현초"]} />
         <SchoolList type="중학교" schools={["신상중", "상계중", "중계중", "창동중", "온곡중"]} />

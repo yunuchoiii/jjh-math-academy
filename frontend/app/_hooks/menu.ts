@@ -37,11 +37,16 @@ export const useMenu = () => {
 
   useEffect(() => {
     if (menuList.length > 0) {
-      const current = menuList.find(menu => menu.link?.includes(pathname));
-      if (current) {
-        setCurrentMenu(current);
+      if (pathname === '/') {
+        setCurrentMenu(null);
+        setCurrentParentMenu(null);
+      } else {
+        const current = menuList.find(menu => menu.link?.includes(pathname));
+        if (current) {
+          setCurrentMenu(current);
         if (current.parentId) {
           setCurrentParentMenu(menuList.find(menu => menu.id === current.parentId) || null);
+          }
         }
       }
     }

@@ -19,7 +19,7 @@ const LocationInfoPage = () => {
         <ReactiveButton
           props={{
             title: '네이버 지도 바로 가기',
-            className: 'absolute bottom-5 left-1/2 -translate-x-1/2 shadow-1 bg-green-1 text-white font-semibold w-auto px-5 py-2 rounded-full',
+            className: 'absolute bottom-5 left-1/2 -translate-x-1/2 shadow-1 bg-green-1 text-white font-semibold w-auto px-5 py-2 rounded-full whitespace-nowrap',
             onClick: handleButtonClick,
             'aria-label': '네이버 지도 페이지로 이동'
           }}

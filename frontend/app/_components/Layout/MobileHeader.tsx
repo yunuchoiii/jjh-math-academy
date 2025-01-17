@@ -1,7 +1,8 @@
 import { CONTACT_INFO, HEADER_HEIGHT_MOBILE } from '@/app/_constants/constants';
 import { useMenu } from '@/app/_hooks/menu';
+import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ReactiveButton from '../Button/ReactiveButton';
 import styles from './Layout.module.css';
@@ -13,7 +14,8 @@ interface MobileHeaderProps {
 
 const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
   const router = useRouter();
-  const { menuList, currentMenu, currentParentMenu, parentMenuList, getChildMenuList } = useMenu();
+  const pathname = usePathname();
+  const { currentMenu, currentParentMenu, parentMenuList, getChildMenuList } = useMenu();
 
   const handleClick = (link: string) => {
     setHamburger(false)
@@ -39,10 +41,17 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
       className={`${styles.header} w-screen flex items-center justify-between fixed inset-x-0 top-0`} 
       style={{height: HEADER_HEIGHT_MOBILE}}
     >
-      <img src="/images/logos/logo_green.png" alt="logo" width={30} style={{marginTop: -3}}/>
-      <Link href={'/'} className="NanumSquare text-xl font-extrabold text-green-1">
-        조재현 수학학원
+      <Link href={'/'}>
+        <Image src="/images/logos/logo_green.png" alt="logo" width={30} height={30} style={{marginTop: -3}}/>
       </Link>
+      {!currentMenu ? 
+        <Link href={'/'} className="NanumSquare text-xl font-extrabold text-green-1">
+          조재현 수학학원
+        </Link> :
+        <div className="NanumSquare text-xl font-extrabold text-green-1">
+          {currentMenu?.title}
+        </div>
+      }
       <button 
         className={`${styles.menuHamburger}`}
         onClick={()=>setHamburger(!hamburger)}
