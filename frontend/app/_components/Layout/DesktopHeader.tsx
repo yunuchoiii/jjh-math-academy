@@ -1,13 +1,13 @@
 import { CONTACT_INFO, HEADER_HEIGHT } from '@/app/_constants/constants';
+import { useMenu } from '@/app/_hooks/menu';
 import { IMenu } from '@/app/_service/menu';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Tooltip from '../Tooltip/Tooltip';
 import styles from './Layout.module.css';
 
 interface DesktopHeaderProps {
-  menuList: IMenu[];
   hamburger: boolean;
   setHamburger: (hamburger: boolean) => void;
   handleContactMenu: () => void;
@@ -16,13 +16,10 @@ interface DesktopHeaderProps {
   logout: () => void;
 }
 
-const DesktopHeader = ({menuList, hamburger, setHamburger, handleContactMenu, user, isLoading, logout}: DesktopHeaderProps) => {
+const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoading, logout}: DesktopHeaderProps) => {
   const pathname = usePathname();
 
-  const parentMenuList = menuList.filter(menu => !menu.parentId);
-  const getChildMenuList = useCallback((parentId: number) => {
-    return menuList.filter(menu => menu.parentId === parentId);
-  }, [menuList]);
+  const { currentMenu, currentParentMenu, parentMenuList, getChildMenuList } = useMenu();
 
   const [hoveredMenuId, setHoveredMenuId] = useState<number | null>(null);
 
@@ -52,7 +49,7 @@ const DesktopHeader = ({menuList, hamburger, setHamburger, handleContactMenu, us
     return <div className={`flex flex-col items-center rounded-3xl absolute ${styles.childrenMenuBox} slide-in-blurred-top`}
     style={{top: HEADER_HEIGHT - 15}}>
       {childrenMenus.map(item => 
-      <Link href={item.link!} key={`children-menu-${item.title}`} className={`${styles.childMenu} flex items-center justify-center`}>
+      <Link href={item.link!} key={`children-menu-${item.title}`} className={`${styles.childMenu} flex items-center justify-center ${item.id === currentMenu?.id ? 'text-green-1 font-bold' : 'text-black'}`}>
         <span>{item.title}</span>
       </Link>)}
     </div>
@@ -86,7 +83,7 @@ const DesktopHeader = ({menuList, hamburger, setHamburger, handleContactMenu, us
           >
             <Link 
               href={item.link || getChildMenuList(item.id)[0].link || ''}
-              className={`${styles.menu} xl:text-lg lg:text-base font-semibold text-gray-600 hover:text-green-1`} 
+              className={`${styles.menu} xl:text-lg lg:text-base font-semibold hover:text-green-1 ${item.id === currentParentMenu?.id ? 'text-green-1' : 'text-black'}`} 
               onMouseOver={item.link ? ()=>{} : ()=>setHoveredMenuId(item.id)}
             >
               {item.title}
@@ -126,16 +123,20 @@ const DesktopHeader = ({menuList, hamburger, setHamburger, handleContactMenu, us
             {parentMenuList.map (menu => (
               <div 
                 key={`fullmenu-${menu.title}`} 
-                className="flex flex-col items-start w-[166px] last:w-auto"
+                className="flex flex-col gap-3 items-start w-[166px] last:w-auto"
               >
                 <button 
-                  className="text-green-1 text-lg mb-4 font-semibold"
+                  className="text-green-1 text-lg mb-1 font-semibold"
                   onClick={menu.link ? handleContactMenu : ()=>{}}
                 >
                   {menu.title}
                 </button>
                 {getChildMenuList(menu.id).map(item => (
-                  <Link href={item.link!} key={`fullmenu-${item.sort}`} className={`${styles.fullMenuUnit} mb-3 last:mb-0`}>
+                  <Link 
+                    href={item.link!} 
+                    key={`fullmenu-${item.sort}`} 
+                    className={styles.fullMenuUnit}
+                  >
                     {item.title}
                   </Link>
                 ))}
@@ -143,9 +144,9 @@ const DesktopHeader = ({menuList, hamburger, setHamburger, handleContactMenu, us
             ))}
           </div>
         </div>
-        <div style={{width: 200}}>
+        <div>
           <div className="Montserrat text-lg text-green-1 pb-5 px-1 uppercase">contact</div>
-          <div className="pt-5 flex flex-col justify-between border-t border-green-1 px-1">
+          <div className="pt-5 flex flex-col justify-between border-t border-green-1 px-1 pr-2.5">
             {Object.values(CONTACT_INFO).map(item => {
               const Content = (
                 <>

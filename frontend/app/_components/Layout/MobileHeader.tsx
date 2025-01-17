@@ -1,31 +1,30 @@
 import { CONTACT_INFO, HEADER_HEIGHT_MOBILE } from '@/app/_constants/constants';
-import { IMenu } from '@/app/_service/menu';
+import { useMenu } from '@/app/_hooks/menu';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactiveButton from '../Button/ReactiveButton';
 import styles from './Layout.module.css';
 
-interface MobileHeaderProps {
-  menuList: IMenu[];
+interface MobileHeaderProps {     
   hamburger: boolean;
   setHamburger: (hamburger: boolean) => void;
 }
 
-const MobileHeader = ({menuList, hamburger, setHamburger}: MobileHeaderProps) => {
+const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
   const router = useRouter();
+  const { menuList, currentMenu, currentParentMenu, parentMenuList, getChildMenuList } = useMenu();
 
   const handleClick = (link: string) => {
     setHamburger(false)
     router.push(link)
   }
 
-  const parentMenuList = menuList.filter(menu => !menu.parentId);
-  const getChildMenuList = useCallback((parentId: number) => {
-    return menuList.filter(menu => menu.parentId === parentId);
-  }, [menuList]);
+  const [menuOpenedStates, setMenuOpenedStates] = useState<boolean[]>(parentMenuList.map((_) => false));
 
-  const [menuOpenedStates, setMenuOpenedStates] = useState<boolean[]>(parentMenuList.map(() => false));
+  useEffect(() => {
+    setMenuOpenedStates(parentMenuList.map((menu) => menu.id === currentParentMenu?.id ? true : false));
+  }, [currentParentMenu]);
 
   const toggleMenuOpened = (index: number) => {
     setMenuOpenedStates(prevStates => {
@@ -82,7 +81,7 @@ const MobileHeader = ({menuList, hamburger, setHamburger}: MobileHeaderProps) =>
                     className={`${styles.mobileParentMenu} w-full h-14 rounded-xl px-6 flex items-center justify-between mb-1 active:bg-[#F0F0F0] ${menuOpened ? 'bg-[#F0F0F0]' : 'bg-transparent'}`}
                     onClick={handleMenuClick}
                   > 
-                    <span className="text-green-1 text-xl leading-none font-bold">
+                    <span className="text-green-1 text-lg leading-none font-bold">
                       {parentMenu.title}
                     </span>
                     {getChildMenuList(parentMenu.id).length > 0 && <img 
@@ -101,7 +100,7 @@ const MobileHeader = ({menuList, hamburger, setHamburger}: MobileHeaderProps) =>
                         }}
                       >
                         <div className="w-2 h-2 rounded-full bg-yellow-1 mr-3.5"></div>
-                        <div className="text-lg leading-none decoration-neutral-700">
+                        <div className={`text-base leading-none decoration-neutral-700 ${childMenu.id === currentMenu?.id ? 'text-[#000]' : 'text-[#666]'}`}>
                           {childMenu.title}
                         </div>
                       </ReactiveButton>

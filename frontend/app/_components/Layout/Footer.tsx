@@ -8,9 +8,9 @@ import { usePathname } from "next/navigation";
 export default function Footer () {
   const pathname = usePathname();
 
-  const { menus } = useMenu();
-  const parentMenuList = menus.filter(menu => menu.parentId === null);
-  const childrenMenuList = menus.filter(menu => menu.parentId !== null);
+  const { menuList } = useMenu();
+  const parentMenuList = menuList.filter(menu => menu.parentId === null);
+  const childrenMenuList = menuList.filter(menu => menu.parentId !== null);
 
   return <>
     <div className={`bg-[#505050] xl:px-32 xl:py-16 lg:px-12 lg:py-12 px-10 py-6 flex items-center lg:justify-center justify-start ${pathname !== '/' ? 'mt-20' : 'mt-0'}`}>
