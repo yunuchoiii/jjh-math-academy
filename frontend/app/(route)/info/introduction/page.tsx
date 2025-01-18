@@ -1,4 +1,4 @@
-import BlockQuote from "@/app/_components/BlockQuote/BlockQuote";
+import BlockQuote from "@/app/_components/Quote/BlockQuote";
 import Title from "@/app/_components/Title/Title";
 import Image from "next/image";
 
