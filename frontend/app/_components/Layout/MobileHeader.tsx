@@ -1,5 +1,5 @@
 import { CONTACT_INFO, HEADER_HEIGHT_MOBILE } from '@/app/_constants/constants';
-import { useMenu } from '@/app/_hooks/menu';
+import { useMenu } from '@/app/_hooks/useMenu';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';

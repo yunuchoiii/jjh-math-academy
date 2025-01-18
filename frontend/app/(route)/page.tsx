@@ -8,7 +8,7 @@ import PartnersTab from '../_components/Home/PartnersTab';
 import Programs from '../_components/Home/Programs';
 import SpecialClasses from '../_components/Home/SpecialClasses';
 import MobileDivider from '../_components/Layout/MobileDivider';
-import useScrollAnimation from '../_hooks/scroll';
+import useScrollAnimation from '../_hooks/useScroll';
 
 export default function Home() {
   const setRef = useScrollAnimation({threshold: 0.4, className: 'visible'});

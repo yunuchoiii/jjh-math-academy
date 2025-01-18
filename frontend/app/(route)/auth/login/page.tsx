@@ -4,7 +4,7 @@ import LoginButton from "@/app/_components/Auth/LoginButton";
 import Checkbox from "@/app/_components/Input/Checkbox";
 import TextField from "@/app/_components/Input/TextField";
 import { useToast } from "@/app/_components/Toast/ToastProvider";
-import useUser from "@/app/_hooks/user";
+import useUser from "@/app/_hooks/useUser";
 import { AxiosError } from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from 'react';

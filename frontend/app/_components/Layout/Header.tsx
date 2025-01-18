@@ -1,6 +1,6 @@
 'use client'
 
-import useUser from "@/app/_hooks/user";
+import useUser from "@/app/_hooks/useUser";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import DesktopHeader from "./DesktopHeader";

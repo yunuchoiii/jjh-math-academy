@@ -1,7 +1,7 @@
 'use client'
 
 import { CONTACT_INFO } from '@/app/_constants/constants';
-import { useMenu } from '@/app/_hooks/menu';
+import { useMenu } from '@/app/_hooks/useMenu';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
