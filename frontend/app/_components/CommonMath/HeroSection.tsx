@@ -27,7 +27,7 @@ const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
     console.log(sectionRef.current?.offsetHeight);
     if (sectionRef.current?.offsetHeight) {
       window.scrollTo({
-        top: sectionRef.current.offsetHeight,
+        top: sectionRef.current.offsetHeight - 120,
         behavior: 'smooth'
       });
     }
