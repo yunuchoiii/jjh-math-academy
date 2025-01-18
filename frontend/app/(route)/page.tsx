@@ -84,7 +84,7 @@ export default function Home() {
         <div className="xl:w-[995px] w-[790px]">
           <div className="text-center mb-12">
             <div className="xl:text-3xl md:text-2xl text-sm font-bold">
-              대입으로 가는 첫걸음
+              기초부터 심화까지 탄탄하게
             </div>
             <div className="xl:text-4xl md:text-3xl text-lg font-bold md:mt-4 mt-1 text-green-2">
               초·중등 교과 수학

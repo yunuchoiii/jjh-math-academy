@@ -38,7 +38,7 @@ const HomeBanner = () => {
       backgroundColor: "linear-gradient(90deg, #C8CCCD 18.59%, #C2C6C7 83.1%)",
       imgPath: "/images/chalkboard-math.png",
       imgHeight: 328,
-      link: "/program/sigma-class",
+      link: "/advanced-math/sigma-class",
     },
     {
       sort: 3,
@@ -48,7 +48,7 @@ const HomeBanner = () => {
       backgroundColor: "#E0DAC4",
       imgPath: "/images/child-play-study.png",
       imgHeight: 368,
-      link: "/program/yorisu",
+      link: "/advanced-math/yorisu",
     },
     {
       sort: 4,
@@ -58,7 +58,7 @@ const HomeBanner = () => {
       backgroundColor: "#DAE3D9",
       imgPath: "/images/study-girl-photo.png",
       imgHeight: 415,
-      link: "/curriculum/elementary",
+      link: "/common-math/elementary",
     },
   ];
 

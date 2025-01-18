@@ -11,7 +11,7 @@ export default function SpecialClasses () {
       bgColor: '#FFF6D4',
       age: '6세 - 초2',
       logoPath: '/images/icons/yorisu.png',
-      href: '/program/yorisu'
+      href: '/advanced-math/yorisu'
     },
     {
       title: '시그마클래스',
@@ -21,7 +21,7 @@ export default function SpecialClasses () {
       bgColor: '#ECF6E4',
       age: '6세 - 초5',
       logoPath: '/images/icons/sigma-class.png',
-      href: '/program/sigma-class'
+      href: '/advanced-math/sigma-class'
     },
   ]
   return <>
