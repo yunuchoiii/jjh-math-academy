@@ -2,6 +2,7 @@ export const HEADER_HEIGHT = 70;
 export const HEADER_HEIGHT_MOBILE = 50;
 export const BLOG_LINK = "https://blog.naver.com/lllqueen8180";
 export const NAVER_MAP_LINK = "https://m.place.naver.com/share?id=33510998&tabsPath=%2Fhome&appMode=detail";
+export const CONTACT_SECTION_LINK = "/#contact-section";
 
 // 네비게이션 바 데이터 정의
 export type childMenu = {
