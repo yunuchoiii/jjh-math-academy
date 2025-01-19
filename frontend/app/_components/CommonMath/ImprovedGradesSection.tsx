@@ -11,16 +11,16 @@ interface ImprovedGradesSectionProps {
   improvedGradesList: {
     id: number;
     student: string;
-    description: string;
+    description: React.ReactNode;
   }[];
 }
 
 const ImprovedGradesSection = ({ speechBubbleText, improvedGradesList }: ImprovedGradesSectionProps) => {
-  const { ref: firstRef, isIntersected: isFirstIntersected } = useIntersection(0.5);
+  const { ref: firstRef, isIntersected: isFirstIntersected } = useIntersection(0.3);
   const { ref: secondRef, isIntersected: isSecondIntersected } = useIntersection(0.5);
 
   return (
-    <div className="flex justify-center items-center w-full">
+    <div className="flex justify-center items-center w-full pt-20">
       <div className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full max-w-[995px] px-5">
         <div ref={firstRef} className="flex flex-col gap-5">
           <div
@@ -37,7 +37,7 @@ const ImprovedGradesSection = ({ speechBubbleText, improvedGradesList }: Improve
           <div
             className={`flex justify-end pl-10 ${isFirstIntersected ? "fade-in-bottom" : "opacity-0"}`}
             style={{
-              animationDelay: "1.5s",
+              animationDelay: "1.2s",
               animationDuration: "0.6s",
             }}
           >
@@ -53,17 +53,16 @@ const ImprovedGradesSection = ({ speechBubbleText, improvedGradesList }: Improve
           {improvedGradesList.map((item, index) => (
             <div
               key={`improved-grade-${item.id}`}
-              className={`w-full md:w-[66%] py-[30px] px-2.5 bg-white rounded-[30px] flex flex-col gap-[20px] justify-center items-center shadow-2 ${isSecondIntersected ? "fade-in-bottom" : "opacity-0"}`}
+              className={`w-full md:w-[66%] py-[30px] px-5 bg-white rounded-[30px] flex flex-col gap-[20px] justify-center items-center shadow-2 break-keep ${isSecondIntersected ? "fade-in-bottom" : "opacity-0"}`}
               style={{
                 animationDelay: 0.8 + index * 0.5 + "s",
                 animationDuration: "0.5s",
               }}
             >
               <div className="text-[#666] md:text-base text-sm"># {item.student}</div>
-              <div
-                dangerouslySetInnerHTML={{ __html: item.description }}
-                className="md:text-lg text-base leading-relaxed text-center"
-              />
+              <div className="md:text-lg text-base leading-relaxed text-center">
+                {item.description}
+              </div>
             </div>
           ))}
           <div className="md:pb-2.5 pb-5 pt-5 flex flex-col items-center justify-center gap-[10px]">
