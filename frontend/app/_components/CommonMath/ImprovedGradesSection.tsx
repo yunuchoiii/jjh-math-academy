@@ -23,7 +23,7 @@ const ImprovedGradesSection = ({ speechBubbleText, improvedGradesList }: Improve
   const { ref: secondRef, isIntersected: isSecondIntersected } = useIntersection(isMobile ? 0.2 : 0.4);
 
   return (
-    <div className="flex justify-center items-center w-full pt-20">
+    <div className="flex justify-center items-center w-full pt-20 pb-[120px]">
       <div className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full max-w-[995px] px-5">
         <div ref={firstRef} className="flex flex-col gap-5">
           <div

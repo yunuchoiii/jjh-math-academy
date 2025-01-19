@@ -1,6 +1,7 @@
 "use client";
 
 import StickyButtons, { StickyButtonProps } from "@/app/_components/Button/StickyButtons";
+import FeaturesSection from "@/app/_components/CommonMath/FeaturesSection";
 import HeroSection from "@/app/_components/CommonMath/HeroSection";
 import ImprovedGradesSection from "@/app/_components/CommonMath/ImprovedGradesSection";
 import { useRouter } from "next/navigation";
@@ -76,6 +77,51 @@ const improvedGradesList = [
   },
 ];
 
+const FeaturesTitle = () => {
+  return (
+    <>
+      학생 개개인의 속도와 수준에 맞춘 <br className="block md:hidden" />
+      <b>맞춤형 수업</b>을 진행합니다.
+    </>
+  );
+};
+
+const FeaturesSubtitle = () => {
+  return (
+    <>
+      초등 수학은 <b>기초</b>를 다지는 시기로, <br className="block md:hidden" />
+      끈기 있는 <b>문제 해결 능력</b>을 기르는 것이 중요합니다.
+    </>
+  );
+};
+
+const features = [
+  {
+    title: "기초부터 심화까지, 단계적 학습",
+    description: "기본 개념을 충분히 이해하고, 사고력 문제 풀이를 통해 심화 문제 해결력을 기릅니다.",
+  },
+  {
+    title: "소규모 과외식 지도",
+    description: "부족한 부분을 보완하며, 성취감을 느낄 수 있도록 맞춤형 학습을 제공합니다.",
+  },
+  {
+    title: "오답 분석과 클리닉",
+    description: "오답을 분석하고, 부족한 개념을 다시 학습하여 학생의 취약점을 완벽히 보완합니다.",
+  },
+  {
+    title: "연산 훈련과 사고력 수학 병행",
+    description: "기본 연산 능력과 더불어 창의적 문제 해결 능력을 키웁니다.",
+  },
+  {
+    title: "전국 단위 평가 대비",
+    description: "TESOM과 같은 평가를 통해 학생의 현재 상태를 객관적으로 파악합니다.",
+  },
+  {
+    title: "정기 피드백과 학부모 소통",
+    description: "학생의 학습 상황을 주기적으로 점검하여 학부모님께 상세히 공유합니다.",
+  },
+];
+
 const ElementaryMathPage = () => {
   const router = useRouter();
   const stickyButtons:StickyButtonProps[] = [
@@ -102,6 +148,12 @@ const ElementaryMathPage = () => {
     <ImprovedGradesSection
       speechBubbleText={speechBubbleText}
       improvedGradesList={improvedGradesList}
+    />
+    <FeaturesSection
+      title={<FeaturesTitle />}
+      subtitle={<FeaturesSubtitle />}
+      features={features}
+      backgroundColor="yellow"
     />
   </div>;
 };

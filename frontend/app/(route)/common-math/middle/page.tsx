@@ -1,6 +1,7 @@
 "use client"
 
 import StickyButtons, { StickyButtonProps } from "@/app/_components/Button/StickyButtons";
+import FeaturesSection from "@/app/_components/CommonMath/FeaturesSection";
 import HeroSection from "@/app/_components/CommonMath/HeroSection";
 import ImprovedGradesSection from "@/app/_components/CommonMath/ImprovedGradesSection";
 import { useRouter } from "next/navigation";
@@ -76,6 +77,47 @@ const improvedGradesList = [
   },
 ];
 
+const FeaturesTitle = () => {
+  return <>
+    수학은 단순한 과목이 아닌, <br className="block md:hidden" />
+    <b>도전 정신</b>과 <b>문제 해결력</b>을 길러주는 과정입니다.
+  </>
+}
+
+const FeaturesSubtitle = () => {
+  return <>
+    조재현 수학학원은 <b>끈기</b>와 <b>성실함</b>을 강조하며,<br className="block md:hidden" /> 
+    학생들이 <b>성취감</b>을 느낄 수 있도록 지도합니다.
+  </>
+}
+
+const features = [
+  {
+    title: "개별 맞춤 학습",
+    description: "학생의 수준과 목표에 따라 개별 진도를 설정하고 부족한 부분을 보완합니다.",
+  },
+  {
+    title: "오답 클리닉",
+    description: "주기적인 테스트와 오답 분석으로 성취도를 점검하고 취약점을 보완합니다.",
+  },
+  {
+    title: "과외식 집중 관리",
+    description: "소그룹 수업으로 학생 개개인의 학습 상황을 세심히 관리합니다.",
+  },
+  {
+    title: "내신 대비 및 선행 학습",
+    description: "철저한 내신 대비에서 더 나아가 고등 수학의 기초까지 준비합니다.",
+  },
+  {
+    title: "철저한 문제 풀이",
+    description: "개념서, 연산서, 심화 문제집 등 다양한 자료를 활용해 완벽한 이해를 돕습니다.",
+  },
+  {
+    title: "학교별 맞춤 자료 제공",
+    description: "각 학교의 기출 문제와 족보를 분석해 학생이 필요로 하는 학습을 제공합니다.",
+  },
+];
+
 const MiddleMathPage = () => {
   const router = useRouter();
   const stickyButtons:StickyButtonProps[] = [
@@ -102,6 +144,12 @@ const MiddleMathPage = () => {
     <ImprovedGradesSection
       speechBubbleText={speechBubbleText}
       improvedGradesList={improvedGradesList}
+    />
+    <FeaturesSection
+      title={<FeaturesTitle />}
+      subtitle={<FeaturesSubtitle />}
+      features={features}
+      backgroundColor="green"
     />
   </div>;
 };

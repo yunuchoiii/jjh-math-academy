@@ -11,11 +11,11 @@ export interface StickyButtonProps {
 }
 
 const StickyButtons = ({ buttons } : {buttons: StickyButtonProps[]}) => {
-  return <div className="fixed sm:sticky z-10 top-16 lg:top-[88px] 2xl:top-24 left-1/2 -translate-x-1/2 flex justify-center items-center gap-[5px] p-[5px] rounded-full bg-white shadow-3 NanumSquare">
+  return <div className="fixed sm:sticky z-10 top-16 lg:top-[88px] 2xl:top-24 left-1/2 -translate-x-1/2 flex justify-center items-center gap-[5px] p-[5px] rounded-full bg-white shadow-[0_4px_20px_rgba(0,0,0,0.15)] NanumSquare">
     {buttons.map((button, index) => (
       <button 
         key={`sticky-button-${index}`}
-        className={`font-semibold text-sm px-[10px] py-[5px] rounded-full w-[150px] text-center transition-all duration-300
+        className={`font-semibold text-sm px-[10px] py-[5px] rounded-full w-[130px] text-center transition-all duration-300
           ${button.isActive ? 
             (button.color === "yellow" ? "bg-yellow-5 text-white" : "bg-green-1 text-white") : 
             "bg-white text-[#555]"
