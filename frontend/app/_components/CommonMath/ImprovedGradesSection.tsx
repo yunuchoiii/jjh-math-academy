@@ -1,6 +1,7 @@
 "use client";
 
 import useIntersection from "@/app/_hooks/useIntersection";
+import { useMediaQuery } from "usehooks-ts";
 import SpeechBubble from "../Quote/SpeechBubble";
 
 interface ImprovedGradesSectionProps {
@@ -16,8 +17,10 @@ interface ImprovedGradesSectionProps {
 }
 
 const ImprovedGradesSection = ({ speechBubbleText, improvedGradesList }: ImprovedGradesSectionProps) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   const { ref: firstRef, isIntersected: isFirstIntersected } = useIntersection(0.3);
-  const { ref: secondRef, isIntersected: isSecondIntersected } = useIntersection(0.5);
+  const { ref: secondRef, isIntersected: isSecondIntersected } = useIntersection(isMobile ? 0.2 : 0.4);
 
   return (
     <div className="flex justify-center items-center w-full pt-20">
