@@ -1,5 +1,9 @@
+"use client";
+
+import StickyButtons, { StickyButtonProps } from "@/app/_components/Button/StickyButtons";
 import HeroSection from "@/app/_components/CommonMath/HeroSection";
 import ImprovedGradesSection from "@/app/_components/CommonMath/ImprovedGradesSection";
+import { useRouter } from "next/navigation";
 
 const LeftSpeechBubbleText = () => {
   return <div className="font-bold">
@@ -73,7 +77,23 @@ const improvedGradesList = [
 ];
 
 const ElementaryMathPage = () => {
+  const router = useRouter();
+  const stickyButtons:StickyButtonProps[] = [
+    {
+      label: "초등 교과 수학",
+      color: "yellow",
+      isActive: true,
+    },
+    {
+      label: "중등 교과 수학",
+      onClick: () => router.push("/common-math/middle"),
+      color: "green",
+      isActive: false,
+    },
+  ];
+
   return <div className="home-root flex flex-col items-center -mt-[140px]">
+    <StickyButtons buttons={stickyButtons} />
     <HeroSection
       title="초등 교과 수학"
       subtitle="기초부터 심화까지 재미있고 탄탄하게!"
