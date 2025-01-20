@@ -1,6 +1,7 @@
 "use client"
 
 import StickyButtons, { StickyButtonProps } from "@/app/_components/Button/StickyButtons";
+import CurriculumSection from "@/app/_components/CommonMath/CurriculumSection";
 import FeaturesSection from "@/app/_components/CommonMath/FeaturesSection";
 import HeroSection from "@/app/_components/CommonMath/HeroSection";
 import ImprovedGradesSection from "@/app/_components/CommonMath/ImprovedGradesSection";
@@ -120,6 +121,27 @@ const features = [
   },
 ];
 
+const curriculums = [
+  {
+    grade: "중학교 1학년",
+    title: "중등 수학 기초 확립",
+    description: "중학교 수학의 기초 개념을 완벽히 이해하고 계산 실수를 줄이며, 수학에 대한 자신감을 형성합니다.",
+    tags: ["정수와 유리수", "문자와 식", "기본 도형"],
+  },
+  {
+    grade: "중학교 2학년",
+    title: "함수와 그래프 이해",
+    description: "함수와 이차방정식 등 중학교 핵심 개념을 완벽히 이해하고 활용합니다.",
+    tags: ["연립 방정식", "이차함수", "피타고라스 정리"],
+  },
+  {
+    grade: "중학교 2학년",
+    title: "고등 수학 기초 다지기",
+    description: "중학교 과정을 완벽히 마무리하고, 고등 수학 기초 개념에 대한 이해를 시작합니다.",
+    tags: ["이차방정식", "삼각비", "확률과 통계"],
+  },
+];
+
 const MiddleMathPage = () => {
   const router = useRouter();
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -157,6 +179,11 @@ const MiddleMathPage = () => {
       subtitle={<FeaturesSubtitle />}
       features={features}
       backgroundColor="green"
+    />
+    <CurriculumSection
+      title="중등 교과 수학 커리큘럼"
+      curriculums={curriculums}
+      color="green"
     />
   </div>;
 };

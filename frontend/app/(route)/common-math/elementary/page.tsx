@@ -1,6 +1,7 @@
 "use client";
 
 import StickyButtons, { StickyButtonProps } from "@/app/_components/Button/StickyButtons";
+import CurriculumSection from "@/app/_components/CommonMath/CurriculumSection";
 import FeaturesSection from "@/app/_components/CommonMath/FeaturesSection";
 import HeroSection from "@/app/_components/CommonMath/HeroSection";
 import ImprovedGradesSection from "@/app/_components/CommonMath/ImprovedGradesSection";
@@ -124,6 +125,45 @@ const features = [
   },
 ];
 
+const curriculums = [
+  {
+    grade: "초등학교 1학년",
+    title: "수학의 첫걸음",
+    description: "숫자와 기본 연산을 배우며 수학의 기초 개념을 형성하고, 계산의 즐거움을 경험합니다.",
+    tags: ["숫자 세기", "덧셈과 뺄셈", "간단한 도형"],
+  },
+  {
+    grade: "초등학교 2학년",
+    title: "기초 연산 능력 강화",
+    description: "세 자리 수의 연산과 곱셈·나눗셈의 기초를 다지며, 연산 속도와 정확성을 향상시킵니다.",
+    tags: ["곱셈과 나눗셈", "길이와 시간", "규칙 찾기"],
+  },
+  {
+    grade: "초등학교 3학년",
+    title: "도형과 분수의 이해",
+    description: "도형의 기본 성질을 익히고, 분수와 소수의 기초 개념을 학습하여 수학적 사고력을 키웁니다.",
+    tags: ["분수와 소수", "평면 도형", "시간 계산"],
+  },
+  {
+    grade: "초등학교 4학년",
+    title: "복잡한 연산 해결력",
+    description: "혼합 계산과 도형의 심화 학습을 통해 실생활 문제 해결 능력을 기릅니다.",
+    tags: ["혼합 계산", "심화 분수와 소수", "복잡한 도형"],
+  },
+  {
+    grade: "초등학교 5학년",
+    title: "실생활 연계 수학",
+    description: "비례와 비율을 배우며, 실생활에서 수학을 활용할 수 있는 방법을 학습합니다.",
+    tags: ["비례와 비율", "입체 도형", "자료 정리"],
+  },
+  {
+    grade: "초등학교 6학년",
+    title: "중등 수학 준비",
+    description: "중등 과정의 기초를 학습하며, 고등 수학의 기반이 되는 사고력을 기릅니다.",
+    tags: ["정비례·반비례", "방정식 기초", "심화 도형"],
+  },
+];
+
 const ElementaryMathPage = () => {
   const router = useRouter();
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -161,6 +201,11 @@ const ElementaryMathPage = () => {
       subtitle={<FeaturesSubtitle />}
       features={features}
       backgroundColor="yellow"
+    />
+    <CurriculumSection
+      title="초등 교과 수학 커리큘럼"
+      curriculums={curriculums}
+      color="yellow"
     />
   </div>;
 };
