@@ -1,5 +1,6 @@
 "use client";
 
+import useScrollDirection from "@/app/_hooks/useScrollDirection";
 import { ButtonHTMLAttributes } from "react";
 
 export interface StickyButtonProps {
@@ -11,6 +12,8 @@ export interface StickyButtonProps {
 }
 
 const StickyButtons = ({ buttons } : {buttons: StickyButtonProps[]}) => {
+  const scrollDirection = useScrollDirection();
+
   // 버튼 색상에 따라 클래스 적용
   const colorClassMap = {
     yellow: {
@@ -23,7 +26,7 @@ const StickyButtons = ({ buttons } : {buttons: StickyButtonProps[]}) => {
     },
   };
 
-  return <div className="fixed sm:sticky z-10 top-16 lg:top-[88px] 2xl:top-24 left-1/2 -translate-x-1/2 flex justify-center items-center gap-[5px] p-[5px] rounded-full bg-white shadow-[0_4px_20px_rgba(0,0,0,0.15)] NanumSquare">
+  return <div className={`fixed sm:sticky z-10 2xl:top-24 left-1/2 -translate-x-1/2 flex justify-center items-center gap-[5px] p-[5px] rounded-full bg-white shadow-[0_4px_20px_rgba(0,0,0,0.15)] NanumSquare transition-all duration-300 ${scrollDirection === "down" ? "opacity-0 -top-[100px]" : "opacity-100 top-16 lg:top-[88px]"}`}>
     {buttons.map((button, index) => (
       <button 
         key={`sticky-button-${index}`}
