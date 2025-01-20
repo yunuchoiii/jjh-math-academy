@@ -4,7 +4,9 @@ import StickyButtons, { StickyButtonProps } from "@/app/_components/Button/Stick
 import FeaturesSection from "@/app/_components/CommonMath/FeaturesSection";
 import HeroSection from "@/app/_components/CommonMath/HeroSection";
 import ImprovedGradesSection from "@/app/_components/CommonMath/ImprovedGradesSection";
+import { HEADER_HEIGHT, HEADER_HEIGHT_MOBILE } from "@/app/_constants/constants";
 import { useRouter } from "next/navigation";
+import { useMediaQuery } from "usehooks-ts";
 
 const LeftSpeechBubbleText = () => {
   return <div className="font-bold">
@@ -120,6 +122,8 @@ const features = [
 
 const MiddleMathPage = () => {
   const router = useRouter();
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   const stickyButtons:StickyButtonProps[] = [
     {
       label: "초등 교과 수학",
@@ -134,7 +138,10 @@ const MiddleMathPage = () => {
     },
   ];
 
-  return <div className="home-root flex flex-col items-center -mt-[140px]">
+  return <div 
+    className="home-root flex flex-col items-center"
+    style={{marginTop: `-${isMobile ? HEADER_HEIGHT_MOBILE : HEADER_HEIGHT + 110}px`}}
+  >
     <StickyButtons buttons={stickyButtons} />
     <HeroSection
       title="중등 교과 수학"

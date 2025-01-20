@@ -1,8 +1,9 @@
 "use client"
 
-import { CONTACT_SECTION_LINK } from "@/app/_constants/constants";
+import { CONTACT_SECTION_LINK, HEADER_HEIGHT, HEADER_HEIGHT_MOBILE } from "@/app/_constants/constants";
 import { useRouter } from "next/navigation";
 import { useRef } from 'react';
+import { useMediaQuery } from "usehooks-ts";
 import ReactiveButton from "../Button/ReactiveButton";
 
 interface HeroSectionProps {
@@ -17,6 +18,8 @@ const BgCircle = ({styleClass, position}: {styleClass: string, position: "left" 
 
 const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
   const router = useRouter();
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   const sectionRef = useRef<HTMLElement>(null);
 
   const goToContact = () => {
@@ -97,7 +100,7 @@ const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
     },
   }
   
-  return <section ref={sectionRef} className="relative w-full h-screen min-h-[800px]">
+  return <section ref={sectionRef} className="relative w-full min-h-[800px]" style={{height: `calc(100vh - ${isMobile ?HEADER_HEIGHT_MOBILE : HEADER_HEIGHT})`}}>
     <div className="flex justify-center items-center w-full h-full absolute top-0 left-0">
       <div className="relative 2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full">
         <BgCircle styleClass={ElementsByType[type].bgCircles.left} position="left" />
