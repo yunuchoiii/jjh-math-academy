@@ -96,7 +96,7 @@ function mergeUserData(users, specificData, userIdKey) {
 }
 
 // 공통된 목록 조회 함수
-async function getList(model, userType, attributes, limit, offset, res, notFoundMessage) {
+async function getList(model, userType, attributes, limit, offset, page, res, notFoundMessage) {
   const totalDataCount = await model.count();
   const users = await getUserListByType(userType, [], limit, offset);
   const data = await model.findAll({ attributes, limit, offset });
@@ -159,21 +159,21 @@ exports.getStudentList = async (req, res) => {
   const { page = 1, size = 10 } = req.query;
   const limit = parseInt(size);
   const offset = (parseInt(page) - 1) * limit;
-  return getList(db.Student, 'student', ['studentId', 'userId', 'parentId', 'gradeLevel', 'schoolName', 'isActive'], limit, offset, res, '학생이 없습니다.');
+  return getList(db.Student, 'student', ['studentId', 'userId', 'parentId', 'gradeLevel', 'schoolName', 'isActive'], limit, offset, page, res, '학생이 없습니다.');
 }
 
 exports.getParentList = async (req, res) => {
   const { page = 1, size = 10 } = req.query;
   const limit = parseInt(size);
   const offset = (parseInt(page) - 1) * limit;
-  return getList(db.Parent, 'parent', ['parentId', 'userId', 'isActive'], limit, offset, res, '학부모가 없습니다.');
+  return getList(db.Parent, 'parent', ['parentId', 'userId', 'isActive'], limit, offset, page, res, '학부모가 없습니다.');
 }
 
 exports.getTeacherList = async (req, res) => {
   const { page = 1, size = 10 } = req.query;
   const limit = parseInt(size);
   const offset = (parseInt(page) - 1) * limit;
-  return getList(db.Teacher, 'teacher', ['teacherId', 'userId', 'isAdmin', 'isActive'], limit, offset, res, '선생님이 없습니다.');
+  return getList(db.Teacher, 'teacher', ['teacherId', 'userId', 'isAdmin', 'isActive'], limit, offset, page, res, '선생님이 없습니다.');
 }
 
 // 공통된 업데이트 함수
