@@ -51,14 +51,14 @@ const ImprovedGradesSection = ({ speechBubbleText, improvedGradesList }: Improve
         </div>
         <div
           ref={secondRef}
-          className={`mt-32 bg-[#F9F9F9] border-2 border-[#D7D7D7] rounded-[40px] md:rounded-[50px] shadow-3 flex flex-col md:gap-[30px] gap-[20px] justify-center items-center md:py-[50px] py-[20px] md:px-[30px] px-[20px] transition-opacity duration-500 ${isSecondIntersected ? "opacity-100" : "opacity-0"}`}
+          className={`mt-32 border-2 border-[#D7D7D7] rounded-[40px] md:rounded-[50px] shadow-3 flex flex-col md:gap-[30px] gap-[20px] justify-center items-center md:py-[50px] py-[20px] md:px-[30px] px-[20px] transition-all duration-1000 ${isSecondIntersected ? "bg-[#F9F9F9]" : "bg-white"}`}
         >
           {improvedGradesList.map((item, index) => (
             <div
               key={`improved-grade-${item.id}`}
               className={`w-full md:w-[66%] py-[30px] px-5 bg-white rounded-[30px] flex flex-col gap-[20px] justify-center items-center shadow-2 break-keep ${isSecondIntersected ? "fade-in-bottom" : "opacity-0"}`}
               style={{
-                animationDelay: 0.8 + index * 0.5 + "s",
+                animationDelay: 0.5 + index * 0.5 + "s",
                 animationDuration: "0.5s",
               }}
             >
