@@ -9,6 +9,8 @@ const { sequelize } = require('./models');
 require('./passport')();
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const path = require('path');
 
 dotenv.config();
 const authRouter = require('./routes/auth');
@@ -43,24 +45,34 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Swagger 옵션
-const swaggerOptions = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'API 문서',
-      version: '1.0.0',
-      description: 'Node.js API 문서입니다.',
-    },
+// 여러 YAML 파일을 로드하여 하나의 문서로 통합
+const authDoc = YAML.load(path.join(__dirname, 'swagger/auth.yaml'));
+const boardDoc = YAML.load(path.join(__dirname, 'swagger/board.yaml'));
+const infoDoc = YAML.load(path.join(__dirname, 'swagger/info.yaml'));
+const menuDoc = YAML.load(path.join(__dirname, 'swagger/menu.yaml'));
+const postDoc = YAML.load(path.join(__dirname, 'swagger/post.yaml'));
+const userDoc = YAML.load(path.join(__dirname, 'swagger/user.yaml'));
+
+// 모든 문서를 하나로 병합
+const swaggerDocument = {
+  openapi: '3.0.0',
+  info: {
+    title: '전체 API 문서',
+    description: '여러 API 문서를 통합한 문서',
+    version: '1.0.0',
   },
-  apis: ['./routes/user.js', './routes/auth.js', './routes/info.js', './routes/menu.js', './routes/board.js', './routes/post.js'], // API 경로
+  paths: {
+    ...authDoc.paths,
+    ...boardDoc.paths,
+    ...infoDoc.paths,
+    ...menuDoc.paths,
+    ...postDoc.paths,
+    ...userDoc.paths,
+  },
 };
 
-// Swagger 문서 생성
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
-
-// Swagger UI 사용
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+// Swagger UI 설정
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // 라우터 설정
 app.use('/auth', authRouter);
