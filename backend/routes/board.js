@@ -1,5 +1,5 @@
 const express = require('express');
-const { getBoardList, getBoardPosts, getBoardInfoBySlug, getBoardInfoById } = require('../controllers/board');
+const { getBoardList, getBoardPosts, getBoardInfoBySlug, getBoardInfoById, } = require('../controllers/board');
 
 const router = express.Router();
 
@@ -26,7 +26,28 @@ router.get('/', getBoardList);
 
 /**
  * @swagger
- * /board/{slug}:
+ * /board/id/{boardId}:
+ *   get:
+ *     summary: 특정 게시판 정보 조회
+ *     tags: [Board]
+ *     parameters:
+ *       - in: path
+ *         name: boardId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: 게시판 ID
+ *     responses:
+ *       200:
+ *         description: 성공적으로 게시판 정보를 반환
+ *       404:
+ *         description: 게시판 정보를 찾을 수 없음
+ */
+router.get('/id/:boardId', getBoardInfoById);
+
+/**
+ * @swagger
+ * /board/slug/{slug}:
  *   get:
  *     summary: 특정 게시판 정보 조회 (slug)
  *     tags: [Board]
@@ -43,23 +64,7 @@ router.get('/', getBoardList);
  *       404:
  *         description: 게시판 정보를 찾을 수 없음
  */
-router.get('/:slug', getBoardInfoBySlug);
-
-/**
- * @swagger
- * /board/{boardId}:
- *   get:
- *     summary: 특정 게시판 정보 조회 (id)
- *     tags: [Board]
- *     parameters:
- *       - in: path
- *         name: boardId
- *         required: true
- *         schema:
- *           type: string
- *         description: 게시판 ID
- */
-router.get('/:boardId', getBoardInfoById);
+router.get('/slug/:slug', getBoardInfoBySlug);
 
 /**
  * @swagger

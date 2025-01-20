@@ -11,26 +11,37 @@ exports.getBoardList = async (req, res, next) => {
     }
     res.status(200).json(boards);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };
 
 exports.getBoardInfoBySlug = async (req, res, next) => {
-  const { slug } = req.params;
-  const board = await Board.findOne({ where: { slug } });
-  if (!board) {
+  try {
+    const { slug } = req.params;
+    const board = await Board.findOne({ where: { slug } });
+    if (!board) {
     return res.status(404).json({ message: '게시판 정보를 찾을 수 없습니다.' });
+    }
+    res.status(200).json(board);
+  } catch (error) {
+    console.error(error);
+    next(error);
   }
-  res.status(200).json(board);
 };
 
 exports.getBoardInfoById = async (req, res, next) => {
-  const { boardId } = req.params;
-  const board = await Board.findOne({ where: { id: boardId } });
-  if (!board) {
+  try {
+    const { boardId } = req.params;
+    const board = await Board.findOne({ where: { id: boardId } });
+    if (!board) {
     return res.status(404).json({ message: '게시판 정보를 찾을 수 없습니다.' });
+    }
+    res.status(200).json(board);
+  } catch (error) {
+    console.error(error);
+    next(error);
   }
-  res.status(200).json(board);
 };
 
 exports.getBoardPosts = async (req, res, next) => {
@@ -49,6 +60,7 @@ exports.getBoardPosts = async (req, res, next) => {
     }
     res.status(200).json(posts);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };
