@@ -71,13 +71,13 @@ router.get('/:postId', getPost);
  *             type: object
  *             properties:
  *               boardId:
- *                 type: number
+ *                 type: integer
  *               title:
  *                 type: string
  *               content:
  *                 type: string
  *               authorId:
- *                 type: number
+ *                 type: integer
  *               isActive:
  *                 type: boolean
  *               isNotice:
@@ -111,7 +111,7 @@ router.post('/', createPost);
  *             type: object
  *             properties:
  *               boardId:
- *                 type: number
+ *                 type: integer
  *               title:
  *                 type: string
  *               content:
@@ -140,7 +140,7 @@ router.put('/:postId', updatePost);
  *         required: true
  *         description: 게시글 ID
  *         schema:
- *           type: number
+ *           type: integer
  *     responses:
  *       200:
  *         description: 성공적으로 게시글 삭제
@@ -161,7 +161,7 @@ router.delete('/:postId', deletePost);
  *         required: true
  *         description: 게시글 ID
  *         schema:
- *           type: number
+ *           type: integer
  *     responses:
  *       200:
  *         description: 성공적으로 조회수 증가

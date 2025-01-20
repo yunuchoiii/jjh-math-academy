@@ -1,5 +1,5 @@
 const express = require('express');
-const { getBoardList, getBoardPosts, getBoardInfoBySlug, getBoardInfoById, } = require('../controllers/board');
+const { getBoardList, getBoardPosts, getBoardInfoBySlug, getBoardInfoById, createBoard, updateBoard, deleteBoard, } = require('../controllers/board');
 
 const router = express.Router();
 
@@ -24,9 +24,87 @@ const router = express.Router();
  */
 router.get('/', getBoardList);
 
+
 /**
  * @swagger
- * /board/id/{boardId}:
+ * /board:
+ *   post:
+ *     summary: 게시판 생성
+ *     tags: [Board]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               slug:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               isActive:
+ *                 type: boolean
+ */
+router.post('/', createBoard);
+
+/**
+ * @swagger
+ * /board/{boardId}:
+ *   put:
+ *     summary: 게시판 수정
+ *     tags: [Board]
+ *     parameters:
+ *       - in: path
+ *         name: boardId
+ *         required: true
+ *         description: 게시판 ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               slug:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               isActive:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: 성공적으로 게시판 수정
+ *       404:
+ *         description: 게시판 수정 실패
+ */
+router.put('/:boardId', updateBoard);
+
+/**
+ * @swagger
+ * /board/{boardId}:
+ *   delete:
+ *     summary: 게시판 삭제
+ *     tags: [Board]
+ *     parameters:
+ *       - in: path
+ *         name: boardId
+ *         required: true
+ *         description: 게시판 ID
+ *     responses:
+ *       200:
+ *         description: 성공적으로 게시판 삭제
+ *       404:
+ *         description: 게시판 삭제 실패
+ */
+router.delete('/:boardId', deleteBoard);
+
+/**
+ * @swagger
+ * /board/{boardId}:
  *   get:
  *     summary: 특정 게시판 정보 조회
  *     tags: [Board]
@@ -34,8 +112,6 @@ router.get('/', getBoardList);
  *       - in: path
  *         name: boardId
  *         required: true
- *         schema:
- *           type: integer
  *         description: 게시판 ID
  *     responses:
  *       200:
@@ -43,7 +119,7 @@ router.get('/', getBoardList);
  *       404:
  *         description: 게시판 정보를 찾을 수 없음
  */
-router.get('/id/:boardId', getBoardInfoById);
+router.get('/:boardId', getBoardInfoById);
 
 /**
  * @swagger
@@ -55,8 +131,6 @@ router.get('/id/:boardId', getBoardInfoById);
  *       - in: path
  *         name: slug
  *         required: true
- *         schema:
- *           type: string
  *         description: 게시판 슬러그
  *     responses:
  *       200:
@@ -76,8 +150,6 @@ router.get('/slug/:slug', getBoardInfoBySlug);
  *       - in: path
  *         name: boardId
  *         required: true
- *         schema:
- *           type: string
  *         description: 게시판 ID
  *       - in: query
  *         name: size

@@ -44,6 +44,46 @@ exports.getBoardInfoById = async (req, res, next) => {
   }
 };
 
+exports.createBoard = async (req, res, next) => {
+  try {
+    const { name, slug, description, isActive } = req.body;
+    const board = await Board.create({ name, slug, description, isActive });
+    if (!board) {
+      return res.status(404).json({ message: '게시판 생성 실패' });
+    }
+    res.status(200).json(board);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
+exports.updateBoard = async (req, res, next) => {
+  try {
+    const { boardId } = req.params;
+    const { name, slug, description, isActive } = req.body;
+    const board = await Board.update({ name, slug, description, isActive }, { where: { id: boardId } });
+    if (!board) {
+      return res.status(404).json({ message: '게시판 수정 실패' });
+    }
+    res.status(200).json(board);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
+exports.deleteBoard = async (req, res, next) => {
+  try {
+    const { boardId } = req.params;
+    const board = await Board.destroy({ where: { id: boardId } });
+    res.status(200).json(board);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
 exports.getBoardPosts = async (req, res, next) => {
   try {
     const { boardId } = req.params;
