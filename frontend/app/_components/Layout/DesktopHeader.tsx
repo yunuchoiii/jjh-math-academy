@@ -47,7 +47,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
 
   const ChildrenMenus = ({childrenMenus}:{childrenMenus:IMenu[]}) => {
     return <div className={`flex flex-col items-center rounded-3xl absolute ${styles.childrenMenuBox} slide-in-blurred-top`}
-    style={{top: HEADER_HEIGHT - 15}}>
+    style={{top: HEADER_HEIGHT - 4}}>
       {childrenMenus.map(item => 
       <Link href={item.link!} key={`children-menu-${item.title}`} className={`${styles.childMenu} flex items-center justify-center ${item.id === currentMenu?.id ? 'text-green-1 font-bold' : 'text-black'}`}>
         <span>{item.title}</span>
@@ -65,11 +65,11 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
           className={`${styles.menuHamburger} hover:bg-zinc-100 active:bg-zinc-200 rounded-full flex items-center justify-center`}
           onClick={()=>setHamburger(!hamburger)}
         >
-          <img src="/images/icons/hamburger_bar.png" alt="menu" width={22} className="opacity-80"/>
+          <img src="/images/icons/hamburger_bar.png" alt="menu" width={18} className="opacity-80"/>
         </button>
         <Link href={'/'} className="flex items-center ml-8">
-          <img src="/images/logos/logo_green.png" alt="logo" width={34} style={{marginTop: -4}}/>
-          <span className="NanumSquare xl:text-2xl lg:text-xl font-extrabold ml-4 text-green-1">
+          <img src="/images/logos/logo_green.png" alt="logo" width={30} style={{marginTop: -4}}/>
+          <span className="NanumSquare xl:text-xl lg:text-lg font-extrabold ml-4 text-green-1">
             조재현 수학학원
           </span>
         </Link>
