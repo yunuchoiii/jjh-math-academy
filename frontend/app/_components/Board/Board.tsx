@@ -5,8 +5,8 @@ import { IPaginatedResponse } from "@/app/_service/common";
 import { IPost } from "@/app/_service/post";
 import { formatDate } from "@/app/_utils";
 import { useRouter } from "next/navigation";
+import NoticeBadge from "../Badge/NoticeBadge";
 import Pagination from "../Pagination/Pagination";
-import styles from "./Board.module.css";
 
 interface BoardProps {
   board: IBoard;
@@ -16,6 +16,10 @@ interface BoardProps {
 const Board = ({ board, postList }: BoardProps) => {
   const router = useRouter();
 
+  const getNo = (index: number) => {
+    return (postList.page.requestPage - 1) * postList.page.requestSize + index + 1;
+  }
+
   const handleRowClick = (postId: number) => {
     router.push(`/board/${board.slug}/${postId}`);
   }
@@ -23,32 +27,58 @@ const Board = ({ board, postList }: BoardProps) => {
   const pageData = postList.page;
   const contentData = postList.data;
 
-  return <div className="w-full flex flex-col gap-10">
-    <table className={styles.boardTable}>
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>조회수</th>
-          <th>작성일자</th>
-        </tr>
-      </thead>
-      <tbody>
+  return <section className="w-full flex flex-col gap-10 text-base">
+    <div className="border-t-2 border-t-green-1 border-b border-b-[#CCCCCC]">
+      <div className="hidden md:flex items-center h-12 font-bold">
+        <div className="w-16 text-center">번호</div>
+        <div className="flex-1 text-center">제목</div>
+        <div className="w-16 text-center">조회수</div>
+        <div className="w-28 text-center">작성일자</div>
+      </div>
+      <div>
         {contentData.map((post, index) => (
-          <tr 
-            key={`${board.slug}-${post.id}`} 
-            onClick={() => handleRowClick(post.id)}
-          >
-            <td>{(pageData.requestPage-1)*pageData.requestSize+index+1}</td>
-            <td>{post.title}</td>
-            <td>{post.views}</td>
-            <td>{formatDate(post.createdAt, '-')}</td>
-          </tr>
+          <div key={`pc-${board.slug}-${post.id}`}>
+            {/* PC */}
+            <div 
+              onClick={() => handleRowClick(post.id)}
+              className="hidden md:flex items-center h-12 border-t border-[#CCCCCC] cursor-pointer hover:bg-[#F5F5F5]"
+            >
+              <div className="w-16 text-center">{getNo(index)}</div>
+              <div className="flex-1 flex items-center min-w-0">
+                {post.isNotice && (
+                  <div className="flex items-center mr-2.5 flex-shrink-0">
+                    <NoticeBadge />
+                  </div>
+                )}
+                <span className="font-medium ellipsis">{post.title}</span>
+              </div>
+              <div className="w-16 text-center">{post.views}</div>
+              <div className="w-28 text-center">{formatDate(post.createdAt, '-')}</div>
+            </div>
+            {/* Mobile */}
+            <div 
+              onClick={() => handleRowClick(post.id)}
+              className="flex md:hidden border-t border-[#CCCCCC] cursor-pointer active:bg-[#F5F5F5] py-2 px-2.5"
+            >
+              {post.isNotice && (
+                <div className="flex items-center mr-3 flex-shrink-0">
+                  <NoticeBadge />
+                </div>
+              )}
+              <div className="flex flex-col min-w-0">
+                <div className="leading-loose font-medium ellipsis">{post.title}</div>
+                <div className="flex gap-2.5 text-xs text-[#777]">
+                  <div>{formatDate(post.createdAt, '-')}</div>
+                  <div>조회 {post.views}</div>
+                </div>
+              </div>
+            </div>
+          </div>
         ))}
-      </tbody>
-    </table>
+      </div>
+    </div>
     <Pagination paginationInfo={pageData} />
-  </div>;
+  </section>;
 };
 
 export default Board;

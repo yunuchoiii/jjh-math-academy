@@ -114,3 +114,9 @@ input[type="checkbox"]:checked {
   display: inline;
   box-shadow: inset 0 -14px 0 #D6E3E4; 
 }
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
