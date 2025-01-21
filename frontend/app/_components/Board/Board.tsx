@@ -3,8 +3,9 @@
 import { IBoard } from "@/app/_service/board";
 import { IPaginatedResponse } from "@/app/_service/common";
 import { IPost } from "@/app/_service/post";
-import { formatDate } from "@/app/_utils";
+import { formatDate, isNew } from "@/app/_utils";
 import { useRouter } from "next/navigation";
+import NewBadge from "../Badge/NewBadge";
 import NoticeBadge from "../Badge/NoticeBadge";
 import Pagination from "../Pagination/Pagination";
 
@@ -51,6 +52,11 @@ const Board = ({ board, postList }: BoardProps) => {
                   </div>
                 )}
                 <span className="font-medium ellipsis">{post.title}</span>
+                {isNew(new Date(post.createdAt)) && (
+                  <div className="flex items-center ml-2.5 flex-shrink-0">
+                    <NewBadge />
+                  </div>
+                )}
               </div>
               <div className="w-16 text-center">{post.views}</div>
               <div className="w-28 text-center">{formatDate(post.createdAt, '-')}</div>
@@ -65,13 +71,18 @@ const Board = ({ board, postList }: BoardProps) => {
                   <NoticeBadge />
                 </div>
               )}
-              <div className="flex flex-col min-w-0">
+              <div className="flex-1 flex flex-col min-w-0">
                 <div className="leading-loose font-medium ellipsis">{post.title}</div>
                 <div className="flex gap-2.5 text-xs text-[#777]">
                   <div>{formatDate(post.createdAt, '-')}</div>
                   <div>조회 {post.views}</div>
                 </div>
               </div>
+              {isNew(new Date(post.createdAt)) && (
+                <div className="flex items-center ml-2.5 flex-shrink-0">
+                  <NewBadge />
+                </div>
+              )}
             </div>
           </div>
         ))}

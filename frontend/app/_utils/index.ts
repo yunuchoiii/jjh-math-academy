@@ -10,3 +10,10 @@ export const formatDate = (date: Date, separator: string = '-') => {
   const day = new Date(date).getDate();
   return [year, month.toString().padStart(2, '0'), day.toString().padStart(2, '0')].join(separator);
 }
+
+export const isNew = (date: Date) => {
+  const now = new Date();
+  const diffTime = Math.abs(now.getTime() - date.getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays <= 7;
+}
