@@ -50,6 +50,7 @@ const Pagination = ({ paginationInfo }: IPaginationProps) => {
     <div className="flex gap-2 justify-center">
       <PageButton 
         page={
+          // 현재 페이지가 1보다 작으면 1로 이동
           getFirstPage(currentPage - 5) < 1 
             ? 1 : getFirstPage(currentPage - 5)
         } 
@@ -67,6 +68,7 @@ const Pagination = ({ paginationInfo }: IPaginationProps) => {
       ))}
       <PageButton 
         page={
+          // 현재 페이지가 마지막 페이지보다 크면 마지막 페이지로 이동
           getFirstPage(currentPage + 5) > paginationInfo.totalPages
             ? paginationInfo.totalPages : getFirstPage(currentPage + 5)
         } 
