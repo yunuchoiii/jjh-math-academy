@@ -16,7 +16,7 @@ const PageButton = ({ page, isActive, type }: IPageButtonProps) => {
   const router = useRouter();
 
   const styles = {
-    default: "bg-[#E9E9E9] text-[#777777] hover:shadow-[0px_4px_8px_0px_rgba(0,0,0,0.05)] hover:border-[#DDDDDD] disabled:hover:shadow-none disabled:hover:border-transparent",
+    default: "bg-[#E9E9E9] text-[#777777] active:bg-[#D9D9D9] lg:hover:shadow-[0px_4px_8px_0px_rgba(0,0,0,0.05)] lg:hover:border-[#D9D9D9] disabled:hover:shadow-none disabled:hover:border-transparent",
     active: "bg-green-1 text-white shadow-[0px_4px_8px_0px_rgba(65,181,128,0.3)] border-green-1",
     disabled: "opacity-50 cursor-default"
   };
