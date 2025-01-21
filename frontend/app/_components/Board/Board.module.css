@@ -1,0 +1,39 @@
+.boardTable {
+  width: 100%;
+  border-top: 2px solid #41B580;
+  table-layout: fixed;
+}
+
+.boardTable th:nth-child(1), .boardTable th:nth-child(3) {
+  width: 80px;
+}
+
+.boardTable th:nth-child(4) {
+  width: 120px;
+}
+
+.boardTable td:not(:nth-child(2)) {
+  text-align: center;
+}
+
+.boardTable td:nth-child(2) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  width: auto;
+}
+
+.boardTable tr {
+  height: 45px;
+  border-bottom: 1px solid #CCC;
+}
+
+.boardTable tbody tr {
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+}
+
+.boardTable tbody tr:hover {
+  background-color: #F5F5F5;
+}

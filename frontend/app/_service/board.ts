@@ -1,4 +1,6 @@
 import axios, { AxiosError } from "axios";
+import { IPaginatedResponse, PaginationPayload } from "./common";
+import { IPost } from "./post";
 
 export enum BoardSlugEnum {
   NOTICE = "notice",
@@ -9,7 +11,7 @@ export enum BoardSlugEnum {
 
 export interface IBoard {
   id: number; 
-  title: string; 
+  name: string; 
   slug: BoardSlugEnum; 
   description: string;
   isActive: boolean; 
@@ -32,12 +34,11 @@ export interface BoardPayload {
   slug?: BoardSlugEnum
 }
 
-const BOARD_SERVICE_URL = `${process.env.SERVER_URL}/board`;
+export interface BoardPostPayload extends PaginationPayload {
+  boardId: number
+}
 
-const getBoardInfo = async (url: string): Promise<IBoard> => {
-  const response = await axios.get(url);
-  return response.data;
-};
+const BOARD_SERVICE_URL = `${process.env.SERVER_URL}/board`;
 
 export const boardService = {
   /** 게시판 조회
@@ -58,16 +59,43 @@ export const boardService = {
    * @returns {Promise<any>} - 게시판 정보 응답 데이터
    */
   getBoardInfoById: async (boardId: number) :Promise<IBoard> => {
-    const url = `${BOARD_SERVICE_URL}/${boardId}`;
-    return getBoardInfo(url);
+    try {
+      const url = `${BOARD_SERVICE_URL}/${boardId}`;
+      const response = await axios.get(url);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   },
   /** 게시판 정보 조회 (slug)
    * @param {BoardSlugEnum} slug - 게시판 slug
    * @returns {Promise<any>} - 게시판 정보 응답 데이터
    */
   getBoardInfoBySlug: async (slug: BoardSlugEnum) :Promise<IBoard> => {
-    const url = `${BOARD_SERVICE_URL}/slug/${slug}`;
-    return getBoardInfo(url);
+    try {
+      const url = `${BOARD_SERVICE_URL}/slug/${slug}`;
+      const response = await axios.get(url);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
+  /** 게시판 게시글 목록 조회
+   * @param {number} boardId - 게시판 ID
+   * @param {PaginationPayload} payload - 페이지 번호, 페이지 당 게시글 수
+   * @returns {Promise<IPaginatedResponse<IPost>>} - 게시글 목록 응답 데이터
+   */
+  getPostListByBoardId: async ({boardId, page, size}: BoardPostPayload) :Promise<IPaginatedResponse<IPost>> => {
+    try {
+      const url = `${BOARD_SERVICE_URL}/${boardId}/posts?page=${page}&size=${size}`;
+      const response = await axios.get(url);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   },
   /** 게시판 생성
    * @param {BoardPayload} payload - 게시판 생성 요청 데이터
