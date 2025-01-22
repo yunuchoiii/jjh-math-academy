@@ -1,5 +1,5 @@
 import NoticeBadge from "@/app/_components/Badge/NoticeBadge";
-import ReactiveButton from "@/app/_components/Button/ReactiveButton";
+import BackButton from "@/app/_components/Button/BackButton";
 import Title from "@/app/_components/Title/Title";
 import { boardService, BoardSlugEnum } from "@/app/_service/board";
 import { IPost, postService } from "@/app/_service/post";
@@ -33,16 +33,6 @@ const PostContent = ({ content }: { content: string }) => (
   </div>
 );
 
-const BackButton = ({ slug }: { slug: string }) => (
-  <div className="flex justify-center pt-5 lg:pt-10">
-    <ReactiveButton>
-      <Link href={`/board/${slug}`}>
-        <div className="bg-[#E9E9E9] px-5 py-2 rounded-md font-bold">목록</div>
-      </Link>
-    </ReactiveButton>
-  </div>
-);
-
 const PostPage = async ({ params }: PostPageProps) => {
   const { slug, postId } = params;
 
@@ -56,11 +46,15 @@ const PostPage = async ({ params }: PostPageProps) => {
 
   return (
     <div>
-      <Title title={board.name} color="green" />
+      <Link href={`/board/${slug}`}>
+        <Title title={board.name} color="green" />
+      </Link>
       <section>
         <PostHeader post={post} />
         <PostContent content={post.content} />
-        <BackButton slug={slug} />
+        <div className="flex justify-center pt-5 lg:pt-10">
+          <BackButton text="목록" hideIcon/>
+        </div>
       </section>
     </div>
   );
