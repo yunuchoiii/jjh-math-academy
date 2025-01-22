@@ -36,6 +36,8 @@ export interface BoardPayload {
 
 export interface BoardPostPayload extends PaginationPayload {
   boardId: number
+  isActive?: boolean
+  isNotice?: boolean
 }
 
 const BOARD_SERVICE_URL = `${process.env.SERVER_URL}/board`;
@@ -87,9 +89,18 @@ export const boardService = {
    * @param {PaginationPayload} payload - 페이지 번호, 페이지 당 게시글 수
    * @returns {Promise<IPaginatedResponse<IPost>>} - 게시글 목록 응답 데이터
    */
-  getPostListByBoardId: async ({boardId, page, size}: BoardPostPayload) :Promise<IPaginatedResponse<IPost>> => {
+  getPostListByBoardId: async ({boardId, page, size, isActive, isNotice, searchKeyword, searchType}: BoardPostPayload) :Promise<IPaginatedResponse<IPost>> => {
+    // 쿼리 파라미터 생성
+    const queryParams = new URLSearchParams();
+    queryParams.append("page", page.toString());
+    queryParams.append("size", size.toString());
+    if (isActive !== undefined) queryParams.append("isActive", isActive.toString());
+    if (isNotice !== undefined) queryParams.append("isNotice", isNotice.toString());
+    if (searchKeyword !== undefined) queryParams.append("searchKeyword", searchKeyword);
+    if (searchType !== undefined) queryParams.append("searchType", searchType);
+
     try {
-      const url = `${BOARD_SERVICE_URL}/${boardId}/posts?page=${page}&size=${size}`;
+      const url = `${BOARD_SERVICE_URL}/${boardId}/posts?${queryParams.toString()}`;
       const response = await axios.get(url);
       return response.data;
     } catch (error) {

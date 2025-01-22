@@ -1,6 +1,8 @@
 export interface PaginationPayload {
   page: number;
   size: number;
+  searchKeyword?: string;
+  searchType?: "title" | "content" | "title+content";
 }
 
 export interface IPaginatedResponse<T> {
