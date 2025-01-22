@@ -1,6 +1,7 @@
 const Board = require("../models/board");
 const Post = require("../models/post");
 const { getPaginatedList } = require("./common");
+const { Op } = require("sequelize");
 
 // 게시판 목록 조회
 exports.getBoardList = async (req, res, next) => {
@@ -84,17 +85,43 @@ exports.deleteBoard = async (req, res, next) => {
   }
 };
 
+// TODO: 필터링 추가, 검색 기능 추가
 exports.getBoardPosts = async (req, res, next) => {
   try {
     const { boardId } = req.params;
-    const { page = 1, size = 10 } = req.query;
+    const { page = 1, size = 10, isActive, isNotice, searchKeyword, searchType } = req.query;
+
+    // 필터링 조건 설정
+    const filter = { boardId };
+    if (isActive !== undefined) {
+      filter.isActive = isActive === 'true';
+    }
+    if (isNotice !== undefined) {
+      filter.isNotice = isNotice === 'true';
+    }
+
+    // 검색 조건 설정
+    if (searchKeyword) {
+      if (searchType === 'title') {
+        filter.title = { [Op.like]: `%${searchKeyword}%` };
+      } else if (searchType === 'content') {
+        filter.content = { [Op.like]: `%${searchKeyword}%` };
+      } else if (searchType === 'title+content') {
+        filter[Op.or] = [
+          { title: { [Op.like]: `%${searchKeyword}%` } },
+          { content: { [Op.like]: `%${searchKeyword}%` } }
+        ];
+      }
+    }
+
     const posts = await getPaginatedList({
-      model: Post, 
-      page, 
-      size, 
-      notFoundMessage: '게시글 정보를 찾을 수 없습니다.', 
-      filter: { boardId }
+      model: Post,
+      page,
+      size,
+      notFoundMessage: '게시글 정보를 찾을 수 없습니다.',
+      filter
     });
+
     if (posts.status === 404) {
       return res.status(404).json({ message: posts.message });
     }

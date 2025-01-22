@@ -143,6 +143,27 @@ paths:
             type: integer
             default: 1
           description: 페이지 번호
+        - in: query
+          name: isActive
+          schema:
+            type: boolean
+          description: 활성화된 게시글 필터링
+        - in: query
+          name: isNotice
+          schema:
+            type: boolean
+          description: 공지사항 게시글 필터링
+        - in: query
+          name: searchKeyword
+          schema:
+            type: string
+          description: 제목 및 내용 검색어
+        - in: query
+          name: searchType
+          schema:
+            type: string
+            enum: [title, content, title+content]
+          description: 검색 유형 (제목, 내용, 제목+내용)
       responses:
         '200':
           description: 성공적으로 게시글 목록을 반환

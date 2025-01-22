@@ -9,8 +9,21 @@ export async function getPaginatedList({model, attributes, page = 1, size = 10, 
     const isLastPage = page >= totalPages;
     const isFirstPage = page <= 1;
 
+    // 빈 데이터 처리
     if (data.length === 0) {
-      return { status: 404, message: notFoundMessage };
+      return {
+        status: 200,
+        data: [],
+        message: "No data available",
+        page: {
+          totalDataCount,
+          totalPages,
+          isLastPage,
+          isFirstPage,
+          requestPage: parseInt(page),
+          requestSize: limit
+        }
+      };
     }
 
     return {
@@ -26,6 +39,7 @@ export async function getPaginatedList({model, attributes, page = 1, size = 10, 
       }
     };
   } catch (error) {
+    // 오류 처리
     return { status: 500, message: "Internal server error", error: error.message };
   }
 }
