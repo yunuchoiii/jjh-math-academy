@@ -48,9 +48,9 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
         <Link href={'/'} className="NanumSquare text-xl font-extrabold text-green-1">
           조재현 수학학원
         </Link> :
-        <div className="NanumSquare text-xl font-extrabold text-green-1">
+        <Link href={currentMenu?.link || ''} className="NanumSquare text-xl font-extrabold text-green-1">
           {currentMenu?.title}
-        </div>
+        </Link>
       }
       <button 
         className={`${styles.menuHamburger}`}
