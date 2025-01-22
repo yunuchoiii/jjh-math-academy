@@ -46,8 +46,13 @@ const BackButton = ({ slug }: { slug: string }) => (
 const PostPage = async ({ params }: PostPageProps) => {
   const { slug, postId } = params;
 
+  // 게시판 정보 조회
   const board = await boardService.getBoardInfoBySlug(slug as BoardSlugEnum);
+  // 게시글 조회
   const post = await postService.getPost(Number(postId));
+
+  // 조회수 증가
+  await postService.updateViewCount(Number(postId));
 
   return (
     <div>
