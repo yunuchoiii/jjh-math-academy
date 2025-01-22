@@ -84,9 +84,9 @@ const SearchBar = ({ searchTypes, onSearch }: SearchBarProps) => {
   return <div ref={searchBarRef} className="flex justify-center w-full">
     <div className="flex items-center gap-2 w-full min-w-[300px]">
       <div className={`flex-1 group relative flex items-center gap-2.5 p-[5px] bg-[#efefef] border-2 border-[#efefef] rounded-full transition-all duration-150 focus-within:border-green-1 focus-within:bg-white`}>
-        <div className="relative">
+        <div className="relative NanumSquare">
           <button
-            className={`w-24 h-[30px] bg-green-1 text-sm text-white rounded-full`}
+            className={`w-24 h-[30px] bg-green-1 text-sm text-white font-semibold rounded-full`}
             onClick={() => setSearchTypeVisible(!searchTypeVisible)}
           >
             {searchType ? searchTypes.find(type => type.value === searchType)?.label : "검색 기준"}
@@ -103,11 +103,13 @@ const SearchBar = ({ searchTypes, onSearch }: SearchBarProps) => {
                 <button 
                   key={type.value} 
                   onClick={() => handleSearchType(type.value)}
-                  className={`h-10 flex items-center justify-center text-sm ${searchType === type.value ? "text-green-1" : "text-black"}`}
+                  className={`h-10 flex items-center justify-center text-sm font-semibold md:hover:text-green-1 ${searchType === type.value ? "text-green-1" : "text-black"}`}
                 >
                   {type.label}
                 </button>
-                {index !== searchTypes.length - 1 && <div className="w-full h-[1px] bg-[#DDD] flex-shrink-0"></div>}
+                {index !== searchTypes.length - 1 && 
+                  <hr className="w-full h-[1px] text-[#DDD]"/>
+                }
               </div>
             ))}
           </div>
