@@ -186,7 +186,7 @@ const ElementaryMathPage = () => {
 
   return <div 
     className="home-root flex flex-col items-center"
-    style={{marginTop: `-${isMobile ? HEADER_HEIGHT_MOBILE : HEADER_HEIGHT + 110}px`}}
+    style={{marginTop: `-${isMobile ? HEADER_HEIGHT_MOBILE : HEADER_HEIGHT + 120}px`}}
   >
     <StickyButtons buttons={stickyButtons} />
     <HeroSection
