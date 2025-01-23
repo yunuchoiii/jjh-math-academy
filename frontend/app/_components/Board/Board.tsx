@@ -16,6 +16,9 @@ import SearchBar from "../Search/SearchBar";
 interface BoardProps {
   board: IBoard;
   postList: IPaginatedResponse<IPost>;
+  hideBoardButtons?: boolean;
+  hideSearchBar?: boolean;
+  hidePagination?: boolean;
 }
 
 const boardButtonProps = [
@@ -25,7 +28,7 @@ const boardButtonProps = [
   {label: "시그마 클래스", slug: "sigma-class"},
 ]
 
-const searchTypes = [
+const searchTypeOptions = [
   {value: "title", label: "제목"}, 
   {value: "content", label: "내용"}, 
   {value: "title+content", label: "제목+내용"}
@@ -62,8 +65,12 @@ const RoundButtonGroup = ({boardButtons}: {boardButtons: RoundButtonProps[]}) =>
   }, [isMobile]);
   
   return <div className="relative">
-    <div className={`absolute z-10 left-0 top-0 bottom-0 w-20 bg-gradient-to-l from-transparent to-white pointer-events-none transition-opacity duration-300 ${isMobile ? (isAtStart ? "opacity-0" : "opacity-100") : "hidden"}`}/>
-    <div className={`absolute z-10 right-0 top-0 bottom-0 w-20 bg-gradient-to-r from-transparent to-white pointer-events-none transition-opacity duration-300 ${isMobile ? (isAtEnd ? "opacity-0" : "opacity-100") : "hidden"}`}/>
+    <div className={`flex justify-start items-center absolute z-10 left-0 top-0 bottom-0 w-20 bg-gradient-to-l from-transparent to-white pointer-events-none transition-opacity duration-300 ${isMobile ? (isAtStart ? "opacity-0" : "opacity-100") : "hidden"}`}>
+      <i className="fas fa-chevron-left text-[#777]"></i>
+    </div>
+    <div className={`flex justify-end items-center absolute z-10 right-0 top-0 bottom-0 w-20 bg-gradient-to-r from-transparent to-white pointer-events-none transition-opacity duration-300 ${isMobile ? (isAtEnd ? "opacity-0" : "opacity-100") : "hidden"}`}>
+      <i className="fas fa-chevron-right text-[#777]"></i>
+    </div>
     <div
       className="relative flex justify-start items-center gap-2.5 overflow-x-auto scrollbar-hidden"
       ref={scrollContainerRef}
@@ -75,9 +82,19 @@ const RoundButtonGroup = ({boardButtons}: {boardButtons: RoundButtonProps[]}) =>
   </div>
 }
 
-const Board = ({ board, postList }: BoardProps) => {
+const Board = ({ board, postList, hideBoardButtons, hideSearchBar, hidePagination }: BoardProps) => {
   const router = useRouter();
   const pathname = usePathname();
+
+  const [searchKeyword, setSearchKeyword] = useState<string | null>(null);
+  const [searchType, setSearchType] = useState<string | null>(null);
+
+  const handleSearch = (keyword: string, type: string) => {
+    const queryParams = new URLSearchParams();
+    queryParams.append("searchKeyword", keyword);
+    queryParams.append("searchType", type);
+    router.push(`${pathname}?${queryParams.toString()}`);
+  }
 
   const getNo = (index: number) => {
     return (postList.page.requestPage - 1) * postList.page.requestSize + index + 1;
@@ -98,7 +115,7 @@ const Board = ({ board, postList }: BoardProps) => {
 
   return <div className="w-full flex flex-col gap-10 text-base">
     <section className="flex flex-col gap-2.5">
-      <RoundButtonGroup boardButtons={boardButtons} />
+      {!hideBoardButtons && <RoundButtonGroup boardButtons={boardButtons} />}
       <div className="w-full border-t-2 border-t-green-1 border-b border-b-[#CCCCCC]">
         <div className="hidden md:flex items-center h-12 font-bold">
           <div className="w-16 text-center">번호</div>
@@ -164,10 +181,17 @@ const Board = ({ board, postList }: BoardProps) => {
         </div>
       </div>
     </section>
-    <div className="w-full md:w-2/3 lg:w-1/2 flex justify-center mx-auto">
-      <SearchBar searchTypes={searchTypes}/>
-    </div>
-    <Pagination paginationInfo={pageData} />
+    {!hideSearchBar && <div className="w-full md:w-2/3 lg:w-1/2 flex justify-center mx-auto">
+      <SearchBar 
+        searchKeyword={searchKeyword}
+        searchType={searchType}
+        searchTypeOptions={searchTypeOptions}
+        onSearch={() => handleSearch(searchKeyword!, searchType!)}
+        onKeywordChange={setSearchKeyword}
+        onTypeChange={setSearchType}
+      />
+    </div>}
+    {!hidePagination && <Pagination paginationInfo={pageData} />}
   </div>;
 };
 

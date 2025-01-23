@@ -5,18 +5,29 @@ import { useEffect, useRef, useState } from "react";
 import { useToast } from "../Toast/ToastProvider";
 
 interface SearchBarProps {
-  searchTypes: {value: string, label: string}[];
-  onSearch?: () => void;
+  searchKeyword: string | null;
+  searchType: string | null;
+  searchTypeOptions: {value: string, label: string}[];
+  onSearch: (keyword: string, type: string) => void;
+  onKeywordChange: (keyword: string) => void;
+  onTypeChange: (type: string) => void;
+  className?: string;
 }
 
-const SearchBar = ({ searchTypes, onSearch }: SearchBarProps) => {
+const SearchBar = ({ 
+  searchKeyword,
+  searchType,
+  searchTypeOptions,
+  onSearch,
+  onKeywordChange,
+  onTypeChange,
+  className = "",
+ }: SearchBarProps) => {
   const pathname = usePathname();
   const router = useRouter();
   const { addToast } = useToast();
 
   const [searchTypeVisible, setSearchTypeVisible] = useState<boolean>(false);
-  const [searchKeyword, setSearchKeyword] = useState<string | null>(null);
-  const [searchType, setSearchType] = useState<string | null>(null);
 
   const searchBarRef = useRef<HTMLDivElement>(null);
 
@@ -34,11 +45,11 @@ const SearchBar = ({ searchTypes, onSearch }: SearchBarProps) => {
   }, []);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchKeyword(e.target.value);
+    onKeywordChange(e.target.value);
   }
 
   const handleSearchType = (type: string) => {
-    setSearchType(type);
+    onTypeChange(type);
     setSearchTypeVisible(false);
   }
 
@@ -62,13 +73,8 @@ const SearchBar = ({ searchTypes, onSearch }: SearchBarProps) => {
   };
 
   const handleSearchButton = () => {
-    if (onSearch) {
-      onSearch();
-    } else if (validateSearch()) {
-      const queryParams = new URLSearchParams();
-      queryParams.append("searchKeyword", searchKeyword!);
-      queryParams.append("searchType", searchType!);
-      router.push(`${pathname}?${queryParams.toString()}`);
+    if (validateSearch()) {
+      onSearch(searchKeyword!, searchType!);
     }
   };
 
@@ -79,7 +85,7 @@ const SearchBar = ({ searchTypes, onSearch }: SearchBarProps) => {
     }
   }
 
-  const fullSelectHeight = searchTypes.length * 40 + 10 + (searchTypes.length - 1);
+  const fullSelectHeight = searchTypeOptions.length * 40 + 10 + (searchTypeOptions.length - 1);
 
   return <div ref={searchBarRef} className="flex justify-center w-full">
     <div className="flex items-center gap-2 w-full min-w-[300px]">
@@ -89,7 +95,7 @@ const SearchBar = ({ searchTypes, onSearch }: SearchBarProps) => {
             className={`w-24 h-[30px] bg-green-1 text-sm text-white font-semibold rounded-full`}
             onClick={() => setSearchTypeVisible(!searchTypeVisible)}
           >
-            {searchType ? searchTypes.find(type => type.value === searchType)?.label : "검색 기준"}
+            {searchType ? searchTypeOptions.find(type => type.value === searchType)?.label : "검색 기준"}
           </button>
           <div 
             className={`absolute w-24 top-11 left-0 right-0 bg-white rounded-[15px] overflow-hidden transition-all duration-300 shadow-[0_0_16px_rgba(0,0,0,0.15)]`}
@@ -98,7 +104,7 @@ const SearchBar = ({ searchTypes, onSearch }: SearchBarProps) => {
               padding: searchTypeVisible ? "5px 10px" : "0px 10px",
             }}
           >
-            {searchTypes.map((type, index) => (
+            {searchTypeOptions.map((type, index) => (
               <div className={`${searchTypeVisible ? "opacity-100" : "opacity-0"} transition-all duration-300 flex flex-col justify-center`}>
                 <button 
                   key={type.value} 
@@ -107,7 +113,7 @@ const SearchBar = ({ searchTypes, onSearch }: SearchBarProps) => {
                 >
                   {type.label}
                 </button>
-                {index !== searchTypes.length - 1 && 
+                {index !== searchTypeOptions.length - 1 && 
                   <hr className="w-full h-[1px] text-[#DDD]"/>
                 }
               </div>
