@@ -26,7 +26,7 @@ const CurriculumSection = ({title, curriculums, color}: CurriculumSectionProps) 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[10px] md:gap-[30px] mt-[60px]">
         {curriculums.map(curriculum => (
           <div 
-            key={curriculum.grade}
+            key={`${curriculum.grade}-${curriculum.title}`}
             className={`flex flex-col px-[30px] py-[20px] bg-white rounded-[30px] shadow-[0_4px_24px_rgba(0,0,0,0.1)] border-2 ${colorClassMap[color].borderColor}`}
           >
             <div className="-ml-2.5 flex items-center gap-4">

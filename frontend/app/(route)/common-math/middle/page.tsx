@@ -1,11 +1,13 @@
 "use client"
 
 import StickyButtons, { StickyButtonProps } from "@/app/_components/Button/StickyButtons";
-import CurriculumSection from "@/app/_components/CommonMath/CurriculumSection";
-import FeaturesSection from "@/app/_components/CommonMath/FeaturesSection";
-import HeroSection from "@/app/_components/CommonMath/HeroSection";
-import ImprovedGradesSection from "@/app/_components/CommonMath/ImprovedGradesSection";
+import BoardSection from "@/app/_components/LandingSection/BoardSection";
+import CurriculumSection from "@/app/_components/LandingSection/CurriculumSection";
+import FeaturesSection from "@/app/_components/LandingSection/FeaturesSection";
+import HeroSection from "@/app/_components/LandingSection/HeroSection";
+import ImprovedGradesSection from "@/app/_components/LandingSection/ImprovedGradesSection";
 import { HEADER_HEIGHT, HEADER_HEIGHT_MOBILE } from "@/app/_constants/constants";
+import { BoardSlugEnum } from "@/app/_service/board";
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "usehooks-ts";
 
@@ -184,6 +186,11 @@ const MiddleMathPage = () => {
       title="중등 교과 수학 커리큘럼"
       curriculums={curriculums}
       color="green"
+    />
+    <BoardSection 
+      title="초·중등 교과 수학 게시판" 
+      titleColor="green"
+      slug={BoardSlugEnum.COMMON_MATH} 
     />
   </div>;
 };
