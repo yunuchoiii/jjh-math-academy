@@ -1,5 +1,4 @@
-const db = require('../models');
-const MathProgram = require('../models/math_program');
+const MathProgram = require('../models/mathProgram');
 const Tuition = require('../models/tuition');
 
 // 프로그램 정보 조회
