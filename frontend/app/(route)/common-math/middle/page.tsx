@@ -6,7 +6,6 @@ import CurriculumSection from "@/app/_components/LandingSection/CurriculumSectio
 import FeaturesSection from "@/app/_components/LandingSection/FeaturesSection";
 import HeroSection from "@/app/_components/LandingSection/HeroSection";
 import ImprovedGradesSection from "@/app/_components/LandingSection/ImprovedGradesSection";
-import { HEADER_HEIGHT, HEADER_HEIGHT_MOBILE } from "@/app/_constants/constants";
 import { BoardSlugEnum } from "@/app/_service/board";
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "usehooks-ts";
@@ -163,8 +162,7 @@ const MiddleMathPage = () => {
   ];
 
   return <div 
-    className="home-root flex flex-col items-center"
-    style={{marginTop: `-${isMobile ? HEADER_HEIGHT_MOBILE : HEADER_HEIGHT + 120}px`}}
+    className="home-root flex flex-col items-center -mt-[50px] md:-mt-[180px]"
   >
     <StickyButtons buttons={stickyButtons} />
     <HeroSection
