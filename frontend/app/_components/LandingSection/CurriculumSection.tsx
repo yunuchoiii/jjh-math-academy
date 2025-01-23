@@ -12,7 +12,7 @@ interface CurriculumSectionProps {
 }
 
 const CurriculumSection = ({title, curriculums, color}: CurriculumSectionProps) => {
-  const { ref, isIntersected } = useIntersection(0.5);
+  const { ref, isIntersected } = useIntersection(1);
 
   const colorClassMap = {
     green: {
@@ -32,9 +32,9 @@ const CurriculumSection = ({title, curriculums, color}: CurriculumSectionProps) 
         {curriculums.map((curriculum, index) => (
           <div 
             key={`${curriculum.grade}-${curriculum.title}`}
-            className={`flex flex-col px-[30px] py-[20px] bg-white rounded-[30px] shadow-[0_4px_24px_rgba(0,0,0,0.1)] border-2 ${colorClassMap[color].borderColor} transition-opacity duration-500 ${isIntersected ? 'fade-in-bottom' : 'opacity-0'}`}
+            className={`flex flex-col px-[30px] py-[20px] bg-white rounded-[30px] shadow-[0_4px_24px_rgba(0,0,0,0.1)] border-2 ${colorClassMap[color].borderColor} transition-opacity duration-500 ${isIntersected ? 'swelling-in-center' : ''}`}
             style={{
-              animationDelay: `${index * 0.5}s`,
+              animationDelay: `${index * 0.1}s`,
               animationDuration: '0.5s',
             }}
           >

@@ -11,7 +11,7 @@ interface FeaturesSectionProps {
 }
 
 const FeaturesSection = ({ title, subtitle, features, backgroundColor }: FeaturesSectionProps) => {
-  const { ref, isIntersected } = useIntersection(0.5);
+  const { ref, isIntersected } = useIntersection(1);
 
   const bgColor = backgroundColor === "green" ? "bg-[#ecf6e6]" : "bg-[#fffbe2]";
   return <section className={`flex justify-center items-center w-full py-20 md:pt-[120px] md:pb-[140px] ${bgColor}`}>
@@ -26,9 +26,9 @@ const FeaturesSection = ({ title, subtitle, features, backgroundColor }: Feature
         {features.map((feature, index) => (
           <div 
             key={index} 
-            className={`flex flex-col gap-[10px] px-[40px] py-[30px] bg-white rounded-[30px] shadow-3 transition-opacity duration-500 ${isIntersected ? 'fade-in-bottom' : 'opacity-0'}`}
+            className={`flex flex-col gap-[10px] px-[40px] py-[30px] bg-white rounded-[30px] shadow-3 transition-opacity duration-500 ${isIntersected ? 'swelling-in-center' : ''}`}
             style={{
-              animationDelay: `${index * 0.5}s`,
+              animationDelay: `${index * 0.1}s`,
               animationDuration: '0.5s',
             }}
           >
