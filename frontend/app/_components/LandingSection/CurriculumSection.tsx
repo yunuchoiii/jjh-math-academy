@@ -1,3 +1,5 @@
+import useIntersection from "@/app/_hooks/useIntersection";
+
 interface CurriculumSectionProps {
   title: string;
   curriculums: {
@@ -10,6 +12,8 @@ interface CurriculumSectionProps {
 }
 
 const CurriculumSection = ({title, curriculums, color}: CurriculumSectionProps) => {
+  const { ref, isIntersected } = useIntersection(0.5);
+
   const colorClassMap = {
     green: {
       bgColor: "bg-green-4",
@@ -20,14 +24,18 @@ const CurriculumSection = ({title, curriculums, color}: CurriculumSectionProps) 
       borderColor: "border-yellow-4",
     }
   };
+
   return <div className="flex justify-center items-center">
     <div className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full min-w-[300px] px-5 md:py-[120px] py-[60px]">
       <h2 className="text-3xl font-extrabold NanumSquare text-center">{title}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[10px] md:gap-[30px] mt-[60px]">
-        {curriculums.map(curriculum => (
+      <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[10px] md:gap-[30px] mt-[60px]">
+        {curriculums.map((curriculum, index) => (
           <div 
             key={`${curriculum.grade}-${curriculum.title}`}
-            className={`flex flex-col px-[30px] py-[20px] bg-white rounded-[30px] shadow-[0_4px_24px_rgba(0,0,0,0.1)] border-2 ${colorClassMap[color].borderColor}`}
+            className={`flex flex-col px-[30px] py-[20px] bg-white rounded-[30px] shadow-[0_4px_24px_rgba(0,0,0,0.1)] border-2 ${colorClassMap[color].borderColor} transition-opacity duration-500 ${isIntersected ? 'fade-in-bottom' : 'opacity-0'}`}
+            style={{
+              animationDelay: `${index * 0.1}s`,
+            }}
           >
             <div className="-ml-2.5 flex items-center gap-4">
               <div className={`${colorClassMap[color].bgColor} px-5 py-1 font-semibold rounded-full`}>
