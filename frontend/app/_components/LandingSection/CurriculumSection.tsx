@@ -34,7 +34,8 @@ const CurriculumSection = ({title, curriculums, color}: CurriculumSectionProps) 
             key={`${curriculum.grade}-${curriculum.title}`}
             className={`flex flex-col px-[30px] py-[20px] bg-white rounded-[30px] shadow-[0_4px_24px_rgba(0,0,0,0.1)] border-2 ${colorClassMap[color].borderColor} transition-opacity duration-500 ${isIntersected ? 'fade-in-bottom' : 'opacity-0'}`}
             style={{
-              animationDelay: `${index * 0.1}s`,
+              animationDelay: `${index * 0.5}s`,
+              animationDuration: '0.5s',
             }}
           >
             <div className="-ml-2.5 flex items-center gap-4">

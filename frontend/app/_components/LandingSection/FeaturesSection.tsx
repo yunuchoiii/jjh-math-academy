@@ -28,7 +28,8 @@ const FeaturesSection = ({ title, subtitle, features, backgroundColor }: Feature
             key={index} 
             className={`flex flex-col gap-[10px] px-[40px] py-[30px] bg-white rounded-[30px] shadow-3 transition-opacity duration-500 ${isIntersected ? 'fade-in-bottom' : 'opacity-0'}`}
             style={{
-              animationDelay: `${index * 0.1}s`,
+              animationDelay: `${index * 0.5}s`,
+              animationDuration: '0.5s',
             }}
           >
             <div className="text-lg font-bold">{feature.title}</div>
