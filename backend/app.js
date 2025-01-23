@@ -13,12 +13,16 @@ const YAML = require('yamljs');
 const path = require('path');
 
 dotenv.config();
+
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
 const infoRouter = require('./routes/info');
 const menuRouter = require('./routes/menu');
 const boardRouter = require('./routes/board');
 const postRouter = require('./routes/post');
+const attachmentRouter = require('./routes/attachment');
+const attachmentGroupRouter = require('./routes/attachmentGroup');
+
 const app = express();
 
 // 미들웨어 설정
@@ -52,6 +56,8 @@ const infoDoc = YAML.load(path.join(__dirname, 'swagger/info.yaml'));
 const menuDoc = YAML.load(path.join(__dirname, 'swagger/menu.yaml'));
 const postDoc = YAML.load(path.join(__dirname, 'swagger/post.yaml'));
 const userDoc = YAML.load(path.join(__dirname, 'swagger/user.yaml'));
+const attachmentDoc = YAML.load(path.join(__dirname, 'swagger/attachment.yaml'));
+const attachmentGroupDoc = YAML.load(path.join(__dirname, 'swagger/attachmentGroup.yaml'));
 
 // 모든 문서를 하나로 병합
 const swaggerDocument = {
@@ -68,6 +74,8 @@ const swaggerDocument = {
     ...menuDoc.paths,
     ...postDoc.paths,
     ...userDoc.paths,
+    ...attachmentDoc.paths,
+    ...attachmentGroupDoc.paths,
   },
 };
 
@@ -81,6 +89,8 @@ app.use('/info', infoRouter);
 app.use('/menu', menuRouter);
 app.use('/board', boardRouter);
 app.use('/post', postRouter);
+app.use('/attachment', attachmentRouter);
+app.use('/attachment-group', attachmentGroupRouter);
 
 // 데이터베이스 연결
 sequelize.sync()
