@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
+import Body from './_components/Layout/Body'
 import Footer from './_components/Layout/Footer'
 import Header from './_components/Layout/Header'
 import RecoilRootWrapper from './_components/Recoil/recoilRootWrapper'
@@ -38,11 +39,9 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         <RecoilRootWrapper>
           <ToastProvider>
             <Header/>
-            <div className='flex justify-center pt-[100px] lg:pt-[140px]'>
-              <div className='w-full 2xl:max-w-7xl xl:max-w-6xl lg:max-w-4xl md:max-w-2xl sm:max-w-xl px-5 sm:px-0'>
+            <Body>
               {children}
-              </div>
-            </div>
+            </Body>
             <Footer/>
           </ToastProvider>
         </RecoilRootWrapper>
