@@ -17,17 +17,18 @@ interface NewPostPageProps {
 const NewPostPage = ({ searchParams }: NewPostPageProps) => {
   const { boardId } = searchParams;
   const router = useRouter();
-  const { user, isLoggedIn, isLoading } = useUser();
+  const { user, isLoggedIn, isLoading, userInfoByType } = useUser();
+
+  console.log(userInfoByType);
 
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [isNotice, setIsNotice] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!isLoading) {
-      if (!isLoggedIn) {
-        router.push("/auth/login");
-      }
+    if (isLoading) return;
+    if (!isLoggedIn) {
+      router.push("/auth/login");
     }
   }, [isLoggedIn, isLoading]);
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { userService } from '../_service/user';
+import { IParent, IStudent, ITeacher, userService } from '../_service/user';
 import { accessTokenState, userState } from '../_stores/user';
 
 const useUser = () => {
@@ -53,10 +53,14 @@ const useUser = () => {
         setAccessToken(accessToken);
         const userResponse = await userService.getMyInfo();
         setUser(userResponse.user);
+      } else {
+        setUser(null);
+        setAccessToken(null);
       }
     } catch (error) {
-      // console.error('Authentication error:', error);
-      console.log("authenticate token failed!")
+      console.log("authenticate token failed!");
+      setUser(null);
+      setAccessToken(null);
     } finally {
       setIsLoading(false);
     }
@@ -66,11 +70,38 @@ const useUser = () => {
     authenticate()
   }, []);
 
+  const [userInfoByType, setUserInfoByType] = useState<ITeacher | IParent | IStudent | null>(null);
+
+  const getUserInfoByType = async (userType: string) => {
+    try {
+      if (userType === "teacher") {
+        const res = await userService.getTeacherInfo(user?.userId!);
+        setUserInfoByType(res.data);
+      } else if (userType === "parent") {
+        const res = await userService.getParentInfo(user?.userId!);
+        setUserInfoByType(res.data);
+      } else if (userType === "student") {
+        const res = await userService.getStudentInfo(user?.userId!);
+        setUserInfoByType(res.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    if (user?.userType && user?.userId) {
+      getUserInfoByType(user?.userType);
+    }
+  }, [user?.userType, user?.userId]);
+
+
   return { 
     login,
     logout,
     user, 
     setUser,
+    userInfoByType,
     accessToken, 
     setAccessToken,
     isLoading,
