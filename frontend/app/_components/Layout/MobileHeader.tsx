@@ -81,6 +81,7 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
                   handleClick(parentMenu.link || '');
                 }
               };
+              if (!parentMenu.isShown) return null;
               return <div key={`mobile-parent-menu-${parentMenu.sort}`}>
                 <div className="overflow-hidden" style={{
                   height: menuOpened ? `calc(4.875rem + ${getChildMenuList(parentMenu.id).length * 2.875}rem)` : '3.5rem',

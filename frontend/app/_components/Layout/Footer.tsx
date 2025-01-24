@@ -39,7 +39,7 @@ export default function Footer () {
           </div>
         </div>
         <div className="hidden lg:flex xl:gap-16 lg:gap-12 last:gap-10">
-          {parentMenuList.map(menu => (
+          {parentMenuList.filter(menu => menu.isShown).map(menu => (
             <div className="flex flex-col" key={`footer-menu-${menu.sort}`}>
               {!menu.link ? <div className="xl:text-base lg:text-sm font-semibold text-[#DDD] opacity-90 xl:mb-4 lg:mb-3">
                 {menu.title}
