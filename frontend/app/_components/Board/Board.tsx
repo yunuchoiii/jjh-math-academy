@@ -1,5 +1,6 @@
 "use client"
 
+import useUser from "@/app/_hooks/useUser";
 import { IBoard } from "@/app/_service/board";
 import { IPaginatedResponse } from "@/app/_service/common";
 import { IPost } from "@/app/_service/post";
@@ -9,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from "usehooks-ts";
 import NewBadge from "../Badge/NewBadge";
 import NoticeBadge from "../Badge/NoticeBadge";
+import IconButton from "../Button/IconButton";
 import RoundButton, { RoundButtonProps } from "../Button/RoundButton";
 import Pagination from "../Pagination/Pagination";
 import SearchBar from "../Search/SearchBar";
@@ -85,6 +87,8 @@ const RoundButtonGroup = ({boardButtons}: {boardButtons: RoundButtonProps[]}) =>
 const Board = ({ board, postList, hideBoardButtons, hideSearchBar, hidePagination }: BoardProps) => {
   const router = useRouter();
   const pathname = usePathname();
+
+  const {user} = useUser();
 
   const [searchKeyword, setSearchKeyword] = useState<string | null>(null);
   const [searchType, setSearchType] = useState<string | null>(null);
@@ -192,6 +196,13 @@ const Board = ({ board, postList, hideBoardButtons, hideSearchBar, hidePaginatio
       />
     </div>}
     {!hidePagination && <Pagination paginationInfo={pageData} />}
+    {user?.userType === "teacher" &&
+      <div className="fixed bottom-7 right-7 md:bottom-10 md:right-10">
+        <IconButton title="새 글 작성" link={`/board/${board.slug}/new`}>
+          <i className="fas fa-marker"></i>
+        </IconButton>
+      </div>
+    }
   </div>;
 };
 
