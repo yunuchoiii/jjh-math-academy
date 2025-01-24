@@ -7,15 +7,23 @@ import { useToast } from "@/app/_components/Toast/ToastProvider";
 import useUser from "@/app/_hooks/useUser";
 import { AxiosError } from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from 'react';
 
 const Login = () => {
+  const router = useRouter();
   const { addToast } = useToast();
-  const { login } = useUser();
+  const { login, isLoggedIn } = useUser();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberEmail, setRememberEmail] = useState(false);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.back();
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const savedEmail = localStorage.getItem('rememberedEmail');
