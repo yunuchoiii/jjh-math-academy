@@ -4,6 +4,7 @@ import useUser from "@/app/_hooks/useUser";
 import { IBoard } from "@/app/_service/board";
 import { IPaginatedResponse } from "@/app/_service/common";
 import { IPost } from "@/app/_service/post";
+import { ITeacher } from "@/app/_service/user";
 import { formatDate, isNew } from "@/app/_utils";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from 'react';
@@ -88,7 +89,7 @@ const Board = ({ board, postList, hideBoardButtons, hideSearchBar, hidePaginatio
   const router = useRouter();
   const pathname = usePathname();
 
-  const {user} = useUser();
+  const {user, userInfoByType} = useUser();
 
   const [searchKeyword, setSearchKeyword] = useState<string | null>(null);
   const [searchType, setSearchType] = useState<string | null>(null);
@@ -196,9 +197,9 @@ const Board = ({ board, postList, hideBoardButtons, hideSearchBar, hidePaginatio
       />
     </div>}
     {!hidePagination && <Pagination paginationInfo={pageData} />}
-    {user?.userType === "teacher" &&
+    {user?.userType === "teacher" && (userInfoByType as ITeacher)?.isAdmin &&
       <div className="fixed bottom-7 right-7 md:bottom-10 md:right-10">
-        <IconButton title="새 글 작성" link={`/post/new?boardId=${board.id}`}>
+        <IconButton title="새 글 작성" link={`/post/new?boardId=${board.id}`} tooltipPosition="top">
           <i className="fas fa-marker"></i>
         </IconButton>
       </div>
