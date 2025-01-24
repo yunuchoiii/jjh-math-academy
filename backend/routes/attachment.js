@@ -7,6 +7,9 @@ const router = express.Router();
 // 단일 파일 업로드
 router.post('/upload', upload.single('file'), uploadFile);
 
+// 단일 파일 업로드(ckeditor용)
+router.post('/upload-ckeditor', upload.single('upload'), uploadFile);
+
 // 여러 파일 업로드
 router.post('/upload-multiple', upload.array('files'), uploadMultipleFiles);
 
