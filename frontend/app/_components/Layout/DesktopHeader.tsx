@@ -75,7 +75,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
         </Link>
       </div>
       <div className="lg:flex items-center hidden">
-        {parentMenuList.map(item => {
+        {parentMenuList.filter(item => item.isShown).map(item => {
           return <div 
             key={`menu-${item.title}`} 
             onMouseLeave={()=>setHoveredMenuId(null)}
