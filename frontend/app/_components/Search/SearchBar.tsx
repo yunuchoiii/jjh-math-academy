@@ -105,7 +105,7 @@ const SearchBar = ({
             }}
           >
             {searchTypeOptions.map((type, index) => (
-              <div className={`${searchTypeVisible ? "opacity-100" : "opacity-0"} transition-all duration-300 flex flex-col justify-center`}>
+              <div key={type.value} className={`${searchTypeVisible ? "opacity-100" : "opacity-0"} transition-all duration-300 flex flex-col justify-center`}>
                 <button 
                   key={type.value} 
                   onClick={() => handleSearchType(type.value)}
