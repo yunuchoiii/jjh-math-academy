@@ -46,7 +46,7 @@ class Menu extends Sequelize.Model {
         defaultValue: false,
       },
       permission: {
-        type: DataTypes.ENUM('anonymous', 'admin', 'teacher', 'parent', 'student'),
+        type: DataTypes.ENUM('anonymous', 'admin', 'teacher', 'parent', 'student', 'user'),
         defaultValue: 'anonymous',
       },
       description: {
