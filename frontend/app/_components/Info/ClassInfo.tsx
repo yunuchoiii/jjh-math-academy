@@ -13,13 +13,18 @@ const Divider = () => (
   <div className="w-full h-[2px] bg-[#DEDEDE] mt-6 mb-6"></div>
 )
 
-const Container = styled.div<{ themeColor: string }>`
+
+const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "themeColor",
+})<{ themeColor: string }>`
   & b {
     color: ${(props) => props.themeColor};
   }
 `;
 
-const MoreButton = styled.div<{ buttonHoverColor: string }>`
+const MoreButton = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "buttonHoverColor",
+})<{ buttonHoverColor: string }>`
   @media (min-width: 768px) {
     &:hover {
       background-color: ${(props) => props.buttonHoverColor};
@@ -69,9 +74,12 @@ const ClassInfo = ({classInfo}: ClassInfoProps) => {
     />
     <div className="flex items-center justify-center font-bold mt-10">
       <Link href={classInfo.url}>
-        <MoreButton buttonHoverColor={buttonHoverColor} className={`flex items-center justify-center rounded-full p-2 pl-4 transition-all duration-150 `}>
+        <MoreButton
+          buttonHoverColor={buttonHoverColor}
+          className={`flex items-center justify-center rounded-full p-2 pl-4 transition-all duration-150 `}
+        >
           <span className="mr-[10px]">더 알아보기</span>
-          <PlusIconButton color={classInfo.themeColor} size={30}/>
+          <PlusIconButton color={classInfo.themeColor} size={30} />
         </MoreButton>
       </Link>
     </div>
