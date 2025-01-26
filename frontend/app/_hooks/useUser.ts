@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useReducer } from "react";
-import { IParent, IStudent, ITeacher, userService } from "../_service/user";
+import { IParent, IStudent, ITeacher, IUser, userService } from "../_service/user";
 
 // 사용자 유형을 정의하는 타입
 type UserType = IParent | IStudent | ITeacher | null;
@@ -196,8 +196,8 @@ const useUser = () => {
   return {
     login,
     logout,
-    user: state.user,
-    userInfoByType: state.userInfoByType,
+    user: state.user as IUser,
+    userInfoByType: state.userInfoByType as UserType,
     accessToken: state.accessToken,
     isLoading: state.isLoading,
     isLoggedIn: state.isLoggedIn,

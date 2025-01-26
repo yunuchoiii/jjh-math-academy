@@ -20,7 +20,7 @@ export interface IMenu {
   /** 새 탭에서 열기 여부 (true: 새 탭 열기, false: 현재 탭 열기) */
   isOpenInNewTab: boolean; 
   /** 접근 권한 (anonymous: 비로그인, admin: 관리자, teacher: 선생님, parent: 학부모, student: 학생) */
-  permission: 'anonymous' | 'admin' | 'teacher' | 'parent' | 'student'; 
+  permission: 'anonymous' | 'admin' | 'teacher' | 'parent' | 'student' | 'user'; 
   /** 메뉴 설명 (툴팁 등) */
   description: string | null; 
   /** 생성일 */

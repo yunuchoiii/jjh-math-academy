@@ -1,13 +1,72 @@
 'use client'
 
+import { useMenu } from "@/app/_hooks/useMenu";
 import useUser from "@/app/_hooks/useUser";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import DesktopHeader from "./DesktopHeader";
 import MobileHeader from "./MobileHeader";
 
 export default function Header () {
-  const { user, isLoading, logout } = useUser()
+  const router = useRouter();
+  const { user, userInfoByType, isLoading, logout, getUserPermission } = useUser()
+  const { currentMenu, isLoading: menuLoading } = useMenu()
+
+  // 유저 접근 권한
+  const [userPermission, setUserPermission] = useState<"anonymous" | "admin" | "teacher" | "parent" | "student" | null>(null);
+
+  // 권한 오류 표시 여부(한번만 뜨도록)
+  const [hasShownPermissionError, setHasShownPermissionError] = useState(false);
+
+  // 유저 접근 권한 설정
+  useEffect(() => {
+    if (!isLoading) {
+      if (user && userInfoByType) {
+        setUserPermission(getUserPermission())
+      } else {
+        setUserPermission("anonymous")
+      }
+    }
+  }, [user, userInfoByType, isLoading])
+
+  // 유저 접근 권한 검증
+  useEffect(() => {
+    const showPermissionError = () => {
+      if (!hasShownPermissionError) {
+        alert("해당 메뉴에 접근할 수 있는 권한이 없습니다.");
+        setHasShownPermissionError(true);
+        router.push('/error/403');
+      }
+    };
+
+    // 유저 접근 권한 검증 핸들러
+    const authenticatePermission = () => {
+      switch (currentMenu?.permission) {
+        case "anonymous":
+          return;
+        case "user":
+          if (!["teacher", "parent", "student", "admin"].includes(userPermission!)) {
+            showPermissionError();
+          }
+          break;
+        default:
+          if (userPermission !== currentMenu?.permission) {
+            showPermissionError();
+          }
+          break;
+      }
+    }
+
+    if (currentMenu && userPermission) {
+      authenticatePermission();
+    }
+  }, [currentMenu, userPermission, router])
+
+  useEffect(() => {
+    console.log(router)
+  }, [router])
+
   const [hamburger, setHamburger] = useState<boolean>(false);
 
   const handleContactMenu = () => {
