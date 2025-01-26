@@ -36,12 +36,14 @@ export default function Header () {
       if (!hasShownPermissionError) {
         alert("해당 메뉴에 접근할 수 있는 권한이 없습니다.");
         setHasShownPermissionError(true);
-        router.push('/error/403');
+        // router.push('/error/403');
+        // console.log("해당 메뉴에 접근할 수 있는 권한이 없습니다.");
       }
     };
 
     // 유저 접근 권한 검증 핸들러
     const authenticatePermission = () => {
+      console.log(userPermission)
       switch (currentMenu?.permission) {
         case "anonymous":
           return;
@@ -58,7 +60,7 @@ export default function Header () {
       }
     }
 
-    if (!menuLoading) {
+    if (!menuLoading ) {
       if (!currentMenu) {
         // TODO: 등록되지 않은 메뉴 처리
         // alert("메뉴를 찾을 수 없습니다.");
