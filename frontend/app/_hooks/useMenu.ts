@@ -38,8 +38,9 @@ export const useMenu = () => {
   useEffect(() => {
     if (menuList.length > 0) {
       if (pathname === '/') {
-        setCurrentMenu(null);
-        setCurrentParentMenu(null);
+        const current = menuList.find(menu => menu.link === pathname);
+        setCurrentMenu(current || null);
+        setCurrentParentMenu(current || null);
       } else {
         const current = menuList.find(menu => menu.link?.includes(pathname));
         if (current) {

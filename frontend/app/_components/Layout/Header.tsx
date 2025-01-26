@@ -58,14 +58,17 @@ export default function Header () {
       }
     }
 
-    if (currentMenu && userPermission) {
-      authenticatePermission();
+    if (!menuLoading) {
+      if (!currentMenu) {
+        // TODO: 등록되지 않은 메뉴 처리
+        // alert("메뉴를 찾을 수 없습니다.");
+        // router.back();
+      }
+      if (currentMenu && userPermission) {
+        authenticatePermission();
+      }
     }
-  }, [currentMenu, userPermission, router])
-
-  useEffect(() => {
-    console.log(router)
-  }, [router])
+  }, [currentMenu, userPermission, router, menuLoading])
 
   const [hamburger, setHamburger] = useState<boolean>(false);
 
