@@ -39,8 +39,8 @@ const MyPage = () => {
       <div className={`col-span-2 aspect-square flex items-center justify-center`}>
           <div className="w-full h-full bg-green-3 rounded-full flex items-center justify-center p-[20%]">
             <img 
-              src={UserTypeMap[user?.userType].icon} 
-              alt={UserTypeMap[user?.userType].title} 
+              src={UserTypeMap[user?.userType as keyof typeof UserTypeMap].icon} 
+              alt={UserTypeMap[user?.userType as keyof typeof UserTypeMap].title} 
               className="w-full invert"
             />
           </div>
