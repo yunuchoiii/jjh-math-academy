@@ -27,7 +27,7 @@ router.post('/login', isNotLoggedIn, login);
 router.post('/create-token', apiLimiter, createToken);
 
 // 토큰 갱신
-router.post('/refresh-token', refreshToken);
+router.post('/refresh-token', verifyToken, refreshToken);
 
 // 토큰 검증
 router.get('/verify-token', verifyToken);

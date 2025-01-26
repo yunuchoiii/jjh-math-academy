@@ -235,13 +235,15 @@ exports.refreshToken = async (req, res) => {
 
   try {
     const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
+
+    // Refresh Token으로 사용자 확인
     const user = await db.User.findOne({ where: { userId: decoded.id, refreshToken } });
 
     if (!user) {
       return res.status(401).json({ message: '유효하지 않은 Refresh Token입니다.' });
     }
 
-    // 새로운 Access Token 및 Refresh Token 발급
+    // 새로운 Access Token 발급
     const newAccessToken = jwt.sign(
       {
         id: user.userId,
@@ -249,31 +251,10 @@ exports.refreshToken = async (req, res) => {
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: '30m',
+        expiresIn: '30m', // 액세스 토큰 만료 시간
         issuer: 'jjhmathacademy2004',
       }
     );
-
-    const newRefreshToken = jwt.sign(
-      {
-        id: user.userId,
-        email: user.email,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: '28d',
-        issuer: 'jjhmathacademy2004',
-      }
-    );
-
-    await saveRefreshTokenToDB(user.userId, newRefreshToken);
-
-    res.cookie('refreshToken', newRefreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production' ? true : false,
-      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
-      domain: process.env.CLIENT_DOMAIN,
-    });
 
     return res.status(200).json({
       code: 200,
