@@ -15,7 +15,9 @@ interface MobileHeaderProps {
 const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { currentMenu, currentParentMenu, parentMenuList, getChildMenuList } = useMenu();
+  const { currentMenu, currentParentMenu, getParentMenuList, getChildMenuList } = useMenu();
+
+  const parentMenuList = getParentMenuList({isShown: true, isActive: true});
 
   const handleClick = (link: string) => {
     setHamburger(false)
@@ -75,7 +77,7 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
             {parentMenuList.map((parentMenu, index) => {
               const menuOpened = menuOpenedStates[index];
               const handleMenuClick = () => {
-                if (getChildMenuList(parentMenu.id).length > 0) {
+                if (getChildMenuList({parentId: parentMenu.id, isShown: true, isActive: true}).length > 0) {
                   toggleMenuOpened(index);
                 } else {
                   handleClick(parentMenu.link || '');
@@ -84,7 +86,7 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
               if (!parentMenu.isShown) return null;
               return <div key={`mobile-parent-menu-${parentMenu.sort}`}>
                 <div className="overflow-hidden" style={{
-                  height: menuOpened ? `calc(4.875rem + ${getChildMenuList(parentMenu.id).length * 2.875}rem)` : '3.5rem',
+                  height: menuOpened ? `calc(4.875rem + ${getChildMenuList({parentId: parentMenu.id, isShown: true, isActive: true}).length * 2.875}rem)` : '3.5rem',
                   transition: 'height 0.25s ease-in-out'
                 }}>
                   <div 
@@ -94,14 +96,14 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
                     <span className="text-green-1 text-lg leading-none font-bold">
                       {parentMenu.title}
                     </span>
-                    {getChildMenuList(parentMenu.id).length > 0 && <img 
+                    {getChildMenuList({parentId: parentMenu.id, isShown: true, isActive: true}).length > 0 && <img 
                       src="/images/icons/arrow_rounded.png" 
                       alt="close" className={`filter-green-1 ${!menuOpened && 'rotate-180'}`}
                       width={20} 
                     />}
                   </div>
                   <div className="pb-2.5 pt-1.5">
-                    {getChildMenuList(parentMenu.id).map(childMenu => 
+                    {getChildMenuList({parentId: parentMenu.id, isShown: true, isActive: true}).map(childMenu => 
                       <ReactiveButton
                         key={`mobile-child-menu-${childMenu.sort}`} 
                         props={{

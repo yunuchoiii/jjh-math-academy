@@ -19,7 +19,9 @@ interface DesktopHeaderProps {
 const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoading, logout}: DesktopHeaderProps) => {
   const pathname = usePathname();
 
-  const { currentMenu, currentParentMenu, parentMenuList, getChildMenuList } = useMenu();
+  const { currentMenu, currentParentMenu, getParentMenuList, getChildMenuList } = useMenu();
+
+  const parentMenuList = getParentMenuList({isShown: true, isActive: true});
 
   const [hoveredMenuId, setHoveredMenuId] = useState<number | null>(null);
 
@@ -82,13 +84,13 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
             className="relative"
           >
             <Link 
-              href={item.link || getChildMenuList(item.id)[0].link || ''}
+              href={item.link || getChildMenuList({parentId: item.id, isShown: true, isActive: true})[0].link || ''}
               className={`${styles.menu} xl:text-lg lg:text-base font-semibold hover:text-green-1 ${item.id === currentParentMenu?.id ? 'text-green-1' : 'text-black'}`} 
               onMouseOver={item.link ? ()=>{} : ()=>setHoveredMenuId(item.id)}
             >
               {item.title}
             </Link>
-            {hoveredMenuId === item.id && getChildMenuList(item.id).length > 0 && <ChildrenMenus childrenMenus={getChildMenuList(item.id)}></ChildrenMenus>}
+            {hoveredMenuId === item.id && getChildMenuList({parentId: item.id, isShown: true, isActive: true}).length > 0 && <ChildrenMenus childrenMenus={getChildMenuList({parentId: item.id, isShown: true, isActive: true})}></ChildrenMenus>}
           </div>
         })}
         {!isLoading && <div className="flex items-center ml-6 gap-10">
@@ -131,7 +133,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
                 >
                   {menu.title}
                 </button>
-                {getChildMenuList(menu.id).map(item => (
+                {getChildMenuList({parentId: menu.id, isShown: true, isActive: true}).map(item => (
                   <Link 
                     href={item.link!} 
                     key={`fullmenu-${item.sort}`} 

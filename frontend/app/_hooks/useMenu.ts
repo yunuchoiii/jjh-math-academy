@@ -14,8 +14,39 @@ export const useMenu = () => {
   const [error, setError] = useState<Error | null>(null);
 
   const parentMenuList = menuList.filter(menu => !menu.parentId);
-  const getChildMenuList = useCallback((parentId: number) => {
-    return menuList.filter(menu => menu.parentId === parentId);
+  const getParentMenuList = useCallback(({
+    isShown, 
+    isActive
+  }: {
+    isShown?: boolean, 
+    isActive?: boolean
+  }) => {
+    if (isShown) {
+      return parentMenuList.filter(menu => menu.isShown === isShown && menu.isActive === isActive);
+    } else if (isActive) {
+      return parentMenuList.filter(menu => menu.isActive === isActive);
+    } else {
+      return parentMenuList;
+    }
+  }, [menuList]);
+
+  const getChildMenuList = useCallback(({
+    parentId,
+    isShown,
+    isActive
+  }: {
+    parentId: number,
+    isShown?: boolean,
+    isActive?: boolean
+  }) => {
+    const childMenuList = menuList.filter(menu => menu.parentId === parentId);
+    if (isShown) {
+      return childMenuList.filter(menu => menu.isShown === isShown && menu.isActive === isActive);
+    } else if (isActive) {
+      return childMenuList.filter(menu => menu.isActive === isActive);
+    } else {
+      return childMenuList;
+    }
   }, [menuList]);
 
   useEffect(() => {
@@ -58,6 +89,7 @@ export const useMenu = () => {
     currentMenu, 
     currentParentMenu,
     parentMenuList, 
+    getParentMenuList,
     getChildMenuList,
     error, 
     isLoading 

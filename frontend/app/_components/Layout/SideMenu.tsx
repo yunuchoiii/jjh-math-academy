@@ -28,8 +28,7 @@ const SideMenu = () => {
   useEffect(() => {
     if (currentParentMenu) {
       setMenuList(
-        getChildMenuList(currentParentMenu.id)
-          .filter(menu => menu.isActive && menu.isShown)
+        getChildMenuList({parentId: currentParentMenu.id, isShown: true, isActive: true})
       )
     }
   }, [currentParentMenu])
@@ -40,12 +39,13 @@ const SideMenu = () => {
   const renderMenu = (menus: IMenu[], depth: number = 0) => {
     return (
       <ul className="flex flex-col gap-1.5">
-        {menus.map(menu => (
-          <li key={menu.id} style={{paddingLeft: `${depth * 10}px`}}>
+        {menus.map(menu => {
+          const childMenuList = getChildMenuList({parentId: menu.id, isShown: true, isActive: true})
+          return <li key={menu.id} style={{paddingLeft: `${depth * 10}px`}}>
             <MenuButton menu={menu} isActive={menu.link ? pathname.includes(menu.link) : false}/>
-            {getChildMenuList(menu.id).length > 0 && renderMenu(getChildMenuList(menu.id), depth + 1)}
+            {childMenuList.length > 0 && renderMenu(childMenuList, depth + 1)}
           </li>
-        ))}
+        })}
       </ul>
     )
   }
