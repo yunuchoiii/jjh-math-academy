@@ -33,7 +33,7 @@ const Accordion = ({ parent, children, onClick, selectedId }: AccordionProps) =>
 
   return <section className="w-full">
     <button 
-      className={`w-full flex justify-between items-center pl-2.5 pr-3 h-[36px] my-0.5 rounded-xl hover:bg-[#F3F3F3] transition-all duration-300 ${selectedId === parent.id ? 'bg-[#F3F3F3] font-semibold' : ''}`} 
+      className={`w-full flex justify-between items-center pl-2.5 pr-3 h-[36px] my-0.5 rounded-xl hover:bg-[#F3F3F3] transition-all duration-300 ${selectedId === parent.id ? 'bg-[#F3F3F3] font-semibold' : ''} ${children.length === 0 ? 'mb-1' : ''}`} 
       onClick={onParentClick}
     >
       <div className="hover:underline underline-offset-4" onClick={onParentTitleClick}>
