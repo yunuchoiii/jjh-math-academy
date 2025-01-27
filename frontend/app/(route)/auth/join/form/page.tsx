@@ -147,6 +147,7 @@ const JoinByUserType: FC<Props> = ({ searchParams }) => {
               register={register}
               errors={errors}
               watch={watch}
+              setValue={setValue}
             />
           )}
           {userType === "parent" && (

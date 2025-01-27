@@ -1,5 +1,6 @@
 import { JoinPayload } from "@/app/(route)/auth/join/form/page";
-import { FieldErrors, UseFormRegister, UseFormWatch } from "react-hook-form";
+import { useEffect } from "react";
+import { FieldErrors, UseFormRegister, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import Select from "../../Input/Select";
 import TextField from "../../Input/TextField";
 
@@ -7,9 +8,10 @@ interface JoinStudentFormProps {
   register: UseFormRegister<JoinPayload>;
   errors: FieldErrors<JoinPayload>;
   watch: UseFormWatch<JoinPayload>;
+  setValue: UseFormSetValue<JoinPayload>;
 }
 
-const JoinStudentForm = ({ register, errors, watch }: JoinStudentFormProps) => {
+const JoinStudentForm = ({ register, errors, watch, setValue }: JoinStudentFormProps) => {
   const gradeLevels = [
     { value: 1, label: '초등 1학년' },
     { value: 2, label: '초등 2학년' },
@@ -25,6 +27,10 @@ const JoinStudentForm = ({ register, errors, watch }: JoinStudentFormProps) => {
     { value: 12, label: '고등학교 3학년' },
   ];
 
+  useEffect(() => {
+    console.log(watch('gradeLevel'));
+  }, [watch('gradeLevel')]);
+
   return (
     <div>
       <TextField 
@@ -37,7 +43,9 @@ const JoinStudentForm = ({ register, errors, watch }: JoinStudentFormProps) => {
       <Select
         label="학년"
         options={gradeLevels}
-        register={register('gradeLevel', { required: true })}
+        onChange={(value) => {
+          setValue('gradeLevel', value);
+        }}
         error={errors.gradeLevel}
       />
     </div>
