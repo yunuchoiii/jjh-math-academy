@@ -17,7 +17,7 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
   const pathname = usePathname();
   const { currentMenu, currentParentMenu, getParentMenuList, getChildMenuList } = useMenu();
 
-  const parentMenuList = getParentMenuList({isShown: true, isActive: true});
+  const parentMenuList = getParentMenuList({isShown: true, isActive: true}).sort((a, b) => a.sort - b.sort);
 
   const handleClick = (link: string) => {
     setHamburger(false)
@@ -103,7 +103,7 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
                     />}
                   </div>
                   <div className="pb-2.5 pt-1.5">
-                    {getChildMenuList({parentId: parentMenu.id, isShown: true, isActive: true}).map(childMenu => 
+                    {getChildMenuList({parentId: parentMenu.id, isShown: true, isActive: true}).sort((a, b) => a.sort - b.sort).map(childMenu => 
                       <ReactiveButton
                         key={`mobile-child-menu-${childMenu.sort}`} 
                         props={{

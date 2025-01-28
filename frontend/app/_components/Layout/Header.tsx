@@ -43,7 +43,6 @@ export default function Header () {
 
     // 유저 접근 권한 검증 핸들러
     const authenticatePermission = () => {
-      console.log(userPermission)
       switch (currentMenu?.permission) {
         case "anonymous":
           return;

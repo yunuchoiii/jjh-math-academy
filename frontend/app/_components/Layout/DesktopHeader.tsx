@@ -21,7 +21,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
 
   const { currentMenu, currentParentMenu, getParentMenuList, getChildMenuList } = useMenu();
 
-  const parentMenuList = getParentMenuList({isShown: true, isActive: true});
+  const parentMenuList = getParentMenuList({isShown: true, isActive: true}).sort((a, b) => a.sort - b.sort);
 
   const [hoveredMenuId, setHoveredMenuId] = useState<number | null>(null);
 
@@ -77,20 +77,21 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
         </Link>
       </div>
       <div className="lg:flex items-center hidden">
-        {parentMenuList.filter(item => item.isShown).map(item => {
+        {parentMenuList.filter(item => item.isShown).sort((a, b) => a.sort - b.sort).map(item => {
+          const childrenMenus = getChildMenuList({parentId: item.id, isShown: true, isActive: true});
           return <div 
             key={`menu-${item.title}`} 
             onMouseLeave={()=>setHoveredMenuId(null)}
             className="relative"
           >
             <Link 
-              href={item.link || getChildMenuList({parentId: item.id, isShown: true, isActive: true})[0].link || ''}
+              href={item.link || childrenMenus[0]?.link || ''}
               className={`${styles.menu} xl:text-lg lg:text-base font-semibold hover:text-green-1 ${item.id === currentParentMenu?.id ? 'text-green-1' : 'text-black'}`} 
               onMouseOver={item.link ? ()=>{} : ()=>setHoveredMenuId(item.id)}
             >
               {item.title}
             </Link>
-            {hoveredMenuId === item.id && getChildMenuList({parentId: item.id, isShown: true, isActive: true}).length > 0 && <ChildrenMenus childrenMenus={getChildMenuList({parentId: item.id, isShown: true, isActive: true})}></ChildrenMenus>}
+            {hoveredMenuId === item.id && childrenMenus.length > 0 && <ChildrenMenus childrenMenus={childrenMenus}></ChildrenMenus>}
           </div>
         })}
         {!isLoading && <div className="flex items-center ml-6 gap-10">
@@ -133,7 +134,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
                 >
                   {menu.title}
                 </button>
-                {getChildMenuList({parentId: menu.id, isShown: true, isActive: true}).map(item => (
+                {getChildMenuList({parentId: menu.id, isShown: true, isActive: true}).sort((a, b) => a.sort - b.sort).map(item => (
                   <Link 
                     href={item.link!} 
                     key={`fullmenu-${item.sort}`} 
