@@ -5,6 +5,7 @@ import { useState } from "react"
 export interface IAccordionElement {
   id: number
   title: string
+  sort?: number
   children?: IAccordionElement[]
 }
 
@@ -45,7 +46,7 @@ const Accordion = ({ parent, children, onClick, selectedId }: AccordionProps) =>
         </div>
       )}
     </button>
-    {children.map((child) => (
+    {children.sort((a, b) => a.sort! - b.sort!).map((child) => (
       <div 
         key={child.id} 
         className={`pl-4 overflow-hidden transition-all duration-300 ${isOpen ? 'h-[40px]' : 'h-0'}`}
