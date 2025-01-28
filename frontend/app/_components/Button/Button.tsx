@@ -5,7 +5,7 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset";
   onClick?: () => void;
   disabled?: boolean;
-  color: "yellow" | "green";
+  color: "yellow" | "green" | "blue";
   textSize?: "xs" | "sm" | "base" | "lg" | "xl" | "2xl";
   fullWidth?: boolean;
   fullRounded?: boolean;
@@ -18,6 +18,7 @@ const Button = ({ children, type="button", onClick, disabled, color="green", tex
   const colorClass = {
     yellow: "bg-yellow-gradient text-white",
     green: "bg-green-gradient text-white",
+    blue: "bg-gradient-blue text-white",
   }
 
   const textSizeClass = {
