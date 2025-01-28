@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FieldError } from "react-hook-form";
 import ReactiveButton from "../Button/ReactiveButton";
 import FormError from "../Error/FormError";
 
 interface SelectProps {
   label: string;
+  defaultValue?: any;
   options: { value: any; label: string }[];
   onChange?: (value: any) => void;
   buttonLabel?: string;
@@ -13,9 +14,9 @@ interface SelectProps {
   position?: "vertical" | "horizontal";
 }
 
-const Select = ({ label, options, onChange, buttonLabel, onButtonClick, error, position = "vertical" }: SelectProps) => {
+const Select = ({ label, defaultValue, options, onChange, buttonLabel, onButtonClick, error, position = "vertical" }: SelectProps) => {
   const [optionsVisible, setOptionsVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(options[0]?.value);
+  const [selectedOption, setSelectedOption] = useState(defaultValue ?? options[0]?.value);
 
   const handleSearchType = (value: any) => {
     setSelectedOption(value);
@@ -25,8 +26,12 @@ const Select = ({ label, options, onChange, buttonLabel, onButtonClick, error, p
     setOptionsVisible(false);
   };
 
+  useEffect(() => {
+    setSelectedOption(defaultValue ?? options[0]?.value);
+  }, [defaultValue, options]);
+
   return (<div>
-    <div className={`w-full mb-4 flex ${position === "vertical" ? "flex-col" : "flex-row items-center gap-2.5"}`}>
+    <div className={`w-full mb-4 flex ${position === "vertical" ? "flex-col" : "flex-row items-center gap-4"}`}>
       <label className="text-sm Montserrat ml-1">{label}</label>
       <div className="relative mt-1 flex-1 flex">
         <div className="relative flex flex-row items-center flex-1">
@@ -38,12 +43,12 @@ const Select = ({ label, options, onChange, buttonLabel, onButtonClick, error, p
             }}
           >
             <span className="text-center">
-              {options.find(option => option.value === selectedOption)?.label || "검색 기준"}
+              {options.find(option => option.value === selectedOption)?.label}
             </span>
             <i className={`absolute right-1.5 top-1/2 -translate-y-1/2 fas fa-caret-down px-3 text-lg ${optionsVisible ? "rotate-180" : ""}`}></i>
           </button>
           <div 
-            className={`absolute w-full top-12 left-0 right-0 bg-white rounded-lg overflow-hidden transition-all duration-300 shadow-[0_0_16px_rgba(0,0,0,0.15)]`}
+            className={`absolute z-50 w-full top-12 left-0 right-0 bg-white rounded-lg overflow-hidden transition-all duration-300 shadow-[0_0_16px_rgba(0,0,0,0.15)]`}
             style={{
               height: optionsVisible ? `${options.length * 40 + 20}px` : "0px",
               padding: optionsVisible ? "5px 10px" : "0px 10px",
