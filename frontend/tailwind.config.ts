@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-green': 'linear-gradient(95deg, #41B580 0%, #359267 100%)',
+        'gradient-green': 'linear-gradient(95deg, #37CC87 0%, #41B580 100%)',
         'gradient-yellow': 'linear-gradient(95deg, #FFDC60 0%, #EFC223 100%)',
-        'gradient-blue': 'linear-gradient(95deg, #49B5C9 0%, #267D8D 100%)',
+        'gradient-blue': 'linear-gradient(95deg, #49B5C9 0%, #25949D 100%)',
       },
     },
     colors: {
