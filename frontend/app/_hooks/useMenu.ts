@@ -49,22 +49,22 @@ export const useMenu = () => {
     }
   }, [menuList]);
 
-  useEffect(() => {
-    const fetchMenuList = async () => {
-      try {
-        setIsLoading(true);
-        const list = await menuService.getMenuList();
-        setMenuList(list);
-      } catch (err) {
-        setError(err as Error);
-        console.error("Failed to fetch menu list", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchMenuList();
+  const fetchMenuList = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const list = await menuService.getMenuList();
+      setMenuList(list);
+    } catch (err) {
+      setError(err as Error);
+      console.error("Failed to fetch menu list", err);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchMenuList();
+  }, [fetchMenuList]);
 
   useEffect(() => {
     if (menuList.length > 0) {
@@ -92,6 +92,7 @@ export const useMenu = () => {
     getParentMenuList,
     getChildMenuList,
     error, 
-    isLoading 
+    isLoading,
+    refresh: fetchMenuList
   };
 };
