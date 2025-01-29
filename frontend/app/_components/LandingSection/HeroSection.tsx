@@ -107,8 +107,8 @@ const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
       <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-30 backdrop-blur-[160px]"></div>
     </div>
     <div className="flex justify-center items-center w-full h-full absolute top-0 left-0 NanumSquare">
-      <div className={`2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full min-w-[300px] px-5 h-full flex ${(type === "elementary" || type === "middle") ? "lg:flex-row" : "lg:flex-row-reverse"} flex-col-reverse items-center justify-center lg:justify-between gap-10 lg:gap-20 pt-0 md:pt-20 lg:pt-0`}>
-        <div className="lg:flex-1">
+      <div className={`2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full min-w-[300px] px-5 h-full flex ${(type === "elementary" || type === "middle") ? "lg:flex-row" : "lg:flex-row-reverse"} flex-col-reverse items-center justify-center lg:justify-center gap-10 lg:gap-20 2xl:gap-28 pt-0 md:pt-20 lg:pt-0`}>
+        <div>
           <div className="text-[#070606] text-xl md:text-2xl xl:text-3xl font-bold mb-2.5">
             {subtitle}
           </div>
