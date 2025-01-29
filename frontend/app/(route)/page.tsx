@@ -50,10 +50,10 @@ export default function Home() {
       <div id="programs-section" className="bg-lightgray w-full md:pt-32 md:pb-24 pt-14 pb-10 flex justify-center">
         <div className="2xl:w-[80rem] xl:w-[72rem] md:w-[56rem] w-[300px]">
           <div className="text-center mb-12">
-            <div className="xl:text-3xl md:text-2xl text-sm">
+            <div className="xl:text-2xl md:text-xl text-sm text-[#444]">
               <span className="font-bold">스마트</span>한 프로그램을 활용한
             </div>
-            <div className="xl:text-4xl md:text-3xl text-lg font-bold md:mt-4 mt-1">
+            <div className="xl:text-3xl md:text-2xl text-lg font-bold md:mt-3 mt-1">
               체계적인 <span className="text-green-2">학습 관리</span>
             </div>
           </div>
@@ -67,11 +67,11 @@ export default function Home() {
       <div id="special-classes-section" className="bg-lightgray w-full md:pt-32 pt-14 pb-24 flex justify-center">
         <div className="xl:w-[995px] w-[790px]">
           <div className="text-center mb-12">
-            <div className="xl:text-3xl md:text-2xl text-sm font-bold">
+            <div className="xl:text-2xl md:text-xl text-sm font-semibold text-[#444]">
               대입으로 가는 첫걸음
             </div>
-            <div className="xl:text-4xl md:text-3xl text-lg font-bold md:mt-4 mt-1 text-green-2">
-              교과 심화 사고력 수학
+            <div className="xl:text-3xl md:text-2xl text-lg font-bold md:mt-3 mt-1">
+              교과 심화 <span className="text-green-2">사고력 수학</span>
             </div>
           </div>
           <div className="slide-in-bottom" ref={setRef}>
@@ -83,10 +83,10 @@ export default function Home() {
       <div id="curriculum-section" className="bg-lightgray w-full md:pt-32 pt-14 pb-24 flex justify-center">
         <div className="xl:w-[995px] w-[790px]">
           <div className="text-center mb-12">
-            <div className="xl:text-3xl md:text-2xl text-sm font-bold">
+            <div className="xl:text-2xl md:text-xl text-sm font-semibold text-[#444]">
               기초부터 심화까지 탄탄하게
             </div>
-            <div className="xl:text-4xl md:text-3xl text-lg font-bold md:mt-4 mt-1 text-green-2">
+            <div className="xl:text-3xl md:text-2xl text-lg font-bold md:mt-3 mt-1">
               초·중등 교과 수학
             </div>
           </div>
