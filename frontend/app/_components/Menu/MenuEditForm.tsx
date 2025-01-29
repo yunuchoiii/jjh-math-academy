@@ -28,12 +28,12 @@ const MenuEditForm = ({menu, defaultParentMenuId}: MenuEditFormProps) => {
   const {addToast} = useToast();
   
   const {register, watch, setValue, handleSubmit, formState: {errors}, reset} = useForm<IMenu>({
-    defaultValues: menu ? {...menu, parentId: defaultParentMenuId} : {},
+    defaultValues: menu ? {...menu, parentId: menu.parentId ?? defaultParentMenuId} : {},
   });
 
   useEffect(() => {
     if (menu) {
-      reset({...menu, parentId: defaultParentMenuId} ?? {});
+      reset({...menu, parentId: menu.parentId ?? defaultParentMenuId});
     } else {
       reset({parentId: defaultParentMenuId, title: '', link: ''});
     }
@@ -90,7 +90,6 @@ const MenuEditForm = ({menu, defaultParentMenuId}: MenuEditFormProps) => {
   }
 
   const onSubmit = (data: MenuSavePayload) => {
-    // 빈 값을 null로 대체
     const sanitizedData = Object.fromEntries(
       Object.entries(data).map(([key, value]) => [key, value === '' ? null : value])
     );
