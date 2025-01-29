@@ -17,8 +17,8 @@ const StickyButtons = ({ buttons } : {buttons: StickyButtonProps[]}) => {
   // 버튼 색상에 따라 클래스 적용
   const colorClassMap = {
     yellow: {
-      activeClass: "bg-yellow-3 text-black",
-      reactedClass: "hover:bg-yellow-3 hover:text-black active:bg-yellow-3 active:text-black",
+      activeClass: "bg-[#ebbb17] text-white",
+      reactedClass: "hover:bg-[#ebbb17] hover:text-white active:bg-[#ebbb17] active:text-white",
     },
     green: {
       activeClass: "bg-green-1 text-white",
