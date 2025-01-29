@@ -3,7 +3,6 @@
 import { CONTACT_SECTION_LINK } from "@/app/_constants/constants";
 import { useRouter } from "next/navigation";
 import { useRef } from 'react';
-import { useMediaQuery } from "usehooks-ts";
 import ReactiveButton from "../Button/ReactiveButton";
 
 interface HeroSectionProps {
@@ -18,7 +17,6 @@ const BgCircle = ({styleClass, position}: {styleClass: string, position: "left" 
 
 const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
   const router = useRouter();
-  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -76,14 +74,14 @@ const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
     },
     yorisu: {
       bgCircles: {
-        left: "from-[rgba(97,180,141,1)] to-[rgba(97,180,141,0.7)]",
-        right: "from-[rgba(116,181,65,1)] to-[rgba(116,180,65,0.5)]",
+        left: "from-[rgba(225,220,96,0.5)] to-[rgba(239,194,35,1)]",
+        right: "from-[#FBEF84] to-[#EFC223]",
       },
-      title: "text-green-2",
-      imgPath: "",
+      title: "text-yellow-5",
+      imgPath: "/images/child-play-study.png",
       buttons: {
-        primary: "text-white bg-green-1",
-        secondary: "text-green-2 bg-green-4",
+        primary: "text-white bg-yellow-5",
+        secondary: "text-[#A48104] bg-yellow-4",
       }
     },
     sigma: {
@@ -92,7 +90,7 @@ const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
         right: "from-[rgba(116,181,65,1)] to-[rgba(116,180,65,0.5)]",
       },
       title: "text-green-2",
-      imgPath: "",
+      imgPath: "/images/chalkboard-math.png",
       buttons: {
         primary: "text-white bg-green-1",
         secondary: "text-green-2 bg-green-4",
@@ -109,9 +107,9 @@ const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
       <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-30 backdrop-blur-[160px]"></div>
     </div>
     <div className="flex justify-center items-center w-full h-full absolute top-0 left-0 NanumSquare">
-      <div className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full min-w-[300px] px-5 h-full flex lg:flex-row flex-col-reverse items-center justify-center lg:justify-between gap-10 lg:gap-0 pt-0 md:pt-20 lg:pt-0">
-        <div>
-          <div className="text-[#555] text-xl md:text-2xl xl:text-3xl font-bold mb-2.5">
+      <div className={`2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full min-w-[300px] px-5 h-full flex ${(type === "elementary" || type === "middle") ? "lg:flex-row" : "lg:flex-row-reverse"} flex-col-reverse items-center justify-center lg:justify-between gap-10 lg:gap-20 pt-0 md:pt-20 lg:pt-0`}>
+        <div className="lg:flex-1">
+          <div className="text-[#070606] text-xl md:text-2xl xl:text-3xl font-bold mb-2.5">
             {subtitle}
           </div>
           <div className={`${ElementsByType[type].title} text-[40px] md:text-[50px] xl:text-[60px] font-extrabold NanumSquare`}>
@@ -128,11 +126,18 @@ const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
             })}
           </div>
         </div>
-        <div className={`xl:w-[380px] xl:h-[380px] md:w-[320px] md:h-[320px] w-[280px] h-[280px] relative rounded-full bg-gradient-to-b shadow-xl ${type == 'elementary' ? 'from-yellow-1 to-yellow-3' : 'from-green-1 to-green-2'}`}>
-          <div className='absolute bottom-0 w-full flex justify-center rounded-bl-full rounded-br-full overflow-hidden'>
-            <img src={ElementsByType[type].imgPath} alt='curriculum' className={`${type == 'elementary' ? 'w-[64%]' : 'w-full'}`}/>
+        {(type === "elementary" || type === "middle") ?
+          <div className={`xl:w-[380px] xl:h-[380px] md:w-[320px] md:h-[320px] w-[280px] h-[280px] relative rounded-full bg-gradient-to-b shadow-xl ${type == 'elementary' ? 'from-yellow-1 to-yellow-3' : 'from-green-1 to-green-2'}`}>
+            <div className='absolute bottom-0 w-full flex justify-center rounded-b-full overflow-hidden'>
+              <img src={ElementsByType[type].imgPath} alt='curriculum' className={`${type == 'elementary' ? 'w-[64%]' : 'w-full'}`}/>
+            </div>
+          </div> :
+          <div className={`xl:w-[380px] xl:h-[360px] md:w-[320px] md:h-[300px] w-[280px] h-[260px] relative bg-gradient-to-br rounded-t-full shadow-xl overflow-hidden ${type == 'yorisu' ? 'from-yellow-4 to-yellow-2' : 'from-green-4 to-green-2'}`}>
+            <div className="absolute bottom-0 w-full h-full flex justify-center items-end">
+              <img src={ElementsByType[type].imgPath} alt='curriculum' className={`${type == 'yorisu' ? 'h-3/4' : 'h-2/3'} object-cover`}/>
+            </div>
           </div>
-        </div>
+        } 
       </div>
     </div>
   </section>;
