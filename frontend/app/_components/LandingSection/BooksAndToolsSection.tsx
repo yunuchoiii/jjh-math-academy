@@ -22,11 +22,11 @@ const Section = ({ title, imageSrc, imageClass, items, features, itemType, color
         className={imageClass} 
       />
     </div>
-    <div className="flex flex-col gap-4 px-3">
+    <div className="flex flex-col gap-4 px-3 flex-1">
       <div className={`w-fit text-sm font-bold px-2.5 py-1 rounded-full ${color === "green" ? "bg-green-4 bg-opacity-50 text-green-2" : "bg-yellow-4 bg-opacity-50 text-yellow-6"}`}>
         {title} 활용 {itemType === "book" ? "교재" : "교구"}
       </div>
-      <h3 className="text-lg font-extrabold break-keep">
+      <h3 className="flex-1 text-lg font-extrabold break-keep flex items-center">
         {features.map((feature, index) => (
           <span key={`${index}-${feature}`} className="text-lg font-extrabold">
             {feature}

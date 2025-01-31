@@ -9,7 +9,6 @@ import HeroSection from "@/app/_components/LandingSection/HeroSection";
 import ReactionBubbles from "@/app/_components/LandingSection/ReactionBubbles";
 import { BoardSlugEnum } from "@/app/_service/board";
 import { useRouter } from "next/navigation";
-import { useMediaQuery } from "usehooks-ts";
 
 const features = [
   {
@@ -92,7 +91,6 @@ const reactionBubbles = [
 
 const SigmaClassPage = () => {
   const router = useRouter();
-  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const stickyButtons:StickyButtonProps[] = [
     {

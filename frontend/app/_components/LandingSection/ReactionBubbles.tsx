@@ -1,4 +1,5 @@
 import useIntersection from "@/app/_hooks/useIntersection";
+import Link from "next/link";
 import SpeechBubble from "../Quote/SpeechBubble";
 
 interface ReactionBubblesProps {
@@ -8,8 +9,13 @@ interface ReactionBubblesProps {
   teacherWords: React.ReactNode;
 }
 
+const contact = <Link href="/#contact-section" className="flex items-center gap-1 group">
+  <span className="group-hover:font-bold transition-all duration-300">지금 바로 상담 받아보세요</span>
+  <i className="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-all duration-300"></i>
+</Link>
+
 const ReactionBubbles = ({ title, color, reactions, teacherWords }: ReactionBubblesProps) => {
-  const allReactions = [...reactions, teacherWords];
+  const allReactions = [...reactions, teacherWords, contact];
 
   const { ref, isIntersected } = useIntersection(0.5);
 
@@ -18,11 +24,16 @@ const ReactionBubbles = ({ title, color, reactions, teacherWords }: ReactionBubb
       <div className="bg-[#444] p-[5px] md:p-5 rounded-[30px] md:rounded-[40px] shadow-2xl">
         <div className="relative flex flex-col gap-5 bg-white px-5 md:px-8 pt-16 md:pt-20 pb-10 rounded-[25px] overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-10 border-b border-lightgray-3 flex items-center justify-center">
-            <p className="font-bold NanumSquare text-black">조재현 수학학원</p>
+            <p className="font-bold NanumSquare text-black">
+              조재현 수학학원&nbsp;
+              <span className={`font-extrabold ${color === "green" ? "text-green-2" : "text-yellow-5"}`}>
+                "{title}"
+              </span>
+            </p>
           </div>
           <div ref={ref} className="relative flex flex-col gap-5">
             {allReactions.map((reaction, index) => {
-              const isTeacher = index === reactions.length;
+              const isTeacher = index >= reactions.length;
               return <div 
                 key={`${title}-reaction-${index}`} 
                 className={`relative flex transition-all duration-500 ${isTeacher ? "justify-end" : "justify-start"} ${isIntersected ? "fade-in-bottom opacity-100" : " opacity-0"}`}
@@ -42,7 +53,6 @@ const ReactionBubbles = ({ title, color, reactions, teacherWords }: ReactionBubb
                   <div className="font-medium">
                     {reaction}
                   </div>
-                  {isTeacher && <p>지금 바로 상담 받아보세요!</p>}
                 </SpeechBubble>
               </div>
           })}

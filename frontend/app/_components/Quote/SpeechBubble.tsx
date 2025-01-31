@@ -13,7 +13,7 @@ interface SpeechBubbleProps {
 const SpeechBubble = ({color, children, position="left", profile}: SpeechBubbleProps) => {
   const backgroundColor = color === "yellow" ? "#FFF5D3" : color === "green" ? "#E6F1DD" : "#EBF1F1";
   const textColor = color === "yellow" ? "text-yellow-6" : color === "green" ? "text-green-2" : "text-blue-2";
-  const borderColor = color === "yellow" ? "border-yellow-6" : color === "green" ? "border-green-4" : "border-blue-1";
+  const borderColor = color === "yellow" ? "border-yellow-4" : color === "green" ? "border-green-4" : "border-blue-1";
   return <section className={`relative w-fit max-w-[90%] flex gap-2 ${position === "right" ? "flex-row-reverse" : ""}`}>
     <div className={`flex items-center justify-center rounded-full flex-shrink-0 w-[30px] h-[30px] overflow-hidden border ${borderColor}`} style={{backgroundColor}}>
       <Image 
