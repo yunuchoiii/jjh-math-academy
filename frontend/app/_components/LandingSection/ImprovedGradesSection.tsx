@@ -33,7 +33,7 @@ const ImprovedGradesSection = ({ speechBubbleText, improvedGradesList }: Improve
               animationDuration: "0.6s",
             }}
           >
-            <SpeechBubble color="#4C7E82" backgroundColor="#EBF1F1" position="left">
+            <SpeechBubble color="blue" position="left">
               {speechBubbleText.left}
             </SpeechBubble>
           </div>
@@ -44,7 +44,7 @@ const ImprovedGradesSection = ({ speechBubbleText, improvedGradesList }: Improve
               animationDuration: "0.6s",
             }}
           >
-            <SpeechBubble color="#A48104" backgroundColor="#FFECA8" position="right">
+            <SpeechBubble color="yellow" position="right">
               {speechBubbleText.right}
             </SpeechBubble>
           </div>
