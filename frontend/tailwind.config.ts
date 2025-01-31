@@ -28,6 +28,7 @@ const config: Config = {
       'yellow-3': '#EFC223',
       'yellow-4': '#FFECA8',
       'yellow-5': '#D9AB0B',
+      'yellow-6': '#A48104',
       'blue-1': '#D6E3E4',
       'blue-2': '#4C7E82',
       'blue-3': '#49B5C9',
@@ -37,6 +38,7 @@ const config: Config = {
       'red-2': '#FB7185',
       'lightgray-1': '#F9F9F9',
       'lightgray-2': '#F3F3F3',
+      'lightgray-3': '#E9E9E9',
     }
   },
   plugins: [],

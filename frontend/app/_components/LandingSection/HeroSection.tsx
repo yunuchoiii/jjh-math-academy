@@ -12,7 +12,7 @@ interface HeroSectionProps {
 }
 
 const BgCircle = ({styleClass, position}: {styleClass: string, position: "left" | "right"}) => {
-  return <div className={`absolute md:top-1/2 md:-translate-y-1/2 ${position === "left" ? "top-[20%] left-[10%]" : "top-[50%] right-[10%]"} 2xl:w-[350px] 2xl:h-[350px] lg:w-[300px] lg:h-[300px] w-[230px] h-[230px] rounded-full bg-gradient-to-br ${styleClass}`}></div>
+  return <div className={`absolute md:top-1/2 md:-translate-y-1/2 ${position === "left" ? "top-[20%] left-[10%]" : "top-[50%] right-[10%]"} 2xl:w-[420px] 2xl:h-[420px] xl:w-[350px] xl:h-[350px] lg:w-[300px] lg:h-[300px] w-[230px] h-[230px] rounded-full bg-gradient-to-br ${styleClass}`}></div>
 }
 
 const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
@@ -107,7 +107,7 @@ const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
       <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-30 backdrop-blur-[160px]"></div>
     </div>
     <div className="flex justify-center items-center w-full h-full absolute top-0 left-0 NanumSquare">
-      <div className={`2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full min-w-[300px] px-5 h-full flex ${(type === "elementary" || type === "middle") ? "lg:flex-row" : "lg:flex-row-reverse"} flex-col-reverse items-center justify-center lg:justify-center gap-10 lg:gap-20 2xl:gap-28 pt-0 md:pt-20 lg:pt-0`}>
+      <div className={`2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full min-w-[300px] px-5 h-full flex ${(type === "elementary" || type === "middle") ? "lg:flex-row" : "lg:flex-row-reverse"} flex-col-reverse items-center justify-center lg:justify-center gap-10 lg:gap-20 2xl:gap-32 pt-0 md:pt-20 lg:pt-0`}>
         <div>
           <div className="text-[#070606] text-xl md:text-2xl xl:text-3xl font-bold mb-2.5">
             {subtitle}
@@ -127,12 +127,12 @@ const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
           </div>
         </div>
         {(type === "elementary" || type === "middle") ?
-          <div className={`xl:w-[380px] xl:h-[380px] md:w-[320px] md:h-[320px] w-[280px] h-[280px] relative rounded-full bg-gradient-to-b shadow-xl ${type == 'elementary' ? 'from-yellow-1 to-yellow-3' : 'from-green-1 to-green-2'}`}>
+          <div className={`2xl:w-[420px] 2xl:h-[420px] xl:w-[380px] xl:h-[380px] md:w-[320px] md:h-[320px] w-[280px] h-[280px] relative rounded-full bg-gradient-to-b shadow-xl ${type == 'elementary' ? 'from-yellow-1 to-yellow-3' : 'from-green-1 to-green-2'}`}>
             <div className='absolute bottom-0 w-full flex justify-center rounded-b-full overflow-hidden'>
               <img src={ElementsByType[type].imgPath} alt='curriculum' className={`${type == 'elementary' ? 'w-[64%]' : 'w-full'}`}/>
             </div>
           </div> :
-          <div className={`xl:w-[380px] xl:h-[360px] md:w-[320px] md:h-[300px] w-[280px] h-[260px] relative bg-gradient-to-br rounded-t-full shadow-xl overflow-hidden ${type == 'yorisu' ? 'from-yellow-4 to-yellow-2' : 'from-green-4 to-green-2'}`}>
+          <div className={`2xl:w-[420px] 2xl:h-[420px] xl:w-[380px] xl:h-[380px] md:w-[320px] md:h-[320px] w-[280px] h-[280px] relative bg-gradient-to-br rounded-t-full shadow-xl overflow-hidden ${type == 'yorisu' ? 'from-yellow-4 to-yellow-2' : 'from-green-4 to-green-2'}`}>
             <div className="absolute bottom-0 w-full h-full flex justify-center items-end">
               <img src={ElementsByType[type].imgPath} alt='curriculum' className={`${type == 'yorisu' ? 'h-3/4' : 'h-2/3'} object-cover`}/>
             </div>
