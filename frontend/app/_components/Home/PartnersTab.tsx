@@ -50,7 +50,7 @@ export default function PartnersTab () {
         }
 
         return <div key={`mobile-partner-tab=${idx}`} className={`mb-7 overflow-hidden relative ${show ? styles[`mo-partners-h-${idx+1}`] : 'h-4'} transition-all duration-300`}>
-          <div className="flex items-center bg-lightgray relative z-10" onClick={handleTab}>
+          <div className="flex items-center bg-lightgray-1 relative z-10" onClick={handleTab}>
             <div className="text-xs font-bold Montserrat uppercase">
               {tab.title}
             </div>

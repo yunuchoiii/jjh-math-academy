@@ -47,7 +47,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div id="programs-section" className="bg-lightgray w-full md:pt-32 md:pb-24 pt-14 pb-10 flex justify-center">
+      <div id="programs-section" className="bg-lightgray-1 w-full md:pt-32 md:pb-24 pt-14 pb-10 flex justify-center">
         <div className="2xl:w-[80rem] xl:w-[72rem] md:w-[56rem] w-[300px]">
           <div className="text-center mb-12">
             <div className="xl:text-2xl md:text-xl text-sm text-[#444]">
@@ -64,7 +64,7 @@ export default function Home() {
         </div>
       </div>
       <MobileDivider/>
-      <div id="special-classes-section" className="bg-lightgray w-full md:pt-32 pt-14 pb-24 flex justify-center">
+      <div id="special-classes-section" className="bg-lightgray-1 w-full md:pt-32 pt-14 pb-24 flex justify-center">
         <div className="xl:w-[995px] w-[790px]">
           <div className="text-center mb-12">
             <div className="xl:text-2xl md:text-xl text-sm font-semibold text-[#444]">
@@ -80,7 +80,7 @@ export default function Home() {
         </div>
       </div>
       <MobileDivider/>
-      <div id="curriculum-section" className="bg-lightgray w-full md:pt-32 pt-14 pb-24 flex justify-center">
+      <div id="curriculum-section" className="bg-lightgray-1 w-full md:pt-32 pt-14 pb-24 flex justify-center">
         <div className="xl:w-[995px] w-[790px]">
           <div className="text-center mb-12">
             <div className="xl:text-2xl md:text-xl text-sm font-semibold text-[#444]">
