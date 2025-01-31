@@ -1,10 +1,13 @@
 "use client";
 
 import StickyButtons, { StickyButtonProps } from "@/app/_components/Button/StickyButtons";
+import BoardSection from "@/app/_components/LandingSection/BoardSection";
 import BooksAndToolsSection from "@/app/_components/LandingSection/BooksAndToolsSection";
 import CurriculumSection from "@/app/_components/LandingSection/CurriculumSection";
 import FeaturesSection from "@/app/_components/LandingSection/FeaturesSection";
 import HeroSection from "@/app/_components/LandingSection/HeroSection";
+import ReactionBubbles from "@/app/_components/LandingSection/ReactionBubbles";
+import { BoardSlugEnum } from "@/app/_service/board";
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "usehooks-ts";
 
@@ -70,6 +73,23 @@ const curriculums = [
   }
 ]
 
+const reactionBubbles = [
+  <p>
+    아이들이 주도적으로 참여하고 싶어 하는 <b>재미있는 수학 수업!</b><br/>
+    <b>흥미와 성취감</b>을 동시에 잡아줍니다.
+  </p>,
+  <p>
+    <b>사고력 수학과 교과 수학</b>을 효과적으로 병행할 수 있어 학습 균형이 잘 맞고, 만족도가 높습니다.
+  </p>,
+  <p>
+    우리 아이의 수준과 학습 속도에 딱 맞춘 <b>개인 맞춤형 커리큘럼</b> 덕분에 부담 없이 실력을 키울 수 있어요.
+  </p>,
+  <p>
+    <b>다양한 교재와 교구</b>를 활용한 수업이 정말 효과적이에요.<br/>
+    아이가 스스로 개념을 이해하고 성취감을 느낄 수 있습니다!
+  </p>,
+]
+
 const SigmaClassPage = () => {
   const router = useRouter();
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -122,6 +142,17 @@ const SigmaClassPage = () => {
       tools={["탱그램", "칠교", "전략 보드게임"]}
       featuresOfBooks={["최신 사고력 교재와 학생별 맞춤형 교재를 조합하여 최적의 학습을 제공합니다."]}
       featuresOfTools={["다양한 교구를 통해 창의력, 집중력, 공간 지각 능력을 자연스럽게 키워나갑니다."]}
+    />
+    <ReactionBubbles
+      title="시그마 클래스"
+      color="green"
+      reactions={reactionBubbles}
+      teacherWords={<>즐거운 수업 방식으로 <b>사고력 수학과 교과 수학</b> 두마리 토끼를 잡는 <b>시그마 클래스!</b></>}
+    />
+    <BoardSection
+      title="시그마 클래스"
+      titleColor="green"
+      slug={BoardSlugEnum.SIGMA_CLASS}
     />
   </div>;
 };

@@ -44,7 +44,7 @@ const ImprovedGradesSection = ({ speechBubbleText, improvedGradesList }: Improve
               animationDuration: "0.6s",
             }}
           >
-            <SpeechBubble color="yellow" position="right">
+            <SpeechBubble color="yellow" position="right" profile={{name: "선생님", image: "/images/icons/female-user.png"}}>
               {speechBubbleText.right}
             </SpeechBubble>
           </div>
