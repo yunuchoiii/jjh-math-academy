@@ -34,7 +34,7 @@ const FeaturesSection = ({ title, subtitle, features, backgroundColor }: Feature
               animationDuration: '0.5s',
             }}
           >
-            <div className="text-lg font-bold">{feature.title}</div>
+            <div className="text-lg font-bold break-keep">{feature.title}</div>
             <div className="flex-1 text-base flex items-center">{feature.description}</div>
           </div>
         ))}
