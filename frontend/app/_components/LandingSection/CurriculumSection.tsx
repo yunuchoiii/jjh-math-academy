@@ -2,6 +2,7 @@
 
 import useIntersection from "@/app/_hooks/useIntersection";
 import { useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "usehooks-ts";
 
 interface CurriculumSectionProps {
   title: string;
@@ -15,7 +16,8 @@ interface CurriculumSectionProps {
 }
 
 const CurriculumSection = ({title, curriculums, color}: CurriculumSectionProps) => {
-  const { ref, isIntersected } = useIntersection(1);
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const { ref, isIntersected } = useIntersection(isMobile ? (curriculums.length > 4 ? 0.3 : 0.6) : 1);
 
   const colorClassMap = {
     green: {

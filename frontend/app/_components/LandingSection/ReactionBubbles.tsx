@@ -1,5 +1,6 @@
 import useIntersection from "@/app/_hooks/useIntersection";
 import Link from "next/link";
+import { useMediaQuery } from "usehooks-ts";
 import SpeechBubble from "../Quote/SpeechBubble";
 
 interface ReactionBubblesProps {
@@ -17,7 +18,8 @@ const contact = <Link href="/#contact-section" className="flex items-center gap-
 const ReactionBubbles = ({ title, color, reactions, teacherWords }: ReactionBubblesProps) => {
   const allReactions = [...reactions, teacherWords, contact];
 
-  const { ref, isIntersected } = useIntersection(0.5);
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const { ref, isIntersected } = useIntersection(isMobile ? 0.3 : 1);
 
   return <div className="flex justify-center items-center w-full">
     <div className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full max-w-[995px] min-w-[300px] px-5 md:py-[120px] py-[60px]">

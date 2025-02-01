@@ -1,4 +1,5 @@
 import useIntersection from "@/app/_hooks/useIntersection";
+import { useMediaQuery } from "usehooks-ts";
 
 interface FeaturesSectionProps {
   title: React.ReactNode;
@@ -11,7 +12,8 @@ interface FeaturesSectionProps {
 }
 
 const FeaturesSection = ({ title, subtitle, features, backgroundColor }: FeaturesSectionProps) => {
-  const { ref, isIntersected } = useIntersection(1);
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const { ref, isIntersected } = useIntersection(isMobile ? 0.6 : 1);
 
   const gridCols = features.length % 4 === 0 ? "lg:grid-cols-4" : features.length % 3 === 0 ? "lg:grid-cols-3" : "lg:grid-cols-2";
 
