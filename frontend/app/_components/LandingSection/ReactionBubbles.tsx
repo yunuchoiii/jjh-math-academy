@@ -22,8 +22,9 @@ const ReactionBubbles = ({ title, color, reactions, teacherWords }: ReactionBubb
   return <div className="flex justify-center items-center w-full">
     <div className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full max-w-[995px] min-w-[300px] px-5 md:py-[120px] py-[60px]">
       <div className="bg-[#444] p-[5px] md:p-5 rounded-[30px] md:rounded-[40px] shadow-2xl">
-        <div className="relative flex flex-col gap-5 bg-white px-5 md:px-8 pt-16 md:pt-20 pb-10 rounded-[25px] overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-10 border-b border-lightgray-3 flex items-center justify-center">
+        <div className="relative flex flex-col bg-white rounded-[25px] overflow-hidden">
+          <div className="relative w-full h-14 border-b border-[#DDD] flex items-center justify-center">
+            <i className="fas fa-chevron-left absolute left-6 top-1/2 -translate-y-1/2"></i>
             <p className="font-bold NanumSquare text-black">
               조재현 수학학원&nbsp;
               <span className={`font-extrabold ${color === "green" ? "text-green-2" : "text-yellow-5"}`}>
@@ -31,7 +32,7 @@ const ReactionBubbles = ({ title, color, reactions, teacherWords }: ReactionBubb
               </span>
             </p>
           </div>
-          <div ref={ref} className="relative flex flex-col gap-5">
+          <div ref={ref} className="relative flex flex-col gap-5 px-5 md:px-8 pt-6 md:pt-10 pb-10 ">
             {allReactions.map((reaction, index) => {
               const isTeacher = index >= reactions.length;
               return <div 
