@@ -21,9 +21,9 @@ interface TextFieldProps {
 const TextField = ({ label, placeholder, description, inputType, value, onChange, buttonLabel, buttonProps, register, error, props }: TextFieldProps) => {
 
   return (
-    <div className="w-full">
+    <div className="TextField-container w-full flex flex-col gap-1 mb-4">
       <label className="TextField-label text-sm Montserrat ml-1">{label}</label>
-      <div className="mb-4 mt-1">
+      <div className="TextField-input-container">
         <div className="flex items-center">
           <input 
             type={inputType} 

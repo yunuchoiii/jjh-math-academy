@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+* {
+	--ck-border-radius: 8px;
+}
+
 @media print {
 	body {
 		margin: 0 !important;
@@ -46,4 +50,8 @@
 .editor-container_include-word-count.editor-container_classic-editor .editor-container__editor .ck-editor .ck-editor__editable {
 	border-radius: 0;
   min-height: 200px;
+}
+
+.ck.ck-editor__top .ck-sticky-panel .ck-sticky-panel__content {
+	overflow: auto;
 }

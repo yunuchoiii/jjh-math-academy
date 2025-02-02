@@ -31,9 +31,9 @@ const Select = ({ label, value, options, onChange, buttonLabel, onButtonClick, e
   }, [value, options]);
 
   return (<div>
-    <div className={`w-full mb-4 flex ${position === "vertical" ? "flex-col" : "flex-row items-center gap-4"}`}>
+    <div className={`Select-container w-full mb-4 flex ${position === "vertical" ? "flex-col gap-1" : "flex-row items-center gap-4"}`}>
       <label className="Select-label text-sm Montserrat ml-1">{label}</label>
-      <div className="relative mt-1 flex-1 flex">
+      <div className="relative flex-1 flex">
         <div className="relative flex flex-row items-center flex-1">
           <button
             className={`Select-button w-full h-[40px] bg-white text-sm font-semibold rounded-lg shadow-2`}
