@@ -28,7 +28,7 @@ const SideMenu = () => {
   useEffect(() => {
     if (currentParentMenu) {
       setMenuList(
-        getChildMenuList({parentId: currentParentMenu.id, isShown: true, isActive: true})
+        getChildMenuList({parentId: currentParentMenu.id, isShown: true, isActive: true}).sort((a, b) => a.sort - b.sort)
       )
     }
   }, [currentParentMenu])
