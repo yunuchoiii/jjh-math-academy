@@ -85,7 +85,6 @@ exports.deleteBoard = async (req, res, next) => {
   }
 };
 
-// TODO: 필터링 추가, 검색 기능 추가
 exports.getBoardPosts = async (req, res, next) => {
   try {
     const { boardId } = req.params;
@@ -114,12 +113,16 @@ exports.getBoardPosts = async (req, res, next) => {
       }
     }
 
+    // 정렬 조건 추가
+    const order = [['createdAt', 'DESC']];
+
     const posts = await getPaginatedList({
       model: Post,
       page,
       size,
       notFoundMessage: '게시글 정보를 찾을 수 없습니다.',
-      filter
+      filter,
+      order // 정렬 조건 전달
     });
 
     if (posts.status === 404) {

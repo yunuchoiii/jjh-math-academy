@@ -1,10 +1,10 @@
 // 공통된 목록 조회 함수
-export async function getPaginatedList({model, attributes, page = 1, size = 10, notFoundMessage = "Data not found", filter = {}}) {
+export async function getPaginatedList({model, attributes, page = 1, size = 10, notFoundMessage = "Data not found", filter = {}, order = []}) {
   try {
     const limit = parseInt(size);
     const offset = (parseInt(page) - 1) * limit;
     const totalDataCount = await model.count({ where: filter });
-    const data = await model.findAll({ attributes, limit, offset, where: filter });
+    const data = await model.findAll({ attributes, limit, offset, where: filter, order });
     const totalPages = Math.ceil(totalDataCount / limit);
     const isLastPage = page >= totalPages;
     const isFirstPage = page <= 1;
