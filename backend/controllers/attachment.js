@@ -52,7 +52,8 @@ exports.uploadFile = async (req, res) => {
       attachmentGroupId: attachmentGroup.id,
     });
 
-    res.status(201).json(attachment);
+    // 이미지 URL 반환
+    res.status(201).json({ url: s3Response.Location });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
