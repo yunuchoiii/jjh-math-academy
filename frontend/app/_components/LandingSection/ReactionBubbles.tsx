@@ -19,7 +19,7 @@ const ReactionBubbles = ({ title, color, reactions, teacherWords }: ReactionBubb
   const allReactions = [...reactions, teacherWords, contact];
 
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const { ref, isIntersected } = useIntersection(isMobile ? 0.3 : 1);
+  const { ref, isIntersected } = useIntersection(isMobile ? 0.3 : 0.5);
 
   return <div className="flex justify-center items-center w-full">
     <div className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full max-w-[995px] min-w-[300px] px-5 md:py-[120px] py-[60px]">
