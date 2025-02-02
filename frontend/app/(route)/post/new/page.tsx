@@ -108,7 +108,7 @@ const NewPostPage = ({ searchParams }: NewPostPageProps) => {
   return <Container>
     <Title title={"새로운 글"} color="green"/>
     <form className="grid grid-cols-2 gap-4" onSubmit={createPost}>
-      <div className="col-span-1">
+      <div className="col-span-2 sm:col-span-1">
         <Select
           label="게시판"
           options={boardList.map((board) => ({ value: board.id, label: board.name }))}
@@ -117,7 +117,7 @@ const NewPostPage = ({ searchParams }: NewPostPageProps) => {
           position="horizontal"
         />
       </div>
-      <div className="col-span-1 w-fit">
+      <div className="col-span-2 sm:col-span-1 w-fit">
         <Toggle
           label="공지"
           checked={isNotice}
@@ -137,7 +137,9 @@ const NewPostPage = ({ searchParams }: NewPostPageProps) => {
         <CKEditorComponent onChange={(data) => {setContent(data)}}/>
       </div>
       <div className="col-span-2 flex justify-center">
-        <Button type="submit" color="green">게시글 작성</Button>
+        <div className="md:w-80 w-full">
+          <Button type="submit" color="green" fullWidth>게시글 등록</Button>
+        </div>
       </div>
     </form>
   </Container>
