@@ -25,6 +25,7 @@ interface BoardProps {
 }
 
 const boardButtonProps = [
+  {label: "전체", slug: "all"},
   {label: "공지사항", slug: "notice"},
   {label: "초·중등 교과 수학", slug: "common-math"},
   {label: "요리수 연산", slug: "yorisu"},
@@ -106,7 +107,7 @@ const Board = ({ board, postList, hideBoardButtons, hideSearchBar, hidePaginatio
   }
 
   const handleRowClick = (postId: number) => {
-    router.push(`/board/${board.slug}/${postId}`);
+    router.push(`/post/${postId}`);
   }
 
   const pageData = postList.page;

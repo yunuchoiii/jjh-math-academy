@@ -1,14 +1,13 @@
 import NoticeBadge from "@/app/_components/Badge/NoticeBadge";
 import BackButton from "@/app/_components/Button/BackButton";
 import Title from "@/app/_components/Title/Title";
-import { boardService, BoardSlugEnum } from "@/app/_service/board";
+import { boardService } from "@/app/_service/board";
 import { IPost, postService } from "@/app/_service/post";
 import { formatDate } from "@/app/_utils";
 import Link from "next/link";
 
 interface PostPageProps {
   params: {
-    slug: string;
     postId: string;
   }
 }
@@ -34,19 +33,19 @@ const PostContent = ({ content }: { content: string }) => (
 );
 
 const PostPage = async ({ params }: PostPageProps) => {
-  const { slug, postId } = params;
+  const { postId } = params;
 
-  // 게시판 정보 조회
-  const board = await boardService.getBoardInfoBySlug(slug as BoardSlugEnum);
   // 게시글 조회
   const post = await postService.getPost(Number(postId));
+  // 게시판 정보 조회
+  const board = await boardService.getBoardInfoById(post.boardId);
 
   // 조회수 증가
   await postService.updateViewCount(Number(postId));
 
   return (
     <div>
-      <Link href={`/board/${slug}`}>
+      <Link href={`/board/${board.slug}`}>
         <Title title={board.name} color="green" />
       </Link>
       <section>

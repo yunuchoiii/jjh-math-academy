@@ -3,6 +3,7 @@ import { IPaginatedResponse, PaginationPayload } from "./common";
 import { IPost } from "./post";
 
 export enum BoardSlugEnum {
+  ALL="all",
   NOTICE = "notice",
   COMMON_MATH = "common-math",
   YORISU = "yorisu",

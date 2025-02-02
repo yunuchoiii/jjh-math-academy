@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { IPaginatedResponse, PaginationPayload } from "./common";
 
 export interface IPost {
   id: number;
@@ -30,15 +31,29 @@ export interface PostPayload {
   postId?: number
 }
 
+export interface PostListPayload extends PaginationPayload {
+  isActive?: boolean
+  isNotice?: boolean
+}
+
 const POST_SERVICE_URL = `${process.env.SERVER_URL}/post`;
 
 export const postService = {
   /** 게시판 조회
    * @returns {Promise<any>} - 게시판 정보 응답 데이터
    */
-  getPostList: async () :Promise<IPost[]> => {
+  getPostList: async ({page, size, isActive, isNotice, searchKeyword, searchType}: PostListPayload) :Promise<IPaginatedResponse<IPost>> => {
+    // 쿼리 파라미터 생성
+    const queryParams = new URLSearchParams();
+    queryParams.append("page", page.toString());
+    queryParams.append("size", size.toString());
+    if (isActive !== undefined) queryParams.append("isActive", isActive.toString());
+    if (isNotice !== undefined) queryParams.append("isNotice", isNotice.toString());
+    if (searchKeyword !== undefined) queryParams.append("searchKeyword", searchKeyword);
+    if (searchType !== undefined) queryParams.append("searchType", searchType);
+
     try {
-      const url = `${POST_SERVICE_URL}/`;
+      const url = `${POST_SERVICE_URL}?${queryParams.toString()}`;
       const response = await axios.get(url);
       return response.data;
     } catch (error) {
