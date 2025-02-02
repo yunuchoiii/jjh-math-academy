@@ -5,7 +5,7 @@ import FormError from "../Error/FormError";
 
 interface SelectProps {
   label: string;
-  defaultValue?: any;
+  value?: any;
   options: { value: any; label: string }[];
   onChange?: (value: any) => void;
   buttonLabel?: string;
@@ -14,9 +14,9 @@ interface SelectProps {
   position?: "vertical" | "horizontal";
 }
 
-const Select = ({ label, defaultValue, options, onChange, buttonLabel, onButtonClick, error, position = "vertical" }: SelectProps) => {
+const Select = ({ label, value, options, onChange, buttonLabel, onButtonClick, error, position = "vertical" }: SelectProps) => {
   const [optionsVisible, setOptionsVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(defaultValue ?? options[0]?.value);
+  const [selectedOption, setSelectedOption] = useState(value ?? options[0]?.value);
 
   const handleSearchType = (value: any) => {
     setSelectedOption(value);
@@ -27,16 +27,16 @@ const Select = ({ label, defaultValue, options, onChange, buttonLabel, onButtonC
   };
 
   useEffect(() => {
-    setSelectedOption(defaultValue ?? options[0]?.value);
-  }, [defaultValue, options]);
+    setSelectedOption(value ?? options[0]?.value);
+  }, [value, options]);
 
   return (<div>
     <div className={`w-full mb-4 flex ${position === "vertical" ? "flex-col" : "flex-row items-center gap-4"}`}>
-      <label className="text-sm Montserrat ml-1">{label}</label>
+      <label className="Select-label text-sm Montserrat ml-1">{label}</label>
       <div className="relative mt-1 flex-1 flex">
         <div className="relative flex flex-row items-center flex-1">
           <button
-            className={`w-full h-[40px] bg-white text-sm font-semibold rounded-lg shadow-2`}
+            className={`Select-button w-full h-[40px] bg-white text-sm font-semibold rounded-lg shadow-2`}
             onClick={(e) => {
               e.preventDefault();
               setOptionsVisible(!optionsVisible)

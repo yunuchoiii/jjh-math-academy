@@ -106,7 +106,7 @@ const MenuEditForm = ({menu, defaultParentMenuId}: MenuEditFormProps) => {
       {(menu?.parentId || defaultParentMenuId) && 
         <Select
           label="상위 메뉴"
-          defaultValue={menu?.parentId || defaultParentMenuId}
+          value={menu?.parentId || defaultParentMenuId}
           options={
             parentMenuList
               .sort((a, b) => a.sort - b.sort)
@@ -154,7 +154,7 @@ const MenuEditForm = ({menu, defaultParentMenuId}: MenuEditFormProps) => {
       </div>
       <Select
         label="메뉴 권한"
-        defaultValue={menu?.permission || 'anonymous'}
+        value={menu?.permission || 'anonymous'}
         options={[
           {value: 'anonymous', label: '모든 이용자'},
           {value: 'user', label: '회원'},

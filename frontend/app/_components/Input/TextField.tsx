@@ -22,12 +22,12 @@ const TextField = ({ label, placeholder, description, inputType, value, onChange
 
   return (
     <div className="w-full">
-      <label className="text-sm Montserrat ml-1">{label}</label>
+      <label className="TextField-label text-sm Montserrat ml-1">{label}</label>
       <div className="mb-4 mt-1">
         <div className="flex items-center">
           <input 
             type={inputType} 
-            className={`flex-1 h-10 px-3 rounded-[8px] bg-white shadow-2 border-[2px] border-transparent ${styles.textfield} ${error ? 'border-red-2' : ''}`} 
+            className={`TextField-input flex-1 h-10 px-3 rounded-[8px] bg-white shadow-2 border-[2px] border-transparent ${styles.textfield} ${error ? 'border-red-2' : ''}`} 
             placeholder={placeholder} 
             value={value}
             onChange={(e) => onChange && onChange(e.target.value)}
