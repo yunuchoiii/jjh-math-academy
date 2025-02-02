@@ -8,7 +8,7 @@ import Toggle from "@/app/_components/Input/Toggle";
 import Title from "@/app/_components/Title/Title";
 import { useToast } from "@/app/_components/Toast/ToastProvider";
 import useUser from "@/app/_hooks/useUser";
-import { boardService, IBoard } from "@/app/_service/board";
+import { boardService, BoardSlugEnum, IBoard } from "@/app/_service/board";
 import { postService } from "@/app/_service/post";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -43,7 +43,7 @@ const NewPostPage = ({ searchParams }: NewPostPageProps) => {
     const fetchBoardList = async () => {
       try {
         const res = await boardService.getBoardList();
-        setBoardList(res);
+        setBoardList(res.filter(board => board.slug !== BoardSlugEnum.ALL));
       } catch (error) {
         console.error(error);
       }
