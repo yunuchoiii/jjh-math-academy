@@ -5,12 +5,41 @@ const { getPaginatedList } = require("./common");
 // 게시글 목록 조회
 exports.getPostList = async (req, res, next) => {
   try {
-    const { page = 1, size = 10 } = req.query;
+    const { page = 1, size = 10, isActive, isNotice, searchKeyword, searchType } = req.query;
+
+    // 필터링 조건 설정
+    const filter = {};
+    if (isActive !== undefined) {
+      filter.isActive = isActive === 'true';
+    }
+    if (isNotice !== undefined) {
+      filter.isNotice = isNotice === 'true';
+    }
+
+    // 검색 조건 설정
+    if (searchKeyword) {
+      if (searchType === 'title') {
+        filter.title = { [Op.like]: `%${searchKeyword}%` };
+      } else if (searchType === 'content') {
+        filter.content = { [Op.like]: `%${searchKeyword}%` };
+      } else if (searchType === 'title+content') {
+        filter[Op.or] = [
+          { title: { [Op.like]: `%${searchKeyword}%` } },
+          { content: { [Op.like]: `%${searchKeyword}%` } }
+        ];
+      }
+    }
+
+    // 정렬 조건 추가
+    const order = [['createdAt', 'DESC']];
+
     const posts = await getPaginatedList({
       model: Post,
       page,
       size,
       notFoundMessage: '게시글 정보를 찾을 수 없습니다.',
+      filter,
+      order,
     });
     if (posts.status === 404) {
       return res.status(404).json({ message: posts.message });
