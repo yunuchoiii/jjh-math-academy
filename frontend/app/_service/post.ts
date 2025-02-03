@@ -10,6 +10,7 @@ export interface IPost {
   isNotice: boolean;
   isActive: boolean;
   views: number;
+  attachmentGroupId: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -22,6 +23,7 @@ export interface PostSavePayload {
   isNotice: boolean;
   isActive: boolean;
   views?: number;
+  attachmentGroupId?: number;
 }
 
 export interface PostPayload {

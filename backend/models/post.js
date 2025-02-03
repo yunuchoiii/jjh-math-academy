@@ -46,6 +46,14 @@ class Post extends Sequelize.Model {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
+      attachmentGroupId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'attachment_groups',
+          key: 'id',
+        },
+      },
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
