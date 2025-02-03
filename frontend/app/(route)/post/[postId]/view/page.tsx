@@ -100,6 +100,8 @@ const PostPage = ({ params, searchParams }: PostPageProps) => {
     }
   }
 
+  const backButtonLink = `/board/${searchParams.slug || board?.slug}?page=${searchParams.page || 1}`;
+
   if (!post || !board) {
     return <div>Loading...</div>;
   }
@@ -115,7 +117,7 @@ const PostPage = ({ params, searchParams }: PostPageProps) => {
         <div className="flex justify-center pt-5 lg:pt-10">
           <BackButton 
             text="목록" 
-            link={`/board/${searchParams.slug}?page=${searchParams.page}`}
+            link={backButtonLink}
             hideIcon 
           />
         </div>
