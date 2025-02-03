@@ -7,7 +7,7 @@ import '@/app/_styles/ckeditor.css';
 
 const LICENSE_KEY = process.env.CKEDITOR_LICENSE_KEY;
 
-export default function CKEditorComponent({ onChange }: { onChange: (data: string) => void }) {
+export default function CKEditorComponent({ onChange, initialContent }: { onChange: (data: string) => void, initialContent: string }) {
 	const editorContainerRef = useRef<HTMLDivElement | null>(null);
 	const editorRef = useRef<HTMLDivElement | null>(null);
 	const editorWordCountRef = useRef<HTMLDivElement | null>(null);
@@ -21,6 +21,12 @@ export default function CKEditorComponent({ onChange }: { onChange: (data: strin
 
 		return () => setIsLayoutReady(false);
 	}, []);
+
+	useEffect(() => {
+		if (editorInstanceRef.current && initialContent) {
+			editorInstanceRef.current.setData(initialContent);
+		}
+	}, [initialContent]);
 
 	const { ClassicEditor, editorConfig } = useMemo(() => {
 		if (cloud.status !== 'success' || !isLayoutReady) {
@@ -285,7 +291,7 @@ export default function CKEditorComponent({ onChange }: { onChange: (data: strin
 					'resizeImage'
 				]
 			},
-			initialData:'',
+			initialData: initialContent,
 			language: 'ko',
 			licenseKey: LICENSE_KEY,
 			link: {
@@ -337,7 +343,7 @@ export default function CKEditorComponent({ onChange }: { onChange: (data: strin
 			}
 		}
 	};
-}, [cloud, isLayoutReady]);
+}, [cloud, isLayoutReady, initialContent]);
 
 return (
 	<div className="main-container">

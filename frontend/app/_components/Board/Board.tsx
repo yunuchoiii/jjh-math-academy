@@ -22,6 +22,7 @@ interface BoardProps {
   hideBoardButtons?: boolean;
   hideSearchBar?: boolean;
   hidePagination?: boolean;
+  page?: number;
 }
 
 const boardButtonProps = [
@@ -86,7 +87,7 @@ const RoundButtonGroup = ({boardButtons}: {boardButtons: RoundButtonProps[]}) =>
   </div>
 }
 
-const Board = ({ board, postList, hideBoardButtons, hideSearchBar, hidePagination }: BoardProps) => {
+const Board = ({ board, postList, hideBoardButtons, hideSearchBar, hidePagination, page }: BoardProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -107,7 +108,7 @@ const Board = ({ board, postList, hideBoardButtons, hideSearchBar, hidePaginatio
   }
 
   const handleRowClick = (postId: number) => {
-    router.push(`/post/${postId}/view`);
+    router.push(`/post/${postId}/view?slug=${board.slug}&page=${page || 1}`);
   }
 
   const pageData = postList.page;

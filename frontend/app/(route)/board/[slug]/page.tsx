@@ -44,7 +44,8 @@ const BoardPage = async ({ params, searchParams }: BoardPageProps) => {
     </Link>
     <Board 
       board={boardInfo} 
-      postList={postList} 
+      postList={postList}
+      page={searchParams.page}
     />
   </div>;
 };

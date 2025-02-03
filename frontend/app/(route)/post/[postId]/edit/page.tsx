@@ -1,25 +1,11 @@
 "use client";
 
-import Button from "@/app/_components/Button/Button";
-import CKEditorComponent from "@/app/_components/CKEditor/CKEditor";
-import Select from "@/app/_components/Input/Select";
-import TextField from "@/app/_components/Input/TextField";
-import Toggle from "@/app/_components/Input/Toggle";
+import PostEditForm from "@/app/_components/Post/PostEditForm";
 import Title from "@/app/_components/Title/Title";
-import { useToast } from "@/app/_components/Toast/ToastProvider";
-import useUser from "@/app/_hooks/useUser";
 import { boardService, BoardSlugEnum, IBoard } from "@/app/_service/board";
-import { postService } from "@/app/_service/post";
-import { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
+import { IPost, postService } from "@/app/_service/post";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-
-interface NewPostPageProps {
-  searchParams: {
-    boardId: string;
-  }
-}
 
 const Container = styled.div`
   & .Select-container, .TextField-container, .Toggle-container {
@@ -30,16 +16,28 @@ const Container = styled.div`
     border: 1px solid #DDD;
   }
 `
+interface EditPostPageProps {
+  params: {
+    postId: string;
+  }
+}
 
-const NewPostPage = ({ searchParams }: NewPostPageProps) => {
-  const { boardId:defaultBoardId } = searchParams;
-  const router = useRouter();
-  const { user, isLoggedIn, isLoading, userInfoByType } = useUser();
-  const { addToast } = useToast();
+const EditPostPage = ({ params }: EditPostPageProps) => {
+  const postId = params.postId;
 
+  const [post, setPost] = useState<IPost | null>(null);
   const [boardList, setBoardList] = useState<IBoard[]>([]);
 
   useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const res = await postService.getPost(Number(postId));
+        setPost(res);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
     const fetchBoardList = async () => {
       try {
         const res = await boardService.getBoardList();
@@ -50,99 +48,16 @@ const NewPostPage = ({ searchParams }: NewPostPageProps) => {
     }
 
     fetchBoardList();
+    console.log((postId));
+    if (Number(postId)) {
+      fetchPost();
+    }
   }, []);
-
-  const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<string>("");
-  const [isNotice, setIsNotice] = useState<boolean>(false);
-  const [boardId, setBoardId] = useState<number>(Number(defaultBoardId));
-
-  const createPost = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (title === "" || content === "") {
-      addToast({
-        type: "error",
-        message: "제목과 내용을 입력해주세요."
-      })
-      return;
-    }
-    if (!boardList.map(board => board.id).includes(Number(boardId))) {
-      addToast({
-        type: "error",
-        message: "게시판을 선택해주세요."
-      })
-      return;
-    }
-  
-    try {
-      await postService.createPost({
-        callback: () => {
-          addToast({
-            type: "success",
-            message: "게시글이 등록되었습니다."
-          })
-          router.push(`/board/${boardList.find(board => board.id === Number(boardId))?.slug}`);
-        },
-        errorCallback: (error:AxiosError) => {
-          addToast({
-            type: "error",
-            message: "게시글 등록에 실패하였습니다."
-          })
-          console.error(error);
-        },
-        data: {
-          boardId: Number(boardId),
-          title,
-          content,
-          authorId: user!.userId,
-          isNotice,
-          isActive: true,
-        }
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   return <Container>
     <Title title={"새로운 글"} color="green"/>
-    <form className="grid grid-cols-2 gap-4" onSubmit={createPost}>
-      <div className="col-span-2 sm:col-span-1">
-        <Select
-          label="게시판"
-          options={boardList.map((board) => ({ value: board.id, label: board.name }))}
-          value={boardId}
-          onChange={(value) => {setBoardId(value)}}
-          position="horizontal"
-        />
-      </div>
-      <div className="col-span-2 sm:col-span-1 w-fit">
-        <Toggle
-          label="공지"
-          checked={isNotice}
-          onChange={(checked) => {setIsNotice(checked)}}
-        />
-      </div>
-      <div className="col-span-2">
-        <TextField
-          label="제목"
-          placeholder="제목을 입력해주세요."
-          inputType="text"
-          value={title}
-          onChange={(value) => setTitle(value)}
-        />
-      </div>
-      <div className="col-span-2">
-        <CKEditorComponent onChange={(data) => {setContent(data)}}/>
-      </div>
-      <div className="col-span-2 flex justify-center">
-        <div className="md:w-80 w-full">
-          <Button type="submit" color="green" fullWidth>게시글 등록</Button>
-        </div>
-      </div>
-    </form>
+    <PostEditForm boardList={boardList} post={post}/>
   </Container>
 }
 
-export default NewPostPage;
+export default EditPostPage;

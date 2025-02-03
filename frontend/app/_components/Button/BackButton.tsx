@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 
 interface BackButtonProps {
   text?: string; /** 버튼 텍스트 (없으면 "뒤로 가기") */
+  link?: string;
   hideText?: boolean;
   hideIcon?: boolean;
   fontSize?: string;
@@ -14,7 +15,7 @@ interface BackButtonProps {
   backgroundColor?: string;
 }
 
-const BackButton = ({ text, hideText, hideIcon, fontSize, fontWeight, fullRound, fullWidth, color, backgroundColor }: BackButtonProps) => {
+const BackButton = ({ text, link, hideText, hideIcon, fontSize, fontWeight, fullRound, fullWidth, color, backgroundColor }: BackButtonProps) => {
   const router = useRouter();
   return <button 
     className="flex items-center gap-5 px-5 py-2 md:hover:brightness-95 md:active:brightness-90 active:brightness-90 transition-all duration-100"
@@ -26,7 +27,7 @@ const BackButton = ({ text, hideText, hideIcon, fontSize, fontWeight, fullRound,
       backgroundColor: backgroundColor ? backgroundColor : "#E9E9E9",
       color: color ? color : "#333",
     }} 
-    onClick={() => router.back()}
+    onClick={() => link ? router.push(link) : router.back()}
   >
     <i className={hideIcon ? "hidden" : "fas fa-arrow-left"}></i>
     <span className={hideText ? "hidden" : "block"}>{text ? text : "뒤로 가기"}</span>
