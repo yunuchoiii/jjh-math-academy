@@ -138,6 +138,24 @@ const useUser = () => {
     }
   }, [user]);
 
+  const refreshToken = useCallback(async () => {
+    try {
+      const response = await axios.post(
+        `${LOGIN_SERVICE_URL}/refresh-token`,
+        {},
+        { withCredentials: true }
+      );
+      const { accessToken } = response.data;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+      setAccessToken(accessToken);
+    } catch (error) {
+      console.error("Refresh token failed:", error);
+      setUser(null);
+      setAccessToken(null);
+      dispatch({ type: "FINISH_LOADING" });
+    }
+  }, [setUser, setAccessToken]);
+
   useEffect(() => {
     authenticate();
   }, [authenticate]);
@@ -147,6 +165,14 @@ const useUser = () => {
       fetchUserInfoByType();
     }
   }, [user, fetchUserInfoByType]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refreshToken();
+    }, 25 * 60 * 1000); // 25분마다 refreshToken 호출
+
+    return () => clearInterval(interval);
+  }, [refreshToken]);
 
   const getUserPermission = useCallback(() => {
     if (user?.userType === "teacher") {
