@@ -126,46 +126,46 @@ paths:
           description: File not found
         '500':
           description: Internal server error
-  #   delete:
-  #     summary: 파일 삭제
-  #     description: 파일을 S3 및 데이터베이스에서 삭제
-  #     tags:
-  #       - Attachment
-  #     parameters:
-  #       - name: id
-  #         in: path
-  #         required: true
-  #         schema:
-  #           type: integer
-  #     responses:
-  #       '204':
-  #         description: File deleted successfully
-  #       '404':
-  #         description: File not found
-  #       '500':
-  #         description: Internal server error
+    delete:
+      summary: 파일 삭제
+      description: 파일을 S3 및 데이터베이스에서 삭제
+      tags:
+        - Attachment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: File deleted successfully
+        '404':
+          description: File not found
+        '500':
+          description: Internal server error
 
-  # /attachment/download/{id}:
-  #   get:
-  #     summary: 파일 다운로드
-  #     description: 파일을 다운로드
-  #     tags:
-  #       - Attachment
-  #     parameters:
-  #       - name: id
-  #         in: path
-  #         required: true
-  #         schema:
-  #           type: integer
-  #     responses:
-  #       '200':
-  #         description: File downloaded successfully
-  #         content:
-  #           application/octet-stream:
-  #             schema:
-  #               type: string
-  #               format: binary
-  #       '404':
-  #         description: File not found
-  #       '500':
-  #         description: Internal server error
+  /attachment/download/{id}:
+    get:
+      summary: 파일 다운로드
+      description: 파일을 다운로드
+      tags:
+        - Attachment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: File downloaded successfully
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: File not found
+        '500':
+          description: Internal server error

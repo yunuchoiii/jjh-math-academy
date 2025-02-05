@@ -17,7 +17,7 @@ router.post('/upload-multiple', upload.array('files'), uploadMultipleFiles);
 router.get('/:id', getAttachment);
 
 // 파일 삭제
-// router.delete('/:id', deleteAttachment);
+router.delete('/:id', deleteAttachment);
 
 // 파일 다운로드
 // router.get('/download/:id', downloadAttachment);

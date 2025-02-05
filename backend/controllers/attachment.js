@@ -130,11 +130,11 @@ exports.deleteAttachment = async (req, res) => {
       return res.status(404).json({ error: '파일이 존재하지 않습니다.' });
     }
 
-    // S3에서 파일 삭제
-    await s3.deleteObject({
-      Bucket: process.env.AWS_BUCKET_NAME,
-      Key: attachment.filePath,
-    }).promise();
+    // S3에서 파일 삭제 (권한 문제로 기능 오류)
+    // await s3.deleteObject({
+    //   Bucket: process.env.AWS_BUCKET_NAME,
+    //   Key: attachment.filePath,
+    // }).promise();
 
     // 데이터베이스에서 파일 정보 삭제
     await attachment.destroy();
