@@ -4,8 +4,10 @@ import NoticeBadge from "@/app/_components/Badge/NoticeBadge";
 import BackButton from "@/app/_components/Button/BackButton";
 import Title from "@/app/_components/Title/Title";
 import { useToast } from "@/app/_components/Toast/ToastProvider";
+import useUser from "@/app/_hooks/useUser";
 import { boardService, IBoard } from "@/app/_service/board";
 import { IPost, postService } from "@/app/_service/post";
+import { IUser } from "@/app/_service/user";
 import { formatDate } from "@/app/_utils";
 import 'ckeditor5/ckeditor5.css';
 import Link from "next/link";
@@ -22,7 +24,7 @@ interface PostPageProps {
   }
 }
 
-const PostHeader = ({ post, deletePost }: { post: IPost, deletePost: () => Promise<void> }) => (
+const PostHeader = ({ post, user, deletePost }: { post: IPost, user: IUser | null, deletePost: () => Promise<void> }) => (
   <div className="flex flex-col gap-1.5 lg:gap-3 px-2.5 pb-3 lg:pb-5">
     {post.isNotice && <div className="mb-1.5 block lg:hidden w-fit"><NoticeBadge /></div>}
     <div className="flex items-center">
@@ -32,10 +34,14 @@ const PostHeader = ({ post, deletePost }: { post: IPost, deletePost: () => Promi
     <div className="flex items-center gap-2 text-sm text-[#999999]">
       <span>{formatDate(post.createdAt)}</span>
       <span>조회 {post.views}</span>
-      <Link href={`/post/${post.id}/edit`}>
-        <span className="hover:underline text-green-1">수정</span>
-      </Link>
-      <button className="hover:underline text-green-1" onClick={deletePost}>삭제</button>
+      {user?.userId === post.authorId && (
+        <>
+          <Link href={`/post/${post.id}/edit`}>
+            <span className="hover:underline text-green-1">수정</span>
+          </Link>
+          <button className="hover:underline text-green-1" onClick={deletePost}>삭제</button>
+        </>
+      )}
     </div>
   </div>
 );
@@ -50,6 +56,7 @@ const PostPage = ({ params, searchParams }: PostPageProps) => {
   const postId = Number(params.postId);
   const router = useRouter();
   const { addToast } = useToast();
+  const { user } = useUser();
 
   const [post, setPost] = useState<IPost | null>(null);
   const [board, setBoard] = useState<IBoard | null>(null);
@@ -112,7 +119,11 @@ const PostPage = ({ params, searchParams }: PostPageProps) => {
         <Title title={board.name} color="green" />
       </Link>
       <section>
-        <PostHeader post={post} deletePost={deletePost} />
+        <PostHeader 
+          post={post} 
+          user={user} 
+          deletePost={deletePost} 
+        />
         <PostContent content={post.content} />
         <div className="flex justify-center pt-5 lg:pt-10">
           <BackButton 

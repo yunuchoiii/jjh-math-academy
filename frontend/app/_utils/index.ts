@@ -17,3 +17,13 @@ export const isNew = (date: Date) => {
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   return diffDays <= 7;
 }
+
+export const formatFileSize = (size: number): string => {
+  if (size >= 1024 * 1024) {
+    return `${(size / (1024 * 1024)).toFixed(2)} MB`;
+  } else if (size >= 1024) {
+    return `${(size / 1024).toFixed(2)} KB`;
+  } else {
+    return `${size} bytes`;
+  }
+};

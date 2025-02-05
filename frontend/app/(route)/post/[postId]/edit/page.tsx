@@ -2,6 +2,7 @@
 
 import PostEditForm from "@/app/_components/Post/PostEditForm";
 import Title from "@/app/_components/Title/Title";
+import { attachmentService, IAttachment } from "@/app/_service/attachment";
 import { boardService, BoardSlugEnum, IBoard } from "@/app/_service/board";
 import { IPost, postService } from "@/app/_service/post";
 import { useEffect, useState } from "react";
@@ -23,16 +24,18 @@ interface EditPostPageProps {
 }
 
 const EditPostPage = ({ params }: EditPostPageProps) => {
-  const postId = params.postId;
+  const postId = Number(params.postId);
 
   const [post, setPost] = useState<IPost | null>(null);
   const [boardList, setBoardList] = useState<IBoard[]>([]);
+  const [files, setFiles] = useState<IAttachment[]>([]);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await postService.getPost(Number(postId));
+        const res = await postService.getPost(postId);
         setPost(res);
+        fetchFiles(res.attachmentGroupId);
       } catch (error) {
         console.error(error);
       }
@@ -47,16 +50,28 @@ const EditPostPage = ({ params }: EditPostPageProps) => {
       }
     }
 
+    const fetchFiles = async (attachmentGroupId: number) => {
+      try {
+        const res = await attachmentService.getAttachmentGroup(attachmentGroupId);
+        setFiles(res);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
     fetchBoardList();
-    console.log((postId));
-    if (Number(postId)) {
+    if (postId) {
       fetchPost();
     }
   }, []);
 
   return <Container>
     <Title title={"새로운 글"} color="green"/>
-    <PostEditForm boardList={boardList} post={post}/>
+    <PostEditForm 
+      boardList={boardList} 
+      post={post}
+      initialFiles={files} 
+    />
   </Container>
 }
 
