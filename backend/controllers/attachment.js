@@ -26,9 +26,16 @@ const determineFileType = (mimetype) => {
 exports.uploadFile = async (req, res) => {
   try {
     const file = req.file;
+    const { attachmentGroupId } = req.body;
 
-    // 새로운 attachmentGroup 생성
-    const attachmentGroup = await AttachmentGroup.create({});
+    // attachmentGroupId가 주어지지 않으면 새로운 attachmentGroup 생성
+    const attachmentGroup = attachmentGroupId 
+      ? await AttachmentGroup.findByPk(attachmentGroupId) 
+      : await AttachmentGroup.create({});
+
+    if (!attachmentGroup) {
+      return res.status(404).json({ error: '유효하지 않은 attachmentGroupId입니다.' });
+    }
 
     const s3Params = {
       Bucket: process.env.AWS_BUCKET_NAME,
@@ -53,7 +60,7 @@ exports.uploadFile = async (req, res) => {
     });
 
     // 이미지 URL 반환
-    res.status(201).json({ url: s3Response.Location });
+    res.status(201).json(attachment);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -62,9 +69,16 @@ exports.uploadFile = async (req, res) => {
 exports.uploadMultipleFiles = async (req, res) => {
   try {
     const files = req.files;
+    const { attachmentGroupId } = req.body;
 
-    // 새로운 attachmentGroup 생성
-    const attachmentGroup = await AttachmentGroup.create({});
+    // attachmentGroupId가 주어지지 않으면 새로운 attachmentGroup 생성
+    const attachmentGroup = attachmentGroupId 
+      ? await AttachmentGroup.findByPk(attachmentGroupId) 
+      : await AttachmentGroup.create({});
+
+    if (!attachmentGroup) {
+      return res.status(404).json({ error: '유효하지 않은 attachmentGroupId입니다.' });
+    }
 
     const attachments = await Promise.all(files.map(async (file) => {
       const s3Params = {

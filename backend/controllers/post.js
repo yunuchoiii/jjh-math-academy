@@ -69,8 +69,8 @@ exports.getPost = async (req, res, next) => {
 // 게시글 생성
 exports.createPost = async (req, res, next) => {
   try {
-    const { boardId, title, content, authorId, isActive, isNotice } = req.body;
-    const post = await Post.create({ boardId, title, content, authorId, isActive, isNotice });
+    const { boardId, title, content, authorId, isActive, isNotice, attachmentGroupId } = req.body;
+    const post = await Post.create({ boardId, title, content, authorId, isActive, isNotice, attachmentGroupId });
     if (!post) {
       return res.status(404).json({ message: '게시글 생성 실패' });
     }
@@ -85,8 +85,8 @@ exports.createPost = async (req, res, next) => {
 exports.updatePost = async (req, res, next) => {
   try {
     const { postId } = req.params;
-    const { boardId, title, content, isActive, isNotice } = req.body;
-    const post = await Post.update({ boardId, title, content, isActive, isNotice }, { where: { id: postId } });
+    const { boardId, title, content, isActive, isNotice, attachmentGroupId } = req.body;
+    const post = await Post.update({ boardId, title, content, isActive, isNotice, attachmentGroupId }, { where: { id: postId } });
     if (!post) {
       return res.status(404).json({ message: '게시글 수정 실패' });
     }
