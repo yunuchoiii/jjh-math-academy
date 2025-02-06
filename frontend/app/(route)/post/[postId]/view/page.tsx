@@ -23,28 +23,9 @@ const PostPage = async ({ params, searchParams }: PostPageProps) => {
 
   const post = await postService.getPost(postId);
   const board = await boardService.getBoardInfoById(post.boardId);
-  const attachments = await attachmentService.getAttachmentGroup(post.attachmentGroupId);
+  const attachments = post.attachmentGroupId ? await attachmentService.getAttachmentGroup(post.attachmentGroupId) : [];
 
   const backButtonLink = `/board/${searchParams.slug || board?.slug}?page=${searchParams.page || 1}`;
-
-  const deletePost = async () => {
-    if (confirm("게시글을 삭제하시겠습니까?")) {
-      try {
-        await postService.deletePost({
-          callback: () => {
-            window.location.href = `/board/${searchParams.slug}?page=${searchParams.page}`;
-            alert("게시글이 삭제되었습니다.");
-          },
-          errorCallback: (error) => {
-            console.error(error);
-          },
-          postId: post.id
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }
 
   return (
     <div>
@@ -54,8 +35,8 @@ const PostPage = async ({ params, searchParams }: PostPageProps) => {
       <section>
         <PostHeader
           post={post} 
-          user={null}
-          deletePost={deletePost} 
+          slug={board.slug}
+          page={Number(searchParams.page || 1)}
         />
         <PostContents 
           content={post.content} 
