@@ -11,6 +11,7 @@ export interface IPost {
   isActive: boolean;
   views: number;
   attachmentGroupId: number;
+  thumbnail: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -24,6 +25,7 @@ export interface PostSavePayload {
   isActive: boolean;
   views?: number;
   attachmentGroupId?: number;
+  thumbnail?: string;
 }
 
 export interface PostPayload {

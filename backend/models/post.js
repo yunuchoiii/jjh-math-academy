@@ -54,6 +54,10 @@ class Post extends Sequelize.Model {
           key: 'id',
         },
       },
+      thumbnail: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+      },
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,

@@ -152,6 +152,10 @@ const PostEditForm = ({ post, boardList, initialFiles }: PostEditFormProps) => {
   }
 
   const onSubmit = async (data: PostSavePayload) => {
+    // 첫 번째 이미지 태그의 src 추출
+    const imgTagMatch = data.content.match(/<img[^>]+src="([^">]+)"/);
+    const thumbnail = imgTagMatch ? imgTagMatch[1] : null;
+
     // validation
     if (!data.title || !data.content) {
       addToast({
@@ -191,7 +195,8 @@ const PostEditForm = ({ post, boardList, initialFiles }: PostEditFormProps) => {
       // 게시글 등록
       const dataWithAttachmentGroupId = {
         ...data,
-        ...(attachmentGroupId && { attachmentGroupId })
+        ...(attachmentGroupId && { attachmentGroupId }),
+        ...(thumbnail && { thumbnail })
       };
       await uploadPost(dataWithAttachmentGroupId);
 
