@@ -33,7 +33,7 @@ const SideMenu = () => {
     }
   }, [currentParentMenu])
 
-  const useSideMenu = ["/user/mypage", "/admin", "/board"]
+  const useSideMenu = ["/user/mypage", "/admin", "/board", "/post"]
   const isSideMenu = useSideMenu.some(menu => pathname.includes(menu))
 
   const renderMenu = (menus: IMenu[], depth: number = 0) => {
