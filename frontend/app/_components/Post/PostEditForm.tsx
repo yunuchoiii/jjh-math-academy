@@ -35,14 +35,6 @@ const PostEditForm = ({ post, boardList, initialFiles }: PostEditFormProps) => {
   const [files, setFiles] = useState<File[]>([]); // 업로드할 파일
   const [initialAttachments, setInitialAttachments] = useState<IAttachment[]>([]); // 업로드된 파일
   const [removedAttachments, setRemovedAttachments] = useState<IAttachment[]>([]); // 삭제된 파일
-  
-  useEffect(()=>{
-    console.log(
-      "files", files,
-      "initialAttachments", initialAttachments,
-      "removedAttachments", removedAttachments
-    )
-  }, [files, initialAttachments, removedAttachments]);
 
   useEffect(()=>{
     if (initialFiles) {
