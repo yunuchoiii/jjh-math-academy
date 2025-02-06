@@ -23,44 +23,76 @@ const determineFileType = (mimetype) => {
   }
 };
 
+// 파일 업로드 및 데이터베이스 저장 헬퍼 함수
+const uploadToS3AndSaveAttachment = async (file, attachmentGroupId) => {
+  const s3Params = {
+    Bucket: process.env.AWS_BUCKET_NAME,
+    Key: `${Date.now()}_${file.originalname}`,
+    Body: file.buffer,
+    ContentType: file.mimetype,
+  };
+
+  // S3에 파일 업로드
+  const s3Response = await s3.upload(s3Params).promise();
+
+  const fileType = determineFileType(file.mimetype);
+
+  // 파일 정보 저장
+  const attachment = await Attachment.create({
+    fileName: file.originalname,
+    filePath: s3Response.Location,
+    fileSize: file.size,
+    mimeType: file.mimetype,
+    fileType,
+    attachmentGroupId,
+  });
+
+  return { attachment, s3Response };
+};
+
+const getOrCreateAttachmentGroup = async (attachmentGroupId) => {
+  return attachmentGroupId 
+    ? await AttachmentGroup.findByPk(attachmentGroupId) 
+    : await AttachmentGroup.create({});
+};
+
 exports.uploadFile = async (req, res) => {
   try {
     const file = req.file;
     const { attachmentGroupId } = req.body;
 
-    // attachmentGroupId가 주어지지 않으면 새로운 attachmentGroup 생성
-    const attachmentGroup = attachmentGroupId 
-      ? await AttachmentGroup.findByPk(attachmentGroupId) 
-      : await AttachmentGroup.create({});
+    // 헬퍼 함수 사용
+    const attachmentGroup = await getOrCreateAttachmentGroup(attachmentGroupId);
 
     if (!attachmentGroup) {
       return res.status(404).json({ error: '유효하지 않은 attachmentGroupId입니다.' });
     }
 
-    const s3Params = {
-      Bucket: process.env.AWS_BUCKET_NAME,
-      Key: `${Date.now()}_${file.originalname}`,
-      Body: file.buffer,
-      ContentType: file.mimetype,
-    };
-
-    // S3에 파일 업로드
-    const s3Response = await s3.upload(s3Params).promise();
-
-    const fileType = determineFileType(file.mimetype);
-
-    // 파일 정보 저장
-    const attachment = await Attachment.create({
-      fileName: file.originalname,
-      filePath: s3Response.Location,
-      fileSize: file.size,
-      mimeType: file.mimetype,
-      fileType,
-      attachmentGroupId: attachmentGroup.id,
-    });
+    const { attachment } = await uploadToS3AndSaveAttachment(file, attachmentGroup.id);
 
     // 이미지 URL 반환
     res.status(201).json(attachment);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.uploadFileCKEditor = async (req, res) => {
+  try {
+    const file = req.file;
+    const { attachmentGroupId } = req.body;
+
+    // 헬퍼 함수 사용
+    const attachmentGroup = await getOrCreateAttachmentGroup(attachmentGroupId);
+
+    if (!attachmentGroup) {
+      return res.status(404).json({ error: '유효하지 않은 attachmentGroupId입니다.' });
+    }
+
+    const { s3Response } = await uploadToS3AndSaveAttachment(file, attachmentGroup.id);
+
+    // 이미지 URL 반환
+    res.status(201).json({ url: s3Response.Location });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
