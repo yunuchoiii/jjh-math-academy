@@ -34,6 +34,13 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
         />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="keywords" content="수학, 학원, 조재현, 수학학원, 교육"/>
+        <meta name="author" content="조재현 수학학원"/>
+        <meta property="og:title" content="조재현 수학학원"/>
+        <meta property="og:description" content="JJH Math Academy"/>
+        <meta property="og:image" content="/path/to/image.jpg"/>
+        <meta property="og:url" content="https://jjhmath.co.kr"/>
       </head>
       <body className={inter.className}>
         <RecoilRootWrapper>
