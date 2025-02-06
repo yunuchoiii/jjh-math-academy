@@ -1,6 +1,7 @@
 import { CONTACT_INFO, HEADER_HEIGHT } from '@/app/_constants/constants';
 import { useMenu } from '@/app/_hooks/useMenu';
 import { IMenu } from '@/app/_service/menu';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -67,10 +68,10 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
           className={`${styles.menuHamburger} hover:bg-zinc-100 active:bg-zinc-200 rounded-full flex items-center justify-center`}
           onClick={()=>setHamburger(!hamburger)}
         >
-          <img src="/images/icons/hamburger_bar.png" alt="menu" width={18} className="opacity-80"/>
+          <Image src="/images/icons/hamburger_bar.png" alt="menu" width={18} height={18} className="opacity-80"/>
         </button>
         <Link href={'/'} className="flex items-center ml-8">
-          <img src="/images/logos/logo_green.png" alt="logo" width={30} style={{marginTop: -4}}/>
+          <Image src="/images/logos/logo_green.png" alt="logo" width={30} height={30} />
           <span className="NanumSquare xl:text-xl lg:text-lg font-extrabold ml-4 text-green-1">
             조재현 수학학원
           </span>
