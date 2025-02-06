@@ -12,6 +12,9 @@
   max-width: unset;
 }
 
+.program-0, .program-1, .program-2 {
+  box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.10);
+}
 .program-0:hover {
   border-color: #82BF33;
   box-shadow: 0px 0px 24px 0px rgba(92, 152, 15, 0.30);
