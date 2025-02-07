@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import styles from './Layout.module.css'
 
 export default function Programs () {
@@ -21,12 +22,12 @@ export default function Programs () {
       href: 'http://brand.soohakplus.com/',
     },
     {
-      desc: '스마트러닝 맞춤수학',
-      title: '매쓰프로',
+      desc: '수학 1등급 만드는 비법',
+      title: '매쓰홀릭',
       color: '#00A8AA',
       iconPath: '/images/icons/mathpro-tablet.png',
       iconBg: '#FDCFD9',
-      logoPath: '/images/icons/mathpro.png',
+      logoPath: 'https://www.matholic.com/assets/img/etc/logo-kor.svg',
       href: 'https://www.mathpro.co.kr/',
     },
   ]
@@ -45,7 +46,7 @@ export default function Programs () {
             className={`w-full flex flex-col items-center justify-center xl:h-[300px] md:h-[267px] bg-white rounded-3xl NanumSquare border-2 border-solid border-transparent transition-all ${styles[`program-${index}`]}`}
           >
             <div className="xl:w-32 xl:h-32 md:w-28 md:h-28 rounded-2xl flex items-center justify-center mb-10" style={{backgroundColor: program.iconBg}}>
-              <img src={program.iconPath} alt={program.title} className="xl:h-24 md:h-20"/>
+              <Image src={program.iconPath} alt={program.title} width={96} height={96} className="xl:h-24 md:h-20 object-contain"/>
             </div>
             <span className="mb-2 xl:text-base md:text-sm font-bold">
               {program.desc}
@@ -56,7 +57,7 @@ export default function Programs () {
           </a>
           <div className={`w-[1px] xl:h-20 md:h-16 ${styles[`program-${index}-bg`]}`}></div>
           <div className={`w-2 h-2 rounded-md ${styles[`program-${index}-bg`]}`}></div>
-          <img src={program.logoPath} alt={program.title}
+          <Image src={program.logoPath} alt={program.title} width={176} height={144}
             className={`${index == 0 ? 'mt-5' : index == 1 ? 'mb-2' : 'mt-10'} xl:w-44 md:w-36`}/>
         </div>
       ))}
