@@ -1,4 +1,4 @@
-import { CONTACT_INFO, HEADER_HEIGHT } from '@/app/_constants/constants';
+import { CONTACT_INFO, HEADER_HEIGHT, LOGO_GREEN_SRC } from '@/app/_constants/constants';
 import { useMenu } from '@/app/_hooks/useMenu';
 import { IMenu } from '@/app/_service/menu';
 import Image from 'next/image';
@@ -71,7 +71,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
           <Image src="/images/icons/hamburger_bar.png" alt="menu" width={18} height={18} className="opacity-80"/>
         </button>
         <Link href={'/'} className="flex items-center ml-8">
-          <Image src="/images/logos/logo_green.png" alt="logo" width={30} height={30} />
+          <Image src={LOGO_GREEN_SRC} alt="logo" width={30} height={30} />
           <span className="NanumSquare xl:text-xl lg:text-lg font-extrabold ml-4 text-green-1">
             조재현 수학학원
           </span>

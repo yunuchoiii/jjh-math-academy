@@ -1,6 +1,7 @@
 "use client"
 
 import ReactiveButton from "@/app/_components/Button/ReactiveButton";
+import { LOGO_GREEN_SRC } from "@/app/_constants/constants";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -16,7 +17,7 @@ const JoinComplete = ({ searchParams }: JoinCompleteProps) => {
     <div className="absolute z-0 lg:top-20 md:top-40 top-20 left-[20%] sm:left-1/4 md:left-[15%] lg:w-80 lg:h-80 w-64 h-64 rounded-full bg-yellow-1"></div>
     <div className="absolute z-0 lg:top-40 md:top-44 top-64 right-[20%] sm:right-1/4 md:right-[15%] lg:w-64 lg:h-64 w-52 h-52 rounded-full bg-gradient-to-br from-[#37CC87] to-[#32EB97]"></div>
     <div className="absolute w-full h-full z-10 backdrop-blur-[80px] sm:backdrop-blur-[120px] lg:backdrop-blur-[160px] flex flex-col sm:flex-row justify-center items-center gap-10 NanumSquare">
-        <Image src="/images/logos/logo_green.png" alt="logo" width={200} height={200} />
+        <Image src={LOGO_GREEN_SRC} alt="logo" width={200} height={200} />
         <div>
           <div className="text-xl sm:text-2xl font-extrabold leading-normal">
             {searchParams.username}님 <br/>가입을 축하합니다.

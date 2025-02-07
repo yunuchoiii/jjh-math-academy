@@ -1,4 +1,4 @@
-import { CONTACT_INFO, HEADER_HEIGHT_MOBILE } from '@/app/_constants/constants';
+import { CONTACT_INFO, HEADER_HEIGHT_MOBILE, LOGO_GREEN_SRC } from '@/app/_constants/constants';
 import { useMenu } from '@/app/_hooks/useMenu';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -44,7 +44,7 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
       style={{height: HEADER_HEIGHT_MOBILE}}
     >
       <Link href={'/'}>
-        <Image src="/images/logos/logo_green.png" alt="logo" width={30} height={30} style={{marginTop: -3}}/>
+        <Image src={LOGO_GREEN_SRC} alt="logo" width={30} height={30} style={{marginTop: -3}}/>
       </Link>
       {!currentMenu ? 
         <Link href={'/'} className="NanumSquare text-xl font-extrabold text-green-1">

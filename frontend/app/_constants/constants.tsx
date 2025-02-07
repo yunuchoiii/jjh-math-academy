@@ -4,6 +4,11 @@ export const BLOG_LINK = "https://blog.naver.com/lllqueen8180";
 export const NAVER_MAP_LINK = "https://m.place.naver.com/share?id=33510998&tabsPath=%2Fhome&appMode=detail";
 export const CONTACT_SECTION_LINK = "/#contact-section";
 
+export const LOGO_GREEN_SRC = "/images/logos/logo_green.png";
+export const LOGO_DARKGREEN_SRC = "/images/logos/logo_darkgreen.png";
+export const LOGO_WHITE_SRC = "/images/logos/logo_white.png";
+export const LOGO_WHITE_OUTLINED_SRC = "/images/logos/logo_white_outlined.png";
+
 // 네비게이션 바 데이터 정의
 export type childMenu = {
   sort: number;

@@ -8,6 +8,7 @@ import PartnersTab from '../_components/Home/PartnersTab';
 import Programs from '../_components/Home/Programs';
 import SpecialClasses from '../_components/Home/SpecialClasses';
 import MobileDivider from '../_components/Layout/MobileDivider';
+import { LOGO_GREEN_SRC } from '../_constants/constants';
 import useScrollAnimation from '../_hooks/useScroll';
 
 export default function Home() {
@@ -24,7 +25,7 @@ export default function Home() {
         </div>
         <div className="pb-14">
           <div className="flex items-center justify-center md:flex-row flex-col md:mt-20 mt-10">
-            <img src="/images/logos/logo_green.png" alt="logo" width={60}/>
+            <img src={LOGO_GREEN_SRC} alt="logo" width={60}/>
             <div className="text-center md:ml-7 ml-0 md:mt-0 mt-5 NanumSquare">
               <div className="xl:text-3xl md:text-2xl text-sm">
                 완벽한 <span className="text-yellow-2 font-bold">개념</span>, 

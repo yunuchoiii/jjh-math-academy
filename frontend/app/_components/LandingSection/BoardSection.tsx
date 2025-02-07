@@ -1,4 +1,5 @@
 "use client";
+import { LOGO_GREEN_SRC } from "@/app/_constants/constants";
 import { boardService, BoardSlugEnum, IBoard } from "@/app/_service/board";
 import { IPaginatedResponse } from "@/app/_service/common";
 import { IPost } from "@/app/_service/post";
@@ -56,7 +57,7 @@ const BoardSection = ({ title, color, slug }: BoardSectionProps) => {
                 className="w-full h-full object-cover" 
                 loading="lazy"
                 onError={(e) => {
-                  e.currentTarget.src = "/images/logos/logo_green.png";
+                  e.currentTarget.src = LOGO_GREEN_SRC;
                   e.currentTarget.style.objectFit = "contain";
                   e.currentTarget.style.objectPosition = "center";
                   e.currentTarget.style.scale = "70%";

@@ -1,6 +1,6 @@
 'use client'
 
-import { CONTACT_INFO } from '@/app/_constants/constants';
+import { CONTACT_INFO, LOGO_WHITE_OUTLINED_SRC } from '@/app/_constants/constants';
 import { useMenu } from '@/app/_hooks/useMenu';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -16,7 +16,7 @@ export default function Footer () {
     <div className={`bg-[#505050] xl:px-32 xl:py-16 lg:px-12 lg:py-12 px-10 py-6 flex items-center lg:justify-center justify-start ${pathname !== '/' ? 'mt-20' : 'mt-0'}`}>
       <div className="w-full flex flex-col lg:flex-row items-start justify-between">
         <div className="flex items-center justify-center flex-row lg:flex-col h-full">
-          <img src="/images/logos/logo_white_outlined.png" alt="logo" className="xl:w-16 lg:w-12 w-7 mb-0 lg:mb-5 mr-4 lg:mr-0"/>
+          <img src={LOGO_WHITE_OUTLINED_SRC} alt="logo" className="xl:w-16 lg:w-12 w-7 mb-0 lg:mb-5 mr-4 lg:mr-0"/>
           <div className="xl:text-lg text-sm font-bold NanumSquare text-white">
             조재현 수학학원
           </div>

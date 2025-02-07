@@ -4,6 +4,7 @@ import LoginButton from "@/app/_components/Auth/LoginButton";
 import Checkbox from "@/app/_components/Input/Checkbox";
 import TextField from "@/app/_components/Input/TextField";
 import { useToast } from "@/app/_components/Toast/ToastProvider";
+import { LOGO_WHITE_SRC } from "@/app/_constants/constants";
 import useUser from "@/app/_hooks/useUser";
 import { AxiosError } from "axios";
 import Link from "next/link";
@@ -63,7 +64,7 @@ const Login = () => {
   return (
     <div className="pt-8 md:pt-8 p-5 md:p-8 md:pl-0 rounded-[30px] bg-gradient-to-br from-10% from-green-3 to-yellow-1 w-full md:flex items-center">
       <div className="w-full md:w-5/12 h-full flex items-center justify-center flex-col mb-8 md:mb-0">
-        <img src="/images/logos/logo_white.png" alt="logo" className="w-1/3 md:w-1/2 min-w-[120px]"/>
+        <img src={LOGO_WHITE_SRC} alt="logo" className="w-1/3 md:w-1/2 min-w-[120px]"/>
         <div className="text-base font-bold NanumSquare leading-[1.2] mt-[35px]">
           완벽한 개념, 지독한 연습
         </div>

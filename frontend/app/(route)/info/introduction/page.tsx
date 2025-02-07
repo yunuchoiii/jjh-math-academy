@@ -1,5 +1,6 @@
 import BlockQuote from "@/app/_components/Quote/BlockQuote";
 import Title from "@/app/_components/Title/Title";
+import { LOGO_GREEN_SRC } from "@/app/_constants/constants";
 import Image from "next/image";
 
 const SchoolList = ({type, schools}: {type: string, schools: string[]}) => {
@@ -65,7 +66,7 @@ const IntroductionPage = () => {
       <div className="flex flex-col md:flex-row gap-[50px]">
         <div className="flex flex-col items-center justify-center">
           <div className="w-[200px] h-[200px] bg-white rounded-full flex items-center justify-center shadow-3">
-            <Image src="/images/logos/logo_darkgreen.png" alt="introduction-1" width={120} height={120} className="object-cover"/>
+            <Image src={LOGO_GREEN_SRC} alt="introduction-1" width={120} height={120} className="object-cover"/>
           </div>
           <div className="font-bold NanumSquare text-center mt-5 leading-relaxed">
             <span className="text-[#666]">작지만 강한 학원</span><br/>
