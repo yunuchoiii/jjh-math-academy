@@ -1,4 +1,4 @@
-import { CONTACT_INFO, HEADER_HEIGHT, LOGO_GREEN_SRC, LOGO_WHITE_SRC } from '@/app/_constants/constants';
+import { BLOG_LINK, CONTACT_INFO, HEADER_HEIGHT, LOGO_GREEN_SRC, LOGO_WHITE_SRC } from '@/app/_constants/constants';
 import { useMenu } from '@/app/_hooks/useMenu';
 import { IMenu } from '@/app/_service/menu';
 import Image from 'next/image';
@@ -115,26 +115,35 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
             {hoveredMenuId === item.id && childrenMenus.length > 0 && <ChildrenMenus childrenMenus={childrenMenus}></ChildrenMenus>}
           </div>
         })}
-        {!isLoading && user && <div className="flex items-center ml-6 gap-10">
-          <Tooltip title={user ? "마이페이지" : "로그인"}>
-            <Link 
-              href={user ? '/user/mypage' : '/auth/login'} 
-              className="flex items-center py-1.5 hover:text-green-1 hover:cursor-pointer"
-            >
-              <i className="fas fa-user-circle text-xl"></i>
-            </Link>
-          </Tooltip>
-          {user && (
-            <Tooltip title="로그아웃">
-              <div 
-                className="flex items-center py-1.5 hover:text-green-1 hover:cursor-pointer" 
-                onClick={logout}
-            >
-                <i className="fas fa-sign-out-alt text-xl"></i>
-              </div>
+        {(!isLoading && user) ? (
+          <div className="flex items-center ml-6 gap-10">
+            <Tooltip title={user ? "마이페이지" : "로그인"}>
+              <Link 
+                href={user ? '/user/mypage' : '/auth/login'} 
+                className="flex items-center py-1.5 hover:text-green-1 hover:cursor-pointer"
+              >
+                <i className="fas fa-user-circle text-xl"></i>
+              </Link>
             </Tooltip>
-          )}
-        </div>}
+            {user && (
+              <Tooltip title="로그아웃">
+                <div 
+                  className="flex items-center py-1.5 hover:text-green-1 hover:cursor-pointer" 
+                  onClick={logout}
+              >
+                  <i className="fas fa-sign-out-alt text-xl"></i>
+                </div>
+              </Tooltip>
+            )}
+          </div>
+        ) : (
+          <a href={BLOG_LINK} target="_blank" rel="noopener noreferrer">
+            <button className="flex items-center justify-center h-9 px-5 bg-green-1 rounded-full text-white text-sm ml-5 hover:scale-105 hover:shadow-[0px_0px_16px_-4px] hover:shadow-green-1 transition-all duration-300">
+              <Image src="/images/icons/blog-white.png" alt="blog" width={18} height={18} className="mr-3"/>
+              <span>블로그 바로가기</span>
+            </button>
+          </a>
+        )}
       </div>
     </div>
     {<div 
