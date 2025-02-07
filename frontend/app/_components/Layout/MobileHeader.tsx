@@ -40,7 +40,7 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
 
   return <div className="flex lg:hidden w-screen fixed inset-x-0 top-0 z-[9999]">
     <div 
-      className={`${styles.header} w-screen flex items-center justify-between fixed inset-x-0 top-0`} 
+      className={`${styles.header} w-screen flex items-center justify-between fixed inset-x-0 top-0 z-[10000] bg-white shadow-[0px_-10px_30px_0px_rgba(0,0,0,0.3)]`} 
       style={{height: HEADER_HEIGHT_MOBILE}}
     >
       <Link href={'/'}>
@@ -62,7 +62,7 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
       </button>
     </div> 
     <div 
-      className={`${styles.mobileMenuBg} w-screen fixed inset-x-0 top-0 bg-darkgray-1`}
+      className={`${styles.mobileMenuBg} ${hamburger ? "h-screen" : ""} w-screen fixed inset-x-0 top-0 bg-darkgray-1`}
       style={{
         backgroundColor: hamburger ? 'rgba(0,0,0,0.25)' : 'transparent',
       }}

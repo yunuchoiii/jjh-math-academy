@@ -115,7 +115,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
             {hoveredMenuId === item.id && childrenMenus.length > 0 && <ChildrenMenus childrenMenus={childrenMenus}></ChildrenMenus>}
           </div>
         })}
-        {!isLoading && <div className="flex items-center ml-6 gap-10">
+        {!isLoading && user && <div className="flex items-center ml-6 gap-10">
           <Tooltip title={user ? "마이페이지" : "로그인"}>
             <Link 
               href={user ? '/user/mypage' : '/auth/login'} 

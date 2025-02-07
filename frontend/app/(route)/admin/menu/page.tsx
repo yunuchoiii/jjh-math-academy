@@ -237,7 +237,8 @@ const MenuSetting = () => {
               <div className="flex gap-2.5">
                 {[
                   // 상위 메뉴에서만 하위 메뉴 추가, 순서 변경 버튼 표시
-                  ...(getChildMenuList({parentId: selectedMenu.id}).length > 0 ? [buttonList.addChildMenu, buttonList.updateChildMenuOrder] : []), 
+                  ...(getChildMenuList({parentId: selectedMenu.id}).length > 0 ? [buttonList.updateChildMenuOrder] : []), 
+                  ...(!selectedMenu.parentId && !selectedMenu.link ? [buttonList.addChildMenu] : []),
                   buttonList.delete
                 ].map((button) => (
                   <ReactiveButton

@@ -36,10 +36,16 @@ export const CONTACT_INFO:Record<string, childMenu> = {
     icon: "/images/icons/blog-black.png",
     link: BLOG_LINK
   },
-  map: {
+  // map: {
+  //   sort: 4,
+  //   title: "마이 페이지",
+  //   icon: "/images/icons/user-black.png",
+  //   link: "/user/mypage"
+  // },
+  location: {
     sort: 4,
-    title: "마이 페이지",
-    icon: "/images/icons/user-black.png",
-    link: "/user/mypage"
-  },
+    title: "학원 위치",
+    icon: "/images/icons/location-black.png",
+    link: NAVER_MAP_LINK
+  }
 }

@@ -5,19 +5,18 @@ import useUser from "@/app/_hooks/useUser";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
+import { useToast } from "../Toast/ToastProvider";
 import DesktopHeader from "./DesktopHeader";
 import MobileHeader from "./MobileHeader";
 
 export default function Header () {
   const router = useRouter();
+  const {addToast} = useToast();
   const { user, userInfoByType, isLoading, logout, getUserPermission } = useUser()
   const { currentMenu, isLoading: menuLoading } = useMenu()
 
   // 유저 접근 권한
   const [userPermission, setUserPermission] = useState<"anonymous" | "admin" | "teacher" | "parent" | "student" | null>(null);
-
-  // 권한 오류 표시 여부(한번만 뜨도록)
-  const [hasShownPermissionError, setHasShownPermissionError] = useState(false);
 
   // 유저 접근 권한 설정
   useEffect(() => {
@@ -33,12 +32,11 @@ export default function Header () {
   // 유저 접근 권한 검증
   useEffect(() => {
     const showPermissionError = () => {
-      if (!hasShownPermissionError) {
-        alert("해당 메뉴에 접근할 수 있는 권한이 없습니다.");
-        setHasShownPermissionError(true);
-        // router.push('/error/403');
-        // console.log("해당 메뉴에 접근할 수 있는 권한이 없습니다.");
-      }
+      addToast({
+        type: "error",
+        message: "해당 메뉴에 접근할 수 있는 권한이 없습니다."
+      })
+      router.back()
     };
 
     // 유저 접근 권한 검증 핸들러
@@ -61,9 +59,11 @@ export default function Header () {
 
     if (!menuLoading ) {
       if (!currentMenu) {
-        // TODO: 등록되지 않은 메뉴 처리
-        // alert("메뉴를 찾을 수 없습니다.");
-        // router.back();
+        addToast({
+          type: "error",
+          message: "메뉴를 찾을 수 없습니다."
+        })
+        router.back();
       }
       if (currentMenu && userPermission) {
         authenticatePermission();
