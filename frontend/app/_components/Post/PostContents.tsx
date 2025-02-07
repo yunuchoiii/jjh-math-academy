@@ -15,7 +15,7 @@ const PostContents = ({ content, attachments }: PostContentsProps) => {
     window.open(file.filePath, '_blank');
   };
 
-  return <div className="relative px-2.5 py-10 lg:py-20 border-t border-b border-[#CCCCCC] ck-content">
+  return <section className="relative px-2.5 py-10 lg:py-20 border-t border-b border-[#CCCCCC] ck-content">
       {attachments.length > 0 && (
         <div className="absolute top-5 right-2.5 flex flex-col items-end gap-2">
           <button 
@@ -42,7 +42,7 @@ const PostContents = ({ content, attachments }: PostContentsProps) => {
         </div>
       )}
     <div dangerouslySetInnerHTML={{ __html: content }} />
-  </div>
+  </section>
 };
 
 export default PostContents;

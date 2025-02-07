@@ -6,6 +6,7 @@ import { attachmentService } from "@/app/_service/attachment";
 import { boardService } from "@/app/_service/board";
 import { postService } from "@/app/_service/post";
 import 'ckeditor5/ckeditor5.css';
+import Head from 'next/head';
 import Link from "next/link";
 
 interface PostPageProps {
@@ -29,10 +30,14 @@ const PostPage = async ({ params, searchParams }: PostPageProps) => {
 
   return (
     <div>
+      <Head>
+        <title>{post.title} - {board.name}</title>
+        <meta name="keywords" content={`조재현 수학, 조재현 수학학원, 조재현 수학학원 게시판, ${board.name}, ${post.title}`} />
+      </Head>
       <Link href={`/board/${board.slug}`}>
         <Title title={board.name} color="green" />
       </Link>
-      <section>
+      <article>
         <PostHeader
           post={post} 
           slug={board.slug}
@@ -49,7 +54,7 @@ const PostPage = async ({ params, searchParams }: PostPageProps) => {
             hideIcon 
           />
         </div>
-      </section>
+      </article>
     </div>
   );
 }
