@@ -187,7 +187,7 @@ const MiddleMathPage = () => {
     />
     <BoardSection 
       title="초·중등 교과 수학 게시판" 
-      titleColor="green"
+      color="green"
       slug={BoardSlugEnum.COMMON_MATH} 
     />
   </div>;

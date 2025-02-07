@@ -1,7 +1,7 @@
 import { LOGO_GREEN_SRC } from "@/app/_constants/constants";
 import { BoardSlugEnum } from "@/app/_service/board";
 import { IPost } from "@/app/_service/post";
-import { formatDate } from "@/app/_utils";
+import { formatDateTime } from "@/app/_utils";
 import Link from "next/link";
 
 interface PostCardProps {
@@ -41,7 +41,7 @@ const PostCard = ({ slug, post }: PostCardProps) => {
           {parseHTMLToText(post.content)}
         </p>
         <p className="text-xs text-[#888] text-right mr-1.5">
-          {formatDate(post.createdAt, "-")}
+          {formatDateTime(post.createdAt, "-")}
         </p>
       </div>
     </Link>

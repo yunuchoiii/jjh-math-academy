@@ -11,6 +11,20 @@ export const formatDate = (date: Date, separator: string = '-') => {
   return [year, month.toString().padStart(2, '0'), day.toString().padStart(2, '0')].join(separator);
 }
 
+export const formatDateTime = (date: Date, separator: string = '-') => {
+  const year = new Date(date).getFullYear();
+  const month = new Date(date).getMonth() + 1;
+  const day = new Date(date).getDate();
+  const hour = new Date(date).getHours();
+  const minute = new Date(date).getMinutes();
+  const second = new Date(date).getSeconds();
+
+  const formattedDate = [year, month.toString().padStart(2, '0'), day.toString().padStart(2, '0')].join(separator);
+  const formattedTime = [hour.toString().padStart(2, '0'), minute.toString().padStart(2, '0'), second.toString().padStart(2, '0')].join(':');
+
+  return `${formattedDate} ${formattedTime}`;
+}
+
 export const isNew = (date: Date) => {
   const now = new Date();
   const diffTime = Math.abs(now.getTime() - date.getTime());

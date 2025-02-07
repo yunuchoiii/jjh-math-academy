@@ -21,7 +21,7 @@ const BoardSection = ({ title, color, slug }: BoardSectionProps) => {
         const paginatedPostList = await boardService.getPostListByBoardId({
           boardId: boardInfo.id, 
           page: 1, 
-          size: 10,
+          size: 3,
           isActive: true,
         }) as IPaginatedResponse<IPost>;
         setPostList(paginatedPostList.data);
