@@ -27,8 +27,8 @@ export default function Programs () {
       color: '#00A8AA',
       iconPath: '/images/icons/mathpro-tablet.png',
       iconBg: '#FDCFD9',
-      logoPath: 'https://www.matholic.com/assets/img/etc/logo-kor.svg',
-      href: 'https://www.mathpro.co.kr/',
+      logoPath: '/images/icons/mathholic.png',
+      href: 'https://www.matholic.com/',
     },
   ]
   return <>

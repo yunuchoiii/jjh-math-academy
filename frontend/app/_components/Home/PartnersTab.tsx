@@ -10,7 +10,7 @@ export default function PartnersTab () {
       images: [
         'yorisu.png',
         'visang.png',
-        'mathpro.png',
+        'mathholic.png',
       ]
     },
     {
