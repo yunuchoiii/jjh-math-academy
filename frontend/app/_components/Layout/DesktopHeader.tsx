@@ -1,4 +1,4 @@
-import { CONTACT_INFO, HEADER_HEIGHT, LOGO_GREEN_SRC } from '@/app/_constants/constants';
+import { CONTACT_INFO, HEADER_HEIGHT, LOGO_GREEN_SRC, LOGO_WHITE_SRC } from '@/app/_constants/constants';
 import { useMenu } from '@/app/_hooks/useMenu';
 import { IMenu } from '@/app/_service/menu';
 import Image from 'next/image';
@@ -25,6 +25,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
   const parentMenuList = getParentMenuList({isShown: true, isActive: true}).sort((a, b) => a.sort - b.sort);
 
   const [hoveredMenuId, setHoveredMenuId] = useState<number | null>(null);
+  const [isAtTop, setIsAtTop] = useState<boolean>(true);
 
   // 스크롤 높이 감지
   useEffect(() => {
@@ -45,7 +46,26 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
   }, [setHamburger]);
 
   useEffect(() => {
-    setHamburger(false)
+    setHamburger(false);
+
+    const handleScroll = () => {
+      if (window.scrollY > 60) {
+        setIsAtTop(false);
+      } else {
+        setIsAtTop(true);
+      }
+    };
+
+    if (pathname === '/') {
+      setIsAtTop(true);
+      window.addEventListener('scroll', handleScroll);
+    } else {
+      setIsAtTop(false);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [pathname]);
 
   const ChildrenMenus = ({childrenMenus}:{childrenMenus:IMenu[]}) => {
@@ -60,7 +80,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
 
   return <div className="hidden lg:block">
     <div 
-      className={`${styles.header} w-full flex items-center justify-between fixed inset-x-0 top-0 z-[9999]`}
+      className={`w-full flex items-center justify-between fixed inset-x-0 top-0 z-[9999] px-8 transition-all ease-in-out ${(isAtTop && !hamburger) ? "bg-transparent text-white duration-700" : "bg-white shadow-[0px_4px_32px_0px_rgba(190,190,190,0.25)] duration-300"}`}
       style={{height: HEADER_HEIGHT}}
     >
       <div className="flex">
@@ -68,11 +88,11 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
           className={`${styles.menuHamburger} hover:bg-zinc-100 active:bg-zinc-200 rounded-full flex items-center justify-center`}
           onClick={()=>setHamburger(!hamburger)}
         >
-          <Image src="/images/icons/hamburger_bar.png" alt="menu" width={18} height={18} className="opacity-80"/>
+          <Image src="/images/icons/hamburger_bar.png" alt="menu" width={18} height={18} className={`opacity-80 ${(isAtTop && !hamburger) ? "invert" : ""}`}/>
         </button>
         <Link href={'/'} className="flex items-center ml-8">
-          <Image src={LOGO_GREEN_SRC} alt="logo" width={30} height={30} />
-          <span className="NanumSquare xl:text-xl lg:text-lg font-extrabold ml-4 text-green-1">
+          <Image src={(isAtTop && !hamburger) ? LOGO_WHITE_SRC : LOGO_GREEN_SRC} alt="logo" width={30} height={30} />
+          <span className={`NanumSquare xl:text-xl lg:text-lg font-extrabold ml-4 ${(isAtTop && !hamburger) ? "text-white" : "text-green-1"}`}>
             조재현 수학학원
           </span>
         </Link>
@@ -83,11 +103,11 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
           return <div 
             key={`menu-${item.title}`} 
             onMouseLeave={()=>setHoveredMenuId(null)}
-            className="relative"
+            className="relative group"
           >
             <Link 
               href={item.link || childrenMenus[0]?.link || ''}
-              className={`${styles.menu} xl:text-lg lg:text-base font-semibold hover:text-green-1 ${item.id === currentParentMenu?.id ? 'text-green-1' : 'text-black'}`} 
+              className={`${styles.menu} xl:text-lg lg:text-base font-semibold ${item.id === currentParentMenu?.id ? 'text-green-1 font-bold' : ((isAtTop && !hamburger) ? 'text-lightgray-2 group-hover:text-white' : 'text-black group-hover:text-green-1')}`} 
               onMouseOver={item.link ? ()=>{} : ()=>setHoveredMenuId(item.id)}
             >
               {item.title}
@@ -119,7 +139,10 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
     </div>
     {<div 
       className={`${styles.fullMenuBox} w-full flex items-start justify-center fixed inset-x-0 py-12`}
-      style={{top: hamburger ? HEADER_HEIGHT : "-50%"}}
+      style={{
+        top: hamburger ? HEADER_HEIGHT : "-50%",
+        opacity: hamburger ? 1 : 0
+      }}
     >
         <div className="mr-16">
           <div className="Montserrat text-lg text-green-1 pb-5 px-1 uppercase">menu</div>
