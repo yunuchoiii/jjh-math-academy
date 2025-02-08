@@ -65,8 +65,14 @@ export default function Programs () {
           </a>
           <div className={`w-[1px] xl:h-20 md:h-16 ${styles[`program-${index}-bg`]}`}></div>
           <div className={`w-2 h-2 rounded-md ${styles[`program-${index}-bg`]}`}></div>
-          <Image src={program.logoPath} alt={program.title} width={176} height={144}
-            className={`${index == 0 ? 'mt-5' : index == 1 ? 'mb-2' : 'mt-10'} xl:w-44 md:w-36`}/>
+          <Image 
+            src={program.logoPath} 
+            alt={program.title} 
+            width={176} 
+            height={144}
+            className={`${index == 0 ? 'mt-5' : index == 1 ? 'mb-2' : 'mt-10'} xl:w-44 md:w-36 object-contain`}
+            style={{width: 176, height: 144}}
+          />
         </div>
       ))}
     </div>
@@ -91,10 +97,10 @@ export default function Programs () {
                 <Image 
                   src={program.iconPath} 
                   alt={program.title} 
-                  width={96} 
-                  height={96} 
-                  className="h-9" 
-                  style={{ width: 'auto', height: 'auto' }}
+                  width={35} 
+                  height={35} 
+                  className='object-contain'
+                  style={{width: 35, height: 35}}
                 />
               </div>
               <div className="font-bold text-[9px]">

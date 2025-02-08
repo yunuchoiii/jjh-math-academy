@@ -46,7 +46,7 @@ export default function Footer () {
               </div> : <Link href={menu.link} className="xl:text-base lg:text-sm font-semibold text-[#DDD] opacity-90 xl:mb-4 lg:mb-3">
                 {menu.title}
               </Link>}
-              {childrenMenuList.filter(item => item.parentId === menu.id).map(item => <Link href={item.link!} className="xl:text-sm lg:text-xs xl:mb-2.5 lg:mb-2 last:mb-0 text-[#BCBCBC] hover:text-white" key={`footer-menu-${item.sort}`}>
+              {childrenMenuList.filter(item => item.parentId === menu.id && item.isShown).map(item => <Link href={item.link!} className="xl:text-sm lg:text-xs xl:mb-2.5 lg:mb-2 last:mb-0 text-[#BCBCBC] hover:text-white" key={`footer-menu-${item.sort}`}>
                 {item.title}
               </Link>)}
             </div>

@@ -88,7 +88,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
           className={`${styles.menuHamburger} hover:bg-zinc-100 active:bg-zinc-200 rounded-full flex items-center justify-center`}
           onClick={()=>setHamburger(!hamburger)}
         >
-          <Image src="/images/icons/hamburger_bar.png" alt="menu" width={18} height={18} className={`opacity-80 aspect-square ${(isAtTop && !hamburger) ? "invert" : ""}`}/>
+          <Image src="/images/icons/hamburger_bar.png" alt="menu" width={18} height={18} className={`opacity-80 aspect-square object-contain ${(isAtTop && !hamburger) ? "invert" : ""}`}/>
         </button>
         <Link href={'/'} className="flex items-center ml-8">
           <Image src={(isAtTop && !hamburger) ? LOGO_WHITE_SRC : LOGO_GREEN_SRC} alt="logo" width={30} height={30} />

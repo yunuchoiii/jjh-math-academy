@@ -21,6 +21,7 @@ const Section = ({ title, imageSrc, imageClass, items, features, itemType, color
         src={imageSrc} 
         alt={itemType} 
         fill 
+        sizes="100%"
         className={imageClass} 
       />
     </div>
