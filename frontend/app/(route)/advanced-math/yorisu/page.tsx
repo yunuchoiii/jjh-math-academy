@@ -144,7 +144,7 @@ const YorisuPage = () => {
       />
       <BoardSection
         title="요리수 연산 교실"
-        titleColor="yellow"
+        color="yellow"
         slug={BoardSlugEnum.YORISU}
       />
     </div>

@@ -5,7 +5,6 @@ import Title from "@/app/_components/Title/Title";
 import { attachmentService } from "@/app/_service/attachment";
 import { boardService } from "@/app/_service/board";
 import { postService } from "@/app/_service/post";
-import 'ckeditor5/ckeditor5.css';
 import Head from 'next/head';
 import Link from "next/link";
 
