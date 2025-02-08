@@ -1,6 +1,7 @@
 'use client';
 
 import { CONTACT_INFO, NAVER_MAP_LINK } from '@/app/_constants/constants';
+import Image from 'next/image';
 import { useCopyToClipboard, useMediaQuery } from 'usehooks-ts';
 import NaverMap from "../Map/NaverMap";
 import { useToast } from '../Toast/ToastProvider';
@@ -9,8 +10,11 @@ import styles from './Layout.module.css';
 function ContactLink({ href, iconSrc, bgColor, children, onClick }: { href: string, iconSrc: string, bgColor: string, children: React.ReactNode, onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void }) {
   return (
     <a href={href} target="_blank" className={`relative group col-span-3 md:h-[185px] h-20 rounded-3xl flex items-center xl:flex-row md:flex-col xl:justify-start md:justify-center bg-[rgba(255,255,255,0.8)] hover:bg-white transition-all backdrop-blur-2xl 2xl:pl-8 xl:pl-7 md:pl-0 pl-6 ${styles['deem-shadow-3']}`} onClick={onClick}>
-      <div className={`bg-[${bgColor}] 2xl:w-20 2xl:h-20 md:w-16 md:h-16 w-9 h-9 rounded-full 2xl:mr-6 xl:mr-5 xl:mb-0 md:mb-3 flex items-center justify-center`}>
-        <img src={iconSrc} alt="" className="w-1/2 opacity-75"/>
+      <div 
+        className={`2xl:w-20 2xl:h-20 md:w-16 md:h-16 w-9 h-9 rounded-full 2xl:mr-6 xl:mr-5 xl:mb-0 md:mb-3 flex items-center justify-center`}
+        style={{background: bgColor}}
+      >
+        <Image src={iconSrc} alt="" className="w-1/2 opacity-75" width={20} height={20}/>
       </div>
       <div className="2xl:text-2xl xl:text-xl md:text-lg text-sm font-bold leading-snug text-[#444] md:text-center md:ml-0 ml-4 group-hover:md:mb-4 group-hover:xl:mb-0 transition-all duration-300">
         {children}

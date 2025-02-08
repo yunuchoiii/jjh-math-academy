@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import HomeBanner from '../_components/Home/Banner';
 import ContactSection from '../_components/Home/ContactSection';
@@ -25,8 +26,8 @@ export default function Home() {
         </div>
         <div className="pb-14">
           <div className="flex items-center justify-center md:flex-row flex-col md:mt-20 mt-10">
-            <img src={LOGO_GREEN_SRC} alt="logo" width={60}/>
-            <div className="text-center md:ml-7 ml-0 md:mt-0 mt-5 NanumSquare">
+            <Image src={LOGO_GREEN_SRC} alt="logo" width={60} height={60}/>
+            <div className="text-center md:ml-7 ml-0 md:mt-0 mt-5 NanumSquare ">
               <div className="xl:text-3xl md:text-2xl text-sm">
                 완벽한 <span className="text-yellow-2 font-bold">개념</span>, 
                 지독한 <span className="text-yellow-2 font-bold">연습</span>

@@ -186,8 +186,8 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
             {Object.values(CONTACT_INFO).map(item => {
               const Content = (
                 <>
-                  <img src={item.icon} alt={item.title} className="opacity-50 mr-4" style={{width: 15, height: 15}}/>
-                  <div className={styles.fullMenuUnit}>{item.title}</div>
+                  <Image src={item.icon!} alt={item.title} className="opacity-50 mr-4" width={15} height={15}/>
+                  <span className={styles.fullMenuUnit}>{item.title}</span>
                 </>
               );
               return item.link !== "" ? (

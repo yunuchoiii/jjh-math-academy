@@ -42,7 +42,10 @@ const SideMenu = () => {
         {menus.map(menu => {
           const childMenuList = getChildMenuList({parentId: menu.id, isShown: true, isActive: true})
           return <li key={menu.id} style={{paddingLeft: `${depth * 10}px`}}>
-            <MenuButton menu={menu} isActive={menu.link ? pathname.includes(menu.link) : false}/>
+            <MenuButton 
+              menu={menu} 
+              isActive={menu.link ? pathname.includes(menu.link) : false}
+            />
             {childMenuList.length > 0 && renderMenu(childMenuList, depth + 1)}
           </li>
         })}

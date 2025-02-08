@@ -59,11 +59,12 @@ export default function Header () {
 
     if (!menuLoading ) {
       if (!currentMenu) {
-        addToast({
-          type: "error",
-          message: "메뉴를 찾을 수 없습니다."
-        })
-        router.back();
+        // addToast({
+        //   type: "error",
+        //   message: "메뉴를 찾을 수 없습니다."
+        // })
+        // router.back();
+        console.log("메뉴를 찾을 수 없습니다.")
       }
       if (currentMenu && userPermission) {
         authenticatePermission();
