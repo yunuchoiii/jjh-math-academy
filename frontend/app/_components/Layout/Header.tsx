@@ -2,7 +2,7 @@
 
 import { useMenu } from "@/app/_hooks/useMenu";
 import useUser from "@/app/_hooks/useUser";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { useToast } from "../Toast/ToastProvider";
@@ -11,6 +11,7 @@ import MobileHeader from "./MobileHeader";
 
 export default function Header () {
   const router = useRouter();
+  const pathname = usePathname();
   const {addToast} = useToast();
   const { user, userInfoByType, isLoading, logout, getUserPermission } = useUser()
   const { currentMenu, isLoading: menuLoading } = useMenu()
@@ -58,13 +59,13 @@ export default function Header () {
     }
 
     if (!menuLoading ) {
-      if (!currentMenu) {
+      if (currentMenu && !pathname.includes(currentMenu.link!)) {
         // addToast({
         //   type: "error",
         //   message: "메뉴를 찾을 수 없습니다."
         // })
         // router.back();
-        console.log("메뉴를 찾을 수 없습니다.")
+        console.log("메뉴를 찾을 수 없습니다.", currentMenu.link, pathname)
       }
       if (currentMenu && userPermission) {
         authenticatePermission();

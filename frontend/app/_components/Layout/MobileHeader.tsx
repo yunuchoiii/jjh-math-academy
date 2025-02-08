@@ -58,7 +58,7 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
         className={`${styles.menuHamburger}`}
         onClick={()=>setHamburger(!hamburger)}
       >
-        <img src="/images/icons/hamburger_bar.png" alt="menu" width={25}/>
+        <Image src="/images/icons/hamburger_bar.png" alt="menu" width={25} height={25} className="aspect-square"/>
       </button>
     </div> 
     <div 

@@ -88,7 +88,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
           className={`${styles.menuHamburger} hover:bg-zinc-100 active:bg-zinc-200 rounded-full flex items-center justify-center`}
           onClick={()=>setHamburger(!hamburger)}
         >
-          <Image src="/images/icons/hamburger_bar.png" alt="menu" width={18} height={18} className={`opacity-80 ${(isAtTop && !hamburger) ? "invert" : ""}`}/>
+          <Image src="/images/icons/hamburger_bar.png" alt="menu" width={18} height={18} className={`opacity-80 aspect-square ${(isAtTop && !hamburger) ? "invert" : ""}`}/>
         </button>
         <Link href={'/'} className="flex items-center ml-8">
           <Image src={(isAtTop && !hamburger) ? LOGO_WHITE_SRC : LOGO_GREEN_SRC} alt="logo" width={30} height={30} />
@@ -139,7 +139,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
         ) : (
           <a href={BLOG_LINK} target="_blank" rel="noopener noreferrer">
             <button className="flex items-center justify-center h-9 px-5 bg-green-1 rounded-full text-white text-sm ml-5 hover:scale-105 hover:shadow-[0px_0px_16px_-4px] hover:shadow-green-1 transition-all duration-300">
-              <Image src="/images/icons/blog-white.png" alt="blog" width={18} height={18} className="mr-3"/>
+              <Image src="/images/icons/blog-white.png" alt="blog" width={18} height={18} className="mr-3 aspect-square"/>
               <span>블로그 바로가기</span>
             </button>
           </a>
@@ -186,7 +186,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
             {Object.values(CONTACT_INFO).map(item => {
               const Content = (
                 <>
-                  <Image src={item.icon!} alt={item.title} className="opacity-50 mr-4" width={15} height={15}/>
+                  <Image src={item.icon!} alt={item.title} className="opacity-50 mr-4 aspect-square" width={15} height={15}/>
                   <span className={styles.fullMenuUnit}>{item.title}</span>
                 </>
               );

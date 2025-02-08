@@ -103,7 +103,7 @@ const useUser = () => {
         dispatch({ type: "FINISH_LOADING" });
       }
     } catch (error) {
-      console.error("Authentication failed:", error);
+      // console.error("Authentication failed:", error);
       setUser(null);
       setAccessToken(null);
       dispatch({ type: "FINISH_LOADING" });
