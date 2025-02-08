@@ -132,7 +132,7 @@ const PostEditForm = ({ post, boardList, initialFiles }: PostEditFormProps) => {
           errorCallback: (error) => errorCallback(error),
           data
         });
-        router.push(`/post/${res.id}/view`);
+        router.push(`/board/${boardList.find(board => board.id === data.boardId)?.slug}/${res.id}`);
         router.refresh();
       } else {
         await postService.updatePost({
@@ -141,7 +141,7 @@ const PostEditForm = ({ post, boardList, initialFiles }: PostEditFormProps) => {
           data,
           postId: post.id
         });
-        router.push(`/post/${post.id}/view`);
+        router.push(`/board/${boardList.find(board => board.id === data.boardId)?.slug}/${post.id}`);
         router.refresh();
       }
     } catch (error) {

@@ -52,7 +52,7 @@ const PostHeader = ({ post, slug, page }: PostHeaderProps) => {
         <span>조회 {post.views}</span>
         {user?.userId === post.authorId && (
           <>
-            <Link href={`/post/${post.id}/edit`}>
+            <Link href={`/board/${slug}/${post.id}/edit`}>
               <span className="hover:underline text-green-1">수정</span>
             </Link>
             <button className="hover:underline text-green-1" onClick={deletePost}>삭제</button>

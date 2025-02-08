@@ -18,7 +18,7 @@ const parseHTMLToText = (html: string): string => {
 const PostCard = ({ slug, post }: PostCardProps) => {
   return (
     <Link
-      href={`/post/${post.id}/view?slug=${slug}&page=1`} 
+      href={`/board/${slug}/${post.id}?page=1`} 
       className="relative w-full h-full shadow-[0px_4px_24px_0px_rgba(0,0,0,0.1)] md:hover:shadow-[0px_8px_32px_0px_rgba(0,0,0,0.12)] bottom-0 md:hover:bottom-2.5 active:scale-95 md:active:scale-100 transition-all duration-300 p-[15px] rounded-[30px]"
     >
       <div className="w-full aspect-[5/4] object-cover rounded-[15px] mb-4 overflow-hidden">

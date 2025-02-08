@@ -108,7 +108,7 @@ const Board = ({ board, postList, hideBoardButtons, hideSearchBar, hidePaginatio
   }
 
   const handleRowClick = (postId: number) => {
-    router.push(`/post/${postId}/view?slug=${board.slug}&page=${page || 1}`);
+    router.push(`/board/${board.slug}/${postId}?page=${page || 1}`);
   }
 
   const pageData = postList.page;
@@ -201,7 +201,7 @@ const Board = ({ board, postList, hideBoardButtons, hideSearchBar, hidePaginatio
     {!hidePagination && <Pagination paginationInfo={pageData} />}
     {user?.userType === "teacher" && (userInfoByType as ITeacher)?.isAdmin &&
       <div className="fixed bottom-7 right-7 md:bottom-10 md:right-10">
-        <IconButton title="새 글 작성" link={`/post/new/edit?boardId=${board.id}`} tooltipPosition="top">
+        <IconButton title="새 글 작성" link={`/board/${board.slug}/new/edit?boardId=${board.id}`} tooltipPosition="top">
           <i className="fas fa-marker"></i>
         </IconButton>
       </div>
