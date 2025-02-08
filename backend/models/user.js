@@ -24,6 +24,7 @@ class User extends Sequelize.Model {
       },
       phoneNumber: {
         type: DataTypes.STRING(20),
+        allowNull: true,
       },
       userType: {
         type: DataTypes.ENUM('teacher', 'parent', 'student'),
@@ -36,6 +37,14 @@ class User extends Sequelize.Model {
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     }, {
       sequelize,
@@ -50,9 +59,9 @@ class User extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.User.hasOne(db.Teacher);
-    db.User.hasOne(db.Parent);
-    db.User.hasOne(db.Student);
+    db.User.hasOne(db.Teacher, { foreignKey: 'userId' });
+    db.User.hasOne(db.Parent, { foreignKey: 'userId' });
+    db.User.hasOne(db.Student, { foreignKey: 'userId' });
   }
 }
 

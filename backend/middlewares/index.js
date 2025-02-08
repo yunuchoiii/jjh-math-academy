@@ -1,28 +1,29 @@
 const rateLimit = require('express-rate-limit');
-// const Domain = require('../models/domain');
-// const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 exports.isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
+  try {
+    res.locals.decoded = jwt.verify(req.headers.authorization.split(' ')[1], process.env.JWT_SECRET);
     next();
-  } else {
+  } catch (error) {
     res.status(403).send('로그인 필요');
   }
 };
 
 exports.isNotLoggedIn = (req, res, next) => {
-  if (!req.isAuthenticated()) {
-    next();
-  } else {
+  try {
+    jwt.verify(req.headers.authorization.split(' ')[1], process.env.JWT_SECRET);
     const message = encodeURIComponent('로그인한 상태입니다.');
     res.redirect(`/?error=${message}`);
+  } catch (error) {
+    next();
   }
 };
 
 exports.verifyToken = (req, res, next) => {
   try {
-    res.locals.decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+    const accessToken = req.headers.authorization.split(' ')[1];
+    res.locals.decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
     return next();
   } catch (error) {
     if (error.name === 'TokenExpiredError') {

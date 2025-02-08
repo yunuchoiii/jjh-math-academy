@@ -11,7 +11,7 @@ export default function SpecialClasses () {
       bgColor: '#FFF6D4',
       age: '6세 - 초2',
       logoPath: '/images/icons/yorisu.png',
-      href: '/program/yorisu'
+      href: '/advanced-math/yorisu'
     },
     {
       title: '시그마클래스',
@@ -21,14 +21,14 @@ export default function SpecialClasses () {
       bgColor: '#ECF6E4',
       age: '6세 - 초5',
       logoPath: '/images/icons/sigma-class.png',
-      href: '/program/sigma-class'
+      href: '/advanced-math/sigma-class'
     },
   ]
   return <>
     <div className="flex md:flex-col flex-col-reverse relative md:w-auto md:px-0 px-7 md:-mb-0 -mb-[337px]">
       <div className="flex justify-center items-center md:flex-row flex-col relative top-[-316px] md:top-0">
         {classes.map((item, index) => (
-          <Link href={item.href} key={`special-class-${index}`} className="xl:w-[380px] xl:h-[375px] md:w-[320px] md:h-[315px] w-[calc(100%-40px)] h-64 xl:p-5 md:p-4 p-2.5 rounded-2xl shadow-lg md:first:mr-7 md:mt-0 mt-6 relative z-10 bottom-0 md:hover:bottom-3 md:hover:shadow-xl transition-all duration-300" style={{backgroundColor: item.bgColor}}>
+          <Link href={item.href} key={`special-class-${index}`} className="xl:w-[380px] xl:h-[375px] md:w-[320px] md:h-[315px] w-[calc(100%-40px)] h-64 xl:p-5 md:p-4 p-2.5 rounded-2xl shadow-lg md:first:mr-7 md:mt-0 mt-6 relative z-10 bottom-0 active:scale-95 md:hover:bottom-3 md:hover:shadow-xl transition-all duration-300" style={{backgroundColor: item.bgColor}}>
             <div className="w-full xl:h-12 md:h-10 h-9 rounded-lg flex xl:text-base md:text-sm text-xs items-center justify-end px-5" style={{backgroundColor: item.pointColor}}>
               {item.age}
             </div>

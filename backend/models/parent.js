@@ -20,6 +20,10 @@ class Parent extends Sequelize.Model {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
       },
+      deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     }, {
       sequelize,
       timestamps: true, //createdAt, updatedAt

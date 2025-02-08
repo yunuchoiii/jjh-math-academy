@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import styles from "./Layout.module.css"
+import styles from "./Layout.module.css";
 
 export default function PartnersTab () {
   const tabs = [
@@ -10,7 +10,7 @@ export default function PartnersTab () {
       images: [
         'yorisu.png',
         'visang.png',
-        'mathpro.png',
+        'mathholic.png',
       ]
     },
     {
@@ -37,7 +37,7 @@ export default function PartnersTab () {
           <div className="w-full h-[1px] bg-green-1"></div>
         </div>
         <div className="w-full flex items-center justify-between mt-5">
-          {tab.images.map(i => <img src={`images/icons/${i}`} alt="logo" className="xl:h-8 lg:h-6 md:h-5 grayscale" key={`partner-img-${i}`}></img>)}
+          {tab.images.map(i => <img src={`/images/icons/${i}`} alt="logo" className="xl:h-8 lg:h-6 md:h-5 grayscale" key={`partner-img-${i}`}></img>)}
         </div>
       </div>)}
     </div>
@@ -50,7 +50,7 @@ export default function PartnersTab () {
         }
 
         return <div key={`mobile-partner-tab=${idx}`} className={`mb-7 overflow-hidden relative ${show ? styles[`mo-partners-h-${idx+1}`] : 'h-4'} transition-all duration-300`}>
-          <div className="flex items-center bg-lightgray relative z-10" onClick={handleTab}>
+          <div className="flex items-center bg-lightgray-1 relative z-10" onClick={handleTab}>
             <div className="text-xs font-bold Montserrat uppercase">
               {tab.title}
             </div>
@@ -58,7 +58,7 @@ export default function PartnersTab () {
             <img src="images/icons/arrow.png" alt="arrow" className={`w-2 mr-1 ${ show ? '-rotate-90' : 'rotate-90'}`}/>
           </div>         
           <div className={`flex flex-col items-center pt-2.5 absolute bottom-0 left-1/2 -translate-x-1/2`}>
-            {tab.images.map((img, i) => <img src={`images/icons/${img}`} alt="logo" className="max-h-[40px] max-w-[130px] grayscale my-4" key={`partner-img-${i}`}/>)}
+            {tab.images.map((img, i) => <img src={`/images/icons/${img}`} alt="logo" className="max-h-[40px] max-w-[130px] grayscale my-4" key={`partner-img-${i}`}/>)}
           </div> 
         </div>
     })}

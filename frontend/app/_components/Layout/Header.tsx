@@ -1,24 +1,79 @@
 'use client'
 
-import { childMenu, CONTACT_INFO, HEADER_HEIGHT, HEADER_HEIGHT_MOBILE, MENU_INFO } from "@/constants";
-import Link from "next/link";
-import { useState } from "react";
-import styles from './Layout.module.css';
+import { useMenu } from "@/app/_hooks/useMenu";
+import useUser from "@/app/_hooks/useUser";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useMediaQuery } from "usehooks-ts";
+import { useToast } from "../Toast/ToastProvider";
+import DesktopHeader from "./DesktopHeader";
+import MobileHeader from "./MobileHeader";
 
 export default function Header () {
-  // const router = useRouter()
-  const [hamburger, setHamburger] = useState<boolean>(false);
-  // const [prevScrollY, setPrevScrollY] = useState<number>(0);
+  const router = useRouter();
+  const pathname = usePathname();
+  const {addToast} = useToast();
+  const { user, userInfoByType, isLoading, logout, getUserPermission } = useUser()
+  const { currentMenu, isLoading: menuLoading } = useMenu()
 
-  const ChilrenMenus = ({childrenMenus}:{childrenMenus:Array<childMenu>}) => {
-    return <div className={`flex flex-col items-center rounded-3xl absolute ${styles.childrenMenuBox} slide-in-blurred-top`}
-    style={{top: HEADER_HEIGHT - 15}}>
-      {childrenMenus.map(item => 
-      <Link href={item.link} key={`children-menu-${item.title}`} className={`${styles.childMenu} flex items-center justify-center`}>
-        <span>{item.title}</span>
-      </Link>)}
-    </div>
-  }
+  // 유저 접근 권한
+  const [userPermission, setUserPermission] = useState<"anonymous" | "admin" | "teacher" | "parent" | "student" | null>(null);
+
+  // 유저 접근 권한 설정
+  useEffect(() => {
+    if (!isLoading) {
+      if (user && userInfoByType) {
+        setUserPermission(getUserPermission())
+      } else {
+        setUserPermission("anonymous")
+      }
+    }
+  }, [user, userInfoByType, isLoading])
+
+  // 유저 접근 권한 검증
+  useEffect(() => {
+    const showPermissionError = () => {
+      addToast({
+        type: "error",
+        message: "해당 메뉴에 접근할 수 있는 권한이 없습니다."
+      })
+      router.back()
+    };
+
+    // 유저 접근 권한 검증 핸들러
+    const authenticatePermission = () => {
+      switch (currentMenu?.permission) {
+        case "anonymous":
+          return;
+        case "user":
+          if (!["teacher", "parent", "student", "admin"].includes(userPermission!)) {
+            showPermissionError();
+          }
+          break;
+        default:
+          if (userPermission !== currentMenu?.permission) {
+            showPermissionError();
+          }
+          break;
+      }
+    }
+
+    if (!menuLoading ) {
+      if (currentMenu && !pathname.includes(currentMenu.link!)) {
+        // addToast({
+        //   type: "error",
+        //   message: "메뉴를 찾을 수 없습니다."
+        // })
+        // router.back();
+        console.log("메뉴를 찾을 수 없습니다.", currentMenu.link, pathname)
+      }
+      if (currentMenu && userPermission) {
+        authenticatePermission();
+      }
+    }
+  }, [currentMenu, userPermission, router, menuLoading])
+
+  const [hamburger, setHamburger] = useState<boolean>(false);
 
   const handleContactMenu = () => {
     setHamburger(false)
@@ -27,200 +82,42 @@ export default function Header () {
     contactSection!.scrollIntoView({ behavior: 'smooth' })
   }
 
+  const isMobile = !useMediaQuery('(min-width: 1024px)');
+  
+  useEffect(() => {
+    if (isMobile) {
+      // 모바일 메뉴 열때 스크롤 방지
+      document.body.style.overflow = hamburger ? 'hidden' : 'auto';
+      return () => {
+        document.body.style.overflow = 'auto';
+      };
+    } else {
+      // 데스크톱 메뉴 열때 스크롤하면 메뉴 닫힘
+      const handleScroll = () => {
+        setHamburger(false);
+      };
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, [hamburger, isMobile]);
+
   return <>
-    <div className="hidden lg:block">
-      <div 
-        className={`${styles.header} w-full flex items-center justify-between fixed inset-x-0 top-0`}
-        style={{height: HEADER_HEIGHT}}
-      >
-        <div className="flex">
-          <button 
-            className={`${styles.menuHamburger} hover:bg-zinc-100 active:bg-zinc-200 rounded-full flex items-center justify-center`}
-            onClick={()=>setHamburger(!hamburger)}
-          >
-            <img src="/images/icons/hamburger_bar.png" alt="menu" width={22} className="opacity-80"/>
-          </button>
-          <Link href={'/'} className="flex items-center ml-8">
-            <img src="/images/logos/logo_green.png" alt="logo" width={34} style={{marginTop: -4}}/>
-            <span className="NanumSquare xl:text-2xl lg:text-xl font-extrabold ml-4 text-green-1">
-              조재현 수학학원
-            </span>
-          </Link>
-        </div>
-        <div className="lg:flex items-center hidden">
-          {Object.values(MENU_INFO).map(item => {
-            const [showChildren, setShowChildren] = useState<boolean>(false);
-            return <div 
-              key={`menu-${item.title}`} 
-              onMouseLeave={()=>setShowChildren(false)}
-              className="relative"
-            >
-              <button 
-                className={`${styles.menu} xl:text-lg lg:text-base font-semibold text-gray-600 hover:text-green-1`} 
-                onClick={item.link ? handleContactMenu : ()=>{}}
-                onMouseOver={item.link ? ()=>{} : ()=>setShowChildren(true)}
-              >
-                {item.title}
-              </button>
-              {showChildren && item.children && <ChilrenMenus childrenMenus={item.children || []}></ChilrenMenus>}
-            </div>
-          })}
-          <Link href={'/auth'} className="flex items-center py-2 px-4 ml-6 hover:text-green-1 hover:cursor-pointer">
-            <i title="로그인" className="far fa-user"></i>
-          </Link>
-        </div>
-      </div>
-      {<div 
-        className={`${styles.fullMenuBox} w-full flex items-start justify-center fixed inset-x-0 py-12`}
-        style={{top: hamburger ? HEADER_HEIGHT : -250}}>
-          <div className="mr-16">
-            <div className="Montserrat text-lg text-green-1 pb-5 px-1 uppercase">menu</div>
-            <div className="pt-5 flex justify-between border-t border-green-1 px-1">
-              {Object.values(MENU_INFO).map (menu => (
-                <div 
-                  key={`fullmenu-${menu.title}`} 
-                  className="flex flex-col items-start"
-                  style={{width: menu.sort !== 4 ? 186 : 'unset'}}
-                >
-                  <button 
-                    className="text-green-1 text-lg mb-4 font-semibold"
-                    onClick={menu.link ? handleContactMenu : ()=>{}}
-                  >
-                    {menu.title}
-                  </button>
-                  {menu.children?.map(item => (
-                    <Link href={item.link} key={`fullmenu-${item.sort}`} className={`${styles.fullMenuUnit} mb-3 last:mb-0`}>
-                      {item.title}
-                    </Link>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div style={{width: 200}}>
-            <div className="Montserrat text-lg text-green-1 pb-5 px-1 uppercase">contact</div>
-            <div className="pt-5 flex flex-col justify-between border-t border-green-1 px-1">
-              {Object.values(CONTACT_INFO).map(item => {
-                const Content = (
-                  <>
-                    <img src={item.icon} alt={item.title} className="opacity-50 mr-4" style={{width: 15, height: 15}}/>
-                    <div className={styles.fullMenuUnit}>{item.title}</div>
-                  </>
-                );
-                return item.link !== "" ? (
-                  <a 
-                    href={item.link} 
-                    target={item.link.startsWith('/') ? undefined : "_blank"} 
-                    rel="noopener noreferrer" 
-                    key={`contact-info-${item.sort}`} 
-                    className="flex items-center mb-3 last:mb-0"
-                  >
-                    {Content}
-                  </a>
-                ) : (
-                  <div key={`contact-info-${item.sort}`} className="flex items-center mb-3 last:mb-0">
-                    {Content}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-      </div>}
-    </div>
-    <div className="flex lg:hidden w-screen fixed inset-x-0 top-0 z-50">
-      <div 
-        className={`${styles.header} w-screen flex items-center justify-between fixed inset-x-0 top-0`} 
-        style={{height: HEADER_HEIGHT_MOBILE}}
-      >
-        <img src="/images/logos/logo_green.png" alt="logo" width={30} style={{marginTop: -3}}/>
-        <Link href={'/'} className="NanumSquare text-xl font-bold text-green-1">
-          조재현 수학학원
-        </Link>
-        <button 
-          className={`${styles.menuHamburger}`}
-          onClick={()=>setHamburger(!hamburger)}
-        >
-          <img src="/images/icons/hamburger_bar.png" alt="menu" width={25}/>
-        </button>
-      </div> 
-      <div 
-        className={`${styles.mobileMenuBg} w-screen fixed inset-x-0 top-0 bg-darkgray-1`}
-        style={{
-          backgroundColor: hamburger ? 'rgba(0,0,0,0.25)' : 'transparent',
-        }}
-      >
-          <div 
-            className={`${styles.mobileMenuBox} w-screen fixed inset-x-0 flex flex-col`}
-            style={{
-              top: hamburger ? 50 : '-100%'
-            }}
-          >
-            <div className="overflow-scroll" style={{height: "calc(100% - 5rem)"}}>
-              {Object.values(MENU_INFO).map(parentMenu => {
-                const [menuOpened, setMenuOpened] = useState<boolean>(false);
-                const handleMenuClick = () => {
-                  if (parentMenu.children) {
-                    setMenuOpened(!menuOpened)
-                  } else {
-                    handleContactMenu()
-                  }
-                }
-                return <div key={`mobile-parent-menu-${parentMenu.sort}`}>
-                  <div className="overflow-hidden" style={{
-                    height: menuOpened ? `calc(4.875rem + ${parentMenu.children!.length * 2.875}rem)` : '3.5rem',
-                    transition: 'height 0.25s ease-in-out'
-                  }}>
-                    <div 
-                      className={`${styles.mobileParentMenu} w-full h-14 rounded-xl px-6 flex items-center justify-between mb-1`}
-                      style={{
-                        backgroundColor: menuOpened ? '#F0F0F0' : 'transparent'
-                      }}
-                      onClick={handleMenuClick}
-                    > 
-                      <span className="text-green-1 text-xl leading-none font-bold">
-                        {parentMenu.title}
-                      </span>
-                      {parentMenu.children && <img 
-                        src="/images/icons/arrow_rounded.png" 
-                        alt="close" className={`filter-green-1 ${!menuOpened && 'rotate-180'}`}
-                        width={20} 
-                      />}
-                    </div>
-                    <div className="pb-2.5 pt-1.5">
-                      {parentMenu.children?.map(childMenu => 
-                        <Link
-                          href={childMenu.link}
-                          key={`mobile-child-menu-${childMenu.sort}`} 
-                          className='py-3.5 pl-7 flex items-center'
-                        >
-                          <div className="w-2 h-2 rounded-full bg-yellow-1 mr-3.5"></div>
-                          <div className="text-lg leading-none decoration-neutral-700">
-                            {childMenu.title}
-                          </div>
-                        </Link>
-                      )}  
-                    </div>
-                  </div>
-                </div>
-              })}              
-            </div>
-            <div className="w-10/12 h-20 rounded-3xl bg-green-gradient absolute bottom-12 left-2/4 flex items-center justify-evenly" style={{transform: 'translateX(-50%)'}}>
-              {Object.values(CONTACT_INFO).map(contact => (
-                <a 
-                  href={contact.link} 
-                  target={contact.link.startsWith('/') ? undefined : "_blank"} 
-                  key={`mobile-contact-${contact.sort}`}
-                > 
-                  <img src={contact.icon} alt={contact.title} width={30} className="invert"/>
-                </a>
-              ))}
-            </div>
-            <div className={`${styles.mobileMenuClose} w-11 h-11 bg-green-3 rounded-full flex items-center justify-center`} onClick={()=>setHamburger(false)}>
-              <img src="/images/icons/arrow_rounded.png" alt="close" className="invert"/>
-            </div>
-          </div>
-      </div>
-    </div>
+    {/* 데스크톱 */}
+    <DesktopHeader
+      hamburger={hamburger} 
+      setHamburger={setHamburger} 
+      handleContactMenu={handleContactMenu} 
+      user={user} 
+      isLoading={isLoading} 
+      logout={logout} 
+    />
+    {/* 모바일 및 태블릿 */}
+    <MobileHeader
+      hamburger={hamburger} 
+      setHamburger={setHamburger} 
+    />
   </>
 
 }

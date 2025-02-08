@@ -7,18 +7,33 @@ const dotenv = require('dotenv');
 const passport = require('passport');
 const { sequelize } = require('./models');
 require('./passport')();
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const path = require('path');
 
 dotenv.config();
+
 const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
+const infoRouter = require('./routes/info');
+const menuRouter = require('./routes/menu');
+const boardRouter = require('./routes/board');
+const postRouter = require('./routes/post');
+const attachmentRouter = require('./routes/attachment');
+const attachmentGroupRouter = require('./routes/attachmentGroup');
 
 const app = express();
 
 // 미들웨어 설정
 app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+}));
 app.use(session({
   secret: process.env.COOKIE_SECRET || 'defaultSecret',
   resave: false,
@@ -26,6 +41,7 @@ app.use(session({
   cookie: {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production' ? true : false,
+    maxAge: 30 * 60 * 1000, // 30분
   },
 }));
 
@@ -33,7 +49,48 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// 여러 YAML 파일을 로드하여 하나의 문서로 통합
+const authDoc = YAML.load(path.join(__dirname, 'swagger/auth.yaml'));
+const boardDoc = YAML.load(path.join(__dirname, 'swagger/board.yaml'));
+const infoDoc = YAML.load(path.join(__dirname, 'swagger/info.yaml'));
+const menuDoc = YAML.load(path.join(__dirname, 'swagger/menu.yaml'));
+const postDoc = YAML.load(path.join(__dirname, 'swagger/post.yaml'));
+const userDoc = YAML.load(path.join(__dirname, 'swagger/user.yaml'));
+const attachmentDoc = YAML.load(path.join(__dirname, 'swagger/attachment.yaml'));
+const attachmentGroupDoc = YAML.load(path.join(__dirname, 'swagger/attachmentGroup.yaml'));
+
+// 모든 문서를 하나로 병합
+const swaggerDocument = {
+  openapi: '3.0.0',
+  info: {
+    title: '전체 API 문서',
+    description: '여러 API 문서를 통합한 문서',
+    version: '1.0.0',
+  },
+  paths: {
+    ...authDoc.paths,
+    ...boardDoc.paths,
+    ...infoDoc.paths,
+    ...menuDoc.paths,
+    ...postDoc.paths,
+    ...userDoc.paths,
+    ...attachmentDoc.paths,
+    ...attachmentGroupDoc.paths,
+  },
+};
+
+// Swagger UI 설정
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// 라우터 설정
 app.use('/auth', authRouter);
+app.use('/user', userRouter);
+app.use('/info', infoRouter);
+app.use('/menu', menuRouter);
+app.use('/board', boardRouter);
+app.use('/post', postRouter);
+app.use('/attachment', attachmentRouter);
+app.use('/attachment-group', attachmentGroupRouter);
 
 // 데이터베이스 연결
 sequelize.sync()

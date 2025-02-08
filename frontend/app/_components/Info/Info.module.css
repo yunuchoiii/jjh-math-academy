@@ -1,0 +1,54 @@
+.tuitionTable {
+  color: #000;
+}
+
+.tuitionTable.desktop th {
+  font-weight: 500;
+  width: calc(100% / 6);
+}
+
+.tuitionTable.desktop th, .tuitionTable.desktop td {
+  padding: 10px;
+}
+
+.tuitionTable.desktop th, .tuitionTable.desktop td:first-child {
+  border-right: 3px solid #FFF;
+  border-bottom: 3px solid #FFF;
+}
+
+.tuitionTable.desktop th:last-child {
+  border-right: 3px solid rgb(205 228 188 / var(--tw-bg-opacity));
+}
+
+.tuitionTable.desktop tbody tr:last-child td {
+  border-bottom: 3px solid #F3F3F3;
+}
+
+.tuitionTable.desktop td:not(:first-child) {
+  border-right: 3px solid #F3F3F3;
+  border-bottom: 3px solid #F3F3F3;
+}
+
+.tuitionTable.mobile th, .tuitionTable.mobile td {
+  padding: 10px;
+}
+
+.tuitionTable.mobile th {
+  font-weight: 500;
+  width: calc(100% / 3);
+  background-color: #F3F3F3;
+  border-right: 2px solid #FFF;
+}
+
+.tuitionTable.mobile th:last-child {
+  border-right: 2px solid #F3F3F3;
+}
+
+.tuitionTable.mobile td:first-child {
+  border-top: 2px solid #FFF;
+}
+
+.tuitionTable.mobile td:not(:first-child) {
+  border-right: 2px solid #F3F3F3;
+  border-bottom: 2px solid #F3F3F3;
+}

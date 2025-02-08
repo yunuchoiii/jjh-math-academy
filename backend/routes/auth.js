@@ -1,35 +1,38 @@
 const express = require('express');
 
 const { isLoggedIn, isNotLoggedIn, apiLimiter, verifyToken } = require('../middlewares');
-const { join, login, createToken, joinTeacher, joinStudent, joinParent, refreshToken } = require('../controllers/auth');
+const { join, login, createToken, joinTeacher, joinStudent, joinParent, refreshToken, logout, checkEmail } = require('../controllers/auth');
 
 const router = express.Router();
 
-// POST /auth/join
+// 회원가입
 router.post('/join', isNotLoggedIn, join); 
 
-// POST /auth/join/teacher
+// 선생님 회원가입
 router.post('/join/teacher', isNotLoggedIn, joinTeacher);
 
-// POST /auth/join/student
+// 학생 회원가입
 router.post('/join/student', isNotLoggedIn, joinStudent);
 
-// POST /auth/join/parent
+// 학부모 회원가입
 router.post('/join/parent', isNotLoggedIn, joinParent);
 
-// POST /auth/login
+// 이메일 중복 체크
+router.post('/check-email', isNotLoggedIn, checkEmail);
+
+// 로그인
 router.post('/login', isNotLoggedIn, login);
 
-// POST /auth/token/create
+// 토큰 생성
 router.post('/create-token', apiLimiter, createToken);
 
-// POST /auth/token/refresh
-router.post('/refresh-token', refreshToken);
+// 토큰 갱신
+router.post('/refresh-token', verifyToken, refreshToken);
 
-// GET /auth/token/verify
+// 토큰 검증
 router.get('/verify-token', verifyToken);
 
-// GET /auth/logout
-// router.get('/logout', isLoggedIn, logout);
+// 로그아웃
+router.get('/logout', isLoggedIn, logout);
 
 module.exports = router;

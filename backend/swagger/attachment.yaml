@@ -1,0 +1,171 @@
+openapi: 3.0.0
+info:
+  title: Attachment API
+  description: API for uploading and managing attachments
+  version: 1.0.0
+paths:
+  /attachment/upload:
+    post:
+      summary: 파일 업로드
+      description: 파일을 서버에 업로드하고 S3에 저장
+      tags:
+        - Attachment
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  fileName:
+                    type: string
+                  filePath:
+                    type: string
+                  fileSize:
+                    type: integer
+                  mimeType:
+                    type: string
+                  fileType:
+                    type: string
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+  /attachment/upload-multiple:
+    post:
+      summary: 여러 파일 업로드
+      description: 여러 파일을 서버에 업로드하고 S3에 저장
+      tags:
+        - Attachment
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '201':
+          description: Files uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    fileName:
+                      type: string
+                    filePath:
+                      type: string
+                    fileSize:
+                      type: integer
+                    mimeType:
+                      type: string
+                    fileType:
+                      type: string
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+  /attachment/{id}:
+    get:
+      summary: 파일 조회
+      description: 파일의 메타데이터를 조회
+      tags:
+        - Attachment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: File metadata retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  fileName:
+                    type: string
+                  filePath:
+                    type: string
+                  fileSize:
+                    type: integer
+                  mimeType:
+                    type: string
+                  fileType:
+                    type: string
+        '404':
+          description: File not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: 파일 삭제
+      description: 파일을 S3 및 데이터베이스에서 삭제
+      tags:
+        - Attachment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: File deleted successfully
+        '404':
+          description: File not found
+        '500':
+          description: Internal server error
+
+  /attachment/download/{id}:
+    get:
+      summary: 파일 다운로드
+      description: 파일을 다운로드
+      tags:
+        - Attachment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: File downloaded successfully
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: File not found
+        '500':
+          description: Internal server error

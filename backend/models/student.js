@@ -24,11 +24,18 @@ class Student extends Sequelize.Model {
         },
       },
       gradeLevel: {
+        type: DataTypes.INTEGER,
+      },
+      schoolName: {
         type: DataTypes.STRING(20),
       },
       isActive: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
+      },
+      deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
       },
     }, {
       sequelize,

@@ -1,12 +1,22 @@
-import { CONTACT_INFO, MENU_INFO } from "@/constants";
+'use client'
+
+import { CONTACT_INFO, LOGO_WHITE_OUTLINED_SRC } from '@/app/_constants/constants';
+import { useMenu } from '@/app/_hooks/useMenu';
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer () {
+  const pathname = usePathname();
+
+  const { menuList } = useMenu();
+  const parentMenuList = menuList.filter(menu => menu.parentId === null);
+  const childrenMenuList = menuList.filter(menu => menu.parentId !== null);
+
   return <>
-    <div className="bg-[#505050] xl:px-32 xl:py-16 lg:px-20 lg:py-12 px-10 py-6 flex items-center lg:justify-center justify-start">
-      <div className="xl:w-[1180px] lg:w-[896px] flex flex-col lg:flex-row items-start justify-between">
+    <div className={`bg-[#505050] xl:px-32 xl:py-16 lg:px-12 lg:py-12 px-10 py-6 flex items-center lg:justify-center justify-start ${pathname !== '/' ? 'mt-20' : 'mt-0'}`}>
+      <div className="w-full flex flex-col lg:flex-row items-start justify-between">
         <div className="flex items-center justify-center flex-row lg:flex-col h-full">
-          <img src="/images/logos/logo_white_outlined.png" alt="logo" className="xl:w-16 lg:w-12 w-7 mb-0 lg:mb-5 mr-4 lg:mr-0"/>
+          <img src={LOGO_WHITE_OUTLINED_SRC} alt="logo" className="xl:w-16 lg:w-12 w-7 mb-0 lg:mb-5 mr-4 lg:mr-0"/>
           <div className="xl:text-lg text-sm font-bold NanumSquare text-white">
             조재현 수학학원
           </div>
@@ -28,17 +38,17 @@ export default function Footer () {
             ))}
           </div>
         </div>
-        <div className="hidden lg:flex">
-          {Object.values(MENU_INFO).map(menu => (
-            <div className="xl:mr-16 lg:mr-12 last:mr-0 flex flex-col" key={`footer-menu-${menu.sort}`}>
+        <div className="hidden lg:flex xl:gap-16 lg:gap-12 last:gap-10">
+          {parentMenuList.filter(menu => menu.isShown).map(menu => (
+            <div className="flex flex-col" key={`footer-menu-${menu.sort}`}>
               {!menu.link ? <div className="xl:text-base lg:text-sm font-semibold text-[#DDD] opacity-90 xl:mb-4 lg:mb-3">
                 {menu.title}
               </div> : <Link href={menu.link} className="xl:text-base lg:text-sm font-semibold text-[#DDD] opacity-90 xl:mb-4 lg:mb-3">
                 {menu.title}
               </Link>}
-              {menu.children ? menu.children.map(item => <Link href={item.link} className="xl:text-sm lg:text-xs xl:mb-2.5 lg:mb-2 last:mb-0 text-[#BCBCBC]" key={`footer-menu-${item.sort}`}>
+              {childrenMenuList.filter(item => item.parentId === menu.id && item.isShown).map(item => <Link href={item.link!} className="xl:text-sm lg:text-xs xl:mb-2.5 lg:mb-2 last:mb-0 text-[#BCBCBC] hover:text-white" key={`footer-menu-${item.sort}`}>
                 {item.title}
-              </Link>) : null}
+              </Link>)}
             </div>
           ))}
         </div>

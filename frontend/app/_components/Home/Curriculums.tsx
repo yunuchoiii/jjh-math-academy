@@ -7,26 +7,25 @@ export default function Curriculums () {
       title: '초등 교과 수학',
       desc: '초등 수학으로 대입까지',
       contents: [
-        '개인 수준별 교재 컨설팅 + 비상 수학플러스러닝 + 매쓰프로 시스템으로 확실하게 잡는 교과 수학',
-        '상위권 5~6학년은 \'수능으로 가는 초등 고학년 수학\'을 비롯한 심화수학 진행',
+        '사고력 수학을 통해 단순 연산을 넘어 수학적 사고와 문제 해결 능력 성장',
+        '기초 개념부터 심화 학습까지, 고학년에서도 흔들리지 않는 수학 실력',
       ],
       color: '#DFB521',
       iconColor: '#FFC736',
       imgPath: '/images/elementary-student.png',
-      link: '/curriculum/elementary'
+      link: '/common-math/elementary'
     },
     {
       title: '중등 교과 수학',
       desc: '대입 성공의 시작',
-      // TODO: 설명 바꾸기
       contents: [
-        '개인 수준별 교재 컨설팅 + 비상 수학플러스러닝 + 매쓰프로 시스템으로 확실하게 잡는 교과 수학',
-        '상위권 5~6학년은 \'수능으로 가는 초등 고학년 수학\'을 비롯한 심화수학 진행',
+        '내신 대비를 넘어 사고력 중심의 심화 학습으로 고등 수학 및 입시 준비',
+        '어려운 문제도 스스로 해결할 수 있도록 사고력과 논리력을 동시에!',
       ],
       color: '#41B580',
       iconColor: '#41B580',
       imgPath: '/images/middle-student.png',
-      link: '/curriculum/middle'
+      link: '/common-math/middle'
     },
   ]
   return <>
@@ -34,7 +33,7 @@ export default function Curriculums () {
       {curriculumList.map((item, index) =>  (
         <Link href={item.link} 
           key={`curriculum-${index}`} 
-          className={`block w-full xl:h-[300px] md:h-64 bg-white xl:rounded-tr-[138px] xl:rounded-bl-[138px] md:rounded-tr-[126px] md:rounded-bl-[126px] first:mb-10 xl:pb-9 xl:pl-9 md:pb-7 md:pl-7 relative border-4 border-transparent transition-all cursor-pointer ${index == 0 ? 'hover:border-yellow-1' : 'hover:border-green-1'} ${styles['deem-shadow-2']}`}
+          className={`block w-full xl:h-[300px] md:h-64 bg-white xl:rounded-tr-[138px] xl:rounded-bl-[138px] md:rounded-tr-[126px] md:rounded-bl-[126px] first:mb-10 xl:pb-9 xl:pl-9 md:pb-7 md:pl-7 relative border-4 border-transparent transition-all duration-300 cursor-pointer hover:scale-[103%] active:scale-100 shadow-[0px_0px_80px_0px_rgba(190,190,190,0.25)]hover:shadow-[0px_0px_80px_0px_rgba(190,190,190,0.4)] ${index == 0 ? 'hover:border-yellow-1' : 'hover:border-green-1'}`}
         >
           <div className={`xl:w-[218px] xl:h-[218px] md:w-48 md:h-48 rounded-full bg-gradient-to-b absolute xl:bottom-9 md:bottom-7 shadow-xl ${index == 0 ? 'from-yellow-1 to-yellow-3' : 'from-green-1 to-green-2'}`}>
             <div className='absolute bottom-0 w-full flex justify-center rounded-bl-full rounded-br-full overflow-hidden'>
@@ -63,7 +62,7 @@ export default function Curriculums () {
     </div>
     <div className='block md:hidden px-5'>
       {curriculumList.map((item, index) =>  (
-        <Link key={`curriculum-mobile-${index}`} className='first:mb-16 flex flex-col items-center' href={item.link}>
+        <Link key={`curriculum-mobile-${index}`} className='first:mb-16 flex flex-col items-center active:scale-95 transition-all duration-300' href={item.link}>
           <div className={`w-40 h-40 relative rounded-full bg-gradient-to-b shadow-xl ${index == 0 ? 'from-yellow-1 to-yellow-3' : 'from-green-1 to-green-2'}`}>
             <div className='absolute bottom-0 w-full flex justify-center rounded-bl-full rounded-br-full overflow-hidden'>
               <img src={item.imgPath} alt='curriculum' className={`${index == 0 ? 'xl:w-36 md:w-32 w-[104px]' : 'w-full'}`}/>

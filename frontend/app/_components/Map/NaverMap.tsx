@@ -1,14 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from "react";
 
-declare global {
-  interface Window {
-    naver: {
-      maps: naver.maps.Map;
-    };
-  }
-}
-
 export default function NaverMap () {
   const mapElement = useRef(null);
   const [naverMapsLoaded, setNaverMapsLoaded] = useState(false);
