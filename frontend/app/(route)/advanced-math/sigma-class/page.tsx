@@ -149,7 +149,7 @@ const SigmaClassPage = () => {
     />
     <BoardSection
       title="시그마 클래스"
-      titleColor="green"
+      color="green"
       slug={BoardSlugEnum.SIGMA_CLASS}
     />
   </div>;
