@@ -20,9 +20,10 @@ interface PostEditFormProps {
   post?: IPost | null;
   boardList: IBoard[];
   initialFiles?: IAttachment[];
+  initialBoardId?: number;
 }
 
-const PostEditForm = ({ post, boardList, initialFiles }: PostEditFormProps) => {
+const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEditFormProps) => {
   const router = useRouter();
   const { addToast } = useToast();
   const { user } = useUser();
@@ -45,16 +46,18 @@ const PostEditForm = ({ post, boardList, initialFiles }: PostEditFormProps) => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, reset } = useForm<PostSavePayload>({
     defaultValues: {
       ...post,
-      authorId: user?.userId
+      authorId: user?.userId,
+      boardId: initialBoardId || post?.boardId
     }
   });
 
   useEffect(() => {
     reset({
       ...post,
-      authorId: user?.userId
+      authorId: user?.userId,
+      boardId: initialBoardId || post?.boardId
     });
-  }, [post, reset, user]);
+  }, [post, reset, user, initialBoardId]);
 
   const callback = (data: PostSavePayload) => {
     addToast({
@@ -218,7 +221,7 @@ const PostEditForm = ({ post, boardList, initialFiles }: PostEditFormProps) => {
           <Select
             label="게시판"
             options={[
-              { value: 0, label: "게시판 선택" },
+              { value: 0, label: "게시판 선택", disabled: true },
               ...boardList.map((board) => ({ value: board.id, label: board.name })),
             ]}
             value={watch("boardId")}

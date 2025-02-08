@@ -21,10 +21,14 @@ interface EditPostPageProps {
   params: {
     postId: string;
   }
+  searchParams: {
+    boardId: string;
+  }
 }
 
-const EditPostPage = ({ params }: EditPostPageProps) => {
+const EditPostPage = ({ params, searchParams }: EditPostPageProps) => {
   const postId = Number(params.postId);
+  const boardId = Number(searchParams.boardId);
 
   const [post, setPost] = useState<IPost | null>(null);
   const [boardList, setBoardList] = useState<IBoard[]>([]);
@@ -71,6 +75,7 @@ const EditPostPage = ({ params }: EditPostPageProps) => {
       boardList={boardList} 
       post={post}
       initialFiles={files} 
+      initialBoardId={boardId}
     />
   </Container>
 }

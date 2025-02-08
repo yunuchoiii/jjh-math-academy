@@ -6,7 +6,7 @@ import FormError from "../Error/FormError";
 interface SelectProps {
   label: string;
   value?: any;
-  options: { value: any; label: string }[];
+  options: { value: any; label: string, disabled?: boolean }[];
   onChange?: (value: any) => void;
   buttonLabel?: string;
   onButtonClick?: () => void;
@@ -62,7 +62,8 @@ const Select = ({ label, value, options, onChange, buttonLabel, onButtonClick, e
                     e.preventDefault();
                     handleSearchType(option.value);
                   }}
-                  className={`h-10 flex items-center justify-center text-sm font-semibold md:hover:text-green-1 ${selectedOption === option.value ? "text-green-1" : "text-black"}`}
+                  className={`h-10 flex items-center justify-center text-sm font-semibold md:hover:text-green-1 disabled:hover:text-black ${selectedOption === option.value ? "text-green-1" : "text-black"} ${option.disabled ? "opacity-50" : ""}`}
+                  disabled={option.disabled}
                 >
                   {option.label}
                 </button>
