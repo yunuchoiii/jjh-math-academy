@@ -45,8 +45,16 @@ export default function Programs () {
             target="_blank" 
             className={`w-full flex flex-col items-center justify-center xl:h-[300px] md:h-[267px] bg-white rounded-3xl NanumSquare border-2 border-solid border-transparent transition-all ${styles[`program-${index}`]}`}
           >
-            <div className="xl:w-32 xl:h-32 md:w-28 md:h-28 rounded-2xl flex items-center justify-center mb-10" style={{backgroundColor: program.iconBg}}>
-              <Image src={program.iconPath} alt={program.title} width={96} height={96} className="xl:h-24 md:h-20 object-contain"/>
+            <div className="relative xl:w-32 xl:h-32 md:w-28 md:h-28 rounded-2xl flex items-center justify-center mb-10" style={{backgroundColor: program.iconBg}}>
+              <div className='relative w-full xl:h-24 md:w-28 md:h-20'>
+                <Image 
+                  src={program.iconPath} 
+                  alt={program.title} 
+                  fill
+                  sizes='100%'
+                  className="object-contain aspect-square" 
+                />
+              </div>
             </div>
             <span className="mb-2 xl:text-base md:text-sm font-bold">
               {program.desc}
@@ -80,7 +88,14 @@ export default function Programs () {
                 className="w-[50px] h-[50px] rounded-[10px] flex items-center justify-center mr-2.5" 
                 style={{background: program.iconBg}}
               >
-                <img src={program.iconPath} alt={program.title} className="h-9"/>
+                <Image 
+                  src={program.iconPath} 
+                  alt={program.title} 
+                  width={96} 
+                  height={96} 
+                  className="h-9" 
+                  style={{ width: 'auto', height: 'auto' }}
+                />
               </div>
               <div className="font-bold text-[9px]">
                 <div>{program.desc}</div>
