@@ -26,6 +26,8 @@ const PostPage = async ({ params, searchParams }: PostPageProps) => {
   const board = await boardService.getBoardInfoById(post.boardId);
   const attachments = post.attachmentGroupId ? await attachmentService.getAttachmentGroup(post.attachmentGroupId) : [];
 
+  await postService.updateViewCount(postId);
+
   const backButtonLink = `/board/${searchParams.slug || board?.slug}?page=${searchParams.page || 1}`;
 
   return (
