@@ -1,5 +1,6 @@
 const express = require('express');
 const { getMenuList, createMenu, updateMenu, deleteMenu, getMenu } = require('../controllers/menu');
+const { verifyToken } = require('../middlewares');
 
 const router = express.Router();
 
@@ -10,12 +11,12 @@ router.get('/list', getMenuList);
 router.get('/:id', getMenu);
 
 // 메뉴 생성
-router.post('/', createMenu);
+router.post('/', verifyToken, createMenu);
 
 // 메뉴 수정
-router.put('/:id', updateMenu);
+router.put('/:id', verifyToken, updateMenu);
 
 // 메뉴 삭제
-router.delete('/:id', deleteMenu);
+router.delete('/:id', verifyToken, deleteMenu);
 
 module.exports = router;
