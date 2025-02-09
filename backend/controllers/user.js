@@ -4,6 +4,7 @@ const User = require('../models/user');
 const Teacher = require('../models/teacher');
 const Student = require('../models/student');
 const Parent = require('../models/parent');
+const { getPaginatedList } = require('./common');
 
 // 토큰을 이용한 사용자 정보 조회
 exports.getUserByToken = async (req, res) => {
@@ -123,32 +124,18 @@ async function getList(model, userType, attributes, limit, offset, page, res, no
 }
 
 exports.getUserList = async (req, res) => {
-  const { page = 1, size = 10 } = req.query;
-  const limit = parseInt(size);
-  const offset = (parseInt(page) - 1) * limit;
-
   try {
-    const totalDataCount = await db.User.count();
-    const users = await getUserListByType(null, ['phoneNumber', 'userType'], limit, offset);
-    const totalPages = Math.ceil(totalDataCount / limit);
-    const isLastPage = page >= totalPages;
-    const isFirstPage = page <= 1;
-
-    if (users.length === 0) {
-      return res.status(404).json({ message: '사용자가 없습니다.' });
-    }
-
-    return res.status(200).json({
-      data: users,
-      page: {
-        totalDataCount,
-        totalPages,
-        isLastPage,
-        isFirstPage,
-        requestPage: parseInt(page),
-        requestSize: limit
-      }
+    const { page = 1, size = 10 } = req.query;
+    const users = await getPaginatedList({
+      model: User,
+      page,
+      size,
+      notFoundMessage: '사용자 목록을 찾을 수 없습니다.',
     });
+    if (users.status === 404) {
+      return res.status(404).json({ message: users.message });
+    }
+    res.status(200).json(users);
   } catch (error) {
     console.error('Failed to retrieve user list:', error);
     return res.status(500).json({ message: '사용자 목록을 불러오는 중 오류가 발생했습니다.' });
@@ -156,24 +143,60 @@ exports.getUserList = async (req, res) => {
 };
 
 exports.getStudentList = async (req, res) => {
-  const { page = 1, size = 10 } = req.query;
-  const limit = parseInt(size);
-  const offset = (parseInt(page) - 1) * limit;
-  return getList(db.Student, 'student', ['studentId', 'userId', 'parentId', 'gradeLevel', 'schoolName', 'isActive'], limit, offset, page, res, '학생이 없습니다.');
+  try {
+    const { page = 1, size = 10 } = req.query;
+    const students = await getPaginatedList({
+      model: Student,
+      page,
+      size,
+      notFoundMessage: '학생 정보를 찾을 수 없습니다.',
+    });
+    if (students.status === 404) {
+      return res.status(404).json({ message: students.message });
+    }
+    res.status(200).json(students);
+  } catch (error) {
+    console.error('Failed to retrieve student list:', error);
+    return res.status(500).json({ message: '학생 목록을 불러오는 중 오류가 발생했습니다.' });
+  }
 }
 
 exports.getParentList = async (req, res) => {
-  const { page = 1, size = 10 } = req.query;
-  const limit = parseInt(size);
-  const offset = (parseInt(page) - 1) * limit;
-  return getList(db.Parent, 'parent', ['parentId', 'userId', 'isActive'], limit, offset, page, res, '학부모가 없습니다.');
+  try {
+    const { page = 1, size = 10 } = req.query;
+    const parents = await getPaginatedList({
+      model: Parent,
+      page,
+      size,
+      notFoundMessage: '학부모 정보를 찾을 수 없습니다.',
+    });
+    if (parents.status === 404) {
+      return res.status(404).json({ message: parents.message });
+    }
+    res.status(200).json(parents);
+  } catch (error) {
+    console.error('Failed to retrieve parent list:', error);
+    return res.status(500).json({ message: '학부모 목록을 불러오는 중 오류가 발생했습니다.' });
+  }
 }
 
 exports.getTeacherList = async (req, res) => {
-  const { page = 1, size = 10 } = req.query;
-  const limit = parseInt(size);
-  const offset = (parseInt(page) - 1) * limit;
-  return getList(db.Teacher, 'teacher', ['teacherId', 'userId', 'isAdmin', 'isActive'], limit, offset, page, res, '선생님이 없습니다.');
+  try {
+    const { page = 1, size = 10 } = req.query;
+    const teachers = await getPaginatedList({
+      model: Teacher,
+      page,
+      size,
+      notFoundMessage: '선생님 정보를 찾을 수 없습니다.',
+    });
+    if (teachers.status === 404) {
+      return res.status(404).json({ message: teachers.message });
+    }
+    res.status(200).json(teachers);
+  } catch (error) {
+    console.error('Failed to retrieve teacher list:', error);
+    return res.status(500).json({ message: '선생님 목록을 불러오는 중 오류가 발생했습니다.' });
+  }
 }
 
 // 공통된 업데이트 함수
