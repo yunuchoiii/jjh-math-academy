@@ -8,6 +8,7 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import styled from "styled-components";
 import Button from "../Button/Button";
 import CKEditorComponent from "../CKEditor/CKEditor";
 import FileUpload from "../Input/FileUpload";
@@ -22,6 +23,12 @@ interface PostEditFormProps {
   initialFiles?: IAttachment[];
   initialBoardId?: number;
 }
+
+const Container = styled.div`
+  & .FormError {
+    margin-top: 4px;
+  }
+`;
 
 const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEditFormProps) => {
   const router = useRouter();
@@ -155,10 +162,6 @@ const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEdi
   }
 
   const onSubmit = async (data: PostSavePayload) => {
-    // 첫 번째 이미지 태그의 src 추출
-    const imgTagMatch = data.content.match(/<img[^>]+src="([^">]+)"/);
-    const thumbnail = imgTagMatch ? imgTagMatch[1] : null;
-
     // validation
     if (!data.title || !data.content) {
       addToast({
@@ -176,6 +179,10 @@ const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEdi
     }
 
     try {
+      // 첫 번째 이미지 태그의 src 추출
+      const imgTagMatch = data.content.match(/<img[^>]+src="([^">]+)"/);
+      const thumbnail = imgTagMatch ? imgTagMatch[1] : null;
+
       // 저장된 첨부파일 삭제
       if (removedAttachments.length > 0) {
         await removeAttachments();
@@ -215,7 +222,7 @@ const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEdi
   }
 
   return (
-    <div>
+    <Container>
       <form className="grid grid-cols-2 gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="col-span-2 sm:col-span-1">
           <Select
@@ -276,7 +283,7 @@ const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEdi
           </div>
         </div>
       </form>
-    </div>
+    </Container>
   )
 }
 
