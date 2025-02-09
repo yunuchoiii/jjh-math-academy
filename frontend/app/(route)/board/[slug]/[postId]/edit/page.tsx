@@ -39,7 +39,9 @@ const EditPostPage = ({ params, searchParams }: EditPostPageProps) => {
       try {
         const res = await postService.getPost(postId);
         setPost(res);
-        fetchFiles(res.attachmentGroupId);
+        if (res.attachmentGroupId) {
+          fetchFiles(res.attachmentGroupId);
+        }
       } catch (error) {
         console.error(error);
       }
