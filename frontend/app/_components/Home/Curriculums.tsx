@@ -33,7 +33,7 @@ export default function Curriculums () {
       {curriculumList.map((item, index) =>  (
         <Link href={item.link} 
           key={`curriculum-${index}`} 
-          className={`block w-full xl:h-[300px] md:h-64 bg-white xl:rounded-tr-[138px] xl:rounded-bl-[138px] md:rounded-tr-[126px] md:rounded-bl-[126px] first:mb-10 xl:pb-9 xl:pl-9 md:pb-7 md:pl-7 relative border-4 border-transparent transition-all duration-300 cursor-pointer hover:scale-[103%] active:scale-100 shadow-[0px_0px_80px_0px_rgba(190,190,190,0.25)]hover:shadow-[0px_0px_80px_0px_rgba(190,190,190,0.4)] ${index == 0 ? 'hover:border-yellow-1' : 'hover:border-green-1'}`}
+          className={`block w-full xl:h-[300px] md:h-64 bg-white xl:rounded-tr-[138px] xl:rounded-bl-[138px] md:rounded-tr-[126px] md:rounded-bl-[126px] first:mb-10 xl:pb-9 xl:pl-9 md:pb-7 md:pl-7 relative border-4 border-transparent transition-all duration-300 cursor-pointer hover:scale-[103%] active:scale-100 shadow-[0px_0px_40px_0px_rgba(190,190,190,0.25)] hover:shadow-[0px_0px_60px_0px_rgba(190,190,190,0.5)] ${index == 0 ? 'hover:border-yellow-1' : 'hover:border-green-1'}`}
         >
           <div className={`xl:w-[218px] xl:h-[218px] md:w-48 md:h-48 rounded-full bg-gradient-to-b absolute xl:bottom-9 md:bottom-7 shadow-xl ${index == 0 ? 'from-yellow-1 to-yellow-3' : 'from-green-1 to-green-2'}`}>
             <div className='absolute bottom-0 w-full flex justify-center rounded-bl-full rounded-br-full overflow-hidden'>

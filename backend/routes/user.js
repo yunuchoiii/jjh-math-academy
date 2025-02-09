@@ -21,27 +21,27 @@ router.get('/info/parent/:userId', verifyToken, getParentInfo);
 router.get('/info/student/:userId', verifyToken, getStudentInfo);
 
 // 사용자 목록 조회
-router.get('/list', getUserList);
+router.get('/list', verifyToken, getUserList);
 
 // 학생 목록 조회
-router.get('/list/student', getStudentList);
+router.get('/list/student', verifyToken, getStudentList);
 
 // 학부모 목록 조회
-router.get('/list/parent', getParentList);
+router.get('/list/parent', verifyToken, getParentList);
 
 // 선생님 목록 조회
-router.get('/list/teacher', getTeacherList);
+router.get('/list/teacher', verifyToken, getTeacherList);
 
 // 사용자 정보 수정
-router.put('/update/:userId', updateUser);
+router.put('/update/:userId', verifyToken, updateUser);
 
 // 선생님 정보 수정
-router.put('/update/teacher/:userId', updateTeacher);
+router.put('/update/teacher/:userId', verifyToken, updateTeacher);
 
 // 학생 정보 수정
-router.put('/update/student/:userId', updateStudent);
+router.put('/update/student/:userId', verifyToken, updateStudent);
 
 // 학부모 정보 수정
-router.put('/update/parent/:userId', updateParent);
+router.put('/update/parent/:userId', verifyToken, updateParent);
 
 module.exports = router;
