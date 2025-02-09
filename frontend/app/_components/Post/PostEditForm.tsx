@@ -219,12 +219,11 @@ const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEdi
       <form className="grid grid-cols-2 gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="col-span-2 sm:col-span-1">
           <Select
-            label="게시판"
             options={[
               { value: 0, label: "게시판 선택", disabled: true },
               ...boardList.map((board) => ({ value: board.id, label: board.name })),
             ]}
-            value={watch("boardId")}
+            value={boardList.find(board => board.id === watch("boardId")) ? watch("boardId") : 0}
             onChange={(value) => setValue("boardId", value)}
             position="horizontal"
             error={errors.boardId}
@@ -239,7 +238,6 @@ const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEdi
         </div>
         <div className="col-span-2">
           <TextField
-            label="제목"
             placeholder="제목을 입력해주세요."
             inputType="text"
             register={register("title", { required: "제목을 입력해주세요." })}

@@ -5,7 +5,7 @@ import FormError from "../Error/FormError";
 import styles from "./Input.module.css";
 
 interface TextFieldProps {
-  label: string;
+  label?: string;
   placeholder: string;
   description?: string;
   inputType: HTMLInputTypeAttribute;
@@ -22,7 +22,7 @@ const TextField = ({ label, placeholder, description, inputType, value, onChange
 
   return (
     <div className="TextField-container w-full flex flex-col gap-1 mb-4">
-      <label className="TextField-label text-sm Montserrat ml-1">{label}</label>
+      {label &&<label className="TextField-label text-sm Montserrat ml-1">{label}</label>}
       <div className="TextField-input-container">
         <div className="flex items-center">
           <input 
