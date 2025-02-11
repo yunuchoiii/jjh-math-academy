@@ -31,7 +31,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(cors({
-  origin: process.env.CLIENT_URL,
+  origin: 'https://www.jjhmath.com', // 모든 도메인 허용
   credentials: true,
 }));
 app.use(session({
