@@ -79,7 +79,7 @@ const IntroductionPage = () => {
             단순히 수학 성적 향상만을 목표로 하지 않고, 아이들이 스스로 문제를 해결하며 <strong>깊이 있는 사고력</strong>을 키울 수 있도록 돕는 데 중점을 두고 있습니다.
           </p>
           <p className="text-lg leading-relaxed">
-            유아교육과 출신의 원장 선생님이 초중등 최상위권 학생과 사립초 학생들을 전문적으로 지도하며, <br/>
+            원장 선생님이 초중등 최상위권 학생과 사립초 학생들을 전문적으로 지도하며, <br/>
             원장 선생님이 직접 지도함으로써 각 <strong>학생의 잠재력</strong>을 최대한 이끌어냅니다.
           </p>
           <p className="text-lg leading-relaxed">
