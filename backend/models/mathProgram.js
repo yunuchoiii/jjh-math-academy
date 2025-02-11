@@ -40,7 +40,7 @@ class MathProgram extends Sequelize.Model {
         comment: '수업 횟수 및 시간'
       },
       themeColor: {
-        type: DataTypes.STRING(7),
+        type: DataTypes.STRING(20),
         comment: '테마 색상'
       },
       url: {
