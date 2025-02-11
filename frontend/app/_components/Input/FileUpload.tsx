@@ -72,7 +72,7 @@ const FileUpload = ({ files, addFiles, initialFiles, removeFile, removeInitialFi
 
   return <Container className="flex items-center gap-2.5">
     <div 
-      className="flex flex-col items-center justify-center gap-4 w-full border border-[#CCCED1] rounded-md px-5 py-4"
+      className="flex flex-col items-center justify-center gap-4 w-full border border-[#CCCED1] rounded-md p-5 pt-4"
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}
       onDragOver={onDragOver}
