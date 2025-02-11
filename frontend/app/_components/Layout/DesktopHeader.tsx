@@ -14,10 +14,9 @@ interface DesktopHeaderProps {
   handleContactMenu: () => void;
   user: any;
   isLoading: boolean;
-  logout: () => void;
 }
 
-const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoading, logout}: DesktopHeaderProps) => {
+const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoading}: DesktopHeaderProps) => {
   const pathname = usePathname();
 
   const { currentMenu, currentParentMenu, getParentMenuList, getChildMenuList } = useMenu();
@@ -126,16 +125,6 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
                 <i className="fas fa-user-circle text-xl"></i>
               </Link>
             </Tooltip>
-            {user && (
-              <Tooltip title="로그아웃">
-                <div 
-                  className="flex items-center py-1.5 hover:text-green-1 hover:cursor-pointer" 
-                  onClick={logout}
-              >
-                  <i className="fas fa-sign-out-alt text-xl"></i>
-                </div>
-              </Tooltip>
-            )}
           </div>
         ) : (
           <a href={BLOG_LINK} target="_blank" rel="noopener noreferrer">
