@@ -8,7 +8,6 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
 import Button from "../Button/Button";
 import CKEditorComponent from "../CKEditor/CKEditor";
 import FileUpload from "../Input/FileUpload";
@@ -23,12 +22,6 @@ interface PostEditFormProps {
   initialFiles?: IAttachment[];
   initialBoardId?: number;
 }
-
-const Container = styled.div`
-  & .FormError {
-    margin-top: 4px;
-  }
-`;
 
 const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEditFormProps) => {
   const router = useRouter();
@@ -222,7 +215,7 @@ const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEdi
   }
 
   return (
-    <Container>
+    <section>
       <form className="grid grid-cols-2 gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="col-span-2 sm:col-span-1">
           <Select
@@ -283,7 +276,7 @@ const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEdi
           </div>
         </div>
       </form>
-    </Container>
+    </section>
   )
 }
 
