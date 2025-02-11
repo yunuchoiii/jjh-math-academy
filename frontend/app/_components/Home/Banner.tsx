@@ -183,7 +183,7 @@ const HomeBanner = () => {
         {bannerList.map((banner, index) => (
           <div
             key={`mobile-banner-${banner.sort}`}
-            className={`h-[300px] w-[280px] mx-3 rounded-xl relative overflow-x-scroll flex-shrink-0 snap-center transition-all duration-300 ${index === activeIndex ? 'scale-110 shadow-xl' : 'scale-100 shadow-lg'}`}
+            className={`h-[300px] w-[280px] mx-3 rounded-xl relative overflow-x-scroll flex-shrink-0 snap-center transition-all duration-300 ${index === activeIndex ? 'scale-110 sm:scale-100 shadow-xl sm:shadow-lg' : 'scale-100 shadow-lg'}`}
             style={{
               background: banner.backgroundColor, 
               // boxShadow: '8px 8px 24px 0px rgba(0, 0, 0, 0.10), -8px -8px 24px 0px rgba(255, 255, 255, 0.10)',
