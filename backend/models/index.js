@@ -2,8 +2,12 @@ const Sequelize = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const config = require('../config/config');
-const env = process.env.NODE_ENV;
+const env = process.env.NODE_ENV || 'development';
 const db = {};
+
+if (!config[env]) {
+  throw new Error(`환경 설정이 존재하지 않습니다: ${env}`);
+}
 
 const sequelize = new Sequelize(
   config[env].database, 
