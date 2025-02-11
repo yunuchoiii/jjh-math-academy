@@ -1,5 +1,4 @@
 import { JoinPayload } from "@/app/(route)/auth/join/form/page";
-import { useEffect } from "react";
 import { FieldErrors, UseFormRegister, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import Select from "../../Input/Select";
 import TextField from "../../Input/TextField";
@@ -27,10 +26,6 @@ const JoinStudentForm = ({ register, errors, watch, setValue }: JoinStudentFormP
     { value: 12, label: '고등학교 3학년' },
   ];
 
-  useEffect(() => {
-    console.log(watch('gradeLevel'));
-  }, [watch('gradeLevel')]);
-
   return (
     <div>
       <TextField 
@@ -46,6 +41,7 @@ const JoinStudentForm = ({ register, errors, watch, setValue }: JoinStudentFormP
         onChange={(value) => {
           setValue('gradeLevel', value);
         }}
+        value={watch('gradeLevel')}
         error={errors.gradeLevel}
       />
     </div>
