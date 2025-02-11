@@ -1,7 +1,8 @@
 export const HEADER_HEIGHT = 60;
 export const HEADER_HEIGHT_MOBILE = 50;
 export const BLOG_LINK = "https://blog.naver.com/lllqueen8180";
-export const NAVER_MAP_LINK = "https://m.place.naver.com/share?id=33510998&tabsPath=%2Fhome&appMode=detail";
+export const KAKAOTALK_LINK = "https://open.kakao.com/o/sxKAlgNe";
+export const NAVER_MAP_LINK = "https://naver.me/5qDJZk8Z";
 export const CONTACT_SECTION_LINK = "/#contact-section";
 
 export const LOGO_GREEN_SRC = "/images/logos/logo_green.png";
@@ -28,7 +29,7 @@ export const CONTACT_INFO:Record<string, childMenu> = {
     sort: 2,
     title: "카카오톡 상담",
     icon: "/images/icons/kakaotalk-black.png",
-    link: ""
+    link: KAKAOTALK_LINK
   },
   blog: {
     sort: 3,
