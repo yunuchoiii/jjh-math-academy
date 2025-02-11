@@ -2,9 +2,11 @@
 
 import PostEditForm from "@/app/_components/Post/PostEditForm";
 import Title from "@/app/_components/Title/Title";
+import useUser from "@/app/_hooks/useUser";
 import { attachmentService, IAttachment } from "@/app/_service/attachment";
 import { boardService, BoardSlugEnum, IBoard } from "@/app/_service/board";
 import { IPost, postService } from "@/app/_service/post";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -27,6 +29,9 @@ interface EditPostPageProps {
 }
 
 const EditPostPage = ({ params, searchParams }: EditPostPageProps) => {
+  const {isLoggedIn} = useUser();
+  const router = useRouter();
+
   const postId = Number(params.postId);
   const boardId = Number(searchParams.boardId);
 
@@ -64,12 +69,15 @@ const EditPostPage = ({ params, searchParams }: EditPostPageProps) => {
         console.error(error);
       }
     }
-
-    fetchBoardList();
-    if (postId) {
-      fetchPost();
+    if (!isLoggedIn) {
+      router.push("/auth/login");
+    } else {
+      fetchBoardList();
+      if (postId) {
+        fetchPost();
+      }
     }
-  }, []);
+  }, [isLoggedIn, postId]);
 
   return <Container>
     <Title title={"새로운 글"} color="green"/>
