@@ -25,7 +25,7 @@ export default function Home() {
           <HomeBanner/>
         </div>
         <div className="pb-14">
-          <div className="flex items-center justify-center md:flex-row flex-col md:mt-20 mt-10">
+          <div className="flex items-center justify-center md:flex-row flex-col md:mt-20 mt-6">
             <Image src={LOGO_GREEN_SRC} alt="logo" width={60} height={60}/>
             <div className="text-center md:ml-7 ml-0 md:mt-0 mt-5 NanumSquare ">
               <div className="xl:text-3xl md:text-2xl text-sm">

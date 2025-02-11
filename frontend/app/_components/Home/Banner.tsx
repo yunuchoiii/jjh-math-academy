@@ -1,12 +1,14 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PlusIconButton from "../CustomButtons/PlusIconButton";
 
 const HomeBanner = () => {
   const router = useRouter();
   const [activeBanner, setActiveBanner] = useState<Array<boolean>>([true, false, false, false]);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   type Banner = {
     sort: number,
@@ -62,32 +64,52 @@ const HomeBanner = () => {
     },
   ];
 
-  const MobileBannerCard = ({ item }: { item: Banner }) => {
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const scrollPosition = scrollRef.current.scrollLeft;
+      const cardWidth = 280;
+      const newIndex = Math.round(scrollPosition / cardWidth);
+      setActiveIndex(newIndex);
+    }
+  };
+
+  useEffect(() => {
+    const currentScrollRef = scrollRef.current;
+    if (currentScrollRef) {
+      currentScrollRef.addEventListener("scroll", handleScroll);
+    }
+    return () => {
+      if (currentScrollRef) {
+        currentScrollRef.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
+
+  const MobileBannerCard = ({ banner }: { banner: Banner }) => {
     return (
       <div
-        className={`h-[300px] w-[280px] mx-2.5 rounded-xl relative overflow-x-scroll flex-shrink-0 snap-center active:scale-95 transition-all duration-300`}
+        className={`h-[300px] w-[280px] mx-3 rounded-xl relative overflow-x-scroll flex-shrink-0 snap-center`}
         style={{
-          background: item.backgroundColor, 
+          background: banner.backgroundColor, 
           boxShadow: '8px 8px 24px 0px rgba(0, 0, 0, 0.10), -8px -8px 24px 0px rgba(255, 255, 255, 0.10)',
         }}
-        onClick={() => router.push(item.link)}
+        onClick={() => router.push(banner.link)}
       >
         <div className="mt-7 mx-6 flex justify-between">
           <div className="leading-snug NanumSquare">
             <div className="text-base font-bold mb-1">
-              {item.subtitle}
+              {banner.subtitle}
             </div>
-            <div className="text-2xl font-extrabold" style={{color: item.color}}>
-              {item.title}
+            <div className="text-2xl font-extrabold" style={{color: banner.color}}>
+              {banner.title}
             </div>
           </div>
-          <PlusIconButton color={item.color} size={20}/>
+          <PlusIconButton color={banner.color} size={20}/> 
         </div>
         <div className="absolute bottom-0 flex justify-center w-full h-[200px] bg-no-repeat bg-top" style={{
-          backgroundImage: `url(${item.imgPath})`,
-          backgroundSize: item.sort === 2 ? '90%' : 'cover',
+          backgroundImage: `url(${banner.imgPath})`,
+          backgroundSize: banner.sort === 2 ? '90%' : 'cover',
         }}>
-          {/* <img src={item.imgPath}/> */}
         </div>
       </div>
     );
@@ -150,14 +172,42 @@ const HomeBanner = () => {
     </div>  
 
     {/* Mobile Version */}
-    <div className="lg:hidden flex w-screen">
+    <div className="lg:hidden flex w-screen justify-center">
       <div 
-        className="flex w-full overflow-x-scroll hidden-scroll -mt-16 pt-16 pb-10 sm:px-12 px-[calc(50vw-150px)]" 
+        ref={scrollRef}
+        className="flex w-full overflow-x-scroll hidden-scroll -mt-16 pt-16 pb-14 sm:px-12 px-[calc(50vw-150px)]" 
         style={{
           scrollSnapType: 'x mandatory',
         }}
       >
-        {bannerList.map(i => <MobileBannerCard item={i} key={`mobile-banner-${i.sort}`}></MobileBannerCard>)}
+        {bannerList.map((banner, index) => (
+          <div
+            key={`mobile-banner-${banner.sort}`}
+            className={`h-[300px] w-[280px] mx-3 rounded-xl relative overflow-x-scroll flex-shrink-0 snap-center transition-all duration-300 ${index === activeIndex ? 'scale-110 shadow-xl' : 'scale-100 shadow-lg'}`}
+            style={{
+              background: banner.backgroundColor, 
+              // boxShadow: '8px 8px 24px 0px rgba(0, 0, 0, 0.10), -8px -8px 24px 0px rgba(255, 255, 255, 0.10)',
+            }}
+            onClick={() => router.push(banner.link)}
+          >
+            <div className="mt-7 mx-6 flex justify-between">
+              <div className="leading-snug NanumSquare">
+                <div className="text-base font-bold mb-1">
+                  {banner.subtitle}
+                </div>
+                <div className="text-2xl font-extrabold" style={{color: banner.color}}>
+                  {banner.title}
+                </div>
+              </div>
+              <PlusIconButton color={banner.color} size={20}/> 
+            </div>
+            <div className="absolute bottom-0 flex justify-center w-full h-[200px] bg-no-repeat bg-top" style={{
+              backgroundImage: `url(${banner.imgPath})`,
+              backgroundSize: banner.sort === 2 ? '90%' : 'cover',
+            }}>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </>
