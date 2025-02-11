@@ -70,59 +70,6 @@ exports.getStudentInfo = async (req, res) => {
   return getInfo(db.Student, userId, res, 'Student not found');
 }
 
-// 공통된 사용자 목록 조회 함수
-async function getUserListByType(userType, additionalAttributes = [], limit = null, offset = null) {
-  // userType이 null이 아닐 때만 조건 추가
-  const whereCondition = userType !== null ? { userType } : {};
-
-  const users = await db.User.findAll({
-    where: whereCondition,
-    attributes: ['userId', 'username', 'email', ...additionalAttributes],
-    limit,
-    offset
-  });
-  return users;
-}
-
-// 공통된 병합 로직 함수
-function mergeUserData(users, specificData, userIdKey) {
-  return specificData.map(item => {
-    const user = users.find(u => u.userId === item[userIdKey]);
-    return {
-      ...item.get(),
-      username: user ? user.username : null,
-      email: user ? user.email : null,
-    };
-  });
-}
-
-// 공통된 목록 조회 함수
-async function getList(model, userType, attributes, limit, offset, page, res, notFoundMessage) {
-  const totalDataCount = await model.count();
-  const users = await getUserListByType(userType, [], limit, offset);
-  const data = await model.findAll({ attributes, limit, offset });
-  const mergedList = mergeUserData(users, data, 'userId');
-  const totalPages = Math.ceil(totalDataCount / limit);
-  const isLastPage = page >= totalPages;
-  const isFirstPage = page <= 1;
-
-  if (mergedList.length === 0) {
-    return res.status(404).json({ message: notFoundMessage });
-  }
-
-  return res.status(200).json({
-    data: mergedList,
-    page: {
-      totalDataCount,
-      totalPages,
-      isLastPage,
-      isFirstPage,
-      requestPage: parseInt(page),
-      requestSize: limit
-    }
-  });
-}
-
 exports.getUserList = async (req, res) => {
   try {
     const { page = 1, size = 10 } = req.query;
