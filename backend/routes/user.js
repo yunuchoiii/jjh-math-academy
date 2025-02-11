@@ -21,16 +21,16 @@ router.get('/info/parent/:userId', verifyToken, getParentInfo);
 router.get('/info/student/:userId', verifyToken, getStudentInfo);
 
 // 사용자 목록 조회
-router.get('/list', verifyToken, getUserList);
+router.get('/list', getUserList);
 
 // 학생 목록 조회
-router.get('/list/student', verifyToken, getStudentList);
+router.get('/list/student', getStudentList);
 
 // 학부모 목록 조회
-router.get('/list/parent', verifyToken, getParentList);
+router.get('/list/parent', getParentList);
 
 // 선생님 목록 조회
-router.get('/list/teacher', verifyToken, getTeacherList);
+router.get('/list/teacher', getTeacherList);
 
 // 사용자 정보 수정
 router.put('/update/:userId', verifyToken, updateUser);

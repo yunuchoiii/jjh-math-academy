@@ -2,8 +2,10 @@
 
 import ReactiveButton from "@/app/_components/Button/ReactiveButton";
 import { LOGO_GREEN_SRC } from "@/app/_constants/constants";
+import useUser from "@/app/_hooks/useUser";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 interface JoinCompleteProps {
   searchParams: {
@@ -13,6 +15,14 @@ interface JoinCompleteProps {
 
 const JoinComplete = ({ searchParams }: JoinCompleteProps) => {
   const router = useRouter();
+  const {isLoggedIn} = useUser();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/");
+    }
+  }, [isLoggedIn]);
+
   return (<div className="w-full h-[500px] relative rounded-[30px] overflow-hidden shadow-3">
     <div className="absolute z-0 lg:top-20 md:top-40 top-20 left-[20%] sm:left-1/4 md:left-[15%] lg:w-80 lg:h-80 w-64 h-64 rounded-full bg-yellow-1"></div>
     <div className="absolute z-0 lg:top-40 md:top-44 top-64 right-[20%] sm:right-1/4 md:right-[15%] lg:w-64 lg:h-64 w-52 h-52 rounded-full bg-gradient-to-br from-[#37CC87] to-[#32EB97]"></div>

@@ -17,6 +17,12 @@
 	margin-right: auto;
 }
 
+.ck.ck-menu-bar {
+	border-radius: var(--ck-border-radius);
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
 .ck-content {
 	font-family: 'Pretendard';
 	line-height: 1.6;

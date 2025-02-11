@@ -155,10 +155,6 @@ const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEdi
   }
 
   const onSubmit = async (data: PostSavePayload) => {
-    // 첫 번째 이미지 태그의 src 추출
-    const imgTagMatch = data.content.match(/<img[^>]+src="([^">]+)"/);
-    const thumbnail = imgTagMatch ? imgTagMatch[1] : null;
-
     // validation
     if (!data.title || !data.content) {
       addToast({
@@ -176,6 +172,10 @@ const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEdi
     }
 
     try {
+      // 첫 번째 이미지 태그의 src 추출
+      const imgTagMatch = data.content.match(/<img[^>]+src="([^">]+)"/);
+      const thumbnail = imgTagMatch ? imgTagMatch[1] : null;
+
       // 저장된 첨부파일 삭제
       if (removedAttachments.length > 0) {
         await removeAttachments();
@@ -215,16 +215,15 @@ const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEdi
   }
 
   return (
-    <div>
+    <section>
       <form className="grid grid-cols-2 gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="col-span-2 sm:col-span-1">
           <Select
-            label="게시판"
             options={[
               { value: 0, label: "게시판 선택", disabled: true },
               ...boardList.map((board) => ({ value: board.id, label: board.name })),
             ]}
-            value={watch("boardId")}
+            value={boardList.find(board => board.id === watch("boardId")) ? watch("boardId") : 0}
             onChange={(value) => setValue("boardId", value)}
             position="horizontal"
             error={errors.boardId}
@@ -239,7 +238,6 @@ const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEdi
         </div>
         <div className="col-span-2">
           <TextField
-            label="제목"
             placeholder="제목을 입력해주세요."
             inputType="text"
             register={register("title", { required: "제목을 입력해주세요." })}
@@ -278,7 +276,7 @@ const PostEditForm = ({ post, boardList, initialFiles, initialBoardId }: PostEdi
           </div>
         </div>
       </form>
-    </div>
+    </section>
   )
 }
 

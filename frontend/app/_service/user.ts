@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { IPaginatedResponse, PaginationPayload } from "./common";
 
 export interface IUser extends UserSavePayload {
   userId: number;
@@ -129,34 +130,34 @@ export const userService = {
     return response.data;
   },
   /** 유저 목록 조회
-   * @returns {Promise<any>} - 유저 목록 응답 데이터
+   * @returns {IPaginatedResponse<IUser>} - 유저 목록 응답 데이터
    */
-  getList: async () => {
-    const url = `${USER_SERVICE_URL}/list`;
+  getList: async ({ page, size }: PaginationPayload) => {
+    const url = `${USER_SERVICE_URL}/list?page=${page}&size=${size}`;
     const response = await axios.get(url, { withCredentials: true });
     return response.data;
   },
   /** 학생 목록 조회
-   * @returns {Promise<any>} - 학생 목록 응답 데이터
+   * @returns {IPaginatedResponse<IStudent>} - 학생 목록 응답 데이터
    */
-  getStudentList: async () => {
-    const url = `${USER_SERVICE_URL}/list/student`;
+  getStudentList: async ({ page, size }: PaginationPayload) => {
+    const url = `${USER_SERVICE_URL}/list/student?page=${page}&size=${size}`;
     const response = await axios.get(url, { withCredentials: true });
     return response.data;
   },
   /** 선생님 목록 조회
-   * @returns {Promise<any>} - 선생님 목록 응답 데이터
+   * @returns {IPaginatedResponse<ITeacher>} - 선생님 목록 응답 데이터
    */
-  getTeacherList: async () => {
-    const url = `${USER_SERVICE_URL}/list/teacher`;
+  getTeacherList: async ({ page, size }: PaginationPayload) => {
+    const url = `${USER_SERVICE_URL}/list/teacher?page=${page}&size=${size}`;
     const response = await axios.get(url, { withCredentials: true });
     return response.data;
   },
   /** 부모 목록 조회
-   * @returns {Promise<any>} - 부모 목록 응답 데이터
+   * @returns {IPaginatedResponse<IParent>} - 부모 목록 응답 데이터
    */
-  getParentList: async () => {
-    const url = `${USER_SERVICE_URL}/list/parent`;
+  getParentList: async ({ page, size }: PaginationPayload) => {
+    const url = `${USER_SERVICE_URL}/list/parent?page=${page}&size=${size}`;
     const response = await axios.get(url, { withCredentials: true });
     return response.data;
   },

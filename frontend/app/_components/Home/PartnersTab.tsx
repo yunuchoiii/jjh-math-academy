@@ -27,19 +27,28 @@ export default function PartnersTab () {
     },
   ];
 
+  const totalImagesLength = tabs.reduce((acc, tab) => acc + tab.images.length, 0);
+
   return <div className="px-0 md:px-5 lg:px-0">
     {/* PC Version */}
     <div className="md:flex hidden justify-between mt-20">
-      {tabs.map((tab,index) => <div key={`home-partners-${index}`} className={index==0 ? 'w-[28%]' : 'w-[68%]'}>
-        <div className="w-full flex items-center">
-          <div className="w-full h-[1px] bg-green-1"></div>
-          <div className="px-2 uppercase text-sm Montserrat font-bold">{tab.title}</div>
-          <div className="w-full h-[1px] bg-green-1"></div>
+      {tabs.map((tab,index) => 
+        <div 
+          key={`home-partners-${index}`} 
+          style={{
+            width: `calc(96% * (${tab.images.length / totalImagesLength}))`
+          }}
+        >
+          <div className="w-full flex items-center">
+            <div className="w-full h-[1px] bg-green-1"></div>
+            <div className="px-2 uppercase text-sm Montserrat font-bold">{tab.title}</div>
+            <div className="w-full h-[1px] bg-green-1"></div>
+          </div>
+          <div className="w-full flex items-center justify-between mt-5">
+            {tab.images.map(i => <img src={`/images/icons/${i}`} alt="logo" className="xl:h-8 lg:h-6 md:h-5 grayscale" key={`partner-img-${i}`}></img>)}
+          </div>
         </div>
-        <div className="w-full flex items-center justify-between mt-5">
-          {tab.images.map(i => <img src={`/images/icons/${i}`} alt="logo" className="xl:h-8 lg:h-6 md:h-5 grayscale" key={`partner-img-${i}`}></img>)}
-        </div>
-      </div>)}
+      )}
     </div>
     {/* Mobile Version */}
     <div className="md:hidden block mt-10">

@@ -73,11 +73,11 @@ export const useMenu = () => {
         setCurrentMenu(current || null);
         setCurrentParentMenu(current || null);
       } else {
-        const current = menuList.find(menu => menu.link?.includes(pathname));
+        const current = menuList.find(menu => pathname.includes(menu.link!));
         if (current) {
           setCurrentMenu(current);
-        if (current.parentId) {
-          setCurrentParentMenu(menuList.find(menu => menu.id === current.parentId) || null);
+          if (current.parentId) {
+            setCurrentParentMenu(parentMenuList.find(menu => menu.id === current.parentId) || null);
           }
         }
       }

@@ -227,10 +227,24 @@ exports.logout = async (req, res) => {
 
 // Refresh Token 검증 및 새로운 Access Token 발급
 exports.refreshToken = async (req, res) => {
+  const accessToken = req.headers['authorization']?.split(' ')[1]; // 액세스 토큰 확인
   const refreshToken = req.cookies.refreshToken;
 
-  if (!refreshToken) {
-    return res.status(401).json({ message: 'Refresh Token이 없습니다.' });
+  if (accessToken) {
+    try {
+      await jwt.verify(accessToken, process.env.JWT_SECRET);
+      return res.status(200).json({
+        code: 200,
+        message: '유효한 Access Token입니다.',
+        accessToken, // 기존 액세스 토큰 반환
+      });
+    } catch (error) {
+      console.error(error);
+      // 액세스 토큰이 만료된 경우 리프레시 토큰 확인
+      if (!refreshToken) {
+        return res.status(401).json({ message: 'Refresh Token이 없습니다.' });
+      }
+    }
   }
 
   try {

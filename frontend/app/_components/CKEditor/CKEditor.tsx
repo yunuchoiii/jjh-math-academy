@@ -3,7 +3,9 @@
 import { CKEditor, useCKEditorCloud } from '@ckeditor/ckeditor5-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
+import { accessTokenState } from '@/app/_stores/user';
 import '@/app/_styles/ckeditor.css';
+import { useRecoilValue } from 'recoil';
 
 const LICENSE_KEY = process.env.CKEDITOR_LICENSE_KEY;
 
@@ -15,6 +17,8 @@ export default function CKEditorComponent({ onChange, initialContent }: { onChan
 	const [isLayoutReady, setIsLayoutReady] = useState<boolean>(false);
 	const cloud = useCKEditorCloud({ version: '44.1.0', translations: ['ko'] });
 	const editorInstanceRef = useRef<any>(null);
+	
+	const accessToken = useRecoilValue(accessTokenState);
 
 	useEffect(() => {
 		setIsLayoutReady(true);
@@ -326,7 +330,7 @@ export default function CKEditorComponent({ onChange, initialContent }: { onChan
 					withCredentials: true,
 					headers: {
 						'X-CSRF-TOKEN': 'CSRF-Token',
-						Authorization: 'Bearer <JSON Web Token>'
+						Authorization: `Bearer ${accessToken}`
 					},
 					onUploadComplete: (response: { url: string }) => {
 						const imageUrl = response.url;

@@ -32,7 +32,7 @@ const JoinParentForm = ({ setValue, selectedStudent, setSelectedStudent }: JoinP
 
   useEffect(() => {
     const fetchStudentList = async () => {
-      const studentList = await userService.getStudentList();
+      const studentList = await userService.getStudentList({ page: 1, size: 1000 });
       setStudentList(studentList.data);
     };
     fetchStudentList();

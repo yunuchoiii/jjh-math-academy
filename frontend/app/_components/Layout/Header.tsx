@@ -13,7 +13,7 @@ export default function Header () {
   const router = useRouter();
   const pathname = usePathname();
   const {addToast} = useToast();
-  const { user, userInfoByType, isLoading, logout, getUserPermission } = useUser()
+  const { user, userInfoByType, isLoading, getUserPermission } = useUser()
   const { currentMenu, isLoading: menuLoading } = useMenu()
 
   // 유저 접근 권한
@@ -111,7 +111,6 @@ export default function Header () {
       handleContactMenu={handleContactMenu} 
       user={user} 
       isLoading={isLoading} 
-      logout={logout} 
     />
     {/* 모바일 및 태블릿 */}
     <MobileHeader

@@ -4,7 +4,7 @@ import ReactiveButton from "../Button/ReactiveButton";
 import FormError from "../Error/FormError";
 
 interface SelectProps {
-  label: string;
+  label?: string;
   value?: any;
   options: { value: any; label: string, disabled?: boolean }[];
   onChange?: (value: any) => void;
@@ -32,7 +32,7 @@ const Select = ({ label, value, options, onChange, buttonLabel, onButtonClick, e
 
   return (<div>
     <div className={`Select-container w-full mb-4 flex ${position === "vertical" ? "flex-col gap-1" : "flex-row items-center gap-4"}`}>
-      <label className="Select-label text-sm Montserrat ml-1">{label}</label>
+      {label && <label className="Select-label text-sm Montserrat ml-1">{label}</label>}
       <div className="relative flex-1 flex">
         <div className="relative flex flex-row items-center flex-1">
           <button
