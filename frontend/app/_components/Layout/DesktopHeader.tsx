@@ -58,7 +58,8 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
 
     if (pathname === '/') {
       setIsAtTop(true);
-      window.addEventListener('scroll', handleScroll);
+      handleScroll(); // 초기(새로고침) 스크롤 이벤트 처리
+      window.addEventListener('scroll', handleScroll); // 스크롤 이벤트 추가
     } else {
       setIsAtTop(false);
     }
