@@ -1,5 +1,5 @@
 // 공통된 목록 조회 함수
-export async function getPaginatedList({model, attributes, page = 1, size = 10, notFoundMessage = "Data not found", filter = {}, order = []}) {
+module.exports.getPaginatedList = async function({model, attributes, page = 1, size = 10, notFoundMessage = "Data not found", filter = {}, order = []}) {
   try {
     const limit = parseInt(size);
     const offset = (parseInt(page) - 1) * limit;
@@ -14,7 +14,7 @@ export async function getPaginatedList({model, attributes, page = 1, size = 10, 
       return {
         status: 200,
         data: [],
-        message: "No data available",
+        message: notFoundMessage,
         page: {
           totalDataCount,
           totalPages,
