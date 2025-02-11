@@ -70,7 +70,12 @@ const BooksAndToolsSection = ({ title, books, tools, featuresOfBooks, featuresOf
         {title}에서는 <br className="block md:hidden"/>어떤 교재와 교구를 사용할까요?
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-[30px]">
-        <div className={isIntersected ? (isMobile ? "fade-in-bottom" : "swing-in-right-fwd") : "opacity-0"}>
+        <div 
+          className={isIntersected ? "fade-in-bottom" : "opacity-0"}
+          style={{
+            animationDuration: "0.5s",
+          }}
+        >
           <Section 
             title={title}
             imageSrc="/images/sigma-class-books.png" 
@@ -81,7 +86,13 @@ const BooksAndToolsSection = ({ title, books, tools, featuresOfBooks, featuresOf
             color={color}
           />
         </div>
-        <div className={isIntersected ? (isMobile ? "fade-in-bottom" : "swing-in-left-fwd") : "opacity-0"}>
+        <div 
+          className={isIntersected ? "fade-in-bottom" : "opacity-0"}
+          style={{
+            animationDelay: "0.2s",
+            animationDuration: "0.5s",
+          }}
+        >
           <Section 
             title={title}
             imageSrc="/images/learning-tools-2.png" 
