@@ -94,7 +94,7 @@ const Board = ({ board, postList, hideBoardButtons, hideSearchBar, hidePaginatio
   const {user, userInfoByType} = useUser();
 
   const [searchKeyword, setSearchKeyword] = useState<string | null>(null);
-  const [searchType, setSearchType] = useState<string | null>(null);
+  const [searchType, setSearchType] = useState<string | null>("title");
 
   const handleSearch = (keyword: string, type: string) => {
     const queryParams = new URLSearchParams();
