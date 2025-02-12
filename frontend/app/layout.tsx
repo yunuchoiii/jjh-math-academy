@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import Body from './_components/Layout/Body'
 import Footer from './_components/Layout/Footer'
@@ -9,8 +8,6 @@ import { ToastProvider } from './_components/Toast/ToastProvider'
 import './_styles/animations.css'
 import './_styles/font.css'
 import './_styles/globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
 
 declare global {
   interface Window {
@@ -43,7 +40,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         <meta property="og:image" content="/path/to/image.jpg"/>
         <meta property="og:url" content="https://jjhmath.co.kr"/>
       </head>
-      <body className={inter.className}>
+      <body>
         <RecoilRootWrapper>
           <ToastProvider>
             <Header/>
