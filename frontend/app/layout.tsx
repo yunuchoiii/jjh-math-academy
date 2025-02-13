@@ -18,9 +18,26 @@ declare global {
 }
 
 export const metadata: Metadata = {
-  title: '조재현 수학학원',
-  description: 'JJH Math Academy',
-}
+  title: '조재현 수학학원 | 노원구 최고의 초·중등 수학 학원',
+  description: '노원구에서 믿고 맡길 수 있는 초·중등 수학 전문 학원! 교과 수학부터 사고력 수학까지 체계적인 학습을 제공합니다. 학습 상담 예약하세요!',
+  keywords: '노원구 수학학원, 초등 수학, 중등 수학, 교과 수학, 사고력 수학, 시그마 클래스, 요리수 연산, 수학 경시대회 대비, 맞춤형 수학 교육, 수학 학습법',
+  authors: [{name: '조재현 수학학원'}],
+  openGraph: {
+    title: '조재현 수학학원 | 노원구 최고의 초·중등 수학 학원',
+    description: '초·중등 수학의 모든 것! 교과 & 사고력 수학 완벽 대비, 맞춤형 학습 설계!',
+    images: [
+      {
+        url: '/images/og-thumbnail.png', 
+        width: 1200,
+        height: 630,
+        alt: '조재현 수학학원 - 초·중등 수학 맞춤 교육'
+      }
+    ],
+    url: 'https://jjhmath.com',
+    siteName: '조재현 수학학원',
+    type: 'website',
+  },
+};
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
@@ -33,12 +50,6 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         />
         <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <meta name="keywords" content="수학, 학원, 조재현, 수학학원, 교육"/>
-        <meta name="author" content="조재현 수학학원"/>
-        <meta property="og:title" content="조재현 수학학원"/>
-        <meta property="og:description" content="JJH Math Academy"/>
-        <meta property="og:image" content="/path/to/image.jpg"/>
-        <meta property="og:url" content="https://jjhmath.co.kr"/>
       </head>
       <body>
         <RecoilRootWrapper>
