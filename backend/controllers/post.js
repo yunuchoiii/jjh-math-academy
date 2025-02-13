@@ -35,6 +35,7 @@ exports.getPostList = async (req, res, next) => {
 
     const posts = await getPaginatedList({
       model: Post,
+      attributes: ['id', 'title', 'authorId', 'isNotice', 'views', 'thumbnail', 'createdAt'],
       page,
       size,
       notFoundMessage: '게시글 정보를 찾을 수 없습니다.',

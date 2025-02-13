@@ -9,17 +9,11 @@ interface PostCardProps {
   post: IPost;
 }
 
-const parseHTMLToText = (html: string): string => {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
-  return doc.body.textContent || "";
-};
-
 const PostCard = ({ slug, post }: PostCardProps) => {
   return (
     <Link
       href={`/board/${slug}/${post.id}?page=1`} 
-      className="relative w-full h-full shadow-[0px_4px_24px_0px_rgba(0,0,0,0.1)] md:hover:shadow-[0px_8px_32px_0px_rgba(0,0,0,0.12)] bottom-0 md:hover:bottom-2.5 active:scale-95 md:active:scale-100 transition-all duration-300 p-[15px] rounded-[30px]"
+      className="group relative w-full h-full shadow-[0px_4px_24px_0px_rgba(0,0,0,0.1)] md:hover:shadow-[0px_8px_32px_0px_rgba(0,0,0,0.12)] bottom-0 md:hover:bottom-2.5 active:scale-95 md:active:scale-100 transition-all duration-300 p-[15px] rounded-[30px]"
     >
       <div className="w-full aspect-[5/4] object-cover rounded-[15px] mb-4 overflow-hidden">
         <img 
@@ -36,13 +30,13 @@ const PostCard = ({ slug, post }: PostCardProps) => {
         />
       </div>
       <div className="flex flex-col gap-2 px-0.5">
-        <h3 className="font-bold ellipsis">{post.title}</h3>
-        <p className="text-sm text-gray-5 ellipsis-3">
-          {parseHTMLToText(post.content)}
-        </p>
-        <p className="text-xs text-[#888] text-right mr-1.5">
-          {formatDateTime(post.createdAt, "-")}
-        </p>
+        <h3 className="font-bold ellipsis-2">{post.title}</h3>
+        <div className="flex justify-between items-center pr-1">
+          <p className="text-xs text-[#888]">
+            {formatDateTime(post.createdAt, "-")}
+          </p>
+          <i className={"hidden md:block fas fa-arrow-right relative opacity-0 -left-2.5 md:group-hover:opacity-100 md:group-hover:left-0 transition-all duration-300"}></i>
+        </div>
       </div>
     </Link>
 
