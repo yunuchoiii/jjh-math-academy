@@ -1,3 +1,4 @@
+import Image from "next/image"
 
 type IPlusIconButton = {
   color: string
@@ -14,7 +15,13 @@ const PlusIconButton = (button:IPlusIconButton) => {
       backgroundColor: button.color,
     }}
   >
-    <img src="/images/icons/plus_icon.png" alt="자세히보기" className="invert w-1/2"/>
+    <Image 
+      src="/images/icons/plus_icon.png" 
+      alt="자세히보기" 
+      className="invert max-w-[50%] max-h-[50%]" 
+      width={button.size} 
+      height={button.size}
+    />
   </button>
 }
 

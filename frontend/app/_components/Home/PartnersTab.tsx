@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image";
 import { useState } from "react";
 import styles from "./Layout.module.css";
 
@@ -64,10 +65,10 @@ export default function PartnersTab () {
               {tab.title}
             </div>
             <div className="flex-1 h-[1px] bg-green-1 mx-2.5"/>
-            <img src="images/icons/arrow.png" alt="arrow" className={`w-2 mr-1 ${ show ? '-rotate-90' : 'rotate-90'}`}/>
+            <Image src="/images/icons/arrow.png" alt="arrow" className={`w-2 mr-1 ${ show ? '-rotate-90' : 'rotate-90'}`} width={8} height={8}/>
           </div>         
           <div className={`flex flex-col items-center pt-2.5 absolute bottom-0 left-1/2 -translate-x-1/2`}>
-            {tab.images.map((img, i) => <img src={`/images/icons/${img}`} alt="logo" className="max-h-[40px] max-w-[130px] grayscale my-4" key={`partner-img-${i}`}/>)}
+            {tab.images.map((img, i) => <Image src={`/images/icons/${img}`} alt="logo" className="max-h-[40px] max-w-[130px] grayscale my-4" key={`partner-img-${i}`} loading='lazy' width={130} height={40}/>)}
           </div> 
         </div>
     })}

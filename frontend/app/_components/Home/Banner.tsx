@@ -1,5 +1,6 @@
 'use client'
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import PlusIconButton from "../CustomButtons/PlusIconButton";
@@ -144,7 +145,14 @@ const HomeBanner = () => {
                     0) : 0, 
                 }}
               >
-                <img src={banner.imgPath} alt={banner.title} className="w-full h-full object-cover"/>
+                <Image 
+                  src={banner.imgPath} 
+                  alt={banner.title} 
+                  className="w-full h-full object-cover"
+                  priority
+                  width={500}
+                  height={500}
+                />
               </div>
               <div className={`${active ? "ml-[50px]" : index === 1 ? "lg:ml-[8px] xl:ml-[18px] 2xl:ml-6" : "lg:ml-4 xl:ml-7"} transition-all duration-300`}>
                 <div className={`xl:text-lg lg:text-base font-bold text-black ${active ? "whitespace-nowrap" : ""}`}>

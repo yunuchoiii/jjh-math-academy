@@ -37,7 +37,7 @@ export default function Curriculums () {
         >
           <div className={`xl:w-[218px] xl:h-[218px] md:w-48 md:h-48 rounded-full bg-gradient-to-b absolute xl:bottom-9 md:bottom-7 shadow-xl ${index == 0 ? 'from-yellow-1 to-yellow-3' : 'from-green-1 to-green-2'}`}>
             <div className='absolute bottom-0 w-full flex justify-center rounded-bl-full rounded-br-full overflow-hidden'>
-              <img src={item.imgPath} alt='curriculum' className={`${index == 0 ? 'xl:w-36 md:w-32' : 'w-full'}`}/>
+              <img src={item.imgPath} alt='curriculum' className={`${index == 0 ? 'xl:w-36 md:w-32' : 'w-full'}`} loading='lazy'/>
             </div>
           </div>
           <div className='xl:pt-10 md:pt-7 xl:pl-72 md:pl-60 pr-10 font-bold'>
@@ -65,7 +65,7 @@ export default function Curriculums () {
         <Link key={`curriculum-mobile-${index}`} className='first:mb-16 flex flex-col items-center active:scale-95 transition-all duration-300' href={item.link}>
           <div className={`w-40 h-40 relative rounded-full bg-gradient-to-b shadow-xl ${index == 0 ? 'from-yellow-1 to-yellow-3' : 'from-green-1 to-green-2'}`}>
             <div className='absolute bottom-0 w-full flex justify-center rounded-bl-full rounded-br-full overflow-hidden'>
-              <img src={item.imgPath} alt='curriculum' className={`${index == 0 ? 'xl:w-36 md:w-32 w-[104px]' : 'w-full'}`}/>
+              <img src={item.imgPath} alt='curriculum' className={`${index == 0 ? 'xl:w-36 md:w-32 w-[104px]' : 'w-full'}`} loading='lazy'/>
             </div>
           </div>
           <div className={`w-full rounded-3xl bg-white -mt-20 pt-28 px-6 pb-8 text-center ${styles['deem-shadow-2']}`}>
