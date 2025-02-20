@@ -84,7 +84,7 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
                 }
               };
               if (!parentMenu.isShown) return null;
-              return <div key={`mobile-parent-menu-${parentMenu.sort}`}>
+              return <nav key={`mobile-parent-menu-${parentMenu.sort}`}>
                 <div className="overflow-hidden" style={{
                   height: menuOpened ? `calc(4.875rem + ${getChildMenuList({parentId: parentMenu.id, isShown: true, isActive: true}).length * 2.875}rem)` : '3.5rem',
                   transition: 'height 0.25s ease-in-out'
@@ -104,22 +104,23 @@ const MobileHeader = ({hamburger, setHamburger}: MobileHeaderProps) => {
                   </div>
                   <div className="pb-2.5 pt-1.5">
                     {getChildMenuList({parentId: parentMenu.id, isShown: true, isActive: true}).sort((a, b) => a.sort - b.sort).map(childMenu => 
-                      <ReactiveButton
-                        key={`mobile-child-menu-${childMenu.sort}`} 
-                        props={{
-                          className:'py-3.5 pl-7 flex items-center w-full rounded-[15px] active:bg-[#F3F3F3]',
-                          onClick: () => handleClick(childMenu.link || '')
-                        }}
-                      >
-                        <div className="w-2 h-2 rounded-full bg-yellow-1 mr-3.5"></div>
-                        <div className={`text-base leading-none decoration-neutral-700 ${childMenu.id === currentMenu?.id ? 'text-[#000]' : 'text-[#666]'}`}>
-                          {childMenu.title}
-                        </div>
-                      </ReactiveButton>
+                      <nav key={`mobile-child-menu-${childMenu.sort}`} >
+                        <ReactiveButton
+                          props={{
+                            className:'py-3.5 pl-7 flex items-center w-full rounded-[15px] active:bg-[#F3F3F3]',
+                            onClick: () => handleClick(childMenu.link || '')
+                          }}
+                        >
+                          <div className="w-2 h-2 rounded-full bg-yellow-1 mr-3.5"></div>
+                          <div className={`text-base leading-none decoration-neutral-700 ${childMenu.id === currentMenu?.id ? 'text-[#000]' : 'text-[#666]'}`}>
+                            {childMenu.title}
+                          </div>
+                        </ReactiveButton>
+                      </nav>
                     )}  
                   </div>
                 </div>
-              </div>
+              </nav>
             })}              
           </div>
           <div className="w-10/12 h-20 rounded-3xl bg-green-gradient absolute bottom-12 left-2/4 flex items-center justify-evenly" style={{transform: 'translateX(-50%)'}}>

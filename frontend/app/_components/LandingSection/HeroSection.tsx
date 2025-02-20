@@ -1,6 +1,7 @@
 "use client"
 
 import { CONTACT_SECTION_LINK } from "@/app/_constants/constants";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef } from 'react';
 import ReactiveButton from "../Button/ReactiveButton";
@@ -109,12 +110,12 @@ const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
     <div className="flex justify-center items-center w-full h-full absolute top-0 left-0 NanumSquare">
       <div className={`2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full min-w-[300px] px-5 h-full flex ${(type === "elementary" || type === "middle") ? "lg:flex-row" : "lg:flex-row-reverse"} flex-col-reverse items-center justify-center lg:justify-center gap-10 lg:gap-20 2xl:gap-32 pt-0 md:pt-20 lg:pt-0`}>
         <div>
-          <div className="text-[#070606] text-xl md:text-2xl xl:text-3xl font-bold mb-2.5">
+          <h2 className="text-[#070606] text-xl md:text-2xl xl:text-3xl font-bold mb-2.5">
             {subtitle}
-          </div>
-          <div className={`${ElementsByType[type].title} text-[40px] md:text-[50px] xl:text-[60px] font-extrabold NanumSquare`}>
+          </h2>
+          <h1 className={`${ElementsByType[type].title} text-[40px] md:text-[50px] xl:text-[60px] font-extrabold NanumSquare`}>
             {title}
-          </div>
+          </h1>
           <div className="mt-10 flex gap-2.5 md:gap-5">
             {Object.entries(CommonButtons).map(([key, value]) => {
               const buttonKey = key as keyof typeof ElementsByType[typeof type]['buttons'];
@@ -129,12 +130,24 @@ const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
         {(type === "elementary" || type === "middle") ?
           <div className={`2xl:w-[420px] 2xl:h-[420px] xl:w-[380px] xl:h-[380px] md:w-[320px] md:h-[320px] w-[280px] h-[280px] relative rounded-full bg-gradient-to-b shadow-xl ${type == 'elementary' ? 'from-yellow-1 to-yellow-3' : 'from-green-1 to-green-2'}`}>
             <div className='absolute bottom-0 w-full flex justify-center rounded-b-full overflow-hidden'>
-              <img src={ElementsByType[type].imgPath} alt='curriculum' className={`${type == 'elementary' ? 'w-[64%]' : 'w-full'}`}/>
+              <Image 
+                src={ElementsByType[type].imgPath} 
+                alt='curriculum' 
+                className={`${type == 'elementary' ? 'w-[64%]' : 'w-full'}`} 
+                width={1000} 
+                height={1000}
+              />
             </div>
           </div> :
           <div className={`2xl:w-[420px] 2xl:h-[420px] xl:w-[380px] xl:h-[380px] md:w-[320px] md:h-[320px] w-[280px] h-[280px] relative bg-gradient-to-br rounded-t-full shadow-xl overflow-hidden ${type == 'yorisu' ? 'from-yellow-4 to-yellow-2' : 'from-green-4 to-green-2'}`}>
             <div className="absolute bottom-0 w-full h-full flex justify-center items-end">
-              <img src={ElementsByType[type].imgPath} alt='curriculum' className={`${type == 'yorisu' ? 'h-3/4' : 'h-2/3'} object-cover`}/>
+              <Image 
+                src={ElementsByType[type].imgPath} 
+                alt='curriculum' 
+                className={`${type == 'yorisu' ? 'h-3/4' : 'w-3/4'} object-cover`} 
+                width={1000} 
+                height={1000}
+              />
             </div>
           </div>
         } 

@@ -39,7 +39,6 @@ const PostCard = ({ slug, post }: PostCardProps) => {
         </div>
       </div>
     </Link>
-
   );
 };
 

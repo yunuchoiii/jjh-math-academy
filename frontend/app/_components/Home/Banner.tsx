@@ -1,6 +1,7 @@
 'use client'
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import PlusIconButton from "../CustomButtons/PlusIconButton";
@@ -123,7 +124,8 @@ const HomeBanner = () => {
         {bannerList.map((banner, index) => {
           const active = activeBanner[index];
           return (
-            <div
+            <Link
+              href={banner.link}
               key={`home-banner-${banner.title}`} 
               className={`relative h-[480px] rounded-[30px] cursor-pointer transition-all duration-300 flex flex-col xl:items-start pd-0 overflow-hidden NanumSquare ${active ? "w-3/6 pt-10" : "w-1/6 pt-6"}`}
               style={{
@@ -131,7 +133,6 @@ const HomeBanner = () => {
                 color: banner.color,
               }}
               onMouseOver={() => setActiveBanner(prevState => prevState.map((_, i) => i === index))}
-              onClick={() => router.push(banner.link)}
             >
               <div
                 className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full transition-all duration-300" 
@@ -173,7 +174,7 @@ const HomeBanner = () => {
               <div className={`absolute top-10 right-10 transition-opacity duration-300 fade-in ${active ? "opacity-100" : "opacity-0"}`}>
                 <PlusIconButton color={banner.color} size={30}/>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>
@@ -189,14 +190,11 @@ const HomeBanner = () => {
         }}
       >
         {bannerList.map((banner, index) => (
-          <div
+          <Link
+            href={banner.link}
             key={`mobile-banner-${banner.sort}`}
             className={`h-[300px] w-[280px] mx-3 rounded-xl relative overflow-x-scroll flex-shrink-0 snap-center transition-all duration-300 ${index === activeIndex ? 'scale-110 sm:scale-100 shadow-xl sm:shadow-lg' : 'scale-100 shadow-lg'}`}
-            style={{
-              background: banner.backgroundColor, 
-              // boxShadow: '8px 8px 24px 0px rgba(0, 0, 0, 0.10), -8px -8px 24px 0px rgba(255, 255, 255, 0.10)',
-            }}
-            onClick={() => router.push(banner.link)}
+            style={{ background: banner.backgroundColor }}
           >
             <div className="mt-7 mx-6 flex justify-between">
               <div className="leading-snug NanumSquare">
@@ -214,7 +212,7 @@ const HomeBanner = () => {
               backgroundSize: banner.sort === 2 ? '90%' : 'cover',
             }}>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

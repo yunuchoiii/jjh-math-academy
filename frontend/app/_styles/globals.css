@@ -146,3 +146,18 @@ input[type="checkbox"]:checked {
   -ms-overflow-style: none;  /* IE 및 Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.infinite-scroll {
+  display: flex;
+  white-space: nowrap;
+  animation: scrollAnimation 40s linear infinite;
+}
+
+@keyframes scrollAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

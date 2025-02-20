@@ -37,7 +37,7 @@ const ReactionBubbles = ({ title, color, reactions, teacherWords }: ReactionBubb
           <div ref={ref} className="relative flex flex-col gap-5 px-5 md:px-8 pt-6 md:pt-10 pb-10 ">
             {allReactions.map((reaction, index) => {
               const isTeacher = index >= reactions.length;
-              return <div 
+              return <section 
                 key={`${title}-reaction-${index}`} 
                 className={`relative flex transition-all duration-500 ${isTeacher ? "justify-end" : "justify-start"} ${isIntersected ? "fade-in-bottom opacity-100" : " opacity-0"}`}
                 style={{
@@ -57,7 +57,7 @@ const ReactionBubbles = ({ title, color, reactions, teacherWords }: ReactionBubb
                     {reaction}
                   </div>
                 </SpeechBubble>
-              </div>
+              </section>
           })}
           </div>
         </div>

@@ -41,24 +41,24 @@ const ImprovedGradesSection = ({ speechBubbleText, improvedGradesList }: Improve
           className={`mt-32 border-2 border-[#D7D7D7] rounded-[40px] md:rounded-[50px] shadow-3 flex flex-col md:gap-[30px] gap-[20px] justify-center items-center md:py-[50px] py-[20px] md:px-[30px] px-[20px] transition-all duration-1000 ${isSecondIntersected ? "bg-[#F9F9F9]" : "bg-white"}`}
         >
           {improvedGradesList.map((item, index) => (
-            <div
+            <section
               key={`improved-grade-${item.id}`}
               className={`w-full md:w-[66%] py-[30px] px-5 bg-white rounded-[30px] flex flex-col gap-[20px] justify-center items-center shadow-2 break-keep ${isSecondIntersected ? "fade-in-bottom" : "opacity-0"}`}
               style={{
                 animationDelay: index * 0.15 + "s",
               }}
             >
-              <div className="text-[#666] md:text-base text-sm"># {item.student}</div>
+              <h6 className="text-[#666] md:text-base text-sm"># {item.student}</h6>
               <div className="md:text-lg text-base leading-relaxed text-center">
                 {item.description}
               </div>
-            </div>
+            </section>
           ))}
-          <div className="md:pb-2.5 pb-5 pt-5 flex flex-col items-center justify-center gap-[10px]">
+          <section className="md:pb-2.5 pb-5 pt-5 flex flex-col items-center justify-center gap-[10px]">
             {Array.from({ length: 3 }).map((_, index) => (
               <div key={`dot-${index}`} className="w-[5px] h-[5px] bg-[#7D7D7D] rounded-[30px]"></div>
             ))}
-          </div>
+          </section>
         </div>
       </div>
     </div>
