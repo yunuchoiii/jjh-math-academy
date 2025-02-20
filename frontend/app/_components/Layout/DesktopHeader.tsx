@@ -100,7 +100,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
       <div className="lg:flex items-center hidden">
         {parentMenuList.filter(item => item.isShown).sort((a, b) => a.sort - b.sort).map(item => {
           const childrenMenus = getChildMenuList({parentId: item.id, isShown: true, isActive: true}).sort((a, b) => a.sort - b.sort);
-          return <div 
+          return <nav 
             key={`menu-${item.title}`} 
             onMouseLeave={()=>setHoveredMenuId(null)}
             className="relative group"
@@ -113,7 +113,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
               {item.title}
             </Link>
             {hoveredMenuId === item.id && childrenMenus.length > 0 && <ChildrenMenus childrenMenus={childrenMenus}></ChildrenMenus>}
-          </div>
+          </nav>
         })}
         {(!isLoading && user) ? (
           <div className="flex items-center ml-6 gap-10">
@@ -147,7 +147,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
           <div className="Montserrat text-lg text-green-1 pb-5 px-1 uppercase">menu</div>
           <div className="pt-5 flex justify-between border-t border-green-1 px-1">
             {parentMenuList.map (menu => (
-              <div 
+              <nav 
                 key={`fullmenu-${menu.title}`} 
                 className="flex flex-col gap-3 items-start w-[166px] last:w-auto"
               >
@@ -166,7 +166,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
                     {item.title}
                   </Link>
                 ))}
-              </div>
+              </nav>
             ))}
           </div>
         </div>

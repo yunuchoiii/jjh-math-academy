@@ -12,7 +12,7 @@ export default function Footer () {
   const parentMenuList = menuList.filter(menu => menu.parentId === null);
   const childrenMenuList = menuList.filter(menu => menu.parentId !== null);
 
-  return <>
+  return <footer>
     <div className={`bg-[#505050] xl:py-16 lg:py-12 px-10 py-6 flex items-center lg:justify-center justify-start ${pathname !== '/' ? 'mt-20' : 'mt-0'}`}>
       <div className="w-full flex flex-col lg:flex-row items-start justify-center lg:gap-10 xl:gap-20">
         <div className="flex items-center justify-center flex-row lg:flex-col h-full">
@@ -57,5 +57,5 @@ export default function Footer () {
     <div className="h-10 bg-[#454545] flex justify-center items-center text-[#CBCBCB] lg:text-xs text-[10px]">
       Copyright © 2023 조재현 수학학원 (JJH Math Academy). All Right Reserved
     </div>
-  </>
+  </footer>
 }

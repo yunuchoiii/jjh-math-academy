@@ -6,7 +6,10 @@ const nextConfig = {
     NAVER_MAP_CLIENT_ID: process.env.NAVER_MAP_CLIENT_ID,
     SERVER_URL: process.env.SERVER_URL,
     CKEDITOR_LICENSE_KEY: process.env.CKEDITOR_LICENSE_KEY,
-  }
+  },
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
 }
 
 module.exports = nextConfig

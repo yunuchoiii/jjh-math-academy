@@ -33,9 +33,9 @@ export default function Programs () {
   ]
   return <>
   {/* PC Version */}
-    <div className="md:flex hidden justify-evenly">
+    <section className="md:flex hidden justify-evenly">
       {programList.map((program, index) => (
-        <div 
+        <article 
           key={`home-program-${index}`} 
           className={`w-[23%] flex ${index != 1 ? 'flex-col' : 'flex-col-reverse'} items-center`}
           title={`${program.title} 공식 홈페이지`}
@@ -56,12 +56,12 @@ export default function Programs () {
                 />
               </div>
             </div>
-            <span className="mb-2 xl:text-base md:text-sm font-bold">
+            <h2 className="mb-2 xl:text-base md:text-sm font-bold">
               {program.desc}
-            </span>
-            <span className="xl:text-2xl md:text-xl font-extrabold" style={{color: program.color}}>
+            </h2>
+            <h1  className="xl:text-2xl md:text-xl font-extrabold" style={{color: program.color}}>
               {program.title}
-            </span>
+            </h1>
           </a>
           <div className={`w-[1px] xl:h-20 md:h-16 ${styles[`program-${index}-bg`]}`}></div>
           <div className={`w-2 h-2 rounded-md ${styles[`program-${index}-bg`]}`}></div>
@@ -73,45 +73,45 @@ export default function Programs () {
             className={`${index == 0 ? 'mt-5' : index == 1 ? 'mb-2' : 'mt-10'} xl:w-44 md:w-36 object-contain`}
             style={{width: 176, height: 144}}
           />
-        </div>
+        </article>
       ))}
-    </div>
+    </section>
     {/* Mobile Version */}
-    <div className="md:hidden flex justify-center items-center flex-col">
-        {programList.map((program, index) => (
-          <div 
-            key={`mobile-progrem-${index}`} 
-            className={`w-[286px] flex items-center pb-10 last:pb-0 ${index===1 ? 'flex-row-reverse' : 'flex-row'}`}
+    <section className="md:hidden flex justify-center items-center flex-col">
+      {programList.map((program, index) => (
+        <article 
+          key={`mobile-progrem-${index}`} 
+          className={`w-[286px] flex items-center pb-10 last:pb-0 ${index===1 ? 'flex-row-reverse' : 'flex-row'}`}
+        >
+          <img src={program.logoPath} alt={program.title} className={`w-20 ${index===1 ? 'ml-3' : 'mr-3'}`}/>
+          <div className="w-1 h-1 rounded-md bg-yellow-2" />
+          <div className="w-5 h-[1px] bg-yellow-2"/>
+          <a 
+            href={program.href}
+            className="flex items-center w-[170px] h-[70px] p-2.5 rounded-2xl bg-white shadow-2"
           >
-            <img src={program.logoPath} alt={program.title} className={`w-20 ${index===1 ? 'ml-3' : 'mr-3'}`}/>
-            <div className="w-1 h-1 rounded-md bg-yellow-2" />
-            <div className="w-5 h-[1px] bg-yellow-2"/>
-            <a 
-              href={program.href}
-              className="flex items-center w-[170px] h-[70px] p-2.5 rounded-2xl bg-white shadow-2"
+            <div 
+              className="w-[50px] h-[50px] rounded-[10px] flex items-center justify-center mr-2.5" 
+              style={{background: program.iconBg}}
             >
-              <div 
-                className="w-[50px] h-[50px] rounded-[10px] flex items-center justify-center mr-2.5" 
-                style={{background: program.iconBg}}
-              >
-                <Image 
-                  src={program.iconPath} 
-                  alt={program.title} 
-                  width={35} 
-                  height={35} 
-                  className='object-contain'
-                  style={{width: 35, height: 35}}
-                />
-              </div>
-              <div className="font-bold text-[9px]">
-                <div>{program.desc}</div>
-                <div className="text-[13px] mt-0.5" style={{color: program.color}}>
-                  {program.title}
-                </div>
-              </div>
-            </a>
-          </div>
-        ))}
-    </div>
+              <Image 
+                src={program.iconPath} 
+                alt={program.title} 
+                width={35} 
+                height={35} 
+                className='object-contain'
+                style={{width: 35, height: 35}}
+              />
+            </div>
+            <div className="font-bold text-[9px]">
+              <h2>{program.desc}</h2>
+              <h1 className="text-[13px] mt-0.5" style={{color: program.color}}>
+                {program.title}
+              </h1>
+            </div>
+          </a>
+        </article>
+      ))}
+    </section>
   </>
 }

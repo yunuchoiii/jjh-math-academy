@@ -3,6 +3,7 @@
 import IconButton from "@/app/_components/Button/IconButton";
 import useUser from "@/app/_hooks/useUser";
 import { IParent, IStudent, ITeacher, IUser } from "@/app/_service/user";
+import Image from "next/image";
 
 const UserTypeMap = {
   teacher: {
@@ -37,11 +38,13 @@ const MyPage = () => {
   return <div className="relative">
     <div className="grid grid-cols-12 gap-[30px]">
       <div className={`col-span-2 aspect-square flex items-center justify-center`}>
-          <div className="w-full h-full bg-green-3 rounded-full flex items-center justify-center p-[20%]">
-            <img 
+          <div className="relative w-full h-full bg-green-3 rounded-full flex items-center justify-center">
+            <Image 
               src={UserTypeMap[user?.userType as keyof typeof UserTypeMap].icon} 
               alt={UserTypeMap[user?.userType as keyof typeof UserTypeMap].title} 
-              className="w-full invert"
+              className="invert max-w-[80%] max-h-[80%]"
+              width={100}
+              height={100}
             />
           </div>
       </div>

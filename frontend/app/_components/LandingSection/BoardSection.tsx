@@ -35,7 +35,7 @@ const BoardSection = ({ title, color, slug }: BoardSectionProps) => {
 
   if (postList && postList.length === 0) return null;
 
-  return <div className="flex justify-center items-center">
+  return <section className="flex justify-center items-center">
     <div className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full min-w-[300px] px-5 md:py-[120px] py-[60px] flex flex-col items-center">
       <Link href={`/board/${slug}`} className="relative group flex items-center justify-center mb-10">
         <h2 className={`text-3xl font-extrabold NanumSquare ${color === "yellow" ? "text-yellow-5" : "text-green-2"}`}>
@@ -53,7 +53,7 @@ const BoardSection = ({ title, color, slug }: BoardSectionProps) => {
         ))}
       </div>
     </div>
-  </div>
+  </section>
 }
 
 export default BoardSection;

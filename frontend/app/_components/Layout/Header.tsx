@@ -103,7 +103,7 @@ export default function Header () {
     }
   }, [hamburger, isMobile]);
 
-  return <>
+  return <header>
     {/* 데스크톱 */}
     <DesktopHeader
       hamburger={hamburger} 
@@ -117,6 +117,6 @@ export default function Header () {
       hamburger={hamburger} 
       setHamburger={setHamburger} 
     />
-  </>
+  </header>
 
 }

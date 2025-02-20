@@ -14,11 +14,11 @@ const Title = ({ title, subtitle, color="black", showInMobile=false }: TitleProp
   }
 
   return <div 
-    className={`text-2xl font-extrabold NanumSquare mb-[40px] ${showInMobile ? 'block' : 'hidden lg:block'}`}
+    className={`NanumSquare mb-10 ${showInMobile ? 'block' : 'hidden lg:block'}`}
     style={{color: textColor[color]}}
   >
-    {title}
-    {subtitle && <div className="text-base text-gray-1 mt-2">{subtitle}</div>}
+    <h1 className="text-2xl font-extrabold">{title}</h1>
+    {subtitle && <h2 className="text-base font-bold text-gray-1 mt-2">{subtitle}</h2>}
   </div>
 }
 
