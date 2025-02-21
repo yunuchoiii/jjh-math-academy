@@ -1,5 +1,3 @@
-"use client"
-
 import StickyButtons, { StickyButtonProps } from "@/app/_components/Button/StickyButtons";
 import BoardSection from "@/app/_components/LandingSection/BoardSection";
 import CurriculumSection from "@/app/_components/LandingSection/CurriculumSection";
@@ -7,8 +5,6 @@ import FeaturesSection from "@/app/_components/LandingSection/FeaturesSection";
 import HeroSection from "@/app/_components/LandingSection/HeroSection";
 import ImprovedGradesSection from "@/app/_components/LandingSection/ImprovedGradesSection";
 import { BoardSlugEnum } from "@/app/_service/board";
-import { useRouter } from "next/navigation";
-import { useMediaQuery } from "usehooks-ts";
 
 const LeftSpeechBubbleText = () => {
   return <div className="font-bold">
@@ -143,24 +139,26 @@ const curriculums = [
   },
 ];
 
+const stickyButtons:StickyButtonProps[] = [
+  {
+    label: "초등 교과 수학",
+    link: "/common-math/elementary",
+    color: "yellow",
+    isActive: false,
+  },
+  {
+    label: "중등 교과 수학",
+    color: "green",
+    isActive: true,
+  },
+];
+
+export const metadata = {
+  title: "조재현 수학 - 중등 교과 수학",
+  description: "내신과 고등 수학의 기초를 탄탄히!",
+};
+
 const MiddleMathPage = () => {
-  const router = useRouter();
-  const isMobile = useMediaQuery("(max-width: 768px)");
-
-  const stickyButtons:StickyButtonProps[] = [
-    {
-      label: "초등 교과 수학",
-      onClick: () => router.push("/common-math/elementary"),
-      color: "yellow",
-      isActive: false,
-    },
-    {
-      label: "중등 교과 수학",
-      color: "green",
-      isActive: true,
-    },
-  ];
-
   return <div 
     className="home-root flex flex-col items-center -mt-[50px] md:-mt-[180px]"
   >

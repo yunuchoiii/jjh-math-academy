@@ -1,3 +1,5 @@
+"use client";
+
 import useIntersection from "@/app/_hooks/useIntersection";
 import { useMediaQuery } from "usehooks-ts";
 
