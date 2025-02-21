@@ -1,7 +1,6 @@
 "use client"
 
 import { CONTACT_SECTION_LINK } from "@/app/_constants/constants";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef } from 'react';
 import ReactiveButton from "../Button/ReactiveButton";
@@ -130,23 +129,19 @@ const HeroSection = ({ title, subtitle, type }: HeroSectionProps) => {
         {(type === "elementary" || type === "middle") ?
           <div className={`2xl:w-[420px] 2xl:h-[420px] xl:w-[380px] xl:h-[380px] md:w-[320px] md:h-[320px] w-[280px] h-[280px] relative rounded-full bg-gradient-to-b shadow-xl ${type == 'elementary' ? 'from-yellow-1 to-yellow-3' : 'from-green-1 to-green-2'}`}>
             <div className='absolute bottom-0 w-full flex justify-center rounded-b-full overflow-hidden'>
-              <Image 
+              <img 
                 src={ElementsByType[type].imgPath} 
                 alt='curriculum' 
                 className={`${type == 'elementary' ? 'w-[64%]' : 'w-full'}`} 
-                width={1000} 
-                height={1000}
               />
             </div>
           </div> :
           <div className={`2xl:w-[420px] 2xl:h-[420px] xl:w-[380px] xl:h-[380px] md:w-[320px] md:h-[320px] w-[280px] h-[280px] relative bg-gradient-to-br rounded-t-full shadow-xl overflow-hidden ${type == 'yorisu' ? 'from-yellow-4 to-yellow-2' : 'from-green-4 to-green-2'}`}>
             <div className="absolute bottom-0 w-full h-full flex justify-center items-end">
-              <Image 
+              <img 
                 src={ElementsByType[type].imgPath} 
                 alt='curriculum' 
-                className={`${type == 'yorisu' ? 'h-3/4' : 'w-3/4'} object-cover`} 
-                width={1000} 
-                height={1000}
+                className={`${type == 'yorisu' ? 'h-3/4' : 'w-4/5'} object-cover`} 
               />
             </div>
           </div>

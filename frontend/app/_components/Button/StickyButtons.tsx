@@ -1,11 +1,12 @@
 "use client";
 
 import useScrollDirection from "@/app/_hooks/useScrollDirection";
+import { useRouter } from "next/navigation";
 import { ButtonHTMLAttributes } from "react";
 
 export interface StickyButtonProps {
   label: string;
-  onClick?: () => void;
+  link?: string;
   color: "yellow" | "green";
   isActive?: boolean;
   props?: ButtonHTMLAttributes<HTMLButtonElement>;
@@ -13,6 +14,7 @@ export interface StickyButtonProps {
 
 const StickyButtons = ({ buttons } : {buttons: StickyButtonProps[]}) => {
   const scrollDirection = useScrollDirection();
+  const router = useRouter();
 
   // 버튼 색상에 따라 클래스 적용
   const colorClassMap = {
@@ -26,6 +28,12 @@ const StickyButtons = ({ buttons } : {buttons: StickyButtonProps[]}) => {
     },
   };
 
+  const handleClick = (link: string) => {
+    if (link) {
+      router.push(link);
+    }
+  };
+
   return <div className={`fixed sm:sticky z-10 2xl:top-24 left-1/2 -translate-x-1/2 flex justify-center items-center gap-[5px] p-[5px] rounded-full bg-white shadow-[0_4px_20px_rgba(0,0,0,0.15)] NanumSquare transition-all duration-300 ${scrollDirection === "down" ? "opacity-0 -top-[100px]" : "opacity-100 top-16 lg:top-[88px]"}`}>
     {buttons.map((button, index) => (
       <button 
@@ -35,7 +43,7 @@ const StickyButtons = ({ buttons } : {buttons: StickyButtonProps[]}) => {
           ${colorClassMap[button.color].reactedClass}
           ${button.isActive ? colorClassMap[button.color].activeClass : "bg-white text-[#555]"}
         `}
-        onClick={button.onClick ? button.onClick : () => {}}
+        onClick={() => handleClick(button.link ?? "")}
         {...button.props}
       >
         {button.label}

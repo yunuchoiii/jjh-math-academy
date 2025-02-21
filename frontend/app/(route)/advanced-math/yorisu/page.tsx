@@ -1,5 +1,3 @@
-"use client";
-
 import StickyButtons, { StickyButtonProps } from "@/app/_components/Button/StickyButtons";
 import BoardSection from "@/app/_components/LandingSection/BoardSection";
 import BooksAndToolsSection from "@/app/_components/LandingSection/BooksAndToolsSection";
@@ -8,7 +6,6 @@ import FeaturesSection from "@/app/_components/LandingSection/FeaturesSection";
 import HeroSection from "@/app/_components/LandingSection/HeroSection";
 import ReactionBubbles from "@/app/_components/LandingSection/ReactionBubbles";
 import { BoardSlugEnum } from "@/app/_service/board";
-import { useRouter } from "next/navigation";
 
 const features = [
   {
@@ -76,23 +73,26 @@ const reactionBubbles = [
   </p>,
 ];
 
+const stickyButtons: StickyButtonProps[] = [
+  {
+    label: "요리수 연산 교실",
+    color: "yellow",
+    isActive: true,
+  },
+  {
+    label: "시그마 클래스",
+    link: "/advanced-math/sigma-class",
+    color: "green",
+    isActive: false,
+  },
+];
+
+export const metadata = {
+  title: "조재현 수학 - 요리수 연산 교실",
+  description: "교구와 함께하는 재미있는 연산 학습!",
+};
+
 const YorisuPage = () => {
-  const router = useRouter();
-
-  const stickyButtons: StickyButtonProps[] = [
-    {
-      label: "요리수 연산 교실",
-      color: "yellow",
-      isActive: true,
-    },
-    {
-      label: "시그마 클래스",
-      onClick: () => router.push("/advanced-math/sigma-class"),
-      color: "green",
-      isActive: false,
-    },
-  ];
-
   return (
     <div className="home-root flex flex-col items-center -mt-[50px] md:-mt-[180px]">
       <StickyButtons buttons={stickyButtons} />
