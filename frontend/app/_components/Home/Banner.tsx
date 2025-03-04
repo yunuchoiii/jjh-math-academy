@@ -151,7 +151,7 @@ const HomeBanner = () => {
                   }
                 </div>          
               </div>
-              <div className={`absolute top-10 right-10 transition-opacity duration-300 fade-in ${active ? "opacity-100" : "opacity-0"}`}>
+              <div className={`absolute top-10 right-10 transition-opacity ${active ? "opacity-100" : "opacity-0"}`}>
                 <PlusIconButton color={banner.color} size={30}/>
               </div>
             </Link>
