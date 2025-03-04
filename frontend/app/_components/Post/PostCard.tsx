@@ -10,7 +10,6 @@ interface PostCardProps {
 }
 
 const PostCard = ({ slug, post }: PostCardProps) => {
-  console.log(post);
   return (
     <Link
       href={`/board/${slug}/${post.id}?page=1`} 
