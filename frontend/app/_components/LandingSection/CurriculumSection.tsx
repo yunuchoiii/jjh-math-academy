@@ -59,14 +59,14 @@ const CurriculumCard = ({curriculum, color, isIntersected, index}: {curriculum: 
   return (
     <article 
       key={`${curriculum.grade}-${curriculum.title}`}
-      className={`flex flex-col h-[205px] px-[30px] py-[20px] bg-white rounded-[30px] shadow-[0_4px_24px_rgba(0,0,0,0.1)] border-2 ${colorClassMap[color].borderColor} transition-opacity duration-500 ${isIntersected ? 'fade-in-bottom' : 'opacity-0'}`}
+      className={`flex flex-col min-w-[350px] h-[205px] px-[30px] py-[20px] bg-white rounded-[30px] shadow-[0_4px_24px_rgba(0,0,0,0.1)] border-2 ${colorClassMap[color].borderColor} transition-opacity duration-500 ${isIntersected ? 'fade-in-bottom' : 'opacity-0'}`}
       style={{
         animationDelay: `${index * 0.15}s`,
         animationDuration: '0.5s',
       }}
     >
-      <div className="-ml-2.5 flex items-center gap-4">
-        <h3 className={`${colorClassMap[color].bgColor} px-5 py-1 font-semibold rounded-full`}>
+      <div className="-ml-2.5 flex items-center gap-2.5">
+        <h3 className={`${colorClassMap[color].bgColor} px-3 py-1 font-semibold rounded-full whitespace-nowrap`}>
           {curriculum.grade}
         </h3>
         <h2 className="text-lg font-semibold">
@@ -103,7 +103,7 @@ const CurriculumSection = ({title, curriculums, color}: CurriculumSectionProps) 
   return <div className="flex justify-center items-center">
     <div ref={ref} className="2xl:w-[80rem] xl:w-[72rem] lg:w-[56rem] md:w-[48rem] sm:w-[36rem] w-full min-w-[300px] px-5 md:py-[120px] py-[60px] flex flex-col xl:flex-row md:justify-center items-center gap-0 md:gap-16">
       <div className={`flex flex-col gap-5 h-full justify-center items-center xl:items-end ${curriculums.length > 3 ? "flex-1" : ""}`}>
-        <div className={`xl:block hidden relative ${curriculums.length > 3 ? "w-full" : "w-[360px]"} aspect-[1.5] rounded-2xl overflow-hidden shadow-2xl ${color === "green" ? "bg-[#DAE3D9]" : "bg-yellow-4 bg-opacity-70"} mb-5`}>
+        <div className={`xl:block hidden relative ${curriculums.length > 3 ? "w-full" : "w-[350px]"} aspect-[1.5] rounded-2xl overflow-hidden shadow-2xl ${color === "green" ? "bg-[#DAE3D9]" : "bg-yellow-4 bg-opacity-70"} mb-5`}>
           <Image 
             src={color === "green" ? "/images/study-girl-photo.png" : "/images/two-schoolgirls-working-together-assignment-classroom-2.png"} 
             alt="curriculum-section-title" 
