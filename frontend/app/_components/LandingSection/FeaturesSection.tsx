@@ -9,6 +9,7 @@ interface FeaturesSectionProps {
   features: {
     title: string;
     description: string;
+    icon: string;
   }[];
   backgroundColor?: "green" | "yellow";
 }
@@ -17,7 +18,7 @@ const FeaturesSection = ({ title, subtitle, features, backgroundColor }: Feature
   const isMobile = useMediaQuery("(max-width: 768px)");
   const { ref, isIntersected } = useIntersection(isMobile ? 0.6 : 1);
 
-  const gridCols = features.length % 4 === 0 ? "lg:grid-cols-4" : features.length % 3 === 0 ? "lg:grid-cols-3" : "lg:grid-cols-2";
+  const gridCols = features.length % 4 === 0 ? "xl:grid-cols-4" : features.length % 3 === 0 ? "xl:grid-cols-3" : "xl:grid-cols-2";
 
   const bgColor = backgroundColor === "green" ? "bg-[#ecf6e6]" : "bg-[#fffbe2]";
   return <section className={`flex justify-center items-center w-full py-20 md:pt-[120px] md:pb-[140px] ${bgColor}`}>
@@ -32,12 +33,15 @@ const FeaturesSection = ({ title, subtitle, features, backgroundColor }: Feature
         {features.map((feature, index) => (
           <article 
             key={index} 
-            className={`flex flex-col gap-[10px] px-[40px] py-[30px] bg-white rounded-[30px] shadow-3 transition-opacity duration-500 ${isIntersected ? 'swelling-in-center' : ''}`}
+            className={`relative flex flex-col gap-[10px] px-[40px] py-[30px] bg-white rounded-[30px] shadow-3 transition-opacity duration-500 ${isIntersected ? 'swelling-in-center' : ''}`}
             style={{
               animationDelay: `${index * 0.1}s`,
               animationDuration: '0.5s',
             }}
           >
+            <div className={`w-[50px] h-[50px] rounded-full ${backgroundColor === "green" ? "bg-green-4" : "bg-yellow-4"} flex items-center justify-center mb-2`}>
+              <i className={`${feature.icon} ${backgroundColor === "green" ? "text-green-2" : "text-yellow-6"} text-xl`}></i>
+            </div>
             <h3 className="text-lg font-bold break-keep">{feature.title}</h3>
             <p className="flex-1 text-base flex items-center">{feature.description}</p>
           </article>

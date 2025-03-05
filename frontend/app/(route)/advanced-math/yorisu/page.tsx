@@ -9,24 +9,28 @@ import { BoardSlugEnum } from "@/app/_service/board";
 
 const features = [
   {
-    title: "연산의 기본부터 탄탄하게!",
+    title: "기본부터 탄탄하게!",
     description:
       "단순 연산 반복이 아닌, 교구와 스토리텔링을 활용해 개념부터 이해하며 연산 능력을 자연스럽게 키웁니다.",
+    icon: "fas fa-shapes",
   },
   {
     title: "수 감각과 수 체계 형성",
     description:
       "단순 계산이 아닌, 수의 개념을 체계적으로 쌓아가며 초등 전 학년 연산 학습의 기초를 다집니다.",
+    icon: "fas fa-shoe-prints",
   },
   {
     title: "수학적 사고력 발달",
     description:
-      "탱그램, 수백판, 수카드 등 다양한 교구를 활용하여 아이들이 직접 만지고 경험하며 자연스럽게 연산 논리를 익힙니다.",
+      "다양한 교구를 활용하여 아이들이 직접 만지고 경험하며 자연스럽게 연산 논리를 익힙니다.",
+    icon: "fas fa-brain",
   },
   {
     title: "교과 연계 맞춤형 수업",
     description:
       "교과 과정과 철저히 연계된 커리큘럼을 통해 초등 수학에서 중요한 개념과 연산을 체계적으로 정리합니다.",
+    icon: "fas fa-school",
   },
 ];
 
