@@ -99,26 +99,32 @@ const features = [
   {
     title: "기초부터 심화까지, 단계적 학습",
     description: "기본 개념을 충분히 이해하고, 사고력 문제 풀이를 통해 심화 문제 해결력을 기릅니다.",
+    icon: "fas fa-shoe-prints",
   },
   {
     title: "소규모 과외식 지도",
     description: "부족한 부분을 보완하며, 성취감을 느낄 수 있도록 맞춤형 학습을 제공합니다.",
+    icon: "fas fa-chalkboard-teacher",
   },
   {
     title: "오답 분석과 클리닉",
     description: "오답을 분석하고, 부족한 개념을 다시 학습하여 학생의 취약점을 완벽히 보완합니다.",
+    icon: "fas fa-clipboard-check",
   },
   {
     title: "연산 훈련과 사고력 수학 병행",
     description: "기본 연산 능력과 더불어 창의적 문제 해결 능력을 키웁니다.",
+    icon: "fas fa-brain",
   },
   {
     title: "전국 단위 평가 대비",
     description: "TESOM과 같은 평가를 통해 학생의 현재 상태를 객관적으로 파악합니다.",
+    icon: "fas fa-scroll",
   },
   {
     title: "정기 피드백과 학부모 소통",
     description: "학생의 학습 상황을 주기적으로 점검하여 학부모님께 상세히 공유합니다.",
+    icon: "fas fa-comments",
   },
 ];
 
