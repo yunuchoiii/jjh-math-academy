@@ -67,6 +67,7 @@ const HomeBanner = () => {
 
   // PC Version 배너 자동 활성화
   useEffect(() => {
+    if (isMobile) return;
     const interval = setInterval(() => {
       setActiveIndex(prevIndex => (prevIndex + 1) % bannerList.length);
     }, 5000);
