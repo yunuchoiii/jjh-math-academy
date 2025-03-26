@@ -55,7 +55,7 @@ const ClassInfo = ({classInfo}: ClassInfoProps) => {
         {classInfo.targetAge}
       </div>
       <Divider />
-      <div className="flex-1 flex items-center">
+      <div className="flex-1 flex items-center sm:h-[200px]">
         <ul className="text-left pl-[20px]">
           {classInfo.description.map((description, index) => (
             <li key={index} className="text-base list-disc mb-2 last:mb-0">
