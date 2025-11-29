@@ -164,7 +164,7 @@ export const INITIAL_MENU_LIST: IMenu[] = [
   {
     id: 20,
     parentId: 3,
-    title: "초등 수학",
+    title: "초등 교과 수학",
     link: "/common-math/elementary",
     sort: 1,
     isActive: true,
@@ -179,7 +179,7 @@ export const INITIAL_MENU_LIST: IMenu[] = [
   {
     id: 21,
     parentId: 3,
-    title: "중등 수학",
+    title: "중등 교과 수학",
     link: "/common-math/middle",
     sort: 2,
     isActive: true,
@@ -196,7 +196,7 @@ export const INITIAL_MENU_LIST: IMenu[] = [
   {
     id: 30,
     parentId: 4,
-    title: "시그마반",
+    title: "시그마 클래스",
     link: "/advanced-math/sigma-class",
     sort: 1,
     isActive: true,
@@ -211,7 +211,7 @@ export const INITIAL_MENU_LIST: IMenu[] = [
   {
     id: 31,
     parentId: 4,
-    title: "요리수반",
+    title: "요리수 연산 교실",
     link: "/advanced-math/yorisu",
     sort: 2,
     isActive: true,
