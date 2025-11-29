@@ -107,7 +107,7 @@ const DesktopHeader = ({hamburger, setHamburger, handleContactMenu, user, isLoad
           >
             <Link 
               href={item.link || childrenMenus[0]?.link || ''}
-              className={`${styles.menu} xl:text-lg lg:text-base font-semibold ${item.id === currentParentMenu?.id ? 'text-green-1 font-bold' : ((isAtTop && !hamburger) ? 'text-lightgray-2 group-hover:text-white' : 'text-black group-hover:text-green-1')}`} 
+              className={`${styles.menu} xl:text-lg lg:text-base font-medium ${item.id === currentParentMenu?.id ? 'text-green-1 font-bold' : ((isAtTop && !hamburger) ? 'text-lightgray-2 group-hover:text-white' : 'text-black group-hover:text-green-1')}`} 
               onMouseOver={item.link ? ()=>{} : ()=>setHoveredMenuId(item.id)}
             >
               {item.title}

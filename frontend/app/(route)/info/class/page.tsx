@@ -1,6 +1,7 @@
 import ClassInfo from "@/app/_components/Info/ClassInfo";
 import TuitionsTable from "@/app/_components/Info/TuitionsTable";
 import Title from "@/app/_components/Title/Title";
+import { MATH_CLASSES } from "@/app/_constants/info";
 import { IMathProgram, infoService } from "@/app/_service/info";
 
 const Section = ({title, children}:{title:string, children:React.ReactNode}) => {
@@ -12,10 +13,9 @@ const Section = ({title, children}:{title:string, children:React.ReactNode}) => 
   </section>
 }
 
-const ClassInfoPage = async () => {
-  const classes = await infoService.getPrograms();
-  const commonMathClasses = classes.filter((classInfo: IMathProgram) => classInfo.category === "common_math");
-  const advancedMathClasses = classes.filter((classInfo: IMathProgram) => classInfo.category === "advanced_math");
+const ClassInfoPage = () => {
+  const commonMathClasses = MATH_CLASSES.filter((classInfo: IMathProgram) => classInfo.category === "common_math");
+  const advancedMathClasses = MATH_CLASSES.filter((classInfo: IMathProgram) => classInfo.category === "advanced_math");
 
   return (
     <div>

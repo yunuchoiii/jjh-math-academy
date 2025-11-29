@@ -1,8 +1,10 @@
-import { infoService, ITuition } from "@/app/_service/info";
+import type { ITuition } from "@/app/_service/info";
+import { TUITIONS } from "@/app/_constants/info";
 import styles from "./Info.module.css";
 
 const TuitionsTable = async () => {
-  const tuitions = await infoService.getTuitions() as ITuition[];
+  // NOTE: 현재는 API 대신 로컬 상수 기반으로 렌더링합니다.
+  const tuitions = TUITIONS as ITuition[];
 
   const elementaryTuitions = tuitions.filter((tuition) => tuition.level === "elementary");
   const middleTuitions = tuitions.filter((tuition) => tuition.level === "middle");

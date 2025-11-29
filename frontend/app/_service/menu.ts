@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { INITIAL_MENU_LIST } from "../_constants/menu";
 
 export interface IMenu {
   id: number; 
@@ -32,24 +33,23 @@ export const menuService = {
    * @returns {Promise<any>} - 메뉴 정보 응답 데이터
    */
   getMenuList: async () => {
-    try {
-      const url = `${MENU_SERVICE_URL}/list`;
-      const response = await axios.get(url);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    // 현재는 백엔드 대신 상수로 정의된 메뉴 데이터를 사용합니다.
+    // 추후 API 연동 시 아래 주석을 복구하면 됩니다.
+    // try {
+    //   const url = `${MENU_SERVICE_URL}/list`;
+    //   const response = await axios.get(url);
+    //   return response.data;
+    // } catch (error) {
+    //   console.error(error);
+    //   throw error;
+    // }
+    return INITIAL_MENU_LIST;
   },
   getMenu: async (id: string) => {
-    try {
-      const url = `${MENU_SERVICE_URL}/${id}`;
-      const response = await axios.get(url);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    // 상수 기반 메뉴 데이터에서 단일 메뉴 조회
+    const numericId = Number(id);
+    const menu = INITIAL_MENU_LIST.find((item) => item.id === numericId) || null;
+    return menu;
   },
   createMenu: async ({callback, errorCallback, data}: MenuPayload) => {
     try {

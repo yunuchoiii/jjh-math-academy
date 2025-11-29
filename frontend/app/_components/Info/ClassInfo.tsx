@@ -50,7 +50,7 @@ const ClassInfo = ({classInfo}: ClassInfoProps) => {
         {classInfo.title}
       </h1>
     </header>
-    <main>
+    <main className="flex-1 flex flex-col">
       <div className="mt-[30px] font-bold" style={{color: classInfo.themeColor}}>
         {classInfo.targetAge}
       </div>
