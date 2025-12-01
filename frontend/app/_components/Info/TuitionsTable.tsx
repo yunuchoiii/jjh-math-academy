@@ -8,6 +8,7 @@ const TuitionsTable = async () => {
 
   const elementaryTuitions = tuitions.filter((tuition) => tuition.level === "elementary");
   const middleTuitions = tuitions.filter((tuition) => tuition.level === "middle");
+  const highTuitions = tuitions.filter((tuition) => tuition.level === "high");
 
   return <div className={`col-span-12`}>
     <table className={`${styles.tuitionTable} ${styles.desktop} w-full text-center hidden md:table`}>
@@ -21,6 +22,11 @@ const TuitionsTable = async () => {
           ))}
           {middleTuitions.map((tuition) => (
             <th key={`${tuition.id}-${tuition.classLevel}-pc`} className="bg-green-4">
+              {tuition.classLevel}
+            </th>
+          ))}
+          {highTuitions.map((tuition) => (
+            <th key={`${tuition.id}-${tuition.classLevel}-pc`} className="bg-blue-2/30">
               {tuition.classLevel}
             </th>
           ))}
@@ -39,6 +45,11 @@ const TuitionsTable = async () => {
               {tuition.monthlyHours}
             </td>
           ))}
+          {highTuitions.map((tuition) => (
+            <td key={`${tuition.id}-${tuition.monthlyHours}-pc`}>
+              {tuition.monthlyHours}
+            </td>
+          ))}
         </tr>
         <tr className="h-[80px] break-words">
           <td className="bg-[#f3f3f3]">월 교습비</td>
@@ -48,6 +59,11 @@ const TuitionsTable = async () => {
             </td>
           ))}
           {middleTuitions.map((tuition) => (
+            <td key={`${tuition.id}-${tuition.monthlyFee}-pc`}>
+              {tuition.monthlyFee.toString().slice(0, -4)}만원
+            </td>
+          ))}
+          {highTuitions.map((tuition) => (
             <td key={`${tuition.id}-${tuition.monthlyFee}-pc`}>
               {tuition.monthlyFee.toString().slice(0, -4)}만원
             </td>
@@ -66,7 +82,7 @@ const TuitionsTable = async () => {
       <tbody>
         {tuitions.map((tuition) => (
           <tr key={`${tuition.id}-${tuition.classLevel}-mobile`}>
-            <td style={{backgroundColor: tuition.level === "elementary" ? "#FFECA8" : "#CDE4BC"}}>
+            <td style={{backgroundColor: tuition.level === "elementary" ? "#FFECA8" : tuition.level === "middle" ? "#CDE4BC" : "#D1E5FF"}}>
               {tuition.classLevel}
             </td>
             <td width={"40%"}>
@@ -79,8 +95,13 @@ const TuitionsTable = async () => {
         ))}
       </tbody>
     </table>
-    <div className="mt-5 text-sm text-[#666]">
-      * 1개월 이내 교습비 징수 : 1/3 경과 전, 1/2 경과 전으로 구분 반환. 1/2 경과 후 미반환
+    <div className="flex flex-col gap-2 mt-5 text-sm text-[#666]">
+      <p>
+        * 1개월 이내 교습비 징수 : 1/3 경과 전, 1/2 경과 전으로 구분 반환합니다. (1/2 경과 후 미반환)
+      </p>
+      <p>
+        * 월 교습 시간은 4.2주 기준입니다.
+      </p>
     </div>
   </div>
 }

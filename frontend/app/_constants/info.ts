@@ -54,7 +54,7 @@ export const MATH_CLASSES: IMathProgram[] = [
     ],
     books: "요리수 전문 교재, 교구",
     schedule: "주 1회 60분\n(교과 40분+자리 20분)\n주 1회 요리수 + 주 1회 사고력 BEST",
-    themeColor: "rgba(68, 140, 107, 1)", // yellow
+    themeColor: "rgba(217, 171, 11, 1)",
     url: "/advanced-math/yorisu",
   },
   {
@@ -70,7 +70,7 @@ export const MATH_CLASSES: IMathProgram[] = [
     ],
     books: "소마, 팩토, 와이즈만, 시매쓰, 씨투엠 플라토/평세, 필즈 등",
     schedule: "주 1회 120분",
-    themeColor: "rgba(217, 171, 11, 1)",
+    themeColor: "rgba(68, 140, 107, 1)",
     url: "/advanced-math/sigma-class",
   },
 ];
@@ -85,7 +85,7 @@ export const TUITIONS: ITuition[] = [
     level: "elementary",
     classLevel: "초등 1-3",
     subject: "교과 수학",
-    monthlyHours: "90분 × 주 3회 × 4.2주",
+    monthlyHours: "90분 × 주 3회",
     monthlyFee: 210000,
   },
   {
@@ -93,7 +93,7 @@ export const TUITIONS: ITuition[] = [
     level: "elementary",
     classLevel: "초등 4-5",
     subject: "교과 수학",
-    monthlyHours: "120분 × 주 4회 × 4.2주",
+    monthlyHours: "120분 × 주 4회",
     monthlyFee: 230000,
   },
   {
@@ -101,7 +101,7 @@ export const TUITIONS: ITuition[] = [
     level: "elementary",
     classLevel: "초등 6",
     subject: "교과 수학",
-    monthlyHours: "120분 × 주 5회 × 4.2주",
+    monthlyHours: "120분 × 주 5회",
     monthlyFee: 250000,
   },
   {
@@ -109,7 +109,7 @@ export const TUITIONS: ITuition[] = [
     level: "middle",
     classLevel: "중등 1-2",
     subject: "교과 수학",
-    monthlyHours: "120분 × 주 3~5회 × 4.2주",
+    monthlyHours: "120분 × 주 3~5회",
     monthlyFee: 300000,
   },
   {
@@ -117,8 +117,16 @@ export const TUITIONS: ITuition[] = [
     level: "middle",
     classLevel: "중등 3",
     subject: "교과 수학",
-    monthlyHours: "120분 × 주 3~5회 × 4.2주",
+    monthlyHours: "120분 × 주 3~5회",
     monthlyFee: 350000,
+  },
+  {
+    id: 6,
+    level: "high",
+    classLevel: "고등 1-2",
+    subject: "교과 수학",
+    monthlyHours: "180분 × 주 3회",
+    monthlyFee: 430000,
   },
 ];
 

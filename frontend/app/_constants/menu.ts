@@ -132,7 +132,7 @@ export const INITIAL_MENU_LIST: IMenu[] = [
   {
     id: 11,
     parentId: 2,
-    title: "수업 안내",
+    title: "수업시간 및 수업료",
     link: "/info/class",
     sort: 2,
     isActive: true,

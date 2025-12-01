@@ -15,7 +15,7 @@ export interface IMathProgram {
 
 export interface ITuition {
   id: number;
-  level: 'elementary' | 'middle';
+  level: 'elementary' | 'middle' | 'high';
   classLevel: string;
   subject: string;
   monthlyHours: string;
