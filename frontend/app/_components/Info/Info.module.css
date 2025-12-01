@@ -17,7 +17,7 @@
 }
 
 .tuitionTable.desktop th:last-child {
-  border-right: 3px solid rgb(205 228 188 / var(--tw-bg-opacity));
+  border-right: 3px solid #d6e3e4;
 }
 
 .tuitionTable.desktop tbody tr:last-child td {
